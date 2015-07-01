@@ -1,0 +1,4 @@
+.DS_Store
+bower_componenets/
+node_modules/
+npm-debug.log
