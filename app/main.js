@@ -98,6 +98,49 @@ var SearchBox = React.createClass({
 
 var Map = React.createClass({
 
+  getInitialState: function(){
+    return{
+      // markerLyaer is being mutated, not the way react recommends
+      markerLayer: L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')])
+    }
+
+  },
+
+  handleUserInput: function(filterText) {
+    this.setState({
+      filterText: filterText
+    });
+  },
+
+  addMarkers: function(mrkrs){
+    
+    this.state.markerLayer.clearLayers();
+    var newMarkerLayer = L.layerGroup();
+    var self = this;
+    //this.state.markerLayer.clearLayers()
+    var centerMarker = mrkrs[0];
+    mrkrs.forEach(function(marker){
+      self.state.markerLayer.addLayer(marker);
+    });
+
+    this.map.setView(centerMarker.getLatLng(),14);
+    //console.log();
+    // this.setState({
+    //   markerLayer: newMarkerLayer
+    // });
+  },
+/*
+    addMarker: function(mrkrs){
+      var self = this;
+
+      self.setState({markers:mrkrs});
+
+      self.markers.forEach(function(eachMarker){
+        eachMarker.addTo(self.map);
+      });
+    },
+*/
+
   createMap: function (element) {
     var map = L.map(element);
     var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -130,54 +173,20 @@ var Map = React.createClass({
         }
 
         this.setupMap();
-    },
-
-    addMarker: function(){
-      var self = this;
-      console.log("how can I be called?");
-      this.props.markers.forEach(function(eachMarker){
-        eachMarker.addTo(self.map);
-        console.log("added");
-      });
+        this.state.markerLayer.addTo(this.map);
     },
 
     render: function () {
-      return (<div id="map"></div>);
-    }
-
-});
-
-
-var MapApp = React.createClass({
-
-  getInitialState: function(){
-    return{
-      markers: []
-    }
-  },
-
-    handleUserInput: function(filterText) {
-      console.log("handleuserinput from map app");
-        this.setState({
-            filterText: filterText
-        });
-    },
-
-    addMarkers: function(mrkrs){
-       this.setState({
-         markers: mrkrs
-       });  
-    },
-
-    render: function(){
-      console.log("whole map app render called");
+      console.log("map rendered");
+      console.log(this.state.markerLayer);
       return (
-        <div>
+        <div id="mapContainer">
           <SearchBox onUserInput={this.handleUserInput} markers= {this.state.markers} addMarkers = {this.addMarkers} />
-          <Map lat="40.758" lon="-73.9174" zoom="14" markers= {this.state.markers} />
+          <div id="map"></div>
         </div>
       );
     }
+
 });
 
- React.render(<MapApp />,document.body);
+ React.render(<Map lat="40.758" lon="-73.9174" zoom="4" />,document.body);
