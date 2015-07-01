@@ -1,0 +1,17 @@
+{
+  "name": "my-project",
+  "version": "0.0.0",
+  "main": "app/main.js",
+  "scripts": {
+    "dev": "webpack-dev-server --devtool eval --hot --progress --colors"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "css-loader": "^0.15.1",
+    "file-loader": "^0.8.4",
+    "jsx-loader": "^0.13.2",
+    "style-loader": "^0.12.3",
+    "url-loader": "^0.5.6"
+  }
+}

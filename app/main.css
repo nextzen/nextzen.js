@@ -1,0 +1,49 @@
+body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+#map{
+  width: 100%;
+  height: 100%;
+}
+
+#searchBar{
+  position:absolute;
+  top: 50px;
+  right: 80px;
+  width: 230px;
+  height: 30px;
+  z-index: 30;
+}
+
+#searchBox{
+  height:30px;
+  width:150px;
+  float:left;
+}
+
+#searchBtn{
+  height: 30px;
+  width: 50px;
+  padding: 2px 15px;
+  font-size: 18px;
+  background: #4479BA;
+  color: #FFF;
+  float: left;
+}
+
+#searchTable{
+  background-color: #fff;
+}
+
+#searchTable td{
+  border-top: #ccc 1px solid;
+  cursor:pointer;
+}
+
+#searchTable td:hover{
+  background-color: #eee;
+}
