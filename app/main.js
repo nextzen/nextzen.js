@@ -3,6 +3,7 @@ var React = require('react');
 var L = require('leaflet');
 var $ = require('jquery');
 
+var polyline = require('polyline');
 require('react-leaflet');
 require('leafletCss');
 require('./main.css');
@@ -32,7 +33,7 @@ var ResultRow = React.createClass({
 var ResultTable = React.createClass({
   render: function(){
     var rows = [];
-      if(this.props.searchData.length > 0){
+      if(this.props.searchData.length > 0 && !this.props.destMarker ){
         var self = this;
         this.props.searchData.forEach(function(result){
           rows.push(<ResultRow name = {result.properties.name} loc= {result.geometry.coordinates} key= {result.properties.id} addMarkers = {self.props.addMarkers}/>)
@@ -89,9 +90,116 @@ var SearchBox = React.createClass({
       <div id="searchBar">
         <input id="searchBox" ref = "filterTextInput" type = "text" value = {this.props.filterText}  onChange={this.handleChange}></input>
         <input id="searchBtn" value = "DO" type="button"> </input>
-        <ResultTable searchData = {this.state.searchResult} addMarkers = {this.props.addMarkers}/>
+        <ResultTable searchData = {this.state.searchResult} destMarker = {this.props.destMarker} addMarkers = {this.props.addMarkers}/>
       </div>
     );
+  }
+});
+
+
+var RouteWindow = React.createClass({
+  //
+  route: function(){
+
+    //valhalla call form : https://valhalla.mapzen.com/route?json={%22locations%22:[{%22lat%22:39.42923221970601,%22lon%22:-76.6356897354126},{%22lat%22:39.30727282892593,%22lon%22:-76.77203178405762}],%22costing%22:%22auto%22}&api_key=valhalla-RfDii2g
+    var serviceurl = "https://valhalla.mapzen.com/";
+    var apikey = '&api_key=valhalla-RfDii2g';
+
+    var transitM = 'auto';
+    var locs = [];
+    locs.push(this.props.startPoint);
+    locs.push(this.props.destPoint);
+
+    var self = this;
+
+    var params = JSON.stringify({
+      locations: locs,
+      costing: transitM
+    });
+
+    var routeUrl = serviceurl +  'route?json=' + params + apikey;
+    $.get(routeUrl,function(data){
+      
+      console.log(data.trip.legs[0]);
+      var coord = polyline.decode(data.trip.legs[0].shape,6);
+      console.log(coord);
+      self.props.addRouteLayer(coord);
+    });
+
+  },
+
+  buildRouteUrl: function(){
+
+  },
+  routeDone: function(){
+
+  },
+
+  render: function(){
+
+    if(this.props.bringRouteWindow){
+      return(
+         <div id="routeBtnGroup">
+           <input type="button" id="autoRoute" value="auto" onClick= {this.route}></input>
+           <input type="button" id="bikeRoute" value="bike" onClick= {this.route}></input>
+           <input type="button" id="walkRoute" value="pedesterain" onClick= {this.route} ></input>
+         </div>
+      )
+    }else{
+      return(
+        <div></div>
+      )
+    }
+  }
+});
+
+var RouteButton = React.createClass({
+  getInitialState : function(){
+    return{
+      //startPoint must be replaced current location // search result
+      startPoint : {},
+      destPoint : {},
+
+      destPoint : this.props.destMarker,
+      routePrirority : this.props.routePrirority,
+      bringRouteWindow: false
+    }
+  },
+
+  route : function(){
+    this.setState({
+      bringRouteWindow : true,
+      startPoint : {
+        lat :  40.7410605,
+        lon : -73.9896986
+      },
+      destPoint : {
+       lat:this.props.destMarker.getLatLng().lat,
+       lon:this.props.destMarker.getLatLng().lng,
+      }
+    });
+    
+  },
+
+  render : function(){
+    if(this.props.destMarker){
+      console.log("destpoint in route button");
+      console.log(this.state.destPoint);
+      return(
+        <div>
+          <div id="routeBtn" onClick = {this.route} > route </div>
+          <RouteWindow 
+            bringRouteWindow = {this.state.bringRouteWindow} 
+            startPoint = {this.state.startPoint}
+            destPoint = {this.state.destPoint}
+            addRouteLayer = {this.props.addRouteLayer}/>
+        </div>
+      );
+    }else{
+      return(
+        <div></div>
+      );
+    }
   }
 });
 
@@ -101,7 +209,8 @@ var Map = React.createClass({
   getInitialState: function(){
     return{
       // markerLyaer is being mutated, not the way react recommends
-      markerLayer: L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')])
+      markerLayer : L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')]),
+      routeLayer : L.layerGroup()
     }
 
   },
@@ -123,43 +232,39 @@ var Map = React.createClass({
       self.state.markerLayer.addLayer(marker);
     });
 
+    //this.state.destMarker = centerMarker;
     this.map.setView(centerMarker.getLatLng(),14);
     //console.log();
-    // this.setState({
-    //   markerLayer: newMarkerLayer
-    // });
+     this.setState({
+       destMarker: centerMarker
+     });
   },
-/*
-    addMarker: function(mrkrs){
-      var self = this;
-
-      self.setState({markers:mrkrs});
-
-      self.markers.forEach(function(eachMarker){
-        eachMarker.addTo(self.map);
-      });
-    },
-*/
+  
+  addRouteLayer : function(routes){
+    console.log("route was passed to map layer");
+    var polylineRoute = L.polyline(routes, {color:'red'});
+    this.state.routeLayer.addLayer(polylineRoute);
+    this.render();
+  },
 
   createMap: function (element) {
-    var map = L.map(element);
+    var map = L.map(element,{
+      zoomControl:false
+    });
     var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    
     // loading scene yaml
     // var layer = Tangram.leafletLayer({
     //     scene: 'scene.yaml',//sceneYaml,
     //     attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
     // });
 
-
     layer.addTo(map);
     //L.marker([40.729614,-73.993837]).addTo(map);
     return map;
     },
-
 
     setupMap: function () {
       this.map.setView([this.props.lat, this.props.lon], this.props.zoom);
@@ -174,14 +279,18 @@ var Map = React.createClass({
 
         this.setupMap();
         this.state.markerLayer.addTo(this.map);
+        this.state.routeLayer.addTo(this.map);
     },
 
     render: function () {
       console.log("map rendered");
-      console.log(this.state.markerLayer);
+      console.log(this.state.routeLayer);
+      
       return (
-        <div id="mapContainer">
-          <SearchBox onUserInput={this.handleUserInput} markers= {this.state.markers} addMarkers = {this.addMarkers} />
+        <div id="mapContainer">-
+          <SearchBox onUserInput={this.handleUserInput} destMarker= {this.state.destMarker} addMarkers = {this.addMarkers} />
+          //need other anchor to indicate the location was picked 
+          <RouteButton destMarker= {this.state.destMarker} addRouteLayer = {this.addRouteLayer}/>
           <div id="map"></div>
         </div>
       );
