@@ -17,9 +17,10 @@ var ResultRow = React.createClass({
     var marker = L.marker(this.props.loc.reverse());
     marker.bindPopup(this.props.name);
     markers.push(marker);
-    this.props.addMarkers(markers);
+    this.props.addMarker(markers);
+    this.props.setInputValue(this.props.name);
+    this.props.deactivateSearching();
   },
-
   render: function(){
     var displayName = this.props.name;
     return(
@@ -33,10 +34,16 @@ var ResultRow = React.createClass({
 var ResultTable = React.createClass({
   render: function(){
     var rows = [];
-      if(this.props.searchData.length > 0 && !this.props.destMarker ){
+      if(this.props.searchData.length > 0 && this.props.searching ){
         var self = this;
         this.props.searchData.forEach(function(result){
-          rows.push(<ResultRow name = {result.properties.name} loc= {result.geometry.coordinates} key= {result.properties.id} addMarkers = {self.props.addMarkers}/>)
+          rows.push(<ResultRow name = {result.properties.name} 
+                               loc= {result.geometry.coordinates} 
+                               key= {result.properties.id} 
+                               addMarker = {self.props.addMarker} 
+                               searching = {self.props.searching}
+                               setInputValue = {self.props.setInputValue}
+                               deactivateSearching = {self.props.deactivateSearching}/>)
         });
     }
 
@@ -48,10 +55,15 @@ var ResultTable = React.createClass({
   }
 });
 
+
+
 var SearchBox = React.createClass({
 
   getInitialState: function(){
-    return{ searchResult:[]};
+    return{ 
+      searchResult : [],
+      searching : false
+    };
   },
 
   handleChange: function(){
@@ -59,7 +71,15 @@ var SearchBox = React.createClass({
     this.makeCall(currentType);
     var searchResult = this.state.searchResult;
     this.props.onUserInput(currentType);
-    
+    this.setState({searching: true});
+  },
+
+  deactivateSearching:function(){
+    this.setState({searching: false});
+  },
+
+  setInputValue: function(val){
+    this.refs.filterTextInput.getDOMNode().value = val;
   },
 
   makeCall: function(currentInput){
@@ -89,8 +109,11 @@ var SearchBox = React.createClass({
     return(
       <div id="searchBar">
         <input id="searchBox" ref = "filterTextInput" type = "text" value = {this.props.filterText}  onChange={this.handleChange}></input>
-        <input id="searchBtn" value = "DO" type="button"> </input>
-        <ResultTable searchData = {this.state.searchResult} destMarker = {this.props.destMarker} addMarkers = {this.props.addMarkers}/>
+        <ResultTable searchData = {this.state.searchResult}
+                      searching = {this.state.searching} 
+                      addMarker = {this.props.addMarker}
+                      setInputValue = {this.setInputValue}
+                      deactivateSearching = {this.deactivateSearching} />
       </div>
     );
   }
@@ -120,9 +143,7 @@ var RouteWindow = React.createClass({
     var routeUrl = serviceurl +  'route?json=' + params + apikey;
     $.get(routeUrl,function(data){
       
-      console.log(data.trip.legs[0]);
       var coord = polyline.decode(data.trip.legs[0].shape,6);
-      console.log(coord);
       self.props.addRouteLayer(coord);
     });
 
@@ -159,13 +180,14 @@ var RouteButton = React.createClass({
       //startPoint must be replaced current location // search result
       startPoint : {},
       destPoint : {},
-
       destPoint : this.props.destMarker,
       routePrirority : this.props.routePrirority,
       bringRouteWindow: false
     }
   },
-
+  turnOffRoutingDetail:function(){
+    //this.setState({bringRouteWindow:false});
+  },
   route : function(){
     this.setState({
       bringRouteWindow : true,
@@ -178,13 +200,10 @@ var RouteButton = React.createClass({
        lon:this.props.destMarker.getLatLng().lng,
       }
     });
-    
   },
 
   render : function(){
     if(this.props.destMarker){
-      console.log("destpoint in route button");
-      console.log(this.state.destPoint);
       return(
         <div>
           <div id="routeBtn" onClick = {this.route} > route </div>
@@ -192,6 +211,7 @@ var RouteButton = React.createClass({
             bringRouteWindow = {this.state.bringRouteWindow} 
             startPoint = {this.state.startPoint}
             destPoint = {this.state.destPoint}
+            addMarker = {this.props.addMarker}
             addRouteLayer = {this.props.addRouteLayer}/>
         </div>
       );
@@ -221,7 +241,7 @@ var Map = React.createClass({
     });
   },
 
-  addMarkers: function(mrkrs){
+  addMarker: function(mrkrs){
     
     this.state.markerLayer.clearLayers();
     var newMarkerLayer = L.layerGroup();
@@ -234,16 +254,16 @@ var Map = React.createClass({
 
     //this.state.destMarker = centerMarker;
     this.map.setView(centerMarker.getLatLng(),14);
-    //console.log();
      this.setState({
        destMarker: centerMarker
      });
   },
   
   addRouteLayer : function(routes){
-    console.log("route was passed to map layer");
+    this.state.routeLayer.clearLayers();
     var polylineRoute = L.polyline(routes, {color:'red'});
     this.state.routeLayer.addLayer(polylineRoute);
+    this.map.fitBounds(polylineRoute.getBounds());
     this.render();
   },
 
@@ -283,13 +303,11 @@ var Map = React.createClass({
     },
 
     render: function () {
-      console.log("map rendered");
-      console.log(this.state.routeLayer);
-      
       return (
-        <div id="mapContainer">-
-          <SearchBox onUserInput={this.handleUserInput} destMarker= {this.state.destMarker} addMarkers = {this.addMarkers} />
-          //need other anchor to indicate the location was picked 
+        <div id="mapContainer">
+          <SearchBox onUserInput={this.handleUserInput} 
+          destMarker= {this.state.destMarker} 
+          addMarker = {this.addMarker} />
           <RouteButton destMarker= {this.state.destMarker} addRouteLayer = {this.addRouteLayer}/>
           <div id="map"></div>
         </div>
@@ -298,4 +316,4 @@ var Map = React.createClass({
 
 });
 
- React.render(<Map lat="40.758" lon="-73.9174" zoom="4" />,document.body);
+React.render(<Map lat="40.758" lon="-73.9174" zoom="4" />,document.body);
