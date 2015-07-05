@@ -111,7 +111,7 @@ var SearchBox = React.createClass({
         <input id="searchBox" ref = "filterTextInput" type = "text" value = {this.props.filterText}  onChange={this.handleChange}></input>
         <ResultTable searchData = {this.state.searchResult}
                       searching = {this.state.searching} 
-                      addMarker = {this.props.addMarker}
+                     '' addMarker = {this.props.addMarker}
                       setInputValue = {this.setInputValue}
                       deactivateSearching = {this.deactivateSearching} />
       </div>
@@ -230,7 +230,8 @@ var Map = React.createClass({
     return{
       // markerLyaer is being mutated, not the way react recommends
       markerLayer : L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')]),
-      routeLayer : L.layerGroup()
+      routeLayer : L.layerGroup(),
+      mode : "search"
     }
 
   },
@@ -307,8 +308,12 @@ var Map = React.createClass({
         <div id="mapContainer">
           <SearchBox onUserInput={this.handleUserInput} 
           destMarker= {this.state.destMarker} 
-          addMarker = {this.addMarker} />
-          <RouteButton destMarker= {this.state.destMarker} addRouteLayer = {this.addRouteLayer}/>
+          addMarker = {this.addMarker} 
+          mode = {this.state.mode}/>
+          <RouteButton 
+          destMarker= {this.state.destMarker} 
+          addRouteLayer = {this.addRouteLayer}
+          mode = {this.state.mode}/>
           <div id="map"></div>
         </div>
       );
