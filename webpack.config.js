@@ -10,7 +10,7 @@
    },
    context: __dirname,
    entry: {
-     app: process.env.NODE_ENV === 'production' ? ['./app/main.js'] : ['webpack/hot/dev-server', './app/main.js']
+     app: process.env.NODE_ENV === 'production' ? ['./app/App.js'] : ['webpack/hot/dev-server', './app/App.js']
    },
    output: {
      publicPath: '/',
@@ -26,11 +26,11 @@
        test: /\.js$/,
        loader: 'jsx-loader',
        exclude: [bower_dir, node_modules_dir]
-     }, {
+     },{
        test: /\.css$/,
        loader: 'style-loader!css-loader'
      }, {
-       test: /\.(woff|png)$/,
+       test: /\.(woff|svg|png|yaml)$/,
        loader: 'url-loader?limit=100000'
      }]
    },
@@ -40,9 +40,9 @@
  };
 
  //config.addVendor('react', path.resolve(bower_dir, 'react/react.js')); 
- //config.addVendor('leaflet', path.resolve(bower_dir, 'leaflet/dist/leaflet.js')); 
+ config.addVendor('spinjs', path.resolve(bower_dir, 'spinjs/spin.min.js')); 
  config.addVendor('jquery', path.resolve(bower_dir, 'jquery/dist/jquery.js')); 
-// config.addVendor('tangram', path.resolve(bower_dir, 'tangram/dist/tangram.debug.js')); 
+ //config.addVendor('tangram', path.resolve(bower_dir, 'tangram/dist/tangram.debug.js')); 
  config.addVendor('leafletCss', path.resolve(bower_dir, 'leaflet/dist/leaflet.css')); 
-
+ config.addVendor('ratchet', path.resolve(bower_dir, 'ratchet/dist/css/ratchet.css')); 
  module.exports = config;
