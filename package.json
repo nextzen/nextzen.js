@@ -1,17 +1,23 @@
 {
-  "name": "my-project",
+  "name": "web-map",
   "version": "0.0.0",
   "main": "app/main.js",
   "scripts": {
     "dev": "webpack-dev-server --devtool eval --hot --progress --colors"
   },
-  "author": "",
+  "author": "hanbyul",
   "license": "MIT",
   "dependencies": {
     "css-loader": "^0.15.1",
     "file-loader": "^0.8.4",
     "jsx-loader": "^0.13.2",
+    "react-router": "^0.13.3",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6"
-  }
+  },
+  "description": "html5 map for mapzen",
+  "devDependencies": {},
+  "keywords": [
+    "map"
+  ]
 }
