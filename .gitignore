@@ -1,4 +1,6 @@
 .DS_Store
 bower_componenets/
 node_modules/
+build/
+dist/
 npm-debug.log
