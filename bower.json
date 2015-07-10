@@ -1,0 +1,25 @@
+{
+  "name": "web-map",
+  "version": "0.0.1",
+  "homepage": "https://github.com/mapzen/web-map",
+  "authors": [
+    "Hanbyul <hanbyul@mapzen.com>"
+  ],
+  "description": "web map hello",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "spinjs": "2.3.1",
+    "jquery": "2.1.4",
+    "tangram": "0.1",
+    "ratchet": "2.0.2",
+    "leaflet": "0.7.3"
+  }
+}
