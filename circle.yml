@@ -5,7 +5,7 @@ machine:
 dependencies:
   override:
     - npm install
-    - sudo npm install bower -g
+    - npm install bower -g
 
 deployment:
   staging:
