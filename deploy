@@ -3,3 +3,6 @@ echo "lets deploy"
 npm install
 bower install
 NODE_ENV=production webpack -p
+
+mv dist/* $CIRCLE_ARTIFACTS/
+
