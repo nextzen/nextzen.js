@@ -1,0 +1,87 @@
+html,body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+#map{
+  width: 100%;
+  height: 100%;
+}
+
+#mapContainer{
+  width: 100%;
+  height: 100%;
+}
+
+
+.searchBoxContainer{
+  position:absolute;
+  top: 0px;
+  left: 10px;
+  width: calc(100% - 20px);
+  margin:10px 0px;
+  height: 60px;
+  z-index: 300;
+}
+.searchBar{
+
+}
+
+.sideBtn{
+  position:absolute;
+  bottom: 100px;
+  right: 30px;
+  z-index:300;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  margin: 3px;
+  font-size: 24px;
+  line-height: 50px;
+  text-align: center;
+  background-color: #fff;
+  border: 3px solid #ddd;
+  border-radius: 30px;
+}
+
+.sideBtn.secondary{
+  bottom:40px;
+}
+
+#routeControls{
+  z-index:300;
+  position:absolute;
+  top:10px;
+}
+
+.routeBtnGroup{
+
+  position:absolute;
+  top:100px;
+  z-index:30;
+  cursor: pointer;
+}
+
+#searchBox{
+  height:46px;
+  font-size:18px;
+  width: 100%;
+  float:left;
+}
+
+#searchBtn{
+  height: 30px;
+  width: 50px;
+  padding: 2px 15px;
+  font-size: 18px;
+  background: #4479BA;
+  color: #FFF;
+  float: left;
+}
+.table-view.search-table{
+  margin-bottom: 0px;
+  border-bottom-width: 0px;
+  border-top-width: 0px;
+}
