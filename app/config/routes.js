@@ -1,5 +1,5 @@
 var React = require('react');
-var Main = require('../components/Main');
+var Main = require('../Components/Main');
 //var Home = require('../componenets/Home');
 var Router = require('react-router');
 var DefaultRoute = Router.DefaultRoute;
