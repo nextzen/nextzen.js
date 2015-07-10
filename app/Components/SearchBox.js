@@ -1,5 +1,6 @@
 var React = require('react');
 var $ = require('jquery');
+var Router = require('react-router');
 require('ratchet');
 require('./css/main.css');
 
@@ -31,7 +32,7 @@ var ResultTable = React.createClass({
       if(this.props.searchData.length > 0 && this.props.searching ){
         var self = this;
         this.props.searchData.forEach(function(result){
-          rows.push(<ResultRow name = {result.properties.name} 
+          rows.push(<ResultRow name = {result.properties.name + " , " + result.properties.local_admin + " , " + result.properties.admin1_abbr} 
                                loc= {result.geometry.coordinates} 
                                key= {result.properties.id} 
                                addMarker = {self.props.addMarker} 
@@ -52,6 +53,7 @@ var ResultTable = React.createClass({
 
 
 var SearchBox = React.createClass({
+//  mixinsL [Router.navigation],
 
   getInitialState: function(){
     return{ 
@@ -75,29 +77,35 @@ var SearchBox = React.createClass({
   },
 
   setInputValue: function(val){
+    this.setState({
+      filterText : val
+    });
     this.refs.filterTextInput.getDOMNode().value = val;
   },
 
   makeCall: function(currentInput){
-    // pelias api form : https://pelias.mapzen.com/suggest?bbox=-74.18861389160156,40.62802447679272,-73.79173278808594,40.86134282702074&input=we+are&lat=40.7448&lon=-73.9902&size=10&zoom=12
+    // pelias api form : https://pelias.mapzen.com/suggest?bbox=-74.18861389160156,40.62802447679272,-73.79173278808594,40.86134282702074&input=we+are
     var self = this;
     if(currentInput.length > 0){
       var baseurl = '//pelias.mapzen.com';
-      var bbox = '-74.18861389160156,40.62802447679272,-73.79173278808594,40.86134282702074';
+      var bbox = this.props.bbox || '-74.18861389160156,40.62802447679272,-73.79173278808594,40.86134282702074';
+      var lat = this.props.currentLat || null;
+      var lon = this.props.currentLon || null;
       var input = currentInput;
-      var lat = '40.744';
-      var lon = '-73.990';
       var zoom = 12;
       var searchData;
 
-      var callurl = baseurl + "/suggest?bbox=" + bbox + "&input="+ currentInput + "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
+      var callurl ;
+      if(lat) callurl = baseurl + "/suggest?bbox=" + bbox + "&input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
+      else callurl = baseurl + "/suggest?bbox=" + bbox + "&input="+ currentInput;
+
     $.get(callurl,function(data){
       //this is not the way react recommends
       self.setState({searchResult: data.features});
     });
-  }else{
-    self.setState({searchResult: []})
-  }
+    }else{
+      self.setState({searchResult: []})
+    }
 
   },
 
