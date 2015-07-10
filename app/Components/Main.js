@@ -3,6 +3,7 @@ var React = require('react');
 var L = require('leaflet');
 var $ = require('jquery');
 var polyline = require('polyline');
+var RouteHandler = require('react-router').RouteHandler;
 require('react-leaflet');
 require('leafletCss');
 require('ratchet');
@@ -197,6 +198,9 @@ var Main = React.createClass({
 
     });
     this.map.setView(center,14);
+    this.setState({
+      bbox : this.map.getBounds().toBBoxString()
+    });
   },
 
   addMarker: function(mrkr){
@@ -207,7 +211,8 @@ var Main = React.createClass({
     
     this.map.setView(marker.getLatLng(),14);
     this.setState({
-      destMarker: mrkr
+      destMarker: mrkr,
+      bbox : this.map.getBounds().toBBoxString()
     });
   },
   clearMap : function(){
@@ -249,7 +254,10 @@ var Main = React.createClass({
     },
 
     setupMap: function () {
-      this.map.setView([40.758, -73.9174], 11);
+      this.map.setView([40.758, -73.9174], 10);
+      this.setState({
+        bbox : this.map.getBounds().toBBoxString()
+      });
     },
 
     componentDidMount: function () {
@@ -270,7 +278,9 @@ var Main = React.createClass({
         <div id="mapContainer">
          <div className = "searchBoxContainer">
             <SearchBox
-            addMarker = {this.addMarker}/>
+            addMarker = {this.addMarker}
+            bbox = {this.bbox}
+            />
           </div>
           <RouteButton 
           destMarker= {this.state.destMarker} 
@@ -279,6 +289,7 @@ var Main = React.createClass({
           mode = {this.state.mode}/>
           <CurrentLocation
             setCurrentLocation = {this.setCurrentPoint} />
+          <RouteHandler />
           <div id="map"></div>
         </div>
       );

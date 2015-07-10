@@ -46,6 +46,35 @@ html,body{
   border-radius: 30px;
 }
 
+input[type="search"]{
+  border-radius: 0;
+  text-overflow: ellipsis;
+  -webkit-appearance: none;
+}
+
+input[type="search"]::-webkit-search-decoration::after{
+  font-family:ratchicons;
+  color:#666;
+  content: '\e819';
+}
+
+input[type="search"]::-webkit-search-decoration{
+  width:15px;
+  padding-right:10px;
+}
+
+input[type="search"]::-webkit-search-cancel-button::after{
+  font-family:ratchicons;
+  color:#666;
+  content: '\e811';
+}
+input[type="search"]::-webkit-search-cancel-button{
+  -webkit-appearance: icon;
+  appearance: icon;
+  width:15px;
+  padding-left:10px;
+}
+
 .sideBtn.secondary{
   bottom:40px;
 }
