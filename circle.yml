@@ -6,7 +6,12 @@ dependencies:
   override:
     - npm install
     - npm install bower -g
+    - npm install webpack -g
     - npm install webpack
+
+test:
+  override:
+    - echo 'perfection requires no tests'
 
 deployment:
   staging:
