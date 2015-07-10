@@ -31,7 +31,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
        test: /\.css$/,
        loader: 'style-loader!css-loader'
      }, {
-       test: /\.(woff|svg|png|yaml)$/,
+       test: /\.(woff|eot|ttf|svg|png|yaml)$/,
        loader: 'url-loader?limit=100000'
      }]
    },
