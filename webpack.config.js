@@ -43,7 +43,11 @@ var config = {
   ]
 };
 
+
+config.addVendor('spinjs', path.resolve(bower_dir, 'spinjs/spin.min.js')); 
+config.addVendor('jquery', path.resolve(bower_dir, 'jquery/dist/jquery.min.js')); 
 config.addVendor('tangram', path.resolve(bower_dir, 'tangram/dist/tangram.min.js')); 
 config.addVendor('leafletCss', path.resolve(bower_dir, 'leaflet/dist/leaflet.css')); 
+config.addVendor('ratchet', path.resolve(bower_dir, 'ratchet/dist/css/ratchet.css')); 
  
 module.exports = config;
