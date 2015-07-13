@@ -195,12 +195,12 @@ var Main = React.createClass({
         lon: 0
       },
       startPoint : {
-        name : "Start location",
+        name : "Choose start location.",
         lat :  40.7410605,
         lon : -73.9896986
       },
       destMarker : {
-        name : "destination",
+        name : "Choose destination.",
         lat :  40.7410605,
         lon : -73.9896986
       },
@@ -315,11 +315,10 @@ var Main = React.createClass({
       if(this.state.mode == "search"){
       return (
         <div id="mapContainer">
-         <div className = "searchBoxContainer">
-            <SearchBox
+          <div className = "searchBoxContainer">
+          <SearchBox
             addMarker = {this.addMarker}
-            bbox = {this.bbox}
-            />
+            bbox = {this.bbox}/>
           </div>
           <RouteButton 
           destMarker= {this.state.destMarker} 
