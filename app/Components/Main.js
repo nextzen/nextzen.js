@@ -303,7 +303,8 @@ var Main = React.createClass({
         if (this.props.createMap) {
             this.map = this.props.createMap(this.getDOMNode());
         } else {
-            this.map = this.createMap(this.getDOMNode());
+            console.log("map is getting inside of map node");
+            this.map = this.createMap(document.getElementById('map'));
         }
         this.setupMap();
         this.state.markerLayer.addTo(this.map);
