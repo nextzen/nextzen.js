@@ -1,49 +1,55 @@
-html,body{
+html,body {
   width: 100%;
   height: 100%;
   margin: 0;
   position: relative;
 }
 
-#map{
+#mapContainer {
   width: 100%;
   height: 100%;
 }
 
-#mapContainer{
+#map {
   width: 100%;
   height: 100%;
 }
 
 
-.searchBoxContainer{
+
+#spinner {
+  width:50px;
+  height:50px;
+  position:absolute;
+  left: calc(50% - 25px);
+  top: calc(50% - 25px);
+
+}
+
+.searchBoxContainer {
   position:absolute;
   top: 0px;
   left: 10px;
   width: calc(100% - 20px);
   margin:10px 0px;
   height: 60px;
-  z-index: 300;
-}
-.searchBar{
-
+  z-index:30;
 }
 
-.sideBtn{
-  position:absolute;
-  bottom: 100px;
-  right: 30px;
-  z-index:300;
-  cursor: pointer;
-  width: 60px;
-  height: 60px;
-  margin: 3px;
-  font-size: 24px;
-  line-height: 50px;
-  text-align: center;
-  background-color: #fff;
-  border: 3px solid #ddd;
-  border-radius: 30px;
+.searchBoxContainer input {
+  z-index:40;
+}
+
+.table-view.search-table{
+  margin-bottom: 0px;
+  border-bottom-width: 0px;
+  border-top-width: 0px;
+  z-index:40;
+}
+
+
+.table-view.search-table li{
+  z-index:50;
 }
 
 input[type="search"]{
@@ -68,6 +74,7 @@ input[type="search"]::-webkit-search-cancel-button::after{
   color:#666;
   content: '\e811';
 }
+
 input[type="search"]::-webkit-search-cancel-button{
   -webkit-appearance: icon;
   appearance: icon;
@@ -75,42 +82,28 @@ input[type="search"]::-webkit-search-cancel-button{
   padding-left:10px;
 }
 
+.sideBtn{
+  position:absolute;
+  bottom: 100px;
+  right: 30px;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  margin: 3px;
+  font-size: 24px;
+  line-height: 50px;
+  text-align: center;
+  background-color: #fff;
+  border: 3px solid #ddd;
+  border-radius: 30px;
+  z-index: 40;
+}
+
 .sideBtn.secondary{
   bottom:40px;
 }
 
 #routeControls{
-  z-index:300;
   position:absolute;
   top:10px;
-}
-
-.routeBtnGroup{
-
-  position:absolute;
-  top:100px;
-  z-index:30;
-  cursor: pointer;
-}
-
-#searchBox{
-  height:46px;
-  font-size:18px;
-  width: 100%;
-  float:left;
-}
-
-#searchBtn{
-  height: 30px;
-  width: 50px;
-  padding: 2px 15px;
-  font-size: 18px;
-  background: #4479BA;
-  color: #FFF;
-  float: left;
-}
-.table-view.search-table{
-  margin-bottom: 0px;
-  border-bottom-width: 0px;
-  border-top-width: 0px;
 }

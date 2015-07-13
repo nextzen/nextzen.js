@@ -4,6 +4,7 @@ var L = require('leaflet');
 var $ = require('jquery');
 var polyline = require('polyline');
 var RouteHandler = require('react-router').RouteHandler;
+var ReactSpinner = require('./Spin.js');
 require('react-leaflet');
 require('leafletCss');
 require('ratchet');
@@ -14,7 +15,6 @@ require('./css/main.css');
 var SearchBox = require('./SearchBox')
 
 //should replace to tangram later
-
 
 var SearchWhileRoute = React.createClass({
 
@@ -34,20 +34,54 @@ var SearchWhileRoute = React.createClass({
 })
 
 var CurrentLocation = React.createClass({
+  getInitialState: function(){
+    return{
+      config : {
+        lines: 9 // The number of lines to draw
+        , length: 0 // The length of each line
+        , width: 6 // The line thickness
+        , radius: 10 // The radius of the inner circle
+        , color: '#666' // #rgb or #rrggbb or array of colors
+        , speed: 1 // Rounds per second
+        , className: 'spinner' // The CSS class to assign to the spinner
+        , top: '50%' // Top position relative to parent
+        , left: '50%' // Left position relative to parent
+        , shadow: false // Whether to render a shadow
+        , hwaccel: true // Whether to use hardware acceleration
+      },
+      spinning: false
+    }
+  },
   getCurrentLocation: function(){
+    this.mountSpinner();
+    var self = this;
      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.props.setCurrentLocation);
-
+        navigator.geolocation.getCurrentPosition(function(position){
+          self.props.setCurrentLocation(position);
+          self.unmountSpinner();
+//          console.log("sam is the prettiest");
+        });
     } else {
         //what will it show when browser doesn't support geolocation?
     }
-    //this.props.setCurrentLocation()
-
+  },
+  mountSpinner: function(){
+    React.render(<ReactSpinner config={this.state.config}/>, document.getElementById('whatsgoingon'));
+    this.setState({
+      spinning:true
+    });
+  },
+  unmountSpinner: function(){
+    React.unmountComponentAtNode(document.getElementById('whatsgoingon'));
+    this.setState({
+      spinning:false
+    })
   },
   render : function(){
     return(
       <div className="sideBtn secondary">
-        <span className="icon icon-edit" onClick= {this.getCurrentLocation}></span>
+        <span className={(this.state.spinning === false)? "icon icon-edit" : ""} onClick= {this.getCurrentLocation}></span>
+        <div id="whatsgoingon"></div>
       </div>
     );
   }
@@ -161,7 +195,12 @@ var Main = React.createClass({
         lon: 0
       },
       startPoint : {
-        name : "Start location",
+        name : "Choose start location.",
+        lat :  40.7410605,
+        lon : -73.9896986
+      },
+      destMarker : {
+        name : "Choose destination.",
         lat :  40.7410605,
         lon : -73.9896986
       },
@@ -276,11 +315,10 @@ var Main = React.createClass({
       if(this.state.mode == "search"){
       return (
         <div id="mapContainer">
-         <div className = "searchBoxContainer">
-            <SearchBox
+          <div className = "searchBoxContainer">
+          <SearchBox
             addMarker = {this.addMarker}
-            bbox = {this.bbox}
-            />
+            bbox = {this.bbox}/>
           </div>
           <RouteButton 
           destMarker= {this.state.destMarker} 
