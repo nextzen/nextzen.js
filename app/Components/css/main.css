@@ -21,7 +21,6 @@ html,body {
   position:absolute;
   left: calc(50% - 25px);
   top: calc(50% - 25px);
-
 }
 
 .searchBoxContainer {
@@ -47,10 +46,15 @@ html,body {
 
 .table-view.search-table li{
   background-color: #fff;
+  font-size:13px;
   z-index: 50;
+  cursor: pointer;
   border-bottom:1px solid #ddd;
   border-left:1px solid #ddd;
   border-right:1px solid #ddd;
+}
+.table-view.search-table li:hover{
+  background-color: #ddd;
 }
 .table-view.search-table li:first-child{
   border-top:1px solid #ddd;
@@ -89,8 +93,8 @@ input[type="search"]::-webkit-search-cancel-button{
 
 .sideBtn{
   position:fixed;
-  bottom: 100px;
-  right: 30px;
+  top: 70%;
+  right: 15px;
   cursor: pointer;
   width: 60px;
   height: 60px;
@@ -100,13 +104,14 @@ input[type="search"]::-webkit-search-cancel-button{
   text-align: center;
   background-color: #fff;
   border: 3px solid #ddd;
-  border-radius: 30px;
+  
   z-index: 30;
 }
 
 .sideBtn.secondary{
-  bottom:20px;
+  top: calc(70% + 70px);
 }
+
 .icon-current-location{
   width:50px;
   height:50px;
@@ -129,11 +134,71 @@ input[type="search"]::-webkit-search-cancel-button{
   top:10px;
 }
 
-
 .routeBtnGroup{
-
   position:absolute;
-  top:100px;
+  top:80px;
+  height:46px;
   z-index:10;
+  width:calc(100% - 20px);
+  margin:0 10px;
   cursor: pointer;
+}
+
+#autoRoute{
+  background-image:url("./resources/modes.icons.svg");
+  background-size:108px 36px;
+  background-position:0px 0px;
+  width:36px;
+  height:36px;
+  margin:0 auto;
+  background-repeat: no-repeat;
+}
+
+#bikeRoute{
+  background-image:url("./resources/modes.icons.svg");
+  background-size:108px 36px;
+  background-position:-36px 0px;
+  width:36px;
+  height:36px;
+  margin:0 auto;
+  background-repeat: no-repeat;
+}
+
+#walkRoute{
+  background-image:url("./resources/modes.icons.svg");
+  background-size:108px 36px;
+  background-position:-72px 0px;
+  width:36px;
+  height:36px;
+  margin:0 auto;
+  background-repeat: no-repeat;
+}
+
+.route-table{
+  z-index:3000;
+  height:100%;
+  width: calc(100% - 20px);
+  margin: 0 10px;
+  font-size:13px;
+}
+
+.route-table.opened{
+  position:absolute;
+  top:130px;
+}
+
+.route-table.closed{
+  position:absolute;
+  cursor:pointer;
+  background-color:#fff;
+  top: 95%;
+}
+
+.open-route-table{
+  text-align: center;
+  height:30px;
+}
+
+.trip-summary{
+  left-padding: 10px;
 }
