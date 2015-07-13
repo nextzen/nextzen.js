@@ -8,7 +8,6 @@ var ReactSpinner = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log(this.props.config);
     this.spinner = new Spinner(this.props.config);
     this.spinner.spin(this.refs.container.getDOMNode());
   },

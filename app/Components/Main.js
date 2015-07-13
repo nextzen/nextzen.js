@@ -80,7 +80,7 @@ var CurrentLocation = React.createClass({
   render : function(){
     return(
       <div className="sideBtn secondary">
-        <span className={(this.state.spinning === false)? "icon icon-edit" : ""} onClick= {this.getCurrentLocation}></span>
+        <div className={(this.state.spinning === false)? "icon-current-location" : ""} onClick= {this.getCurrentLocation}></div>
         <div id="whatsgoingon"></div>
       </div>
     );
@@ -162,7 +162,6 @@ var RouteButton = React.createClass({
   getInitialState : function(){
     return{
       //startPoint must be replaced current location // search result
-      destPoint : {},
       destPoint : this.props.destMarker,
       routePrirority : this.props.routePrirority,
       bringRouteWindow: false
@@ -175,7 +174,7 @@ var RouteButton = React.createClass({
       return(
         <div>
           <div className="sideBtn" onClick = {this.route} >
-           <span className="icon icon-check"></span>
+           <div className="route-icon"></div>
           </div>
         </div>
       );
@@ -318,10 +317,6 @@ var Main = React.createClass({
         <div id="mapContainer">
           <div id="map"></div>
           <div className = "searchBoxContainer">
-          <SearchBox
-            addMarker = {this.addMarker}
-            bbox = {this.bbox}/>
-          </div>
           <RouteButton 
           destMarker= {this.state.destMarker} 
           addRouteLayer = {this.addRouteLayer}
@@ -329,6 +324,10 @@ var Main = React.createClass({
           mode = {this.state.mode}/>
           <CurrentLocation
             setCurrentLocation = {this.setCurrentPoint} />
+          <SearchBox
+            addMarker = {this.addMarker}
+            bbox = {this.bbox}/>
+          </div>
           <RouteHandler />
         </div>
       );

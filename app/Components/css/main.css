@@ -45,15 +45,22 @@ html,body {
   z-index:35;
 }
 
-
 .table-view.search-table li{
-  z-index:40;
+  background-color: #fff;
+  z-index: 50;
+  border-bottom:1px solid #ddd;
+  border-left:1px solid #ddd;
+  border-right:1px solid #ddd;
+}
+.table-view.search-table li:first-child{
+  border-top:1px solid #ddd;
 }
 
 input[type="search"]{
   border-radius: 0;
   text-overflow: ellipsis;
   -webkit-appearance: none;
+  margin-bottom:0;
 }
 
 input[type="search"]::-webkit-search-decoration::after{
@@ -81,7 +88,7 @@ input[type="search"]::-webkit-search-cancel-button{
 }
 
 .sideBtn{
-  position:absolute;
+  position:fixed;
   bottom: 100px;
   right: 30px;
   cursor: pointer;
@@ -94,11 +101,27 @@ input[type="search"]::-webkit-search-cancel-button{
   background-color: #fff;
   border: 3px solid #ddd;
   border-radius: 30px;
-  z-index: 40;
+  z-index: 30;
 }
 
 .sideBtn.secondary{
-  bottom:40px;
+  bottom:20px;
+}
+.icon-current-location{
+  width:50px;
+  height:50px;
+  background-image: url("./resources/current-location.png");
+  background-size: 70% 70%;
+  background-position:10px 10px;
+  background-repeat:no-repeat;
+}
+.route-icon{
+  width:50px;
+  height:50px;
+  background-image: url("./resources/route-icon.png");
+  background-size: 70% 70%;
+  background-position:10px 10px;
+  background-repeat:no-repeat;
 }
 
 #routeControls{
