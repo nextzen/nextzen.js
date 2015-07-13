@@ -315,6 +315,7 @@ var Main = React.createClass({
       if(this.state.mode == "search"){
       return (
         <div id="mapContainer">
+          <div id="map"></div>
           <div className = "searchBoxContainer">
           <SearchBox
             addMarker = {this.addMarker}
@@ -328,12 +329,12 @@ var Main = React.createClass({
           <CurrentLocation
             setCurrentLocation = {this.setCurrentPoint} />
           <RouteHandler />
-          <div id="map"></div>
         </div>
       );
     }else{
         return(
           <div id="mapContainer">
+          <div id="map"></div>
           <RouteWindow 
             startPoint = {this.state.startPoint}
             destPoint = {this.state.destMarker}
@@ -342,7 +343,6 @@ var Main = React.createClass({
             setStartPoint = {this.setStartPoint}
             addRouteLayer = {this.addRouteLayer}
             setMapMode = {this.setMapMode}/>
-          <div id="map"></div>
         </div>
         );
       }
