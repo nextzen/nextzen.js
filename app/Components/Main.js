@@ -4,15 +4,17 @@ var L = require('leaflet');
 var $ = require('jquery');
 var polyline = require('polyline');
 var RouteHandler = require('react-router').RouteHandler;
-var ReactSpinner = require('./Spin.js');
+var RouteResultTable = require('./RouteResultTable');
+var CurrentLocation = require('./CurrentLocation');
+var SearchBox = require('./SearchBox');
+
 require('react-leaflet');
 require('leafletCss');
 require('ratchet');
 require('./css/main.css');
+require('tangram');
 
-//require('tangram');
 
-var SearchBox = require('./SearchBox')
 
 //should replace to tangram later
 
@@ -32,61 +34,6 @@ var SearchWhileRoute = React.createClass({
   }
 
 })
-
-var CurrentLocation = React.createClass({
-  getInitialState: function(){
-    return{
-      config : {
-        lines: 9 // The number of lines to draw
-        , length: 0 // The length of each line
-        , width: 6 // The line thickness
-        , radius: 10 // The radius of the inner circle
-        , color: '#666' // #rgb or #rrggbb or array of colors
-        , speed: 1 // Rounds per second
-        , className: 'spinner' // The CSS class to assign to the spinner
-        , top: '50%' // Top position relative to parent
-        , left: '50%' // Left position relative to parent
-        , shadow: false // Whether to render a shadow
-        , hwaccel: true // Whether to use hardware acceleration
-      },
-      spinning: false
-    }
-  },
-  getCurrentLocation: function(){
-    this.mountSpinner();
-    var self = this;
-     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position){
-          self.props.setCurrentLocation(position);
-          self.unmountSpinner();
-//          console.log("sam is the prettiest");
-        });
-    } else {
-        //what will it show when browser doesn't support geolocation?
-    }
-  },
-  mountSpinner: function(){
-    React.render(<ReactSpinner config={this.state.config}/>, document.getElementById('whatsgoingon'));
-    this.setState({
-      spinning:true
-    });
-  },
-  unmountSpinner: function(){
-    React.unmountComponentAtNode(document.getElementById('whatsgoingon'));
-    this.setState({
-      spinning:false
-    })
-  },
-  render : function(){
-    return(
-      <div className="sideBtn secondary">
-        <div className={(this.state.spinning === false)? "icon-current-location" : ""} onClick= {this.getCurrentLocation}></div>
-        <div id="whatsgoingon"></div>
-      </div>
-    );
-  }
-});
-
 
 var RouteWindow = React.createClass({
 
@@ -125,12 +72,19 @@ var RouteWindow = React.createClass({
       
       var coord = polyline.decode(data.trip.legs[0].shape,6);
       self.props.addRouteLayer(coord);
+      self.mountTable(data);
     });
     //there must be better way to do this
     self.setState({
       activeTab: mode
     })
 
+  },
+  mountTable: function(data){
+    React.render(<RouteResultTable searchData = {data}/>, document.getElementById('route-result-table'));
+  },
+  unmountTable: function(){
+    React.unmountComponentAtNode(document.getElementById('route-result-table'));
   },
 
   cancleRouteMode: function(){
@@ -146,12 +100,20 @@ var RouteWindow = React.createClass({
           destPoint = {this.props.destPoint}
           setStartPoint = {this.props.setStartPoint} />
           <div className="routeBtnGroup segmented-control">
-               <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" id="autoRoute" onClick= {this.route.bind(this,"auto")}> auto </a>
-               <a className={(this.state.activeTab === "bicycle")? "active control-item" : "control-item"} ref="bicycleBtn" id="bikeRoute" onClick= {this.route.bind(this,"bicycle")}> bike </a>
-               <a className={(this.state.activeTab === "pedestrian")? "active control-item" : "control-item"} ref="pedestrianBtn" id="walkRoute" onClick= {this.route.bind(this,"pedestrian")} > walk</a>
+               <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto")}>
+                <div id="autoRoute"></div>
+                </a>
+               <a className={(this.state.activeTab === "bicycle")? "active control-item" : "control-item"} ref="bicycleBtn" onClick= {this.route.bind(this,"bicycle")}>
+                  <div id="bikeRoute"></div>
+                </a>
+               <a className={(this.state.activeTab === "pedestrian")? "active control-item" : "control-item"} ref="pedestrianBtn" onClick= {this.route.bind(this,"pedestrian")} > 
+                  <div id="walkRoute"></div>
+               </a>
           </div>
           <div className="sideBtn">
             <span className="icon icon-close" onClick= {this.cancleRouteMode}></span>
+          </div>
+          <div id="route-result-table">
           </div>
         </div>
       )
@@ -277,6 +239,7 @@ var Main = React.createClass({
     var map = L.map(element,{
       zoomControl:false
     });
+
     var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -302,7 +265,6 @@ var Main = React.createClass({
         if (this.props.createMap) {
             this.map = this.props.createMap(this.getDOMNode());
         } else {
-            console.log("map is getting inside of map node");
             this.map = this.createMap(document.getElementById('map'));
         }
         this.setupMap();
@@ -332,7 +294,7 @@ var Main = React.createClass({
         </div>
       );
     }else{
-        return(
+      return(
           <div id="mapContainer">
           <div id="map"></div>
           <RouteWindow 

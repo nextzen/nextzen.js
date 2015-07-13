@@ -4,7 +4,6 @@ var Router = require('react-router');
 require('ratchet');
 require('./css/main.css');
 
-
 var ResultRow = React.createClass({
   handleClick: function(){
     var marker = L.marker(this.props.loc.reverse());
@@ -102,7 +101,7 @@ var SearchBox = React.createClass({
     $.get(callurl,function(data){
       //this is not the way react recommends
       self.setState({searchResult: data.features});
-    });
+    }); 
     }else{
       self.setState({searchResult: []})
     }
