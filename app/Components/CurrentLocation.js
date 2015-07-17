@@ -30,20 +30,19 @@ var CurrentLocation = React.createClass({
         navigator.geolocation.getCurrentPosition(function(position){
           self.props.setCurrentLocation(position);
           self.unmountSpinner();
-//          console.log("sam is the prettiest");
         });
     } else {
         //what will it show when browser doesn't support geolocation?
     }
   },
   mountSpinner: function(){
-    React.render(<ReactSpinner config={this.state.config}/>, document.getElementById('whatsgoingon'));
+    React.render(<ReactSpinner config={this.state.config}/>, document.getElementById('spinnerSpot'));
     this.setState({
       spinning:true
     });
   },
   unmountSpinner: function(){
-    React.unmountComponentAtNode(document.getElementById('whatsgoingon'));
+    React.unmountComponentAtNode(document.getElementById('spinnerSpot'));
     this.setState({
       spinning:false
     })
@@ -52,7 +51,7 @@ var CurrentLocation = React.createClass({
     return(
       <div className="sideBtn secondary">
         <div className={(this.state.spinning === false)? "icon-current-location" : ""} onClick= {this.getCurrentLocation}></div>
-        <div id="whatsgoingon"></div>
+        <div id="spinnerSpot"></div>
       </div>
     );
   }
