@@ -15,10 +15,8 @@ var RouteButton = React.createClass({
   },
   render : function(){
     return(
-      <div>
-        <div className="sideBtn" onClick = {this.route} >
-          <div className="route-icon"></div>
-        </div>
+      <div className="sideBtn" onClick = {this.route}>
+        <div className="route-icon"></div>
       </div>
     );
   }
