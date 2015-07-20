@@ -30,8 +30,8 @@ var Main = React.createClass({
       currentPoint : {
         //hard coded! what will be the best?
         name : "Current location",
-        lat: 40.758,
-        lon: -73.9174
+        lat: 40.728,
+        lon: -73.99
       },
       startPoint : {
         name : "Choose start location.",
@@ -160,7 +160,7 @@ var Main = React.createClass({
     },
 
     setupMap: function () {
-      this.map.setView([40.758, -73.9174], 12);
+      this.map.setView([40.728, -73.99], 12);
       this.setState({
         bbox : this.map.getBounds().toBBoxString()
       });
