@@ -6,16 +6,17 @@ require('./css/main.css');
 
 var ResultRow = React.createClass({
   handleClick: function(){
-    var marker = L.marker(this.props.loc.reverse());
-    marker.bindPopup(this.props.name);
+    //var marker = L.marker(this.props.loc.reverse());
+    //marker.bindPopup(this.props.name);
     var markerToMap = {
       name : this.props.name,
-      lat : marker.getLatLng().lat,
-      lon : marker.getLatLng().lng
+      lat : this.props.loc[1],
+      lon : this.props.loc[0]
     };
     this.props.addMarker(markerToMap);
     this.props.setInputValue(this.props.name);
     this.props.deactivateSearching();
+
   },
   render: function(){
     var displayName = this.props.name;
@@ -32,8 +33,8 @@ var ResultTable = React.createClass({
         var self = this;
         this.props.searchData.forEach(function(result){
           rows.push(<ResultRow name = {result.properties.name + " , " + result.properties.local_admin + " , " + result.properties.admin1_abbr} 
-                               loc= {result.geometry.coordinates} 
-                               key= {result.properties.id} 
+                               loc = {result.geometry.coordinates} 
+                               key = {result.properties.id} 
                                addMarker = {self.props.addMarker} 
                                searching = {self.props.searching}
                                setInputValue = {self.props.setInputValue}
@@ -49,8 +50,6 @@ var ResultTable = React.createClass({
   }
 });
 
-
-
 var SearchBox = React.createClass({
 //  mixinsL [Router.navigation],
 
@@ -60,6 +59,22 @@ var SearchBox = React.createClass({
       searching : false,
       filterText: this.props.value || ""
     };
+  },
+
+  handleKeyDown: function(event){
+    var key = event.which || event.keyCode;
+    var i;
+    var locationArr = [];
+    for(i = 0; i< this.state.searchResult.length; i++){
+      locationArr.push({
+        lat: this.state.searchResult[i].geometry.coordinates[1],
+        lon: this.state.searchResult[i].geometry.coordinates[0]
+      });
+    }
+    if(key == 13){
+      this.props.addPOIMarkers(locationArr);
+      this.deactivateSearching();
+    }
   },
 
   handleChange: function(){
@@ -87,7 +102,8 @@ var SearchBox = React.createClass({
     var self = this;
     if(currentInput.length > 0){
       var baseurl = '//pelias.mapzen.com';
-      var bbox = this.props.bbox || '-74.18861389160156,40.62802447679272,-73.79173278808594,40.86134282702074';
+      //default bbox is new york
+      var bbox = this.props.bbox || '-74.2589, 40.4774, -73.7004, 40.9176';
       var lat = this.props.currentLat || null;
       var lon = this.props.currentLon || null;
       var input = currentInput;
@@ -95,8 +111,8 @@ var SearchBox = React.createClass({
       var searchData;
 
       var callurl ;
-      if(lat) callurl = baseurl + "/suggest?bbox=" + bbox + "&input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
-      else callurl = baseurl + "/suggest?bbox=" + bbox + "&input="+ currentInput;
+      if(lat) callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
+      else callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput;
 
     $.get(callurl,function(data){
       //this is not the way react recommends
@@ -105,9 +121,7 @@ var SearchBox = React.createClass({
     }else{
       self.setState({searchResult: []})
     }
-
   },
-
   render: function(){
     var secondaryStyle = {
       top : 50
@@ -115,11 +129,14 @@ var SearchBox = React.createClass({
     return(
       <div>
         <input style = {this.props.style}
+        tabIndex = "0"
         className="searchBox" 
         ref = "filterTextInput" 
         type = "search" 
         value = {this.state.filterText} 
-        onChange={this.handleChange}></input>
+        onChange = {this.handleChange}
+        onKeyPress = {this.handleKeyDown}
+        ></input>
         <ResultTable searchData = {this.state.searchResult}
                       searching = {this.state.searching} 
                       addMarker = {this.props.addMarker}

@@ -1,149 +1,28 @@
-//general problem : when vendors are managed in vendor folder, asset path throws err :( 
 var React = require('react');
-var L = require('leaflet');
-var $ = require('jquery');
-var polyline = require('polyline');
 var RouteHandler = require('react-router').RouteHandler;
-var RouteResultTable = require('./RouteResultTable');
 var CurrentLocation = require('./CurrentLocation');
 var SearchBox = require('./SearchBox');
+var RouteWindow = require('./Route');
 
-require('react-leaflet');
 require('leafletCss');
 require('ratchet');
 require('./css/main.css');
-require('tangram');
 
-
-
-//should replace to tangram later
-
-var SearchWhileRoute = React.createClass({
-
-  render: function(){
-    return (
-    <div className = "searchBoxContainer">
-      <SearchBox 
-      value = {this.props.startPoint.name}
-      addMarker = {this.props.setStartPoint} />
-      <SearchBox 
-          value = {this.props.destPoint.name}
-          addMarker = {this.props.addMarker}/>
-    </div>
-    );
-  }
-
-})
-
-var RouteWindow = React.createClass({
-
-  getInitialState : function(){
-    return{
-      //startPoint must be replaced current location // search result
-      activeTab: ""
-    }
-  },
-  //
-  route: function(mode){
-    //valhalla call form : https://valhalla.mapzen.com/route?json={%22locations%22:[{%22lat%22:39.42923221970601,%22lon%22:-76.6356897354126},{%22lat%22:39.30727282892593,%22lon%22:-76.77203178405762}],%22costing%22:%22auto%22}&api_key=valhalla-RfDii2g
-    var serviceurl = "https://valhalla.mapzen.com/";
-    var apikey = '&api_key=valhalla-RfDii2g';
-
-    var transitM = mode || 'auto';
-    var locs = [];
-    locs.push({
-      lat : this.props.startPoint.lat,
-      lon : this.props.startPoint.lon
-    });
-    locs.push({
-      lat : this.props.destPoint.lat,
-      lon : this.props.destPoint.lon
-    });
-
-    var self = this;
-
-    var params = JSON.stringify({
-      locations: locs,
-      costing: transitM
-    });
-
-    var routeUrl = serviceurl +  'route?json=' + params + apikey;
-    $.get(routeUrl,function(data){
-      
-      var coord = polyline.decode(data.trip.legs[0].shape,6);
-      self.props.addRouteLayer(coord);
-      self.mountTable(data);
-    });
-    //there must be better way to do this
-    self.setState({
-      activeTab: mode
-    })
-
-  },
-  mountTable: function(data){
-    React.render(<RouteResultTable searchData = {data}/>, document.getElementById('route-result-table'));
-  },
-  unmountTable: function(){
-    React.unmountComponentAtNode(document.getElementById('route-result-table'));
-  },
-
-  cancleRouteMode: function(){
-    this.props.setMapMode('search');
-    this.props.clearMap();
-  },
-  render: function(){
-      return(
-        <div>
-        <SearchWhileRoute 
-          startPoint = {this.props.startPoint}
-          addMarker = {this.props.addMarker}
-          destPoint = {this.props.destPoint}
-          setStartPoint = {this.props.setStartPoint} />
-          <div className="routeBtnGroup segmented-control">
-               <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto")}>
-                <div id="autoRoute"></div>
-                </a>
-               <a className={(this.state.activeTab === "bicycle")? "active control-item" : "control-item"} ref="bicycleBtn" onClick= {this.route.bind(this,"bicycle")}>
-                  <div id="bikeRoute"></div>
-                </a>
-               <a className={(this.state.activeTab === "pedestrian")? "active control-item" : "control-item"} ref="pedestrianBtn" onClick= {this.route.bind(this,"pedestrian")} > 
-                  <div id="walkRoute"></div>
-               </a>
-          </div>
-          <div className="sideBtn">
-            <span className="icon icon-close" onClick= {this.cancleRouteMode}></span>
-          </div>
-          <div id="route-result-table">
-          </div>
-        </div>
-      )
-  }
-});
 
 var RouteButton = React.createClass({
-  getInitialState : function(){
-    return{
-      //startPoint must be replaced current location // search result
-      destPoint : this.props.destMarker,
-      routePrirority : this.props.routePrirority,
-      bringRouteWindow: false
-    }
-  },
   route : function(){
-    this.props.setMapMode('route');
+    this.props.setMapMode("route");
   },
   render : function(){
-      return(
-        <div>
-          <div className="sideBtn" onClick = {this.route} >
-           <div className="route-icon"></div>
-          </div>
+    return(
+      <div>
+        <div className="sideBtn" onClick = {this.route} >
+          <div className="route-icon"></div>
         </div>
-      );
-
+      </div>
+    );
   }
 });
-
 
 var Main = React.createClass({
 
@@ -165,6 +44,7 @@ var Main = React.createClass({
         lat :  40.7410605,
         lon : -73.9896986
       },
+      poiMarkers:[],
       currentLayer : L.layerGroup(),
       markerLayer : L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')]),
       routeLayer : L.layerGroup(),
@@ -173,7 +53,8 @@ var Main = React.createClass({
 
   },
   setStartPoint: function(mrkr){
-    this.setState({startPoint:mrkr});
+    this.setState({startPoint:mrkr},function(){
+    });
   },
 
   setCurrentPoint: function(pos){
@@ -187,31 +68,57 @@ var Main = React.createClass({
     this.setState({
       currentPoint : newCurrentLocation,
       startPoint : newCurrentLocation
-    });
-    var center = L.latLng(pos.coords.latitude,pos.coords.longitude);
-    this.state.currentLayer.clearLayers();
-    this.state.currentLayer.addLayer(L.circleMarker(center), 3, {
-      color: '#00f',
-      opacity:1,
-      fillColor: '#00f',
-      fillOpacity: 0.8,
+    },function(){
+      var center = L.latLng(pos.coords.latitude,pos.coords.longitude);
+      this.state.currentLayer.clearLayers();
+      this.state.currentLayer.addLayer(L.circleMarker(center), 3, {
+        color: '#00f',
+        opacity:1,
+        fillColor: '#00f',
+        fillOpacity: 0.8,
 
+      });
+      this.map.setView(center,14);
+      this.setState({
+        bbox : this.map.getBounds().toBBoxString()
+      });
     });
-    this.map.setView(center,14);
-    this.setState({
-      bbox : this.map.getBounds().toBBoxString()
-    });
+
   },
 
   addMarker: function(mrkr){
 
     this.state.markerLayer.clearLayers();
     var marker = L.marker([mrkr.lat,mrkr.lon]);
+    //replace not to mutate state directly
     this.state.markerLayer.addLayer(marker);
     
     this.map.setView(marker.getLatLng(),14);
     this.setState({
       destMarker: mrkr,
+      bbox : this.map.getBounds().toBBoxString()
+    });
+  },
+  addPOIMarkers: function(mrkrs){
+    //this.state.markerLayer.clearLayers();
+    var i;
+    var minLat = mrkrs[0].lat;
+    var minLon = mrkrs[0].lon;
+    var maxLat = mrkrs[0].lat;
+    var maxLon = mrkrs[0].lat;
+
+    for(i =0; i<mrkrs.length; i++){
+      var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]);
+
+      if(mrkrs[i].lat < minLat) minLat = mrkrs[i].lat;
+      else maxLat = mrkrs[i].lat;
+      
+      if(mrkrs[i].lon < minLon) minLon = mrkrs[i].lon;
+      else maxLon = mrkrs[i].lon;
+      this.state.markerLayer.addLayer(marker);
+    }
+    this.map.fitBounds([[minLat,minLon],[maxLat,maxLon]]);
+    this.setState({
       bbox : this.map.getBounds().toBBoxString()
     });
   },
@@ -240,16 +147,15 @@ var Main = React.createClass({
       zoomControl:false
     });
 
-    var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    // var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(map);
 
-    // loading scene yaml
-    //Error: Can't load worker because couldn't find base URL that library was loaded from
-     // var layer = Tangram.leafletLayer({
-     //     scene: 'scene.yaml',//sceneYaml,
-     //     attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-     // });
+    //loading scene yaml
+     var layer = Tangram.leafletLayer({
+         scene: 'https://cdn.rawgit.com/tangrams/carousel/gh-pages/traditional.yaml',//sceneYaml,
+         attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+     });
     layer.addTo(map);
     return map;
     },
@@ -259,6 +165,7 @@ var Main = React.createClass({
       this.setState({
         bbox : this.map.getBounds().toBBoxString()
       });
+      this.setMapMode("search");
     },
 
     componentDidMount: function () {
@@ -279,6 +186,11 @@ var Main = React.createClass({
         <div id="mapContainer">
           <div id="map"></div>
           <div className = "searchBoxContainer">
+          <SearchBox
+            addMarker = {this.addMarker}
+            addPOIMarkers = {this.addPOIMarkers}
+            bbox = {this.bbox}/>
+          </div>
           <RouteButton 
           destMarker= {this.state.destMarker} 
           addRouteLayer = {this.addRouteLayer}
@@ -286,15 +198,11 @@ var Main = React.createClass({
           mode = {this.state.mode}/>
           <CurrentLocation
             setCurrentLocation = {this.setCurrentPoint} />
-          <SearchBox
-            addMarker = {this.addMarker}
-            bbox = {this.bbox}/>
-          </div>
           <RouteHandler />
         </div>
       );
     }else{
-      return(
+        return(
           <div id="mapContainer">
           <div id="map"></div>
           <RouteWindow 
