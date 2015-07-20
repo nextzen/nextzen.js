@@ -32,7 +32,11 @@ var ResultTable = React.createClass({
       if(this.props.searchData.length > 0 && this.props.searching ){
         var self = this;
         this.props.searchData.forEach(function(result){
-          rows.push(<ResultRow name = {result.properties.name + " , " + result.properties.local_admin + " , " + result.properties.admin1_abbr} 
+          var displayName = result.properties.name;
+          if(result.properties.local_admin) displayName += " , " + result.properties.local_admin;
+          if(result.properties.admin1_abbr) displayName += " , " + result.properties.admin1_abbr;
+          else if(result.properties.admin0) displayName += " , " + result.properties.admin0;
+          rows.push(<ResultRow name = {displayName}
                                loc = {result.geometry.coordinates} 
                                key = {result.properties.id} 
                                addMarker = {self.props.addMarker} 
@@ -111,8 +115,11 @@ var SearchBox = React.createClass({
       var searchData;
 
       var callurl ;
-      if(lat) callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
-      else callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput;
+      //if(lat) callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
+     // else callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput;
+
+     if(lat) callurl = baseurl + "/search?input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
+     else callurl = baseurl + "/search?input="+ currentInput;
 
     $.get(callurl,function(data){
       //this is not the way react recommends
