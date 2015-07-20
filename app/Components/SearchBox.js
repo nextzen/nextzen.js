@@ -6,16 +6,17 @@ require('./css/main.css');
 
 var ResultRow = React.createClass({
   handleClick: function(){
-    var marker = L.marker(this.props.loc.reverse());
-    marker.bindPopup(this.props.name);
+    //var marker = L.marker(this.props.loc.reverse());
+    //marker.bindPopup(this.props.name);
     var markerToMap = {
       name : this.props.name,
-      lat : marker.getLatLng().lat,
-      lon : marker.getLatLng().lng
+      lat : this.props.loc[1],
+      lon : this.props.loc[0]
     };
     this.props.addMarker(markerToMap);
     this.props.setInputValue(this.props.name);
     this.props.deactivateSearching();
+
   },
   render: function(){
     var displayName = this.props.name;
@@ -32,8 +33,8 @@ var ResultTable = React.createClass({
         var self = this;
         this.props.searchData.forEach(function(result){
           rows.push(<ResultRow name = {result.properties.name + " , " + result.properties.local_admin + " , " + result.properties.admin1_abbr} 
-                               loc= {result.geometry.coordinates} 
-                               key= {result.properties.id} 
+                               loc = {result.geometry.coordinates} 
+                               key = {result.properties.id} 
                                addMarker = {self.props.addMarker} 
                                searching = {self.props.searching}
                                setInputValue = {self.props.setInputValue}

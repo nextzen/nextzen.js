@@ -53,14 +53,8 @@ var Main = React.createClass({
 
   },
   setStartPoint: function(mrkr){
-    console.log("yes! I am setting startpoint");
-    console.log(mrkr);
     this.setState({startPoint:mrkr},function(){
-      console.log("updating startPoint");
-      console.log(this.state.startPoint);
-      this.render();
     });
-    console.log(this.state.startPoint);
   },
 
   setCurrentPoint: function(pos){
@@ -108,10 +102,22 @@ var Main = React.createClass({
   addPOIMarkers: function(mrkrs){
     //this.state.markerLayer.clearLayers();
     var i;
+    var minLat = mrkrs[0].lat;
+    var minLon = mrkrs[0].lon;
+    var maxLat = mrkrs[0].lat;
+    var maxLon = mrkrs[0].lat;
+
     for(i =0; i<mrkrs.length; i++){
       var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]);
+
+      if(mrkrs[i].lat < minLat) minLat = mrkrs[i].lat;
+      else maxLat = mrkrs[i].lat;
+      
+      if(mrkrs[i].lon < minLon) minLon = mrkrs[i].lon;
+      else maxLon = mrkrs[i].lon;
       this.state.markerLayer.addLayer(marker);
     }
+    this.map.fitBounds([[minLat,minLon],[maxLat,maxLon]]);
     this.setState({
       bbox : this.map.getBounds().toBBoxString()
     });
@@ -147,7 +153,7 @@ var Main = React.createClass({
 
     //loading scene yaml
      var layer = Tangram.leafletLayer({
-         scene: 'scene.yaml',//sceneYaml,
+         scene: 'https://cdn.rawgit.com/tangrams/carousel/gh-pages/traditional.yaml',//sceneYaml,
          attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
      });
     layer.addTo(map);
@@ -182,6 +188,7 @@ var Main = React.createClass({
           <div className = "searchBoxContainer">
           <SearchBox
             addMarker = {this.addMarker}
+            addPOIMarkers = {this.addPOIMarkers}
             bbox = {this.bbox}/>
           </div>
           <RouteButton 
