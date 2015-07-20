@@ -1,16 +1,12 @@
-//general problem : when vendors are managed in vendor folder, asset path throws err :( 
 var React = require('react');
-var L = require('leaflet');
 var RouteHandler = require('react-router').RouteHandler;
 var CurrentLocation = require('./CurrentLocation');
 var SearchBox = require('./SearchBox');
 var RouteWindow = require('./Route');
 
-require('react-leaflet');
 require('leafletCss');
 require('ratchet');
 require('./css/main.css');
-require('tangram');
 
 
 var RouteButton = React.createClass({
@@ -57,7 +53,14 @@ var Main = React.createClass({
 
   },
   setStartPoint: function(mrkr){
-    this.setState({startPoint:mrkr});
+    console.log("yes! I am setting startpoint");
+    console.log(mrkr);
+    this.setState({startPoint:mrkr},function(){
+      console.log("updating startPoint");
+      console.log(this.state.startPoint);
+      this.render();
+    });
+    console.log(this.state.startPoint);
   },
 
   setCurrentPoint: function(pos){
@@ -71,20 +74,22 @@ var Main = React.createClass({
     this.setState({
       currentPoint : newCurrentLocation,
       startPoint : newCurrentLocation
-    });
-    var center = L.latLng(pos.coords.latitude,pos.coords.longitude);
-    this.state.currentLayer.clearLayers();
-    this.state.currentLayer.addLayer(L.circleMarker(center), 3, {
-      color: '#00f',
-      opacity:1,
-      fillColor: '#00f',
-      fillOpacity: 0.8,
+    },function(){
+      var center = L.latLng(pos.coords.latitude,pos.coords.longitude);
+      this.state.currentLayer.clearLayers();
+      this.state.currentLayer.addLayer(L.circleMarker(center), 3, {
+        color: '#00f',
+        opacity:1,
+        fillColor: '#00f',
+        fillOpacity: 0.8,
 
+      });
+      this.map.setView(center,14);
+      this.setState({
+        bbox : this.map.getBounds().toBBoxString()
+      });
     });
-    this.map.setView(center,14);
-    this.setState({
-      bbox : this.map.getBounds().toBBoxString()
-    });
+
   },
 
   addMarker: function(mrkr){
@@ -128,35 +133,7 @@ var Main = React.createClass({
     this.render();
   },
   setMapMode : function(mapMode){
-    this.setState({mode:mapMode},function(){
-      if(mapMode =="route"){
-        React.render(<RouteWindow 
-               startPoint = {this.state.startPoint}
-               destPoint = {this.state.destMarker}
-               clearMap = {this.clearMap}
-               addMarker = {this.addMarker}
-               setStartPoint = {this.setStartPoint}
-               addRouteLayer = {this.addRouteLayer}
-               setMapMode = {this.setMapMode}/>, document.getElementById('routeSpot'));
-        React.unmountComponentAtNode(document.getElementById('searchBoxSpot'));
-      }else{
-        React.unmountComponentAtNode(document.getElementById('routeSpot'));
-        React.render(
-          <div>
-          <RouteButton 
-                destMarker= {this.state.destMarker} 
-                addRouteLayer = {this.addRouteLayer}
-                setMapMode = {this.setMapMode}
-                mode = {this.state.mode}/>
-                <CurrentLocation
-                setCurrentLocation = {this.setCurrentPoint} />
-                <SearchBox
-                addMarker = {this.addMarker}
-                addPOIMarkers = {this.addPOIMarkers}
-                bbox = {this.bbox}/></div>, document.getElementById('searchBoxSpot'));
-      }
-
-    });
+    this.setState({mode:mapMode});
   },
   createMap: function (element) {
     //React.render(<Map lat="40.758" lon="-73.9174" zoom="4" />,document.body);
@@ -164,16 +141,15 @@ var Main = React.createClass({
       zoomControl:false
     });
 
-    var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    // var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(map);
 
-    // loading scene yaml
-    //Error: Can't load worker because couldn't find base URL that library was loaded from
-     // var layer = Tangram.leafletLayer({
-     //     scene: 'scene.yaml',//sceneYaml,
-     //     attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-     // });
+    //loading scene yaml
+     var layer = Tangram.leafletLayer({
+         scene: 'scene.yaml',//sceneYaml,
+         attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+     });
     layer.addTo(map);
     return map;
     },
@@ -199,16 +175,40 @@ var Main = React.createClass({
     },
 
     render: function () {
-      console.log("renderrr");
+      if(this.state.mode == "search"){
       return (
         <div id="mapContainer">
           <div id="map"></div>
-          <div id="searchBoxSpot" className = "searchBoxContainer">
+          <div className = "searchBoxContainer">
+          <SearchBox
+            addMarker = {this.addMarker}
+            bbox = {this.bbox}/>
           </div>
-          <div id = "routeSpot"></div>
+          <RouteButton 
+          destMarker= {this.state.destMarker} 
+          addRouteLayer = {this.addRouteLayer}
+          setMapMode = {this.setMapMode}
+          mode = {this.state.mode}/>
+          <CurrentLocation
+            setCurrentLocation = {this.setCurrentPoint} />
           <RouteHandler />
         </div>
       );
+    }else{
+        return(
+          <div id="mapContainer">
+          <div id="map"></div>
+          <RouteWindow 
+            startPoint = {this.state.startPoint}
+            destPoint = {this.state.destMarker}
+            clearMap = {this.clearMap}
+            addMarker = {this.addMarker}
+            setStartPoint = {this.setStartPoint}
+            addRouteLayer = {this.addRouteLayer}
+            setMapMode = {this.setMapMode}/>
+        </div>
+        );
+      }
     }
 });
 
