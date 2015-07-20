@@ -48,6 +48,7 @@ var Main = React.createClass({
         lat :  40.7410605,
         lon : -73.9896986
       },
+      poiMarkers:[],
       currentLayer : L.layerGroup(),
       markerLayer : L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')]),
       routeLayer : L.layerGroup(),
@@ -90,11 +91,23 @@ var Main = React.createClass({
 
     this.state.markerLayer.clearLayers();
     var marker = L.marker([mrkr.lat,mrkr.lon]);
+    //replace not to mutate state directly
     this.state.markerLayer.addLayer(marker);
     
     this.map.setView(marker.getLatLng(),14);
     this.setState({
       destMarker: mrkr,
+      bbox : this.map.getBounds().toBBoxString()
+    });
+  },
+  addPOIMarkers: function(mrkrs){
+    //this.state.markerLayer.clearLayers();
+    var i;
+    for(i =0; i<mrkrs.length; i++){
+      var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]);
+      this.state.markerLayer.addLayer(marker);
+    }
+    this.setState({
       bbox : this.map.getBounds().toBBoxString()
     });
   },
@@ -139,6 +152,7 @@ var Main = React.createClass({
                 setCurrentLocation = {this.setCurrentPoint} />
                 <SearchBox
                 addMarker = {this.addMarker}
+                addPOIMarkers = {this.addPOIMarkers}
                 bbox = {this.bbox}/></div>, document.getElementById('searchBoxSpot'));
       }
 
@@ -185,6 +199,7 @@ var Main = React.createClass({
     },
 
     render: function () {
+      console.log("renderrr");
       return (
         <div id="mapContainer">
           <div id="map"></div>
