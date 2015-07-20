@@ -108,8 +108,8 @@ var SearchBox = React.createClass({
       var baseurl = '//pelias.mapzen.com';
       //default bbox is new york
       var bbox = this.props.bbox || '-74.2589, 40.4774, -73.7004, 40.9176';
-      var lat = this.props.currentLat || null;
-      var lon = this.props.currentLon || null;
+      var lat = this.props.currentPoint.lat || null;
+      var lon = this.props.currentPoint.lon || null;
       var input = currentInput;
       var zoom = 12;
       var searchData;
@@ -118,7 +118,7 @@ var SearchBox = React.createClass({
       //if(lat) callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
      // else callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput;
 
-     if(lat) callurl = baseurl + "/search?input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
+     if(lat != null) callurl = baseurl + "/search?input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
      else callurl = baseurl + "/search?input="+ currentInput;
 
     $.get(callurl,function(data){

@@ -30,9 +30,10 @@ var Main = React.createClass({
     return{
       // markerLyaer is being mutated, not the way react recommends
       currentPoint : {
+        //hard coded! what will be the best?
         name : "Current location",
-        lat: 0,
-        lon: 0
+        lat: 40.758,
+        lon: -73.9174
       },
       startPoint : {
         name : "Choose start location.",
@@ -161,7 +162,7 @@ var Main = React.createClass({
     },
 
     setupMap: function () {
-      this.map.setView([40.758, -73.9174], 10);
+      this.map.setView([40.758, -73.9174], 12);
       this.setState({
         bbox : this.map.getBounds().toBBoxString()
       });
@@ -189,7 +190,8 @@ var Main = React.createClass({
           <SearchBox
             addMarker = {this.addMarker}
             addPOIMarkers = {this.addPOIMarkers}
-            bbox = {this.bbox}/>
+            bbox = {this.bbox}
+            currentPoint = {this.state.currentPoint}/>
           </div>
           <RouteButton 
           destMarker= {this.state.destMarker} 
