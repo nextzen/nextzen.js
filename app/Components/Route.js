@@ -30,7 +30,6 @@ var RouteWindow = React.createClass({
       activeTab: ""
     }
   },
-  
   //
   route: function(mode){
     //valhalla call form : https://valhalla.mapzen.com/route?json={%22locations%22:[{%22lat%22:39.42923221970601,%22lon%22:-76.6356897354126},{%22lat%22:39.30727282892593,%22lon%22:-76.77203178405762}],%22costing%22:%22auto%22}&api_key=valhalla-RfDii2g

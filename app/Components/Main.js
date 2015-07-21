@@ -99,15 +99,29 @@ var Main = React.createClass({
     });
   },
   addPOIMarkers: function(mrkrs){
-    //this.state.markerLayer.clearLayers();
+    this.state.markerLayer.clearLayers();
+    
     var i;
     var minLat = mrkrs[0].lat;
     var minLon = mrkrs[0].lon;
     var maxLat = mrkrs[0].lat;
     var maxLon = mrkrs[0].lat;
 
+    var self = this;
+
     for(i =0; i<mrkrs.length; i++){
       var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]);
+      marker.name = mrkrs[i].name;
+      marker.bindPopup(mrkrs[i].name);
+      marker.on('click', function (e) {
+        self.setState({
+          destMarker:{
+            name : this.name,
+            lat : this.getLatLng().lat,
+            lon : this.getLatLng().lng
+          }
+        });
+      });
 
       if(mrkrs[i].lat < minLat) minLat = mrkrs[i].lat;
       else maxLat = mrkrs[i].lat;
