@@ -65,14 +65,26 @@ var SearchBox = React.createClass({
     };
   },
 
+  componentWillReceiveProps: function(newProps) {
+    this.setState({filterText : newProps.value });
+  },
+
   handleKeyDown: function(event){
     var key = event.which || event.keyCode;
     var i;
     var locationArr = [];
     for(i = 0; i< this.state.searchResult.length; i++){
+
+      var result = this.state.searchResult[i];
+      var displayName = result.properties.name;
+      if(result.properties.local_admin) displayName += " , " + result.properties.local_admin;
+      if(result.properties.admin1_abbr) displayName += " , " + result.properties.admin1_abbr;
+      else if(result.properties.admin0) displayName += " , " + result.properties.admin0;
+
       locationArr.push({
-        lat: this.state.searchResult[i].geometry.coordinates[1],
-        lon: this.state.searchResult[i].geometry.coordinates[0]
+        name: displayName,
+        lat: result.geometry.coordinates[1],
+        lon: result.geometry.coordinates[0]
       });
     }
     if(key == 13){
@@ -118,7 +130,7 @@ var SearchBox = React.createClass({
       //if(lat) callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
      // else callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput;
 
-     if(lat != null) callurl = baseurl + "/search?input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
+     if(lat != 0) callurl = baseurl + "/search?input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
      else callurl = baseurl + "/search?input="+ currentInput;
 
     $.get(callurl,function(data){
@@ -136,14 +148,13 @@ var SearchBox = React.createClass({
     return(
       <div>
         <input style = {this.props.style}
-        tabIndex = "0"
-        className="searchBox" 
-        ref = "filterTextInput" 
-        type = "search" 
-        value = {this.state.filterText} 
-        onChange = {this.handleChange}
-        onKeyPress = {this.handleKeyDown}
-        ></input>
+          tabIndex = "0"
+          className="searchBox" 
+          ref = "filterTextInput" 
+          type = "search" 
+          value = {this.state.filterText} 
+          onChange = {this.handleChange}
+          onKeyPress = {this.handleKeyDown}></input>
         <ResultTable searchData = {this.state.searchResult}
                       searching = {this.state.searching} 
                       addMarker = {this.props.addMarker}

@@ -99,15 +99,29 @@ var Main = React.createClass({
     });
   },
   addPOIMarkers: function(mrkrs){
-    //this.state.markerLayer.clearLayers();
+    this.state.markerLayer.clearLayers();
+    
     var i;
     var minLat = mrkrs[0].lat;
     var minLon = mrkrs[0].lon;
     var maxLat = mrkrs[0].lat;
     var maxLon = mrkrs[0].lat;
 
+    var self = this;
+
     for(i =0; i<mrkrs.length; i++){
       var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]);
+      marker.name = mrkrs[i].name;
+      marker.bindPopup(mrkrs[i].name);
+      marker.on('click', function (e) {
+        self.setState({
+          destMarker:{
+            name : this.name,
+            lat : this.getLatLng().lat,
+            lon : this.getLatLng().lng
+          }
+        });
+      });
 
       if(mrkrs[i].lat < minLat) minLat = mrkrs[i].lat;
       else maxLat = mrkrs[i].lat;
@@ -131,6 +145,15 @@ var Main = React.createClass({
     });
   },
   addRouteLayer : function(routes){
+    this.state.markerLayer.clearLayers();
+    var marker = new L.marker([this.state.destMarker.lat, this.state.destMarker.lon]);
+    this.state.markerLayer.addLayer(marker);
+    this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.state.startPoint.lat,this.state.startPoint.lon)), 3, {
+      color: '#0ff',
+      opacity:1,
+      fillColor: '#0ff',
+      fillOpacity: 0.8,
+    });
     this.state.routeLayer.clearLayers();
     var polylineRoute = L.polyline(routes, {color:'red'});
     this.state.routeLayer.addLayer(polylineRoute);

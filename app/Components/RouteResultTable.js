@@ -15,7 +15,6 @@ var RouteResultRow = React.createClass({
 
 var OpenButton= React.createClass({
   handleclick : function(){
-    console.log("open!");
     this.props.openThis();
   },
 
