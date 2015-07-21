@@ -11,10 +11,12 @@ var SearchWhileRoute = React.createClass({
     <div className = "searchBoxContainer">
       <SearchBox 
       value = {this.props.startPoint.name}
-      addMarker = {this.props.setStartPoint} />
+      addMarker = {this.props.setStartPoint} 
+      currentPoint ={this.props.currentPoint}/>
       <SearchBox 
           value = {this.props.destPoint.name}
-          addMarker = {this.props.addMarker}/>
+          addMarker = {this.props.addMarker}
+          currentPoint ={this.props.currentPoint}/>
     </div>
     );
   }
@@ -84,7 +86,8 @@ var RouteWindow = React.createClass({
           startPoint = {this.props.startPoint}
           addMarker = {this.props.addMarker}
           destPoint = {this.props.destPoint}
-          setStartPoint = {this.props.setStartPoint} />
+          setStartPoint = {this.props.setStartPoint}
+          currentPoint ={this.props.currentPoint} />
         <div className="routeBtnGroup segmented-control">
           <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto")}>
             <div id="autoRoute"></div>

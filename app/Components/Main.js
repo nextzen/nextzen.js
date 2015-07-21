@@ -30,8 +30,8 @@ var Main = React.createClass({
       currentPoint : {
         //hard coded! what will be the best?
         name : "Current location",
-        lat: 40.728,
-        lon: -73.99
+        lat: 0,
+        lon: 0
       },
       startPoint : {
         name : "Choose start location.",
@@ -207,6 +207,7 @@ var Main = React.createClass({
           <div id="map"></div>
           <RouteWindow 
             startPoint = {this.state.startPoint}
+            currentPoint ={this.state.currentPoint}
             destPoint = {this.state.destMarker}
             clearMap = {this.clearMap}
             addMarker = {this.addMarker}
