@@ -145,6 +145,15 @@ var Main = React.createClass({
     });
   },
   addRouteLayer : function(routes){
+    this.state.markerLayer.clearLayers();
+    var marker = new L.marker([this.state.destMarker.lat, this.state.destMarker.lon]);
+    this.state.markerLayer.addLayer(marker);
+    this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.state.startPoint.lat,this.state.startPoint.lon)), 3, {
+      color: '#0ff',
+      opacity:1,
+      fillColor: '#0ff',
+      fillOpacity: 0.8,
+    });
     this.state.routeLayer.clearLayers();
     var polylineRoute = L.polyline(routes, {color:'red'});
     this.state.routeLayer.addLayer(polylineRoute);

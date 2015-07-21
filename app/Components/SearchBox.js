@@ -65,6 +65,10 @@ var SearchBox = React.createClass({
     };
   },
 
+  componentWillReceiveProps: function(newProps) {
+    this.setState({filterText : newProps.value });
+  },
+
   handleKeyDown: function(event){
     var key = event.which || event.keyCode;
     var i;
