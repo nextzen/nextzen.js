@@ -98,14 +98,15 @@ var Main = React.createClass({
     this.state.markerLayer.clearLayers();
     
     var i;
-    var minLat = mrkrs[0].lat;
-    var minLon = mrkrs[0].lon;
-    var maxLat = mrkrs[0].lat;
-    var maxLon = mrkrs[0].lon;
-
     var self = this;
-
-    for(i =0; i<mrkrs.length; i++){
+    var minLat, minLon, maxLat, maxLon;
+    for(i = 0; i<mrkrs.length; i++){
+      if(i < 1){
+        minLat = mrkrs[i].lat;
+        minLon = mrkrs[i].lon;
+        maxLat = mrkrs[i].lat;
+        maxLon = mrkrs[i].lon;
+      }
       var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]);
       marker.name = mrkrs[i].name;
       marker.bindPopup(mrkrs[i].name);
@@ -142,13 +143,13 @@ var Main = React.createClass({
     var marker = new L.marker([this.state.destMarker.lat, this.state.destMarker.lon]);
     this.state.markerLayer.addLayer(marker);
     this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.state.startPoint.lat,this.state.startPoint.lon)), 3, {
-      color: '#0ff',
+      color: '#32CAD6',
       opacity:1,
-      fillColor: '#0ff',
+      fillColor: '#32CAD6',
       fillOpacity: 0.8,
     });
     this.state.routeLayer.clearLayers();
-    var polylineRoute = L.polyline(routes, {color:'red'});
+    var polylineRoute = L.polyline(routes, {color:'#32CAD6',opacity:1});
     this.state.routeLayer.addLayer(polylineRoute);
     this.map.fitBounds(polylineRoute.getBounds());
     this.render();

@@ -10,9 +10,9 @@ var SearchWhileRoute = React.createClass({
     return (
     <div className = "searchBoxContainer">
       <SearchBox 
-      value = {this.props.startPoint.name}
-      addMarker = {this.props.setStartPoint} 
-      currentPoint ={this.props.currentPoint}/>
+        value = {this.props.startPoint.name}
+        addMarker = {this.props.setStartPoint} 
+        currentPoint ={this.props.currentPoint}/>
       <SearchBox 
           value = {this.props.destPoint.name}
           addMarker = {this.props.addMarker}
@@ -99,7 +99,7 @@ var RouteWindow = React.createClass({
           </a>
         </div>
         <div className="sideBtn">
-          <span className="icon icon-close" onClick= {this.cancleRouteMode}></span>
+          <div className="cancelIcon" onClick= {this.cancleRouteMode}></div>
         </div>
         <div id="route-result-table"></div>
       </div>
