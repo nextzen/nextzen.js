@@ -52,6 +52,7 @@ html,body {
   border-bottom:1px solid #ddd;
   border-left:1px solid #ddd;
   border-right:1px solid #ddd;
+  padding-left:10px;
 }
 .table-view.search-table li:hover{
   background-color: #ddd;
@@ -59,6 +60,18 @@ html,body {
 .table-view.search-table li:first-child{
   border-top:1px solid #ddd;
 }
+.table-view.search-table li::before{
+  content: ' ';
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-image: url("./resources/icons.svg");
+  background-repeat: no-repeat;
+  background-size: 80px 10px;
+  background-position: -60px 0px;
+  margin-right:10px;
+}
+
 
 input[type="search"]{
   border-radius: 0;
@@ -92,20 +105,21 @@ input[type="search"]::-webkit-search-cancel-button{
 }
 
 .sideBtn{
-  position:fixed;
+  position:absolute;
   top: 70%;
   right: 15px;
   cursor: pointer;
   width: 60px;
   height: 60px;
   margin: 3px;
+  padding:6px;
   font-size: 24px;
   line-height: 50px;
   text-align: center;
   background-color: #fff;
-  border: 3px solid #ddd;
-  
-  z-index: 30;
+  border: 2px solid #ccc;
+/*  -webkit-box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);
+  box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);*/
 }
 
 .sideBtn.secondary{
@@ -113,19 +127,19 @@ input[type="search"]::-webkit-search-cancel-button{
 }
 
 .icon-current-location{
-  width:50px;
-  height:50px;
-  background-image: url("./resources/current-location.png");
-  background-size: 70% 70%;
-  background-position:10px 10px;
+  width:48px;
+  height:48px;
+  background-image: url("./resources/icons.svg");
+  background-size: 388px 48px;
+  background-position:-196px 0px;
   background-repeat:no-repeat;
 }
 .route-icon{
-  width:50px;
-  height:50px;
-  background-image: url("./resources/route-icon.png");
-  background-size: 70% 70%;
-  background-position:10px 10px;
+  width:48px;
+  height:48px;
+  background-image: url("./resources/icons.svg");
+  background-size: 389px 48px;
+  background-position:-98px 0px;
   background-repeat:no-repeat;
 }
 
