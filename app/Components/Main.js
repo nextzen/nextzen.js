@@ -78,9 +78,6 @@ var Main = React.createClass({
 
       });
       this.map.setView(center,14);
-      this.setState({
-        bbox : this.map.getBounds().toBBoxString()
-      });
     });
 
   },
@@ -94,8 +91,7 @@ var Main = React.createClass({
     
     this.map.setView(marker.getLatLng(),14);
     this.setState({
-      destMarker: mrkr,
-      bbox : this.map.getBounds().toBBoxString()
+      destMarker: mrkr
     });
   },
   addPOIMarkers: function(mrkrs){
@@ -131,9 +127,6 @@ var Main = React.createClass({
       this.state.markerLayer.addLayer(marker);
     }
     this.map.fitBounds([[minLat,minLon],[maxLat,maxLon]]);
-    this.setState({
-      bbox : this.map.getBounds().toBBoxString()
-    });
   },
   clearMap : function(){
     this.state.markerLayer.clearLayers();
@@ -184,9 +177,6 @@ var Main = React.createClass({
 
     setupMap: function () {
       this.map.setView([40.728, -73.99], 12);
-      this.setState({
-        bbox : this.map.getBounds().toBBoxString()
-      });
       this.setMapMode("search");
     },
 
@@ -211,7 +201,6 @@ var Main = React.createClass({
           <SearchBox
             addMarker = {this.addMarker}
             addPOIMarkers = {this.addPOIMarkers}
-            bbox = {this.bbox}
             currentPoint = {this.state.currentPoint}/>
           </div>
           <RouteButton 

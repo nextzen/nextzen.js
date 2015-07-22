@@ -114,21 +114,17 @@ var SearchBox = React.createClass({
   },
 
   makeCall: function(currentInput){
-    // pelias api form : https://pelias.mapzen.com/suggest?bbox=-74.18861389160156,40.62802447679272,-73.79173278808594,40.86134282702074&input=we+are
+
     var self = this;
     if(currentInput.length > 0){
       var baseurl = '//pelias.mapzen.com';
-      //default bbox is new york
-      var bbox = this.props.bbox || '-74.2589, 40.4774, -73.7004, 40.9176';
       var lat = this.props.currentPoint.lat || null;
       var lon = this.props.currentPoint.lon || null;
       var input = currentInput;
-      var zoom = 12;
+      var zoom = 10;
       var searchData;
 
       var callurl ;
-      //if(lat) callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
-     // else callurl = baseurl + "/search?bbox=" + bbox + "&input="+ currentInput;
 
      if(lat != 0) callurl = baseurl + "/search?input="+ currentInput+ "&lat="+lat+"&lon="+lon+"&zoom="+ zoom;
      else callurl = baseurl + "/search?input="+ currentInput;
