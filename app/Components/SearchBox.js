@@ -109,8 +109,10 @@ var SearchBox = React.createClass({
   setInputValue: function(val){
     this.setState({
       filterText : val
+    },function(){
+      this.refs.filterTextInput.getDOMNode().value = val;
     });
-    this.refs.filterTextInput.getDOMNode().value = val;
+
   },
 
   makeCall: function(currentInput){
