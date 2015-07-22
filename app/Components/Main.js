@@ -101,7 +101,7 @@ var Main = React.createClass({
     var minLat = mrkrs[0].lat;
     var minLon = mrkrs[0].lon;
     var maxLat = mrkrs[0].lat;
-    var maxLon = mrkrs[0].lat;
+    var maxLon = mrkrs[0].lon;
 
     var self = this;
 
@@ -120,10 +120,10 @@ var Main = React.createClass({
       });
 
       if(mrkrs[i].lat < minLat) minLat = mrkrs[i].lat;
-      else maxLat = mrkrs[i].lat;
-      
+      if(mrkrs[i].lat > maxLat) maxLat = mrkrs[i].lat;
       if(mrkrs[i].lon < minLon) minLon = mrkrs[i].lon;
-      else maxLon = mrkrs[i].lon;
+      if(mrkrs[i].lon > maxLon) maxLon = mrkrs[i].lon;
+
       this.state.markerLayer.addLayer(marker);
     }
     this.map.fitBounds([[minLat,minLon],[maxLat,maxLon]]);
