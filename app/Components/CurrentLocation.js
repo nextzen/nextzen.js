@@ -12,7 +12,7 @@ var CurrentLocation = React.createClass({
         , length: 0 // The length of each line
         , width: 6 // The line thickness
         , radius: 10 // The radius of the inner circle
-        , color: '#666' // #rgb or #rrggbb or array of colors
+        , color: '#27AAE1' // #rgb or #rrggbb or array of colors
         , speed: 1 // Rounds per second
         , className: 'spinner' // The CSS class to assign to the spinner
         , top: '50%' // Top position relative to parent

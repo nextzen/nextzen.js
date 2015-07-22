@@ -78,9 +78,6 @@ var Main = React.createClass({
 
       });
       this.map.setView(center,14);
-      this.setState({
-        bbox : this.map.getBounds().toBBoxString()
-      });
     });
 
   },
@@ -94,22 +91,22 @@ var Main = React.createClass({
     
     this.map.setView(marker.getLatLng(),14);
     this.setState({
-      destMarker: mrkr,
-      bbox : this.map.getBounds().toBBoxString()
+      destMarker: mrkr
     });
   },
   addPOIMarkers: function(mrkrs){
     this.state.markerLayer.clearLayers();
     
     var i;
-    var minLat = mrkrs[0].lat;
-    var minLon = mrkrs[0].lon;
-    var maxLat = mrkrs[0].lat;
-    var maxLon = mrkrs[0].lat;
-
     var self = this;
-
-    for(i =0; i<mrkrs.length; i++){
+    var minLat, minLon, maxLat, maxLon;
+    for(i = 0; i<mrkrs.length; i++){
+      if(i < 1){
+        minLat = mrkrs[i].lat;
+        minLon = mrkrs[i].lon;
+        maxLat = mrkrs[i].lat;
+        maxLon = mrkrs[i].lon;
+      }
       var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]);
       marker.name = mrkrs[i].name;
       marker.bindPopup(mrkrs[i].name);
@@ -124,16 +121,13 @@ var Main = React.createClass({
       });
 
       if(mrkrs[i].lat < minLat) minLat = mrkrs[i].lat;
-      else maxLat = mrkrs[i].lat;
-      
+      if(mrkrs[i].lat > maxLat) maxLat = mrkrs[i].lat;
       if(mrkrs[i].lon < minLon) minLon = mrkrs[i].lon;
-      else maxLon = mrkrs[i].lon;
+      if(mrkrs[i].lon > maxLon) maxLon = mrkrs[i].lon;
+
       this.state.markerLayer.addLayer(marker);
     }
     this.map.fitBounds([[minLat,minLon],[maxLat,maxLon]]);
-    this.setState({
-      bbox : this.map.getBounds().toBBoxString()
-    });
   },
   clearMap : function(){
     this.state.markerLayer.clearLayers();
@@ -149,13 +143,13 @@ var Main = React.createClass({
     var marker = new L.marker([this.state.destMarker.lat, this.state.destMarker.lon]);
     this.state.markerLayer.addLayer(marker);
     this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.state.startPoint.lat,this.state.startPoint.lon)), 3, {
-      color: '#0ff',
+      color: '#32CAD6',
       opacity:1,
-      fillColor: '#0ff',
+      fillColor: '#32CAD6',
       fillOpacity: 0.8,
     });
     this.state.routeLayer.clearLayers();
-    var polylineRoute = L.polyline(routes, {color:'red'});
+    var polylineRoute = L.polyline(routes, {color:'#32CAD6',opacity:1});
     this.state.routeLayer.addLayer(polylineRoute);
     this.map.fitBounds(polylineRoute.getBounds());
     this.render();
@@ -184,9 +178,6 @@ var Main = React.createClass({
 
     setupMap: function () {
       this.map.setView([40.728, -73.99], 12);
-      this.setState({
-        bbox : this.map.getBounds().toBBoxString()
-      });
       this.setMapMode("search");
     },
 
@@ -211,7 +202,6 @@ var Main = React.createClass({
           <SearchBox
             addMarker = {this.addMarker}
             addPOIMarkers = {this.addPOIMarkers}
-            bbox = {this.bbox}
             currentPoint = {this.state.currentPoint}/>
           </div>
           <RouteButton 
