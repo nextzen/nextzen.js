@@ -4,10 +4,8 @@ var CurrentLocation = require('./CurrentLocation');
 var SearchBox = require('./SearchBox');
 var RouteWindow = require('./Route');
 
-require('leafletCss');
 require('ratchet');
 require('./css/main.css');
-
 
 var RouteButton = React.createClass({
   route : function(){
