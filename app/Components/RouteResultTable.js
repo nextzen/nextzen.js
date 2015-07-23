@@ -51,6 +51,21 @@ var RouteResultTable = React.createClass({
       open : !this.state.open
     });
   },
+  formatTime: function(t /* Number (seconds) */) {
+      if (t > 86400) {
+        return Math.round(t / 3600) + ' h';
+      } else if (t > 3600) {
+        return Math.floor(t / 3600) + ' h ' +
+          Math.round((t % 3600) / 60) + ' min';
+      } else if (t > 300) {
+        return Math.round(t / 60) + ' min';
+      } else if (t > 60) {
+        return Math.floor(t / 60) + ' min' +
+          (t % 60 !== 0 ? ' ' + (t % 60) + ' s' : '');
+      } else {
+        return t + ' s';
+      }
+  },
 
   render: function() {
 
@@ -68,7 +83,7 @@ var RouteResultTable = React.createClass({
          open = {this.state.open}
          openThis = {this.openThis}/>
         <li className="trip-summary table-view-cell">
-        {this.props.searchData.trip.legs[0].summary.length} km , {this.props.searchData.trip.legs[0].summary.time}
+        {this.props.searchData.trip.legs[0].summary.length} km , {this.formatTime(this.props.searchData.trip.legs[0].summary.time)}
         </li>
         {rows}
       </ul>
