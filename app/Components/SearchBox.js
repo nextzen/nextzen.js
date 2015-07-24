@@ -2,7 +2,7 @@ var React = require('react');
 var $ = require('jquery');
 var Router = require('react-router');
 require('ratchet');
-require('./css/main.css');
+require('./css/main.scss');
 
 var ResultRow = React.createClass({
   handleClick: function(){

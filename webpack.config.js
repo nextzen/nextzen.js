@@ -31,6 +31,10 @@ var config = {
       test: /\.css$/,
       loader: 'style-loader!css-loader'
     }, {
+      test: /\.scss$/,
+      loader: 'style!css!sass?sourceMap'
+    },
+    {
       test: /\.(woff|eot|ttf|svg|png|yaml)$/,
       loader: 'url-loader?limit=100000'
     }]

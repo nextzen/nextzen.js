@@ -5,7 +5,7 @@ var SearchBox = require('./SearchBox');
 var RouteWindow = require('./Route');
 
 require('ratchet');
-require('./css/main.css');
+require('./css/main.scss');
 
 var RouteButton = React.createClass({
   route : function(){
@@ -125,7 +125,10 @@ var Main = React.createClass({
 
       this.state.markerLayer.addLayer(marker);
     }
-    this.map.fitBounds([[minLat,minLon],[maxLat,maxLon]]);
+    this.map.fitBounds([[minLat,minLon],[maxLat,maxLon]],{
+      paddingTopLeft: [0,150],
+      paddingBottomRight : [0,30]
+    });
   },
   clearMap : function(){
     this.state.markerLayer.clearLayers();
@@ -149,7 +152,10 @@ var Main = React.createClass({
     this.state.routeLayer.clearLayers();
     var polylineRoute = L.polyline(routes, {color:'#32CAD6',opacity:1});
     this.state.routeLayer.addLayer(polylineRoute);
-    this.map.fitBounds(polylineRoute.getBounds());
+    this.map.fitBounds(polylineRoute.getBounds(),{
+      paddingTopLeft: [0,150],
+      paddingBottomRight : [0,30]
+    });
     this.render();
   },
   setMapMode : function(mapMode){

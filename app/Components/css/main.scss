@@ -1,3 +1,6 @@
+$search-bar-height:35px;
+$route-btn-height:46px;
+
 html,body {
   width: 100%;
   height: 100%;
@@ -26,9 +29,8 @@ html,body {
 .searchBoxContainer {
   position:absolute;
   top: 0px;
-  left: 10px;
-  width: calc(100% - 20px);
-  margin:10px 0px;
+  left: 0px;
+  width: calc(100%);
   height: 60px;
   z-index:30;
 }
@@ -161,11 +163,10 @@ input[type="search"]::-webkit-search-cancel-button{
 
 .routeBtnGroup{
   position:absolute;
-  top:80px;
+  top: $search-bar-height * 2;
   height:46px;
   z-index:10;
-  width:calc(100% - 20px);
-  margin:0 10px;
+  width:100%;
   cursor: pointer;
 }
 
@@ -204,9 +205,8 @@ input[type="search"]::-webkit-search-cancel-button{
 }
 
 .route-table{
-  height:calc( 100% - 130px);
-  width: calc(100% - 20px);
-  margin: 0 10px;
+  height:calc( 100% - ( $route-btn-height + $search-bar-height * 2 ) );
+  width: 100%;
   font-size:13px;
   overflow: auto;
   z-index:3000;
@@ -214,7 +214,7 @@ input[type="search"]::-webkit-search-cancel-button{
 
 .route-table.opened{
   position:absolute;
-  top:130px;
+  top: $route-btn-height + $search-bar-height * 2;
 }
 
 .route-table.closed{
