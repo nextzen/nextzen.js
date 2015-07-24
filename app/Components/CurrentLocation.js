@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactSpinner = require('./Spin.js');
 require('ratchet');
-require('./css/main.css');
+require('./css/main.scss');
 
 
 var CurrentLocation = React.createClass({
