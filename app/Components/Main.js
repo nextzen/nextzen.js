@@ -25,22 +25,9 @@ var Main = React.createClass({
   getInitialState: function(){
     return{
       // markerLyaer is being mutated, not the way react recommends
-      currentPoint : {
-        //hard coded! what will be the best?
-        name : "Current location",
-        lat: 0,
-        lon: 0
-      },
-      startPoint : {
-        name : "Choose start location.",
-        lat :  40.7410605,
-        lon : -73.9896986
-      },
-      destMarker : {
-        name : "Choose destination.",
-        lat :  40.7410605,
-        lon : -73.9896986
-      },
+      currentPoint : null,
+      startPoint : null,
+      destMarker : null,
       poiMarkers:[],
       currentLayer : L.layerGroup(),
       markerLayer : L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')]),
