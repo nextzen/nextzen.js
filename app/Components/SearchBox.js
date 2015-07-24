@@ -117,7 +117,6 @@ var SearchBox = React.createClass({
     var self = this;
     if(currentInput.length > 0){
       var baseurl = '//pelias.mapzen.com';
-      var lat,lon;
 
       var point = this.props.currentPoint || this.props.destPoint || this.props.startPoint || null;
 
@@ -126,7 +125,6 @@ var SearchBox = React.createClass({
       var searchData;
 
       var callurl ;
-      console.log(point);
 
       if(point !== null) callurl = baseurl + "/search?input="+ currentInput+ "&lat="+point.lat+"&lon="+point.lon+"&zoom="+ zoom;
       else callurl = baseurl + "/search?input="+ currentInput;
