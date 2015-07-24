@@ -1,0 +1,233 @@
+html,body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+#mapContainer {
+  width: 100%;
+  height: 100%;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+#spinner {
+  width:50px;
+  height:50px;
+  position:absolute;
+  left: calc(50% - 25px);
+  top: calc(50% - 25px);
+}
+
+.searchBoxContainer {
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  width: calc(100%);
+  height: 60px;
+  z-index:30;
+}
+
+.searchBox{
+  z-index:100;
+}
+
+.table-view.search-table{
+  margin-bottom: 0px;
+  border-bottom-width: 0px;
+  border-top-width: 0px;
+  z-index:35;
+}
+
+.table-view.search-table li{
+  background-color: #fff;
+  font-size:13px;
+  z-index: 50;
+  cursor: pointer;
+  border-bottom:1px solid #ddd;
+  border-left:1px solid #ddd;
+  border-right:1px solid #ddd;
+  padding-left:10px;
+}
+.table-view.search-table li:hover{
+  background-color: #ddd;
+}
+.table-view.search-table li:first-child{
+  border-top:1px solid #ddd;
+}
+.table-view.search-table li::before{
+  content: ' ';
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-image: url("./resources/icons.svg");
+  background-repeat: no-repeat;
+  background-size: 80px 10px;
+  background-position: -60px 0px;
+  margin-right:10px;
+}
+
+
+input[type="search"]{
+  border-radius: 0;
+  text-overflow: ellipsis;
+  -webkit-appearance: none;
+  margin-bottom:0;
+}
+
+input[type="search"]::-webkit-search-decoration::after{
+  font-family:ratchicons;
+  color:#666;
+  content: '\e819';
+}
+
+input[type="search"]::-webkit-search-decoration{
+  width:15px;
+  padding-right:10px;
+}
+
+input[type="search"]::-webkit-search-cancel-button::after{
+  font-family:ratchicons;
+  color:#666;
+  content: '\e811';
+}
+
+input[type="search"]::-webkit-search-cancel-button{
+  -webkit-appearance: icon;
+  appearance: icon;
+  width:15px;
+  padding-left:10px;
+}
+
+.sideBtn{
+  position:absolute;
+  top: 70%;
+  right: 15px;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  margin: 3px;
+  padding:6px;
+  font-size: 24px;
+  line-height: 50px;
+  text-align: center;
+  background-color: #fff;
+  border: 2px solid #ccc;
+/*  -webkit-box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);
+  box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);*/
+}
+
+.sideBtn.secondary{
+  top: calc(70% + 70px);
+}
+
+.icon-current-location{
+  width:48px;
+  height:48px;
+  background-image: url("./resources/icons.svg");
+  background-size: 368px 48px;
+  background-position:-184px 0px;
+  background-repeat:no-repeat;
+}
+.route-icon{
+  width:48px;
+  height:48px;
+  background-image: url("./resources/icons.svg");
+  background-size: 368px 48px;
+  background-position: -92px 0px;
+  background-repeat:no-repeat;
+}
+
+
+.cancelIcon{
+  background-image: url("./resources/icons.svg");
+  background-size: 368px 48px;
+  background-position: -232px 0px;
+  width:48px;
+  height:48px;
+  margin: 0 auto;
+  background-repeat: no-repeat
+}
+
+#routeControls{
+  position:absolute;
+  top:10px;
+}
+
+.routeBtnGroup{
+  position:absolute;
+  top:80px;
+  height:46px;
+  z-index:10;
+  width:calc(100% - 20px);
+  margin:0 10px;
+  cursor: pointer;
+}
+
+.segmented-control{
+  border-top:0;
+}
+
+#autoRoute{
+  background-image:url("./resources/modes.icons.svg");
+  background-size:108px 36px;
+  background-position:0px 0px;
+  width:36px;
+  height:36px;
+  margin:0 auto;
+  background-repeat: no-repeat;
+}
+
+#bikeRoute{
+  background-image:url("./resources/modes.icons.svg");
+  background-size:108px 36px;
+  background-position:-36px 0px;
+  width:36px;
+  height:36px;
+  margin:0 auto;
+  background-repeat: no-repeat;
+}
+
+#walkRoute{
+  background-image:url("./resources/modes.icons.svg");
+  background-size:108px 36px;
+  background-position:-72px 0px;
+  width:36px;
+  height:36px;
+  margin:0 auto;
+  background-repeat: no-repeat;
+}
+
+.route-table{
+  height:calc( 100% - 130px);
+  width: calc(100% - 20px);
+  margin: 0 10px;
+  font-size:13px;
+  overflow: auto;
+  z-index:3000;
+}
+
+.route-table.opened{
+  position:absolute;
+  top:130px;
+}
+
+.route-table.closed{
+  position:absolute;
+  cursor:pointer;
+  background-color:#fff;
+  top: 95%;
+}
+
+.open-route-table{
+  text-align: center;
+  height:30px;
+}
+
+.trip-summary{
+  left-padding: 10px;
+}
