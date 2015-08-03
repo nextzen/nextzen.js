@@ -70,8 +70,15 @@ html,body {
   background-image: url("./resources/icons.svg");
   background-repeat: no-repeat;
   background-size: 80px 10px;
-  background-position: -60px 0px;
   margin-right:10px;
+}
+
+.table-view.search-table li.search-result::before{
+  background-position: -60px 0px;
+}
+
+.table-view.search-table li.search-term-result::before{
+  background-position: -70px 0px;
 }
 
 

@@ -24,7 +24,7 @@ var SearchTermRow = React.createClass({
   render: function(){
     var displayName = this.props.searchTermName;
     return(
-      <li className="table-view-cell" onClick= {this.handleClick} > {displayName} </li>
+      <li className="table-view-cell serch-term-result" onClick= {this.handleClick} > {displayName} </li>
     );
   }
 });
