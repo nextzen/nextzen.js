@@ -7,7 +7,7 @@ require('./css/main.scss');
 var CurrentLocation = require('./CurrentLocation/CurrentLocation');
 var SearchBox = require('./Search/SearchBox');
 var RouteWindow = require('./Routing/RouteWindow');
-var RouteButton = require('./Routing/Routebutton');
+var RouteButton = require('./Routing/RouteButton');
 
 var Main = React.createClass({
 
