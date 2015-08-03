@@ -3,12 +3,14 @@ require('ratchet');
 require('../css/main.scss');
 
 var ResultRow = require('./ResultRow');
+var SearchTermRow = require('./SearchTermRow');
 
 var ResultTable = React.createClass({
   render: function(){
     var searchTermRows = [];
     var rows = [];
-      if(this.props.searchData.length > 0 && this.props.searching ){
+    console.log(this.props.searchTerm);
+      if(this.props.searching ){
         var self = this;
           this.props.searchTerm.forEach(function(term){
             searchTermRows.push(<SearchTermRow

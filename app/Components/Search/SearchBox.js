@@ -48,13 +48,17 @@ var SearchBox = React.createClass({
 
   handleChange: function(){
 
-    var currentType = this.refs.filterTextInput.getDOMNode().value;
+     var currentType = this.refs.filterTextInput.getDOMNode().value;
 
     for(value in categoryMap){
       for(val in categoryMap[value]){
-        var searchTerm = currentType.replace(" ","_");
-        if(val === searchTerm){
+        var searchKey = currentType.replace(" ","_");
+        if(val === searchKey){
           this.makePOICall(categoryMap[value][val]);
+        }else{
+          this.setState({
+            searchTerm : []
+          });
         }
       }
     }
@@ -84,6 +88,7 @@ var SearchBox = React.createClass({
   },
 
   makePOICall: function(value){
+
     var callurl;
     var baseurl = '//pelias.mapzen.com';
     var point = this.props.currentPoint || this.props.destPoint || this.props.startPoint || null;
@@ -94,7 +99,7 @@ var SearchBox = React.createClass({
       $.get(callurl,function(data){
         self.setState({
           searchTerm : [value],
-         poiResult : data.features
+          poiResult : data.features
          });
       });
     }else{
