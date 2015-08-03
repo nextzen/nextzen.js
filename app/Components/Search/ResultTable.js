@@ -9,17 +9,16 @@ var ResultTable = React.createClass({
   render: function(){
     var searchTermRows = [];
     var rows = [];
-    console.log(this.props.searchTerm);
       if(this.props.searching ){
         var self = this;
           this.props.searchTerm.forEach(function(term){
             searchTermRows.push(<SearchTermRow
                                 addPOIMarkers = {self.props.addPOIMarkers}
-                                searchTermName = {self.props.searchTerm}
+                                searchTerm = {term}
                                 searchResult = {self.props.searchTermData}
                                 deactivateSearching = {self.props.deactivateSearching}/>);
           });
-        this.props.searchData.forEach(function(result){          
+        this.props.searchData.forEach(function(result){
           var displayName = result.properties.text;
           rows.push(<ResultRow name = {displayName}
                                loc = {result.geometry.coordinates} 

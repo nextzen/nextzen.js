@@ -15,16 +15,18 @@ var SearchTermRow = React.createClass({
         lon: result.geometry.coordinates[0]
       });
     }
-
     this.props.addPOIMarkers(locationArr);
     this.props.deactivateSearching();
- 
   },
 
   render: function(){
-    var displayName = this.props.searchTermName;
+
+
     return(
-      <li className="table-view-cell serch-term-result" onClick= {this.handleClick} > {displayName} </li>
+
+      <li className="table-view-cell serch-term-result" 
+                              onClick= {this.handleClick} > {this.props.searchTerm} </li>
+
     );
   }
 });
