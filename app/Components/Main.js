@@ -1,24 +1,13 @@
 var React = require('react');
 var RouteHandler = require('react-router').RouteHandler;
-var CurrentLocation = require('./CurrentLocation');
-var SearchBox = require('./SearchBox');
-var RouteWindow = require('./Route');
 
 require('ratchet');
 require('./css/main.scss');
 
-var RouteButton = React.createClass({
-  route : function(){
-    this.props.setMapMode("route");
-  },
-  render : function(){
-    return(
-      <div className="sideBtn" onClick = {this.route}>
-        <div className="route-icon"></div>
-      </div>
-    );
-  }
-});
+var CurrentLocation = require('./CurrentLocation/CurrentLocation');
+var SearchBox = require('./Search/SearchBox');
+var RouteWindow = require('./Routing/RouteWindow');
+var RouteButton = require('./Routing/Routebutton');
 
 var Main = React.createClass({
 
@@ -160,7 +149,7 @@ var Main = React.createClass({
 
     //loading scene yaml
      var layer = Tangram.leafletLayer({
-         scene: 'https://cdn.rawgit.com/tangrams/carousel/gh-pages/traditional.yaml',//sceneYaml,
+         scene: 'https://cdn.rawgit.com/tangrams/multiverse/gh-pages/styles/tangram-toner.yaml',//sceneYaml,
          attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
      });
     layer.addTo(map);

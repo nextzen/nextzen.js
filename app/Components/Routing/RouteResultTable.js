@@ -1,6 +1,6 @@
 var React = require('react');
 require('ratchet');
-require('./css/main.scss');
+require('../css/main.scss');
 
 
 var RouteResultRow = React.createClass({
