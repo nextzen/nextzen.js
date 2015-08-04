@@ -17,6 +17,7 @@ var ResultTable = React.createClass({
                                   addPOIMarkers = {self.props.addPOIMarkers}
                                   searchTerm = {term}
                                   centerPoint = {self.props.centerPoint}
+                                  setInputValue = {self.props.setInputValue}
                                   deactivateSearching = {self.props.deactivateSearching}/>);
             });
         }
