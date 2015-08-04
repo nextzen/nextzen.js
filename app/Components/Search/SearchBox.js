@@ -55,10 +55,12 @@ var SearchBox = React.createClass({
     this.searchTermCall(matchingVals);
     this.makeCall(currentType);
     var searchResult = this.state.searchResult;
+
     this.setState({
       filterText : currentType,
       searching: true});
-  },
+    
+    },
 
   checkCategories: function(currentVal,matchingVals){
 
@@ -77,7 +79,7 @@ var SearchBox = React.createClass({
 
   deactivateSearching: function(){
     this.setState({
-      searching: false,
+      searching : false,
       searchTerm : [],
       poiResult : []
     });
@@ -119,12 +121,10 @@ var SearchBox = React.createClass({
     }else{
       //when there is no point to base on?
     }
-        self.setState({
-          searchTerm : searchTerms,
-          poiResult : searchResults
-        },function(){
-          console.log(searchTerms);
-        });
+
+    self.setState({
+      searchTerm : searchTerms
+    });
 
   },
 
@@ -169,6 +169,7 @@ var SearchBox = React.createClass({
                       searching = {this.state.searching} 
                       addMarker = {this.props.addMarker}
                       addPOIMarkers = {this.props.addPOIMarkers}
+                      centerPoint = {this.props.currentPoint || this.props.startPoint || this.props.destPoint}
                       setInputValue = {this.setInputValue}
                       deactivateSearching = {this.deactivateSearching} />
       </div>
