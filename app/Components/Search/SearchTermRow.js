@@ -1,30 +1,45 @@
 var React = require('react');
+var $ = require('jquery');
 require('ratchet');
 require('../css/main.scss');
 
 var SearchTermRow = React.createClass({
   handleClick: function(){
+
     var locationArr = [];
-    for(i = 0; i< this.props.searchResult.length; i++){
+  
+    var baseurl = '//pelias.mapzen.com';
+    var point = this.props.centerPoint;
+    var self = this;
 
-      var result = this.props.searchResult[i];
 
-      locationArr.push({
-        name: result.properties.text,
-        lat: result.geometry.coordinates[1],
-        lon: result.geometry.coordinates[0]
-      });
-    }
+    var callurl = baseurl + "/reverse?lat="+point.lat+"&lon="+point.lon+"&categories= "+ this.props.searchTerm;
 
-    this.props.addPOIMarkers(locationArr);
-    this.props.deactivateSearching();
- 
+
+    $.ajax({
+      type : 'GET',
+      url : callurl,
+      datatype:'json',
+      success:function(data){
+        data.features.forEach(function(datum){
+          locationArr.push({
+            name : datum.properties.text,
+            lat : datum.geometry.coordinates[1],
+            lon : datum.geometry.coordinates[0]
+          });
+        });
+        self.props.addPOIMarkers(locationArr);
+      }
+    });
+    self.props.setInputValue(self.props.searchTerm);
+    self.props.deactivateSearching();
   },
 
   render: function(){
-    var displayName = this.props.searchTermName;
+
     return(
-      <li className="table-view-cell" onClick= {this.handleClick} > {displayName} </li>
+      <li className="table-view-cell serch-term-result" 
+                              onClick= {this.handleClick} > {this.props.searchTerm} </li>
     );
   }
 });

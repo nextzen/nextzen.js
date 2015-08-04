@@ -18,7 +18,7 @@ var ResultRow = React.createClass({
   render: function(){
     var displayName = this.props.name;
     return(
-    <li className="table-view-cell" onClick= {this.handleClick} > {displayName} </li>
+    <li className="table-view-cell search-result" onClick= {this.handleClick} > {displayName} </li>
     );
   }
 });

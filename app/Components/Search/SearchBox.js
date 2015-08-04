@@ -4,7 +4,6 @@ var Router = require('react-router');
 var categoryMap = require('./CategoryMap');
 
 var ResultRow = require('./ResultRow');
-var SearchTermRow = require('./SearchTermRow');
 var ResultTable = require('./ResultTable');
 
 require('ratchet');
@@ -48,27 +47,39 @@ var SearchBox = React.createClass({
 
   handleChange: function(){
 
-    var currentType = this.refs.filterTextInput.getDOMNode().value;
+     var currentType = this.refs.filterTextInput.getDOMNode().value;
+     var currentVal = '^(?=.*\\b' + $.trim(currentType.split(/\s+/).join('\\b)(?=.*\\b') + ').*$');
+     var matchingVals = [];
+     this.checkCategories(currentVal,matchingVals);
 
-    for(value in categoryMap){
-      for(val in categoryMap[value]){
-        var searchTerm = currentType.replace(" ","_");
-        if(val === searchTerm){
-          this.makePOICall(categoryMap[value][val]);
-        }
-      }
-    }
-
+    this.searchTermCall(matchingVals);
     this.makeCall(currentType);
     var searchResult = this.state.searchResult;
+
     this.setState({
       filterText : currentType,
       searching: true});
+    
+    },
+
+  checkCategories: function(currentVal,matchingVals){
+
+    for(value in categoryMap){
+      for(val in categoryMap[value]){
+        
+        var reg = RegExp(currentVal, 'i');
+        if(reg.test(val)){
+          matchingVals.push(categoryMap[value][val]);
+          //currently suggesting two terms at maximum
+          if(matchingVals.length > 2) return;
+        }
+      }
+    }
   },
 
-  deactivateSearching:function(){
+  deactivateSearching: function(){
     this.setState({
-      searching: false,
+      searching : false,
       searchTerm : [],
       poiResult : []
     });
@@ -80,26 +91,17 @@ var SearchBox = React.createClass({
     },function(){
       this.refs.filterTextInput.getDOMNode().value = val;
     });
-
   },
 
-  makePOICall: function(value){
+  searchTermCall: function(values){
+
     var callurl;
-    var baseurl = '//pelias.mapzen.com';
-    var point = this.props.currentPoint || this.props.destPoint || this.props.startPoint || null;
-    if(point !== null){
-      callurl = baseurl + "/reverse?lat="+point.lat+"&lon="+point.lon+"&categories?"+value;
-      var resultLength = 0;
-      var self = this;
-      $.get(callurl,function(data){
-        self.setState({
-          searchTerm : [value],
-         poiResult : data.features
-         });
-      });
-    }else{
-      //when there is no point to base on?
-    }
+    var self = this;
+
+    self.setState({
+      searchTerm : values
+    });
+
   },
 
   makeCall: function(currentInput){
@@ -143,6 +145,7 @@ var SearchBox = React.createClass({
                       searching = {this.state.searching} 
                       addMarker = {this.props.addMarker}
                       addPOIMarkers = {this.props.addPOIMarkers}
+                      centerPoint = {this.props.currentPoint || this.props.startPoint || this.props.destPoint}
                       setInputValue = {this.setInputValue}
                       deactivateSearching = {this.deactivateSearching} />
       </div>

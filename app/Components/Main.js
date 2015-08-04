@@ -16,7 +16,7 @@ var Main = React.createClass({
       // markerLyaer is being mutated, not the way react recommends
       currentPoint : null,
       startPoint : null,
-      destMarker : null,
+      destPoint : null,
       poiMarkers:[],
       currentLayer : L.layerGroup(),
       markerLayer : L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')]),
@@ -65,7 +65,7 @@ var Main = React.createClass({
     
     this.map.setView(marker.getLatLng(),14);
     this.setState({
-      destMarker: mrkr
+      destPoint: mrkr
     });
   },
   addPOIMarkers: function(mrkrs){
@@ -81,12 +81,12 @@ var Main = React.createClass({
         maxLat = mrkrs[i].lat;
         maxLon = mrkrs[i].lon;
       }
-      var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]);
+
+      var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]).bindPopup(mrkrs[i].name);
       marker.name = mrkrs[i].name;
-      marker.bindPopup(mrkrs[i].name);
       marker.on('click', function (e) {
         self.setState({
-          destMarker:{
+          destPoint:{
             name : this.name,
             lat : this.getLatLng().lat,
             lon : this.getLatLng().lng
@@ -102,8 +102,8 @@ var Main = React.createClass({
       this.state.markerLayer.addLayer(marker);
     }
     this.map.fitBounds([[minLat,minLon],[maxLat,maxLon]],{
-      paddingTopLeft: [0,150],
-      paddingBottomRight : [0,30]
+      paddingTopLeft: [20,150],
+      paddingBottomRight : [20,30]
     });
   },
   clearMap : function(){
@@ -117,7 +117,7 @@ var Main = React.createClass({
   },
   addRouteLayer : function(routes){
     this.state.markerLayer.clearLayers();
-    var marker = new L.marker([this.state.destMarker.lat, this.state.destMarker.lon]);
+    var marker = new L.marker([this.state.destPoint.lat, this.state.destPoint.lon]);
     this.state.markerLayer.addLayer(marker);
     this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.state.startPoint.lat,this.state.startPoint.lon)), 3, {
       color: '#32CAD6',
@@ -185,7 +185,7 @@ var Main = React.createClass({
             currentPoint = {this.state.currentPoint}/>
           </div>
           <RouteButton 
-          destMarker= {this.state.destMarker} 
+          destPoint= {this.state.destPoint} 
           addRouteLayer = {this.addRouteLayer}
           setMapMode = {this.setMapMode}
           mode = {this.state.mode}/>
@@ -201,7 +201,7 @@ var Main = React.createClass({
           <RouteWindow 
             startPoint = {this.state.startPoint}
             currentPoint ={this.state.currentPoint}
-            destPoint = {this.state.destMarker}
+            destPoint = {this.state.destPoint}
             clearMap = {this.clearMap}
             addMarker = {this.addMarker}
             setStartPoint = {this.setStartPoint}
