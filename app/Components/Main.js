@@ -84,7 +84,6 @@ var Main = React.createClass({
 
       var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]).bindPopup(mrkrs[i].name);
       marker.name = mrkrs[i].name;
-      //marker.bindPopup(mrkrs[i].name);
       marker.on('click', function (e) {
         self.setState({
           destPoint:{
@@ -103,8 +102,8 @@ var Main = React.createClass({
       this.state.markerLayer.addLayer(marker);
     }
     this.map.fitBounds([[minLat,minLon],[maxLat,maxLon]],{
-      paddingTopLeft: [0,150],
-      paddingBottomRight : [0,30]
+      paddingTopLeft: [20,150],
+      paddingBottomRight : [20,30]
     });
   },
   clearMap : function(){
