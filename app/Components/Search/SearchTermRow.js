@@ -23,7 +23,7 @@ var SearchTermRow = React.createClass({
       success:function(data){
         data.features.forEach(function(datum){
           locationArr.push({
-            name : datum.text,
+            name : datum.properties.text,
             lat : datum.geometry.coordinates[1],
             lon : datum.geometry.coordinates[0]
           });
@@ -31,6 +31,7 @@ var SearchTermRow = React.createClass({
         self.props.addPOIMarkers(locationArr);
       }
     });
+    self.props.setInputValue(self.props.searchTerm);
     self.props.deactivateSearching();
   },
 

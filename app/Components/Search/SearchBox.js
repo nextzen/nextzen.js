@@ -96,34 +96,10 @@ var SearchBox = React.createClass({
   searchTermCall: function(values){
 
     var callurl;
-    var baseurl = '//pelias.mapzen.com';
-    var point = this.props.currentPoint || this.props.destPoint || this.props.startPoint || null;
-    var searchTerms = [];
-    var searchResults = [];
     var self = this;
-    if(point !== null){
-      values.forEach(function(value){
-        callurl = baseurl + "/reverse?lat="+point.lat+"&lon="+point.lon+"&categories?"+value;
-        var resultLength = 0;
-
-        $.ajax({
-          type : 'GET',
-          url : callurl,
-          datatype:'json',
-          success:function(data){
-            searchTerms.push(value);
-            searchResults.push(data.features);
-          }
-        });
-
-      });
-
-    }else{
-      //when there is no point to base on?
-    }
 
     self.setState({
-      searchTerm : searchTerms
+      searchTerm : values
     });
 
   },
