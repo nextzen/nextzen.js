@@ -39,6 +39,10 @@ html,body {
   z-index:100;
 }
 
+input[type="search"] {
+  height:40px;
+}
+
 .table-view.search-table{
   margin-bottom: 0px;
   border-bottom-width: 0px;
