@@ -179,16 +179,16 @@ var Main = React.createClass({
         <div id="mapContainer">
           <div id="map"></div>
           <div className = "searchBoxContainer">
-          <SearchBox
-            addMarker = {this.addMarker}
-            addPOIMarkers = {this.addPOIMarkers}
-            currentPoint = {this.state.currentPoint}/>
+            <SearchBox
+              addMarker = {this.addMarker}
+              addPOIMarkers = {this.addPOIMarkers}
+              currentPoint = {this.state.currentPoint}/>
+            <RouteButton 
+            destPoint= {this.state.destPoint} 
+            addRouteLayer = {this.addRouteLayer}
+            setMapMode = {this.setMapMode}
+            mode = {this.state.mode}/>
           </div>
-          <RouteButton 
-          destPoint= {this.state.destPoint} 
-          addRouteLayer = {this.addRouteLayer}
-          setMapMode = {this.setMapMode}
-          mode = {this.state.mode}/>
           <CurrentLocation
             setCurrentLocation = {this.setCurrentPoint} />
           <RouteHandler />

@@ -39,6 +39,16 @@ html,body {
   z-index:100;
 }
 
+.search-side{
+  position:absolute;
+  top: 0px;
+  right: 5px;
+  width: 40px;
+  height: 40px;
+  z-index: 200;
+  padding: 2px;
+}
+
 input[type="search"] {
   height:40px;
 }
@@ -148,11 +158,11 @@ input[type="search"]::-webkit-search-cancel-button{
   background-repeat:no-repeat;
 }
 .route-icon{
-  width:48px;
-  height:48px;
+  width:36px;
+  height:36px;
   background-image: url("./resources/icons.svg");
-  background-size: 368px 48px;
-  background-position: -92px 0px;
+  background-size: 288px 36px;
+  background-position: -72px 0px;
   background-repeat:no-repeat;
 }
 
