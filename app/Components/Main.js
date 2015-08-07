@@ -7,6 +7,8 @@ require('./css/main.scss');
 var CurrentLocation = require('./CurrentLocation/CurrentLocation');
 var SearchBox = require('./Search/SearchBox');
 var RouteWindow = require('./Routing/RouteWindow');
+var SearchButton = require('./Search/SearchButton');
+var CancelButton = require('./Search/CancelButton');
 var RouteButton = require('./Routing/RouteButton');
 
 var Main = React.createClass({
@@ -21,7 +23,7 @@ var Main = React.createClass({
       currentLayer : L.layerGroup(),
       markerLayer : L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')]),
       routeLayer : L.layerGroup(),
-      mode : "search"
+      mode : "default"
     }
 
   },
@@ -158,7 +160,6 @@ var Main = React.createClass({
 
     setupMap: function () {
       this.map.setView([40.728, -73.99], 12);
-      this.setMapMode("search");
     },
 
     componentDidMount: function () {
@@ -174,42 +175,80 @@ var Main = React.createClass({
     },
 
     render: function () {
-      if(this.state.mode == "search"){
-      return (
-        <div id="mapContainer">
-          <div id="map"></div>
-          <div className = "searchBoxContainer">
-            <SearchBox
-              addMarker = {this.addMarker}
-              addPOIMarkers = {this.addPOIMarkers}
-              currentPoint = {this.state.currentPoint}/>
-            <RouteButton 
-            destPoint= {this.state.destPoint} 
-            addRouteLayer = {this.addRouteLayer}
-            setMapMode = {this.setMapMode}
-            mode = {this.state.mode}/>
-          </div>
-          <CurrentLocation
-            setCurrentLocation = {this.setCurrentPoint} />
-          <RouteHandler />
-        </div>
-      );
-    }else{
-        return(
+      switch(this.state.mode){
+        case "search":
+        console.log("mode : search");
+          return(
+            <div id="mapContainer">
+              <div id="map"></div>
+              <div className = "searchBoxContainer">
+                <CancelButton
+                  setMapMode = {this.setMapMode} />
+                <SearchBox
+                  addMarker = {this.addMarker}
+                  addPOIMarkers = {this.addPOIMarkers}
+                  currentPoint = {this.state.currentPoint}/>
+              </div>
+              <CurrentLocation
+                setCurrentLocation = {this.setCurrentPoint} />
+            </div>);
+        case "route":
+        console.log("mode : route");
+          return (
           <div id="mapContainer">
-          <div id="map"></div>
-          <RouteWindow 
-            startPoint = {this.state.startPoint}
-            currentPoint ={this.state.currentPoint}
-            destPoint = {this.state.destPoint}
-            clearMap = {this.clearMap}
-            addMarker = {this.addMarker}
-            setStartPoint = {this.setStartPoint}
-            addRouteLayer = {this.addRouteLayer}
-            setMapMode = {this.setMapMode}/>
-        </div>
-        );
+            <div id="map"></div>
+            <RouteWindow 
+                startPoint = {this.state.startPoint}
+                currentPoint ={this.state.currentPoint}
+                destPoint = {this.state.destPoint}
+                clearMap = {this.clearMap}
+                addMarker = {this.addMarker}
+                setStartPoint = {this.setStartPoint}
+                addRouteLayer = {this.addRouteLayer}
+                setMapMode = {this.setMapMode}/>
+          </div>
+            );
+        default:
+          return(
+            <div id="mapContainer">
+              <div id="map"></div>
+              <div className = "searchBoxContainer">
+                <SearchButton
+                  setMapMode = {this.setMapMode}/>
+                <RouteButton 
+                  setMapMode = {this.setMapMode}/>
+              </div>
+              <CurrentLocation
+                setCurrentLocation = {this.setCurrentPoint} />
+            </div>
+          );
       }
+
+    //   if(this.state.mode == "search"){
+    //   return (
+    //     <div id="mapContainer">
+    //       <div id="map"></div>
+    //       <div className = "searchBoxContainer">
+    //         <SearchBox
+    //           addMarker = {this.addMarker}
+    //           addPOIMarkers = {this.addPOIMarkers}
+    //           currentPoint = {this.state.currentPoint}/>
+    //         <RouteButton 
+    //         destPoint= {this.state.destPoint} 
+    //         addRouteLayer = {this.addRouteLayer}
+    //         setMapMode = {this.setMapMode}
+    //         mode = {this.state.mode}/>
+    //       </div>
+    //       <CurrentLocation
+    //         setCurrentLocation = {this.setCurrentPoint} />
+    //       <RouteHandler />
+    //     </div>
+    //   );
+    // }else{
+    //     return(
+
+    //     );
+    //   }
     }
 });
 

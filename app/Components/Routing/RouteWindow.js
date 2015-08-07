@@ -58,7 +58,7 @@ var RouteWindow = React.createClass({
   },
 
   cancleRouteMode: function(){
-    this.props.setMapMode('search');
+    this.props.setMapMode('default');
     this.props.clearMap();
   },
   render: function(){
@@ -69,7 +69,8 @@ var RouteWindow = React.createClass({
           destPoint = {this.props.destPoint}
           addMarker = {this.props.addMarker}
           setStartPoint = {this.props.setStartPoint}
-          currentPoint ={this.props.currentPoint} />
+          currentPoint ={this.props.currentPoint} 
+          cancleRouteMode = {this.cancleRouteMode}/>
         <div className="routeBtnGroup segmented-control">
           <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto")}>
             <div id="autoRoute"></div>
@@ -81,9 +82,7 @@ var RouteWindow = React.createClass({
             <div id="walkRoute"></div>
           </a>
         </div>
-        <div className="sideBtn">
-          <div className="cancelIcon" onClick= {this.cancleRouteMode}></div>
-        </div>
+
         <div id="route-result-table"></div>
       </div>
       )
