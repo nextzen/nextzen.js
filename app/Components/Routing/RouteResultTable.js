@@ -83,7 +83,7 @@ var RouteResultTable = React.createClass({
          open = {this.state.open}
          openThis = {this.openThis}/>
         <li className="trip-summary table-view-cell">
-        {this.props.searchData.trip.legs[0].summary.length} km , {this.formatTime(this.props.searchData.trip.legs[0].summary.time)}
+        Distance : {this.props.searchData.trip.legs[0].summary.length} km , Time : {this.formatTime(this.props.searchData.trip.legs[0].summary.time)}
         </li>
         {rows}
       </ul>

@@ -3,7 +3,6 @@ var SearchBox = require('../Search/SearchBox');
 
 var SearchWhileRoute = React.createClass({
   render: function(){
-    console.log(this.props.destPoint);
     return (
     <div className = "searchBoxContainer">
       <SearchBox 
@@ -16,6 +15,7 @@ var SearchWhileRoute = React.createClass({
           addMarker = {this.props.addMarker}
           startPoint ={this.props.startPoint}
           currentPoint ={this.props.currentPoint}/>
+      <div className="routeCancelButton" onClick= {this.props.cancleRouteMode}></div>
     </div>
     );
   }

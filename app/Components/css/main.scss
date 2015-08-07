@@ -30,13 +30,127 @@ html,body {
   position:absolute;
   top: 0px;
   left: 0px;
+  background-color: #fff;
   width: calc(100%);
-  height: 60px;
   z-index:30;
 }
 
-.searchBox{
-  z-index:100;
+input.searchBox{
+  width: calc(100% - 40px);
+  height: 40px;
+  float: left;
+  border: 0;
+}
+
+input[type="search"]{
+  border-radius: 0;
+  text-overflow: ellipsis;
+  -webkit-appearance: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+input[type="search"]::-webkit-search-decoration::after{
+  content: ' ';
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-image: url("./resources/icons.svg");
+  background-repeat: no-repeat;
+  background-size: 160px 20px;
+  background-position: 0px 0px;
+  margin: 10px 5px;
+}
+
+input[type="search"]::-webkit-search-decoration{
+  width: 15px;
+  padding-right: 25px;
+}
+
+input[type="search"]::-webkit-search-cancel-button::after{
+  font-family: ratchicons;
+  color: #666;
+  content: '\e811';
+}
+
+input[type="search"]::-webkit-search-cancel-button{
+  -webkit-appearance: icon;
+  appearance: icon;
+  width: 15px;
+  padding-left: 10px;
+}
+
+.searchButton{
+  width: calc(100% - 40px);
+  height: 40px;
+  background-color: #fff;
+  float: left;
+  &::before{
+    content: ' ';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url("./resources/icons.png");
+    background-repeat: no-repeat;
+    background-size: 160px 20px;
+    background-position: 0px 0px;
+    margin: 10px;
+  }
+
+}
+
+.cancelButton{
+  width: 40px;
+  height: 40px;
+  background-color:#fff;
+  border: 0;
+  display: inline-block;
+  float: left;
+  &::before{
+    content: ' ';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url("./resources/icons.png");
+    background-repeat: no-repeat;
+    background-size: 160px 20px;
+    background-position: -100px 0px;
+    margin: 10px;
+  }
+}
+
+.routeButton{
+  width: 40px;
+  height: 40px;
+  background-color:#fff;
+  border: 0;
+  display: inline-block;
+  float: left;
+  &::before{
+    content: ' ';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url("./resources/icons.png");
+    background-repeat: no-repeat;
+    background-size: 160px 20px;
+    background-position: -40px 0px;
+    margin: 10px;
+  }
+}
+
+.routeCancelButton{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #fff;
+  background-image: url("./resources/icons.png");
+  background-repeat: no-repeat;
+  background-size: 160px 20px;
+  background-position: -100px 0px;
+  margin: 30px 10px;
 }
 
 .table-view.search-table{
@@ -82,36 +196,7 @@ html,body {
 }
 
 
-input[type="search"]{
-  border-radius: 0;
-  text-overflow: ellipsis;
-  -webkit-appearance: none;
-  margin-bottom:0;
-}
 
-input[type="search"]::-webkit-search-decoration::after{
-  font-family:ratchicons;
-  color:#666;
-  content: '\e819';
-}
-
-input[type="search"]::-webkit-search-decoration{
-  width:15px;
-  padding-right:10px;
-}
-
-input[type="search"]::-webkit-search-cancel-button::after{
-  font-family:ratchicons;
-  color:#666;
-  content: '\e811';
-}
-
-input[type="search"]::-webkit-search-cancel-button{
-  -webkit-appearance: icon;
-  appearance: icon;
-  width:15px;
-  padding-left:10px;
-}
 
 .sideBtn{
   position:absolute;
@@ -143,15 +228,6 @@ input[type="search"]::-webkit-search-cancel-button{
   background-position:-184px 0px;
   background-repeat:no-repeat;
 }
-.route-icon{
-  width:48px;
-  height:48px;
-  background-image: url("./resources/icons.svg");
-  background-size: 368px 48px;
-  background-position: -92px 0px;
-  background-repeat:no-repeat;
-}
-
 
 .cancelIcon{
   background-image: url("./resources/icons.svg");
