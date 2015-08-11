@@ -4,7 +4,6 @@ var $ = require('jquery');
 
 var RouteResultTable = require('./RouteResultTable');
 var SearchWhileRoute = require('./SearchWhileRoute');
-
 var RouteWindow = React.createClass({
 
   getInitialState : function(){
