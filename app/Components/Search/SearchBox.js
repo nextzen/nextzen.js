@@ -14,11 +14,13 @@ var SearchBox = React.createClass({
   getInitialState: function(){
     return{ 
       searchResult : [],
-      poiResult: [],
       searchTerm : [],
       searching : false,
       filterText: this.props.value || ""
     };
+  },
+  componenetDidMount: function(){
+    this.props.setup();
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -48,18 +50,24 @@ var SearchBox = React.createClass({
   handleChange: function(){
 
      var currentType = this.refs.filterTextInput.getDOMNode().value;
-     var currentVal = '^(?=.*\\b' + $.trim(currentType.split(/\s+/).join('\\b)(?=.*\\b') + ').*$');
-     var matchingVals = [];
-     this.checkCategories(currentVal,matchingVals);
+     if(currentType.length > 0) {
+       var currentVal = '^(?=.*\\b' + $.trim(currentType.split(/\s+/).join('\\b)(?=.*\\b') + ').*$');
+       var matchingVals = [];
+       
+       this.makeCall(currentType);
 
-    this.searchTermCall(matchingVals);
-    this.makeCall(currentType);
-    var searchResult = this.state.searchResult;
+      if(this.props.mapMode !== "route") this.checkCategories(currentVal,matchingVals);
 
-    this.setState({
-      filterText : currentType,
-      searching: true});
-    
+      this.setState({
+        searchTerm: matchingVals,
+        filterText : currentType,
+        searching: true});
+      }else{
+        this.setState({
+        searchTerm: "",
+        filterText : "",
+        searching: false});
+      }
     },
 
   checkCategories: function(currentVal,matchingVals){
@@ -80,8 +88,7 @@ var SearchBox = React.createClass({
   deactivateSearching: function(){
     this.setState({
       searching : false,
-      searchTerm : [],
-      poiResult : []
+      searchTerm : []
     });
   },
 
@@ -97,7 +104,6 @@ var SearchBox = React.createClass({
 
     var callurl;
     var self = this;
-
     self.setState({
       searchTerm : values
     });
@@ -118,7 +124,7 @@ var SearchBox = React.createClass({
 
       var callurl ;
 
-      if(point !== null) callurl = baseurl + "/suggest?input="+ currentInput+ "&lat="+point.lat+"&lon="+point.lon+"&zoom="+ zoom;
+      if(point !== null) callurl = baseurl + "/search?input="+ currentInput+ "&lat="+point.lat+"&lon="+point.lon+"&zoom="+ zoom;
       else callurl = baseurl + "/search?input="+ currentInput;
 
       $.get(callurl,function(data){
@@ -133,14 +139,15 @@ var SearchBox = React.createClass({
       <div>
         <input style = {this.props.style}
           tabIndex = "0"
-          className="searchBox" 
+          className = {this.props.childClassName}
           ref = "filterTextInput" 
           type = "search" 
           value = {this.state.filterText} 
           onChange = {this.handleChange}
           onKeyPress = {this.handleKeyDown}></input>
-        <ResultTable  searchTerm = {this.state.searchTerm}
-                      searchTermData = {this.state.poiResult}
+        <ResultTable  childClassName = {this.props.childClassName}
+                      mapMode = {this.props.mapMode}
+                      searchTerm = {this.state.searchTerm}
                       searchData = {this.state.searchResult}
                       searching = {this.state.searching} 
                       addMarker = {this.props.addMarker}
