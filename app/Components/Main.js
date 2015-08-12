@@ -27,6 +27,7 @@ var Main = React.createClass({
     }
 
   },
+
   setStartPoint: function(mrkr){
     this.setState({startPoint:mrkr},function(){
     });
@@ -186,6 +187,7 @@ var Main = React.createClass({
                   setMapMode = {this.setMapMode} />
                 <SearchBox
                   addMarker = {this.addMarker}
+                  childClassName = "searchBox"
                   addPOIMarkers = {this.addPOIMarkers}
                   currentPoint = {this.state.currentPoint}/>
               </div>

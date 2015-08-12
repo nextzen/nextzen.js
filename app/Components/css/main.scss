@@ -1,4 +1,4 @@
-$search-bar-height:35px;
+$search-bar-height:40px;
 $route-btn-height:46px;
 
 html,body {
@@ -31,15 +31,53 @@ html,body {
   top: 0px;
   left: 0px;
   background-color: #fff;
-  width: calc(100%);
+  width: 100%;
   z-index:30;
+
+  &.route{
+  }
 }
 
-input.searchBox{
+.swapPoints{
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin: 30px 10px;
+  background-image: url('./resources/ic_switch.svg');
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+}
+
+input.searchBox {
   width: calc(100% - 40px);
   height: 40px;
   float: left;
   border: 0;
+
+
+  &.startPoint{
+    width: calc(100% - 80px);
+    position: absolute;
+    top: 0px;
+  }
+
+  &.startPoint::-webkit-search-decoration::after{
+    background-image: url("./resources/ic_locate-dot.svg");
+    background-size: 20px 20px;
+    background-position: 0px 0px;
+  }
+
+  &.destPoint{
+    width: calc(100% - 80px);
+    position: absolute;
+    top: $search-bar-height;
+  }
+
+  &.destPoint::-webkit-search-decoration::after{
+    background-image: url("./resources/ic_pin.svg");
+    background-size: 20px 20px;
+    background-position: 0px 0px;
+  }
 }
 
 input[type="search"]{
@@ -187,6 +225,25 @@ input[type="search"]::-webkit-search-cancel-button{
   margin-right:10px;
 }
 
+.table-view.search-table.searchBox.startPoint{
+    position: absolute;
+    top: $search-bar-height * 2;
+    left: 0px;
+    width: 100%;
+}
+
+.table-view.search-table.searchBox.destPoint{
+    position: absolute;
+    top: $search-bar-height * 2;
+    left: 0px;
+    width: 100%;
+}
+
+
+.table-view.search-table li.currentLocation::before{
+  background-position: -30px 0px;
+}
+
 .table-view.search-table li.search-result::before{
   background-position: -60px 0px;
 }
@@ -194,9 +251,6 @@ input[type="search"]::-webkit-search-cancel-button{
 .table-view.search-table li.search-term-result::before{
   background-position: -70px 0px;
 }
-
-
-
 
 .sideBtn{
   position:absolute;
@@ -253,9 +307,6 @@ input[type="search"]::-webkit-search-cancel-button{
   cursor: pointer;
 }
 
-.segmented-control{
-  border-top:0;
-}
 
 #autoRoute{
   background-image:url("./resources/modes.icons.svg");
