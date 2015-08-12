@@ -5,6 +5,7 @@ var categoryMap = require('./CategoryMap');
 
 var ResultRow = require('./ResultRow');
 var ResultTable = require('./ResultTable');
+var LocationInformation = require('./LocationInformation');
 
 require('ratchet');
 require('../css/main.scss');
@@ -19,12 +20,13 @@ var SearchBox = React.createClass({
       filterText: this.props.value || ""
     };
   },
-  componenetDidMount: function(){
-    this.props.setup();
-  },
 
   componentWillReceiveProps: function(newProps) {
     this.setState({filterText : newProps.value });
+  },
+
+  componentDidMount: function(){
+    if(this.props.childClassName === "searchBox") document.getElementById('arg').focus();
   },
 
   handleKeyDown: function(event){
@@ -100,13 +102,11 @@ var SearchBox = React.createClass({
     });
   },
 
-  searchTermCall: function(values){
-
-    var callurl;
-    var self = this;
-    self.setState({
-      searchTerm : values
-    });
+  addMarker: function(mrkr){
+    this.props.addMarker(mrkr);
+    if(this.props.childClassName === "searchBox") React.render(<LocationInformation 
+                  markedLocation = {mrkr}
+                  setMapMode = {this.props.setMapMode}/>, document.getElementById('locationInfoContainer'));
 
   },
 
@@ -138,7 +138,7 @@ var SearchBox = React.createClass({
     return(
       <div>
         <input style = {this.props.style}
-          tabIndex = "0"
+          id = "arg"
           className = {this.props.childClassName}
           ref = "filterTextInput" 
           type = "search" 
@@ -150,7 +150,7 @@ var SearchBox = React.createClass({
                       searchTerm = {this.state.searchTerm}
                       searchData = {this.state.searchResult}
                       searching = {this.state.searching} 
-                      addMarker = {this.props.addMarker}
+                      addMarker = {this.addMarker}
                       addPOIMarkers = {this.props.addPOIMarkers}
                       centerPoint = {this.props.currentPoint || this.props.startPoint || this.props.destPoint}
                       setInputValue = {this.setInputValue}

@@ -252,10 +252,10 @@ input[type="search"]::-webkit-search-cancel-button{
   background-position: -70px 0px;
 }
 
-.sideBtn{
+.currentLocation.side{
   position:absolute;
-  top: 70%;
-  right: 15px;
+  bottom: 100px;
+  right: 20px;
   cursor: pointer;
   width: 60px;
   height: 60px;
@@ -268,10 +268,6 @@ input[type="search"]::-webkit-search-cancel-button{
   border: 2px solid #ccc;
 /*  -webkit-box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);
   box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);*/
-}
-
-.sideBtn.secondary{
-  top: calc(70% + 70px);
 }
 
 .icon-current-location{
@@ -365,4 +361,33 @@ input[type="search"]::-webkit-search-cancel-button{
 
 .trip-summary{
   left-padding: 10px;
+}
+
+.locationInformation{
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  background-color: #fff; 
+
+  .locationTitle{
+    font-size: 18px;
+    padding-bottom:5px;
+  }
+  .neighborhood{
+
+  }
+
+  .routeButton{
+    position:fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 25px 25px;
+    z-index:30;
+  }
 }

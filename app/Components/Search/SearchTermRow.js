@@ -11,10 +11,7 @@ var SearchTermRow = React.createClass({
     var baseurl = '//pelias.mapzen.com';
     var point = this.props.centerPoint;
     var self = this;
-
-
     var callurl = baseurl + "/reverse?lat="+point.lat+"&lon="+point.lon+"&categories= "+ this.props.searchTerm;
-
 
     $.ajax({
       type : 'GET',

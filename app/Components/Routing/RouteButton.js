@@ -7,7 +7,8 @@ var RouteButton = React.createClass({
   },
   render : function(){
     return(
-      <div className="routeButton route-icon" onClick = {this.setMode} />
+      <div className = "routeButton route-icon"
+      onClick = {this.setMode} />
     );
   }
 });
