@@ -5,7 +5,11 @@ var SearchWhileRoute = React.createClass({
   render: function(){
     return (
     <div className = "searchBoxContainer route">
-      <SwapPoints />
+      <SwapPoints 
+      startPoint = {this.props.startPoint}
+      destPoint = {this.props.destPoint}
+      setStartPoint = {this.props.setStartPoint}
+      setDestPoint = {this.props.addMarker}/>
       <SearchBox 
         value = {(this.props.startPoint !== null)? this.props.startPoint.name : "Choose start point"}
         addMarker = {this.props.setStartPoint} 
