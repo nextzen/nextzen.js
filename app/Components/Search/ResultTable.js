@@ -13,7 +13,8 @@ var ResultTable = React.createClass({
     var self = this;
     if(this.props.searching){
       if(this.props.mapMode !== "route"){
-          if(this.props.centerPoint !== null){
+          if(this.props.centerPoint !== undefined){
+            console.log(this.props.centerPoint);
               this.props.searchTerm.forEach(function(term){
                 searchTermRows.push(<SearchTermRow
                                     addPOIMarkers = {self.props.addPOIMarkers}

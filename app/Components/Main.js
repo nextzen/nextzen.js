@@ -138,7 +138,10 @@ var Main = React.createClass({
     this.render();
   },
   setMapMode : function(mapMode){
-    this.setState({mode:mapMode});
+    this.setState({mode:mapMode},function(){
+      if(mapMode === "default") this.clearMap();
+    });
+
   },
   createMap: function (element) {
     //React.render(<Map lat="40.758" lon="-73.9174" zoom="4" />,document.body);
@@ -189,8 +192,10 @@ var Main = React.createClass({
                   addMarker = {this.addMarker}
                   childClassName = "searchBox"
                   addPOIMarkers = {this.addPOIMarkers}
-                  currentPoint = {this.state.currentPoint}/>
+                  currentPoint = {this.state.currentPoint}
+                  setMapMode = {this.setMapMode} />
               </div>
+              <div id = "locationInfoContainer" />
               <CurrentLocation
                 setCurrentLocation = {this.setCurrentPoint} />
             </div>);

@@ -49,7 +49,7 @@ var CurrentLocation = React.createClass({
   },
   render : function(){
     return(
-      <div className="sideBtn secondary">
+      <div className="currentLocation side">
         <div className={(this.state.spinning === false)? "icon-current-location" : ""} onClick= {this.getCurrentLocation}></div>
         <div id="spinnerSpot"></div>
       </div>
