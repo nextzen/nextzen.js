@@ -3,6 +3,8 @@ machine:
     version: 0.10.33
 
 dependencies:
+  pre:
+    - sudo pip install -U awscli
   override:
     - npm install
     - npm install bower -g
@@ -21,4 +23,4 @@ deployment:
   production:
     branch: production
     commands:
-      - ./deploy production
+      - ./deploy prod
