@@ -6,6 +6,7 @@ html,body {
   height: 100%;
   margin: 0;
   position: relative;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #mapContainer {
@@ -386,8 +387,17 @@ input[type="search"]::-webkit-search-cancel-button{
     bottom: 20px;
     width: 50px;
     height: 50px;
+    background-image: url('./resources/ic_go.svg');
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position: 10px 10px;
     border: 1px solid #ccc;
     border-radius: 25px 25px;
     z-index:30;
+    
+    &::before{
+      background-image: none;
+    }
   }
+
 }
