@@ -183,7 +183,7 @@ var Main = React.createClass({
         case "search":
         console.log("mode : search");
           return(
-            <div id="mapContainer">
+            <div className="container">
               <div id="map"></div>
               <div className = "searchBoxContainer">
                 <CancelButton
@@ -202,7 +202,7 @@ var Main = React.createClass({
         case "route":
         console.log("mode : route");
           return (
-          <div id="mapContainer">
+          <div className="container">
             <div id="map"></div>
             <RouteWindow 
                 startPoint = {this.state.startPoint}
@@ -217,7 +217,7 @@ var Main = React.createClass({
             );
         default:
           return(
-            <div id="mapContainer">
+            <div className="container">
               <div id="map"></div>
               <div className = "searchBoxContainer">
                 <SearchButton
@@ -230,32 +230,6 @@ var Main = React.createClass({
             </div>
           );
       }
-
-    //   if(this.state.mode == "search"){
-    //   return (
-    //     <div id="mapContainer">
-    //       <div id="map"></div>
-    //       <div className = "searchBoxContainer">
-    //         <SearchBox
-    //           addMarker = {this.addMarker}
-    //           addPOIMarkers = {this.addPOIMarkers}
-    //           currentPoint = {this.state.currentPoint}/>
-    //         <RouteButton 
-    //         destPoint= {this.state.destPoint} 
-    //         addRouteLayer = {this.addRouteLayer}
-    //         setMapMode = {this.setMapMode}
-    //         mode = {this.state.mode}/>
-    //       </div>
-    //       <CurrentLocation
-    //         setCurrentLocation = {this.setCurrentPoint} />
-    //       <RouteHandler />
-    //     </div>
-    //   );
-    // }else{
-    //     return(
-
-    //     );
-    //   }
     }
 });
 

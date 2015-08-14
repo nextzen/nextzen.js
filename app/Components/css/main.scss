@@ -1,393 +1,152 @@
-$search-bar-height:40px;
-$route-btn-height:46px;
+@import 'route';
+@import 'search';
 
 html,body {
   width: 100%;
   height: 100%;
   margin: 0;
   position: relative;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-#mapContainer {
+.container {
   width: 100%;
   height: 100%;
-}
 
-#map {
-  width: 100%;
-  height: 100%;
-}
-
-#spinner {
-  width:50px;
-  height:50px;
-  position:absolute;
-  left: calc(50% - 25px);
-  top: calc(50% - 25px);
-}
-
-.searchBoxContainer {
-  position:absolute;
-  top: 0px;
-  left: 0px;
-  background-color: #fff;
-  width: 100%;
-  z-index:30;
-
-  &.route{
-  }
-}
-
-.swapPoints{
-  width: 20px;
-  height: 20px;
-  float: left;
-  margin: 30px 10px;
-  background-image: url('./resources/ic_switch.svg');
-  background-size: 20px 20px;
-  background-repeat: no-repeat;
-}
-
-input.searchBox {
-  width: calc(100% - 40px);
-  height: 40px;
-  float: left;
-  border: 0;
-
-
-  &.startPoint{
-    width: calc(100% - 80px);
-    position: absolute;
-    top: 0px;
-  }
-
-  &.startPoint::-webkit-search-decoration::after{
-    background-image: url("./resources/ic_locate-dot.svg");
-    background-size: 20px 20px;
-    background-position: 0px 0px;
-  }
-
-  &.destPoint{
-    width: calc(100% - 80px);
-    position: absolute;
-    top: $search-bar-height;
-  }
-
-  &.destPoint::-webkit-search-decoration::after{
-    background-image: url("./resources/ic_pin.svg");
-    background-size: 20px 20px;
-    background-position: 0px 0px;
-  }
-}
-
-input[type="search"]{
-  border-radius: 0;
-  text-overflow: ellipsis;
-  -webkit-appearance: none;
-  margin-bottom: 0;
-  padding-left: 0;
-}
-
-input[type="search"]::-webkit-search-decoration::after{
-  content: ' ';
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  background-image: url("./resources/icons.svg");
-  background-repeat: no-repeat;
-  background-size: 160px 20px;
-  background-position: 0px 0px;
-  margin: 10px 5px;
-}
-
-input[type="search"]::-webkit-search-decoration{
-  width: 15px;
-  padding-right: 25px;
-}
-
-input[type="search"]::-webkit-search-cancel-button::after{
-  font-family: ratchicons;
-  color: #666;
-  content: '\e811';
-}
-
-input[type="search"]::-webkit-search-cancel-button{
-  -webkit-appearance: icon;
-  appearance: icon;
-  width: 15px;
-  padding-left: 10px;
-}
-
-.searchButton{
-  width: calc(100% - 40px);
-  height: 40px;
-  background-color: #fff;
-  float: left;
-  &::before{
-    content: ' ';
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    background-image: url("./resources/icons.png");
-    background-repeat: no-repeat;
-    background-size: 160px 20px;
-    background-position: 0px 0px;
-    margin: 10px;
-  }
-
-}
-
-.cancelButton{
-  width: 40px;
-  height: 40px;
-  background-color:#fff;
-  border: 0;
-  display: inline-block;
-  float: left;
-  &::before{
-    content: ' ';
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    background-image: url("./resources/icons.png");
-    background-repeat: no-repeat;
-    background-size: 160px 20px;
-    background-position: -100px 0px;
-    margin: 10px;
-  }
-}
-
-.routeButton{
-  width: 40px;
-  height: 40px;
-  background-color:#fff;
-  border: 0;
-  display: inline-block;
-  float: left;
-  &::before{
-    content: ' ';
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    background-image: url("./resources/icons.png");
-    background-repeat: no-repeat;
-    background-size: 160px 20px;
-    background-position: -40px 0px;
-    margin: 10px;
-  }
-}
-
-.routeCancelButton{
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  background-color: #fff;
-  background-image: url("./resources/icons.png");
-  background-repeat: no-repeat;
-  background-size: 160px 20px;
-  background-position: -100px 0px;
-  margin: 30px 10px;
-}
-
-.table-view.search-table{
-  margin-bottom: 0px;
-  border-bottom-width: 0px;
-  border-top-width: 0px;
-  z-index:35;
-}
-
-.table-view.search-table li{
-  background-color: #fff;
-  font-size:13px;
-  z-index: 50;
-  cursor: pointer;
-  border-bottom:1px solid #ddd;
-  border-left:1px solid #ddd;
-  border-right:1px solid #ddd;
-  padding-left:10px;
-}
-.table-view.search-table li:hover{
-  background-color: #ddd;
-}
-.table-view.search-table li:first-child{
-  border-top:1px solid #ddd;
-}
-.table-view.search-table li::before{
-  content: ' ';
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  background-image: url("./resources/icons.svg");
-  background-repeat: no-repeat;
-  background-size: 80px 10px;
-  margin-right:10px;
-}
-
-.table-view.search-table.searchBox.startPoint{
-    position: absolute;
-    top: $search-bar-height * 2;
-    left: 0px;
+  #map {
     width: 100%;
-}
-
-.table-view.search-table.searchBox.destPoint{
-    position: absolute;
-    top: $search-bar-height * 2;
-    left: 0px;
-    width: 100%;
-}
-
-
-.table-view.search-table li.currentLocation::before{
-  background-position: -30px 0px;
-}
-
-.table-view.search-table li.search-result::before{
-  background-position: -60px 0px;
-}
-
-.table-view.search-table li.search-term-result::before{
-  background-position: -70px 0px;
-}
-
-.currentLocation.side{
-  position:absolute;
-  bottom: 100px;
-  right: 20px;
-  cursor: pointer;
-  width: 60px;
-  height: 60px;
-  margin: 3px;
-  padding:6px;
-  font-size: 24px;
-  line-height: 50px;
-  text-align: center;
-  background-color: #fff;
-  border: 2px solid #ccc;
-/*  -webkit-box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);
-  box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);*/
-}
-
-.icon-current-location{
-  width:48px;
-  height:48px;
-  background-image: url("./resources/icons.svg");
-  background-size: 368px 48px;
-  background-position:-184px 0px;
-  background-repeat:no-repeat;
-}
-
-.cancelIcon{
-  background-image: url("./resources/icons.svg");
-  background-size: 368px 48px;
-  background-position: -232px 0px;
-  width:48px;
-  height:48px;
-  margin: 0 auto;
-  background-repeat: no-repeat
-}
-
-#routeControls{
-  position:absolute;
-  top:10px;
-}
-
-.routeBtnGroup{
-  position:absolute;
-  top: $search-bar-height * 2;
-  height:46px;
-  z-index:10;
-  width:100%;
-  cursor: pointer;
-}
-
-
-#autoRoute{
-  background-image:url("./resources/modes.icons.svg");
-  background-size:108px 36px;
-  background-position:0px 0px;
-  width:36px;
-  height:36px;
-  margin:0 auto;
-  background-repeat: no-repeat;
-}
-
-#bikeRoute{
-  background-image:url("./resources/modes.icons.svg");
-  background-size:108px 36px;
-  background-position:-36px 0px;
-  width:36px;
-  height:36px;
-  margin:0 auto;
-  background-repeat: no-repeat;
-}
-
-#walkRoute{
-  background-image:url("./resources/modes.icons.svg");
-  background-size:108px 36px;
-  background-position:-72px 0px;
-  width:36px;
-  height:36px;
-  margin:0 auto;
-  background-repeat: no-repeat;
-}
-
-.route-table{
-  height:calc( 100% - ( $route-btn-height + $search-bar-height * 2 ) );
-  width: 100%;
-  font-size:13px;
-  overflow: auto;
-  z-index:3000;
-}
-
-.route-table.opened{
-  position:absolute;
-  top: $route-btn-height + $search-bar-height * 2;
-}
-
-.route-table.closed{
-  position:absolute;
-  cursor:pointer;
-  background-color:#fff;
-  top: 95%;
-}
-
-.open-route-table{
-  text-align: center;
-  height:30px;
-}
-
-.trip-summary{
-  left-padding: 10px;
-}
-
-.locationInformation{
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  width: 100%;
-  height: 80px;
-  padding: 10px;
-  background-color: #fff; 
-
-  .locationTitle{
-    font-size: 18px;
-    padding-bottom:5px;
+    height: 100%;
   }
-  .neighborhood{
-
+  
+  .cancelButton {
+    width: 40px;
+    height: 40px;
+    background-color:#fff;
+    border: 0;
+    display: inline-block;
+    float: left;
+    &::before {
+      content: ' ';
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      background-image: url("./resources/icons.png");
+      background-repeat: no-repeat;
+      background-size: 160px 20px;
+      background-position: -100px 0px;
+      margin: 10px;
+    }
   }
 
-  .routeButton{
-    position:fixed;
+  .routeButton {
+    width: 40px;
+    height: 40px;
+    background-color:#fff;
+    border: 0;
+    display: inline-block;
+    float: left;
+    &::before {
+      content: ' ';
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      background-image: url("./resources/icons.png");
+      background-repeat: no-repeat;
+      background-size: 160px 20px;
+      background-position: -40px 0px;
+      margin: 10px;
+    }
+  }
+
+  .searchButton {
+    width: calc(100% - 40px);
+    height: 40px;
+    background-color: #fff;
+    float: left;
+    &::before {
+      content: ' ';
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      background-image: url("./resources/icons.png");
+      background-repeat: no-repeat;
+      background-size: 160px 20px;
+      background-position: 0px 0px;
+      margin: 10px;
+    }
+  }
+
+  .currentLocation.side {
+    position:absolute;
+    bottom: 100px;
     right: 20px;
-    bottom: 20px;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #ccc;
-    border-radius: 25px 25px;
-    z-index:30;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    margin: 3px;
+    padding:6px;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #fff;
+    border: 2px solid #ccc;
+  /*  -webkit-box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);
+    box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);*/
   }
+
+  .icon-current-location {
+    width:48px;
+    height:48px;
+    background-image: url("./resources/icons.svg");
+    background-size: 368px 48px;
+    background-position:-184px 0px;
+    background-repeat:no-repeat;
+  }
+
+  #spinner {
+    width:50px;
+    height:50px;
+    position:absolute;
+    left: calc(50% - 25px);
+    top: calc(50% - 25px);
+  }
+
+  input[type="search"] {
+    border-radius: 0;
+    text-overflow: ellipsis;
+    -webkit-appearance: none;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+
+  input[type="search"]::-webkit-search-decoration::after {
+    content: ' ';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url("./resources/icons.svg");
+    background-repeat: no-repeat;
+    background-size: 160px 20px;
+    background-position: 0px 0px;
+    margin: 10px 5px;
+  }
+
+  input[type="search"]::-webkit-search-decoration {
+    width: 15px;
+    padding-right: 25px;
+  }
+
+  input[type="search"]::-webkit-search-cancel-button::after {
+    font-family: ratchicons;
+    color: #666;
+    content: '\e811';
+  }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: icon;
+    appearance: icon;
+    width: 15px;
+    padding-left: 10px;
+  }
+
 }
