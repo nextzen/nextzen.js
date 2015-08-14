@@ -114,12 +114,8 @@ var Main = React.createClass({
     this.state.currentLayer.clearLayers();
     this.state.routeLayer.clearLayers();
     this.setState({
-      startPoint:{
-        name : "Choose Start Point."
-      },
-      destPoint:{
-        name : "Choose Destination Point"
-      }
+      startPoint:{},
+      destPoint:{}
     });
   },
   addRouteLayer : function(routes){
@@ -148,7 +144,7 @@ var Main = React.createClass({
 
   },
   createMap: function (element) {
-    
+    //React.render(<Map lat="40.758" lon="-73.9174" zoom="4" />,document.body);
     var map = L.map(element,{
       zoomControl:false
     });
@@ -187,7 +183,7 @@ var Main = React.createClass({
         case "search":
         console.log("mode : search");
           return(
-            <div id="mapContainer">
+            <div className="container">
               <div id="map"></div>
               <div className = "searchBoxContainer">
                 <CancelButton
@@ -206,7 +202,7 @@ var Main = React.createClass({
         case "route":
         console.log("mode : route");
           return (
-          <div id="mapContainer">
+          <div className="container">
             <div id="map"></div>
             <RouteWindow 
                 startPoint = {this.state.startPoint}
@@ -221,7 +217,7 @@ var Main = React.createClass({
             );
         default:
           return(
-            <div id="mapContainer">
+            <div className="container">
               <div id="map"></div>
               <div className = "searchBoxContainer">
                 <SearchButton
@@ -234,32 +230,6 @@ var Main = React.createClass({
             </div>
           );
       }
-
-    //   if(this.state.mode == "search"){
-    //   return (
-    //     <div id="mapContainer">
-    //       <div id="map"></div>
-    //       <div className = "searchBoxContainer">
-    //         <SearchBox
-    //           addMarker = {this.addMarker}
-    //           addPOIMarkers = {this.addPOIMarkers}
-    //           currentPoint = {this.state.currentPoint}/>
-    //         <RouteButton 
-    //         destPoint= {this.state.destPoint} 
-    //         addRouteLayer = {this.addRouteLayer}
-    //         setMapMode = {this.setMapMode}
-    //         mode = {this.state.mode}/>
-    //       </div>
-    //       <CurrentLocation
-    //         setCurrentLocation = {this.setCurrentPoint} />
-    //       <RouteHandler />
-    //     </div>
-    //   );
-    // }else{
-    //     return(
-
-    //     );
-    //   }
     }
 });
 

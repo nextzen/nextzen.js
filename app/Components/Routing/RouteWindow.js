@@ -72,16 +72,15 @@ var RouteWindow = React.createClass({
           cancleRouteMode = {this.cancleRouteMode}/>
         <div className="routeBtnGroup segmented-control">
           <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto")}>
-            <div id="autoRoute"></div>
+            <div className = "routeModeButton" id="autoRoute" />
           </a>
           <a className={(this.state.activeTab === "bicycle")? "active control-item" : "control-item"} ref="bicycleBtn" onClick= {this.route.bind(this,"bicycle")}>
-            <div id="bikeRoute"></div>
+            <div className = "routeModeButton" id="bikeRoute" />
           </a>
           <a className={(this.state.activeTab === "pedestrian")? "active control-item" : "control-item"} ref="pedestrianBtn" onClick= {this.route.bind(this,"pedestrian")} > 
-            <div id="walkRoute"></div>
+            <div className = "routeModeButton" id="walkRoute" />
           </a>
         </div>
-
         <div id="route-result-table"></div>
       </div>
       )
