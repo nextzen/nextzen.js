@@ -114,8 +114,12 @@ var Main = React.createClass({
     this.state.currentLayer.clearLayers();
     this.state.routeLayer.clearLayers();
     this.setState({
-      startPoint:{},
-      destPoint:{}
+      startPoint:{
+        name : "Choose Start Point."
+      },
+      destPoint:{
+        name : "Choose Destination Point"
+      }
     });
   },
   addRouteLayer : function(routes){
@@ -144,7 +148,7 @@ var Main = React.createClass({
 
   },
   createMap: function (element) {
-    //React.render(<Map lat="40.758" lon="-73.9174" zoom="4" />,document.body);
+    
     var map = L.map(element,{
       zoomControl:false
     });

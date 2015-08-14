@@ -1,0 +1,156 @@
+.searchBoxContainer {
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: #fff;
+
+  input.searchBox {
+    width: calc(100% - 40px);
+    height: 40px;
+    float: left;
+    border: 0;
+
+
+    &.startPoint {
+      width: calc(100% - 80px);
+      position: absolute;
+      top: 0px;
+    }
+
+    &.startPoint::-webkit-search-decoration::after {
+      background-image: url("./resources/ic_locate-dot.svg");
+      background-size: 20px 20px;
+      background-position: 0px 0px;
+    }
+
+    &.destPoint {
+      width: calc(100% - 80px);
+      position: absolute;
+      top: $search-bar-height;
+    }
+
+    &.destPoint::-webkit-search-decoration::after {
+      background-image: url("./resources/ic_pin.svg");
+      background-size: 20px 20px;
+      background-position: 0px 0px;
+    }
+  }
+
+  input[type="search"] {
+    border-radius: 0;
+    text-overflow: ellipsis;
+    -webkit-appearance: none;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+
+  input[type="search"]::-webkit-search-decoration::after {
+    content: ' ';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url("./resources/icons.svg");
+    background-repeat: no-repeat;
+    background-size: 160px 20px;
+    background-position: 0px 0px;
+    margin: 10px 5px;
+  }
+
+  input[type="search"]::-webkit-search-decoration {
+    width: 15px;
+    padding-right: 25px;
+  }
+
+  input[type="search"]::-webkit-search-cancel-button::after {
+    font-family: ratchicons;
+    color: #666;
+    content: '\e811';
+  }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: icon;
+    appearance: icon;
+    width: 15px;
+    padding-left: 10px;
+  }
+}
+
+
+.table-view.search-table {
+  margin-bottom: 0px;
+  border-bottom-width: 0px;
+  border-top-width: 0px;
+  z-index:35;
+
+  li {
+    background-color: #fff;
+    font-size:13px;
+    z-index: 50;
+    cursor: pointer;
+    border-bottom:1px solid #ddd;
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+    padding-left:10px;
+
+    &:first-chid {
+      border-top:1px solid #ddd;
+    }
+
+    &:hover {
+      background-color: #ddd;
+    }
+    &::before {
+      content: ' ';
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      background-image: url("./resources/icons.svg");
+      background-repeat: no-repeat;
+      background-size: 80px 10px;
+      margin-right:10px;
+    }
+    &.currentLocation::before {
+      background-position: -30px 0px;
+    }
+    &.search-result::before {
+      background-position: -60px 0px;
+    }
+    &.search-term-result::before {
+      background-position: -70px 0px;
+    }
+  }
+}
+
+.locationInformation {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  background-color: #fff; 
+
+  .locationTitle {
+    font-size: 18px;
+    padding-bottom:5px;
+  }
+  .routeButton {
+    position:fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    background-image: url('./resources/ic_go.svg');
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position: 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px 25px;
+    z-index:30;
+    
+    &::before {
+      background-image: none;
+    }
+  }
+}
