@@ -2,6 +2,12 @@ $search-bar-height:40px;
 
 .searchBoxContainer.search {
 
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: #fff;
+
   input[type="search"].searchBox {
     width: calc(100% - 40px);
     height: 40px;
@@ -47,22 +53,42 @@ $search-bar-height:40px;
     }
   }
 
-.table-view.search-table {
-  margin-bottom: 0px;
-  border-bottom-width: 0px;
-  border-top-width: 0px;
-  z-index:35;
+    .cancelButton {
+    width: 40px;
+    height: 40px;
+    background-color:#fff;
+    border: 0;
+    display: inline-block;
+    float: left;
+    &::before {
+      content: ' ';
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      background-image: url("./resources/ic_back.svg");
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
+      background-position: 0px 0px;
+      margin: 10px;
+    }
+  }
 
-  li {
-    background-color: #fff;
-    font-size:13px;
-    z-index: 50;
-    cursor: pointer;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 0;
-    padding-left:10px;
+  .table-view.search-table {
+    margin-bottom: 0px;
+    border-bottom-width: 0px;
+    border-top-width: 0px;
+    z-index:35;
+
+    li {
+      background-color: #fff;
+      font-size:13px;
+      z-index: 50;
+      cursor: pointer;
+      border-top: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      border-bottom: 0;
+      padding-left:10px;
       &:hover {
         background-color: #ddd;
       }
@@ -82,41 +108,6 @@ $search-bar-height:40px;
       &.search-term-result::before {
         background-position: -70px 0px;
       }
-    }
-  }
-}
-
-
-
-.locationInformation {
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  width: 100%;
-  height: 80px;
-  padding: 10px;
-  background-color: #fff; 
-
-  .locationTitle {
-    font-size: 18px;
-    padding-bottom:5px;
-  }
-  .routeButton {
-    position:fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 50px;
-    height: 50px;
-    background-image: url('./resources/ic_go.svg');
-    background-repeat: no-repeat;
-    background-size: 30px 30px;
-    background-position: 10px 10px;
-    border: 1px solid #ccc;
-    border-radius: 25px 25px;
-    z-index:30;
-    
-    &.routeButton::before {
-      background-image: none;
     }
   }
 }

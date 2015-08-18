@@ -1,5 +1,6 @@
 @import 'route';
 @import 'search';
+@import 'locationInfo';
 
 html,body {
   width: 100%;
@@ -17,89 +18,94 @@ html,body {
     width: 100%;
     height: 100%;
   }
-  
-  .cancelButton {
-    width: 40px;
-    height: 40px;
-    background-color:#fff;
-    border: 0;
-    display: inline-block;
-    float: left;
-    &::before {
-      content: ' ';
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-      background-image: url("./resources/ic_back.svg");
-      background-repeat: no-repeat;
-      background-size: 20px 20px;
-      background-position: 0px 0px;
-      margin: 10px;
-    }
-  }
 
-  .routeButton {
-    width: 40px;
-    height: 40px;
-    background-color:#fff;
-    border: 0;
-    display: inline-block;
-    float: left;
-    &::before {
-      content: ' ';
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-      background-image: url("./resources/icons.png");
-      background-repeat: no-repeat;
-      background-size: 160px 20px;
-      background-position: -40px 0px;
-      margin: 10px;
-    }
-  }
+  &.default {
 
-  .searchButton {
-    width: calc(100% - 40px);
-    height: 40px;
-    background-color: #fff;
-    float: left;
-    &::before {
-      content: ' ';
-      width: 20px;
-      height: 20px;
+    .searchBoxContainer{
+      position:absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      background-color: #fff;
+    }
+
+    .routeButton {
+      width: 40px;
+      height: 40px;
+      background-color:#fff;
+      border: 0;
       display: inline-block;
-      background-image: url("./resources/icons.png");
-      background-repeat: no-repeat;
-      background-size: 160px 20px;
-      background-position: 0px 0px;
-      margin: 10px;
+      float: left;
+      &::before {
+        content: ' ';
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background-image: url("./resources/icons.png");
+        background-repeat: no-repeat;
+        background-size: 160px 20px;
+        background-position: -40px 0px;
+        margin: 10px;
+      }
+    }
+
+    .searchButton {
+      width: calc(100% - 40px);
+      height: 40px;
+      background-color: #fff;
+      float: left;
+      &::before {
+        content: ' ';
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background-image: url("./resources/icons.png");
+        background-repeat: no-repeat;
+        background-size: 160px 20px;
+        background-position: 0px 0px;
+        margin: 10px;
+      }
     }
   }
 
   .currentLocation.side {
-    position:absolute;
-    bottom: 100px;
+    position: absolute;
+    bottom: 140px;
     right: 20px;
-    cursor: pointer;
-    width: 60px;
-    height: 60px;
-    margin: 3px;
-    padding:6px;
-    font-size: 24px;
-    line-height: 50px;
-    text-align: center;
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    -webkit-clip-path: polygon(
+      50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
+    );
+    clip-path: polygon(
+      50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
+    );
+  }
+
+  .currentLocation.side:before{
+    content: "";
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
+    width: 45px;
+    height: 45px;
     background-color: #fff;
-    border: 2px solid #ccc;
-  /*  -webkit-box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);
-    box-shadow: 2px 2px 3px 0px rgba(58,58,58,1);*/
+    -webkit-clip-path: polygon(
+      50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
+    );
+    clip-path: polygon(
+      50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
+    );
   }
 
   .icon-current-location {
+    position: absolute;
     width:48px;
     height:48px;
     background-image: url("./resources/icons.svg");
-    background-size: 368px 48px;
-    background-position:-184px 0px;
+    background-size: 280px 35px;
+    background-position: -100px 8px;
     background-repeat:no-repeat;
   }
 
@@ -109,14 +115,6 @@ html,body {
     position:absolute;
     left: calc(50% - 25px);
     top: calc(50% - 25px);
-  }
-
-  .searchBoxContainer {
-    position:absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    background-color: #fff;
   }
 
   input[type="search"] {
@@ -151,5 +149,4 @@ html,body {
     width: 15px;
     padding-left: 10px;
   }
-
 }

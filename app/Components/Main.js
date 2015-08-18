@@ -219,7 +219,7 @@ var Main = React.createClass({
             );
         default:
           return(
-            <div className="container">
+            <div className="container default">
               <div id="map"></div>
               <div className = "searchBoxContainer">
                 <SearchButton

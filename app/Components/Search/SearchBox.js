@@ -16,8 +16,7 @@ var SearchBox = React.createClass({
     return{ 
       searchResult : [],
       searchTerm : [],
-      searching : false,
-      filterText: this.props.value || ""
+      searching : false
     };
   },
 

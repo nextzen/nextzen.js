@@ -2,6 +2,13 @@ $search-bar-height: 40px;
 $route-btn-height: 48px;
 
 .searchBoxContainer.route {
+  
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: #fff;
+  
   .swapPoints {
     width: 20px;
     height: 20px;
@@ -15,7 +22,7 @@ $route-btn-height: 48px;
   .searchBox {
     position: absolute;
     width: calc( 100% - 80px);
-    top: 0px;
+    top: 5px;
     border: 0;
     &.startPoint::-webkit-search-decoration::after {
       background-image: url("./resources/ic_locate-dot.svg");
