@@ -185,11 +185,13 @@ var Main = React.createClass({
           return(
             <div className="container">
               <div id="map"></div>
-              <div className = "searchBoxContainer">
+              <div className = "searchBoxContainer search">
                 <CancelButton
                   setMapMode = {this.setMapMode} />
                 <SearchBox
                   addMarker = {this.addMarker}
+                  searchBoxId = "main-search"
+                  placeholder = "Search addres or place."
                   childClassName = "searchBox"
                   addPOIMarkers = {this.addPOIMarkers}
                   currentPoint = {this.state.currentPoint}

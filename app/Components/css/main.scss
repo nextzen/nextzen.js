@@ -30,10 +30,10 @@ html,body {
       width: 20px;
       height: 20px;
       display: inline-block;
-      background-image: url("./resources/icons.png");
+      background-image: url("./resources/ic_back.svg");
       background-repeat: no-repeat;
-      background-size: 160px 20px;
-      background-position: -100px 0px;
+      background-size: 20px 20px;
+      background-position: 0px 0px;
       margin: 10px;
     }
   }
@@ -111,6 +111,14 @@ html,body {
     top: calc(50% - 25px);
   }
 
+  .searchBoxContainer {
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: #fff;
+  }
+
   input[type="search"] {
     border-radius: 0;
     text-overflow: ellipsis;
@@ -124,16 +132,11 @@ html,body {
     width: 20px;
     height: 20px;
     display: inline-block;
-    background-image: url("./resources/icons.svg");
-    background-repeat: no-repeat;
-    background-size: 160px 20px;
-    background-position: 0px 0px;
-    margin: 10px 5px;
   }
 
   input[type="search"]::-webkit-search-decoration {
-    width: 15px;
-    padding-right: 25px;
+    width: 20px;
+    padding-right: 20px;
   }
 
   input[type="search"]::-webkit-search-cancel-button::after {

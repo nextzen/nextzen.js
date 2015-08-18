@@ -2,7 +2,6 @@ $search-bar-height: 40px;
 $route-btn-height: 48px;
 
 .searchBoxContainer.route {
-
   .swapPoints {
     width: 20px;
     height: 20px;
@@ -15,18 +14,22 @@ $route-btn-height: 48px;
 
   .searchBox {
     position: absolute;
-    top: $search-bar-height * 2;
-    width: 100%;
+    width: calc( 100% - 80px);
+    top: 0px;
+    border: 0;
     &.startPoint::-webkit-search-decoration::after {
       background-image: url("./resources/ic_locate-dot.svg");
       background-size: 20px 20px;
       background-position: 0px 0px;
     }
     
-    &.destPoint::-webkit-search-decoration::after {
-      background-image: url("./resources/ic_pin.svg");
-      background-size: 20px 20px;
-      background-position: 0px 0px;
+    &.destPoint {
+      top: $search-bar-height;
+        &::-webkit-search-decoration::after {
+        background-image: url("./resources/ic_pin.svg");
+        background-size: 20px 20px;
+        background-position: 0px 0px;
+      }
     }
   }
 
@@ -42,6 +45,48 @@ $route-btn-height: 48px;
     background-size: 160px 20px;
     background-position: -100px 0px;
     margin: 30px 10px;
+  }
+
+  .table-view.search-table {
+  position: absolute;
+  top: $search-bar-height * 2;
+  margin-bottom: 0px;
+  width: 100vw;
+  border-bottom-width: 0px;
+  border-top-width: 0px;
+  z-index:35;
+
+  li {
+    background-color: #fff;
+    font-size:13px;
+    z-index: 50;
+    cursor: pointer;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 0;
+    padding-left: 10px;
+
+      &:hover {
+        background-color: #ddd;
+      }
+      &::before {
+        content: ' ';
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        background-image: url("./resources/icons.svg");
+        background-repeat: no-repeat;
+        background-size: 80px 10px;
+        margin-right:10px;
+      }
+      &.currentLocation::before {
+        background-position: -30px 0px;
+      }
+      &.search-result::before {
+        background-position: -60px 0px;
+      }
+    }
   }
 }
 
@@ -67,8 +112,6 @@ $route-btn-height: 48px;
     }
   }
 }
-
-
 
 .route-table {
   height: calc( 100% - ( $route-btn-height + $search-bar-height * 2 ) );
