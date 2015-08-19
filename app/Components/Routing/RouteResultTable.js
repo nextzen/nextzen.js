@@ -157,6 +157,7 @@ var RouteResultTable = React.createClass({
             open = {this.state.open}
             openThis = {this.openThis}/>
         </li>
+        <li className = "table-view-cell route-type"> <div className ="route-icon kStart"/>Start where you are.</li>
         {rows}
       </ul>
     );

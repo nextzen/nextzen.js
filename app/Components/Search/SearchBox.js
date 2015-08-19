@@ -16,8 +16,7 @@ var SearchBox = React.createClass({
     return{ 
       searchResult : [],
       searchTerm : [],
-      searching : false,
-      filterText: this.props.value || ""
+      searching : false
     };
   },
 
@@ -26,7 +25,9 @@ var SearchBox = React.createClass({
   },
 
   componentDidMount: function(){
-    if(this.props.childClassName === "searchBox") document.getElementById('arg').focus();
+    console.log(this.props.placeholder);
+    var searchBoxId = this.props.searchBoxId;
+    if(searchBoxId) document.getElementById(searchBoxId).focus();
   },
 
   handleKeyDown: function(event){
@@ -138,10 +139,11 @@ var SearchBox = React.createClass({
     return(
       <div>
         <input style = {this.props.style}
-          id = "arg"
+          placeholder = {this.props.placeholder}
           className = {this.props.childClassName}
           ref = "filterTextInput" 
           type = "search" 
+          id = {this.props.searchBoxId}
           value = {this.state.filterText} 
           onChange = {this.handleChange}
           onKeyPress = {this.handleKeyDown}></input>
