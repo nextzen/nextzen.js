@@ -16,7 +16,8 @@ var SearchBox = React.createClass({
     return{ 
       searchResult : [],
       searchTerm : [],
-      searching : false
+      searching : false,
+      filterText: this.props.value || ""
     };
   },
 
@@ -25,7 +26,7 @@ var SearchBox = React.createClass({
   },
 
   componentDidMount: function(){
-    console.log(this.props.placeholder);
+
     var searchBoxId = this.props.searchBoxId;
     if(searchBoxId) document.getElementById(searchBoxId).focus();
   },
