@@ -1,4 +1,4 @@
-$search-bar-height:40px;
+$search-bar-height: 46px;
 
 .searchBoxContainer.search {
 
@@ -8,9 +8,10 @@ $search-bar-height:40px;
   width: 100%;
   background-color: #fff;
 
+
   input[type="search"].searchBox {
-    width: calc(100% - 40px);
-    height: 40px;
+    width: calc(100% - 46px);
+    height: $search-bar-height;
     float: left;
     border: 0;
 
@@ -52,9 +53,9 @@ $search-bar-height:40px;
     }
   }
 
-    .cancelButton {
-    width: 40px;
-    height: 40px;
+  .cancelButton {
+    width: $search-bar-height;
+    height: $search-bar-height;
     background-color:#fff;
     border: 0;
     display: inline-block;
@@ -108,5 +109,13 @@ $search-bar-height:40px;
         background-position: -70px 0px;
       }
     }
+  }
+
+  // big screen style
+  @media screen and (min-width : $screen-sm) {
+    position:absolute;
+    top: 30px;
+    left: 30px;
+    width: 450px;
   }
 }

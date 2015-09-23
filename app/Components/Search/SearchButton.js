@@ -7,7 +7,9 @@ var SearchButton = React.createClass({
   },
   render : function(){
     return(
-      <div className="searchButton" onClick = {this.setMode} />
+      <div className="searchButton" onClick = {this.setMode}> 
+        <span className = "searchPlaceholder"> Search addres or place. </span>
+        </div>
     );
   }
 });

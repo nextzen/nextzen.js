@@ -3,7 +3,7 @@ $route-btn-height: 48px;
 
 .searchBoxContainer.route {
   
-  position:absolute;
+  position: absolute;
   top: 0px;
   left: 0px;
   width: 100%;
@@ -58,7 +58,7 @@ $route-btn-height: 48px;
   position: absolute;
   top: $search-bar-height * 2;
   margin-bottom: 0px;
-  width: 100vw;
+  width: 100%;
   border-bottom-width: 0px;
   border-top-width: 0px;
   z-index:35;
@@ -95,11 +95,18 @@ $route-btn-height: 48px;
       }
     }
   }
+    //big screen style
+  @media screen and (min-width : $screen-sm) {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 450px;
+  }
 }
 
 .routeBtnGroup {
   position:absolute;
-  top: $search-bar-height * 2;
+  top: $search-bar-height*2;
   height:46px;
   z-index:10;
   width:100%;
@@ -114,11 +121,15 @@ $route-btn-height: 48px;
     &#autoRoute { background-position:0px 0px; }
     &#bikeRoute { background-position:-36px 0px; }
     &#walkRoute { background-position:-72px 0px; }
-    &::before{
-      background-image: none;
-    }
+    &::before{ background-image: none;}
+  }
+  @media screen and (min-width : $screen-sm) {
+    top: $search-bar-height*2 + 30px;
+    left: 30px;
+    width: 450px;
   }
 }
+
 
 .route-table {
   height: calc( 100% - ( $route-btn-height + $search-bar-height * 2 ) );
@@ -199,5 +210,17 @@ $route-btn-height: 48px;
     &.kRoundaboutExit { background-position: -504px 0; }
     &.kFerryEnter { background-position: -540px 0; }
     &.kFerryExit { background-position: -558px 0; }
+  }
+
+  @media screen and (min-width : $screen-sm) {
+    width: 450px;
+    left: 30px;
+    max-height: 50%;
+    &.closed {
+      position: absolute;
+      cursor:pointer;
+      top: $route-btn-height + $search-bar-height*2 + 30px;
+  }
+    
   }
 }

@@ -7,16 +7,17 @@ require('../css/main.scss');
 var CurrentLocation = React.createClass({
   getInitialState: function(){
     return{
+      //spin js options
       config : {
         lines: 9 // The number of lines to draw
         , length: 0 // The length of each line
         , width: 6 // The line thickness
-        , radius: 10 // The radius of the inner circle
+        , radius: 8 // The radius of the inner circle
         , color: '#27AAE1' // #rgb or #rrggbb or array of colors
         , speed: 1 // Rounds per second
         , className: 'spinner' // The CSS class to assign to the spinner
-        , top: '50%' // Top position relative to parent
-        , left: '50%' // Left position relative to parent
+        , top: '55%' // Top position relative to parent
+        , left: '55%' // Left position relative to parent
         , shadow: false // Whether to render a shadow
         , hwaccel: true // Whether to use hardware acceleration
       },
@@ -50,7 +51,7 @@ var CurrentLocation = React.createClass({
   render : function(){
     return(
       <div className="currentLocation side">
-        <div className={(this.state.spinning === false)? "icon-current-location" : ""} onClick= {this.getCurrentLocation}></div>
+        <div className={(this.state.spinning === false)? "icon-current-location" : "icon-hexagon"} onClick= {this.getCurrentLocation}></div>
         <div id="spinnerSpot"></div>
       </div>
     );
