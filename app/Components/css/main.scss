@@ -1,3 +1,4 @@
+@import 'variables';
 @import 'route';
 @import 'search';
 @import 'locationInfo';
@@ -10,6 +11,7 @@ html,body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+//some default componenets, lost childs.
 .container {
   width: 100%;
   height: 100%;
@@ -31,7 +33,7 @@ html,body {
 
     .routeButton {
       width: 40px;
-      height: 40px;
+      height: 46px;
       background-color:#fff;
       border: 0;
       display: inline-block;
@@ -51,7 +53,7 @@ html,body {
 
     .searchButton {
       width: calc(100% - 40px);
-      height: 40px;
+      height: 46px;
       background-color: #fff;
       float: left;
       &::before {
@@ -65,6 +67,11 @@ html,body {
         background-position: 0px 0px;
         margin: 10px;
       }
+      .searchPlaceholder {
+        position: absolute;
+        top: 10px;
+        color: #ccc;
+      }
     }
   }
 
@@ -74,38 +81,24 @@ html,body {
     right: 20px;
     width: 50px;
     height: 50px;
-    background-color: #ddd;
-    -webkit-clip-path: polygon(
-      50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
-    );
-    clip-path: polygon(
-      50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
-    );
   }
 
-  .currentLocation.side:before{
-    content: "";
-    position: absolute;
-    top: 2.5px;
-    left: 2.5px;
-    width: 45px;
-    height: 45px;
-    background-color: #fff;
-    -webkit-clip-path: polygon(
-      50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
-    );
-    clip-path: polygon(
-      50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%
-    );
-  }
 
   .icon-current-location {
     position: absolute;
-    width:48px;
-    height:48px;
-    background-image: url("./resources/ic_locate.svg");
-    background-size: 35px 35px;
-    background-position: 7px 7px;
+    width: 55px;
+    height: 55px;
+    background-image: url("./resources/locate-me.svg");
+    background-size: 55px 55px;
+    background-repeat: no-repeat;
+  }
+
+  .icon-hexagon {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    background-image: url("./resources/hexagon.svg");
+    background-size: 55px 55px;
     background-repeat:no-repeat;
   }
 
@@ -148,5 +141,57 @@ html,body {
     appearance: icon;
     width: 15px;
     padding-left: 10px;
+  }
+
+
+  // big screen style
+  @media screen and (min-width : $screen-sm) {
+    &.default {
+      .searchBoxContainer{
+        position:absolute;
+        top: 30px;
+        left: 30px;
+        width: 450px;
+        background-color: #fff;
+      }
+
+      .routeButton {
+        width: 40px;
+        height: 46px;
+        background-color:#fff;
+        border: 0;
+        display: inline-block;
+        float: left;
+        &::before {
+          content: ' ';
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+          background-image: url("./resources/icons.png");
+          background-repeat: no-repeat;
+          background-size: 160px 20px;
+          background-position: -40px 0px;
+          margin: 10px;
+        }
+      }
+
+      .searchButton {
+        width: calc(100% - 40px);
+        height: 46px;
+        background-color: #fff;
+        float: left;
+        &::before {
+          content: ' ';
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+          background-image: url("./resources/icons.png");
+          background-repeat: no-repeat;
+          background-size: 160px 20px;
+          background-position: 0px 0px;
+          margin: 10px;
+        }
+      }
+    }
   }
 }
