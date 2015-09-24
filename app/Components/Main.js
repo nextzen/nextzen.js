@@ -155,7 +155,7 @@ var Main = React.createClass({
 
     //loading scene yaml
      var layer = Tangram.leafletLayer({
-         scene: 'https://cdn.rawgit.com/tangrams/multiverse/gh-pages/styles/tangram-toner.yaml',//sceneYaml,
+         scene: 'https://cdn.rawgit.com/tangrams/multiverse/gh-pages/styles/blue-gray6.yaml',//sceneYaml,
          attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
      });
     layer.addTo(map);
