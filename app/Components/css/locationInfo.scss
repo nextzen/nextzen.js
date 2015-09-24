@@ -20,9 +20,10 @@
   }
 
   .routeButton {
-    position:fixed;
+    position: absolute;
     right: 10px;
     bottom: 30px;
+    cursor: pointer;
     width: 50px;
     height: 50px;
     background-image: url('./resources/ic_go.svg');
@@ -34,5 +35,17 @@
     &.routeButton::before {
       background-image: none;
     }
+  }
+
+  @media screen and (min-width : $screen-sm) {
+    width: 450px;
+    left: 30px;
+    top: 100px;
+    &.closed {
+      position: absolute;
+      cursor:pointer;
+      top: $route-btn-height + $search-bar-height*2 + 30px;
+    }
+    
   }
 }
