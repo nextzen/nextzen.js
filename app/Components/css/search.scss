@@ -82,6 +82,8 @@ $search-bar-height: 46px;
     li {
       background-color: #fff;
       font-size:13px;
+      width: 100%;
+      float: left;
       z-index: 50;
       cursor: pointer;
       border-top: 1px solid #ddd;
