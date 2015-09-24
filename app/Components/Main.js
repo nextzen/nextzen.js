@@ -29,22 +29,12 @@ var Main = React.createClass({
   },
 
   setStartPoint: function(mrkr){
-    this.setState({startPoint:mrkr},function(){
-    });
+    //this.setState({startPoint:mrkr},function(){
+    //});
   },
 
   setCurrentPoint: function(pos){
-    
-    var newCurrentLocation = {
-      name : "Current location",
-      lat: pos.coords.latitude,
-      lon: pos.coords.longitude
-    }
-
-    this.setState({
-      currentPoint : newCurrentLocation,
-      startPoint : newCurrentLocation
-    },function(){
+    var newCurrentLocation = this.props.currentPoint;
       var center = L.latLng(pos.coords.latitude,pos.coords.longitude);
       this.state.currentLayer.clearLayers();
       this.state.currentLayer.addLayer(L.circleMarker(center), 3, {
@@ -55,8 +45,6 @@ var Main = React.createClass({
 
       });
       this.map.setView(center,14);
-    });
-
   },
 
   addMarker: function(mrkr){
@@ -122,7 +110,7 @@ var Main = React.createClass({
     this.state.markerLayer.clearLayers();
     var marker = new L.marker([this.state.destPoint.lat, this.state.destPoint.lon]);
     this.state.markerLayer.addLayer(marker);
-    this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.state.startPoint.lat,this.state.startPoint.lon)), 3, {
+    this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.props.startPoint.lat,this.props.startPoint.lon)), 3, {
       color: '#32CAD6',
       opacity:1,
       fillColor: '#32CAD6',
@@ -207,8 +195,8 @@ var Main = React.createClass({
           <div className="container">
             <div id="map"></div>
             <RouteWindow 
-                startPoint = {this.state.startPoint}
-                currentPoint ={this.state.currentPoint}
+                startPoint = {this.props.startPoint}
+                currentPoint ={this.props.currentPoint}
                 destPoint = {this.state.destPoint}
                 clearMap = {this.clearMap}
                 addMarker = {this.addMarker}

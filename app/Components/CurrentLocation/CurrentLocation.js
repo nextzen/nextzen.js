@@ -1,7 +1,37 @@
 var React = require('react');
 var ReactSpinner = require('../Spin');
 require('ratchet');
+var store = require('../../reducer')
 require('../css/main.scss');
+
+
+//action
+
+function updateCurrentLocationAction(pos) {
+  console.log(pos);
+  return {
+    type: 'updateCurrentPoint',
+    currentPoint: {
+      name : "Current location",
+      lat: pos.coords.latitude,
+      lon: pos.coords.longitude
+    }
+  }
+}
+
+//action
+
+function updateStartLocationAction(pos) {
+  console.log(pos);
+  return {
+    type: 'updateStartPoint',
+    startPoint: {
+      name : "Current location",
+      lat: pos.coords.latitude,
+      lon: pos.coords.longitude
+    }
+  }
+}
 
 
 var CurrentLocation = React.createClass({
@@ -29,6 +59,8 @@ var CurrentLocation = React.createClass({
     var self = this;
      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
+          store.dispatch(updateCurrentLocationAction(position));
+          store.dispatch(updateStartLocationAction(position));
           self.props.setCurrentLocation(position);
           self.unmountSpinner();
         });
@@ -59,3 +91,4 @@ var CurrentLocation = React.createClass({
 });
 
 module.exports = CurrentLocation;
+
