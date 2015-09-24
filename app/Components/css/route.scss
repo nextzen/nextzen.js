@@ -111,6 +111,8 @@ $route-btn-height: 48px;
   z-index:10;
   width:100%;
   cursor: pointer;
+  border-left: 0;
+  border-right: 0;
   .routeModeButton {
     width:36px;
     height:36px;
@@ -220,7 +222,6 @@ $route-btn-height: 48px;
       position: absolute;
       cursor:pointer;
       top: $route-btn-height + $search-bar-height*2 + 30px;
-  }
-    
+    }
   }
 }

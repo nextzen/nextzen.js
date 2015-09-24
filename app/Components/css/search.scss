@@ -62,12 +62,12 @@ $search-bar-height: 46px;
     float: left;
     &::before {
       content: ' ';
-      width: 20px;
-      height: 20px;
+      width: 26px;
+      height: 26px;
       display: inline-block;
       background-image: url("./resources/ic_back.svg");
       background-repeat: no-repeat;
-      background-size: 20px 20px;
+      background-size: 26px 26px;
       background-position: 0px 0px;
       margin: 10px;
     }
@@ -82,11 +82,11 @@ $search-bar-height: 46px;
     li {
       background-color: #fff;
       font-size:13px;
+      width: 100%;
+      float: left;
       z-index: 50;
       cursor: pointer;
       border-top: 1px solid #ddd;
-      border-left: 1px solid #ddd;
-      border-right: 1px solid #ddd;
       border-bottom: 0;
       padding-left:10px;
       &:hover {
