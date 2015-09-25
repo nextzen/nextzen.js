@@ -14,7 +14,6 @@ var store = require('./reducer.js');
 // Map Redux state to component props
 
 function mapStateToProps(state)  {
-  console.log(state);
     if (typeof state === 'undefined') {
     state = {
       startPoint: {},
@@ -24,8 +23,8 @@ function mapStateToProps(state)  {
     };
   }
   return {
-    startPoint: state.startPoint,
-    destPoint: state.destPoint,
+    startPoint: state.startPoint  ,
+    destPoint: state.destPoint ,
     currentPoint: state.currentPoint,
     mode: state.mode
   }

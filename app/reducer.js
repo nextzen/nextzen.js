@@ -14,17 +14,22 @@ function updatePoint(state, action) {
   switch(action.type) {
     case 'updateStartPoint':
       return { 
-        startPoint: action.startPoint
+        startPoint: action.startPoint,
+        destPoint: state.destPoint,
+        currentPoint: state.currentPoint
       };
 
     case 'updateDestPoint':
       return { 
-        destPoint: action.destPoint
+        startPoint: state.startPoint,
+        destPoint: action.destPoint,
+        currentPoint: state.currentPoint
       };
 
     case 'updateCurrentPoint':
-    console.log(action)
       return { 
+        startPoint: state.startPoint,
+        destPoint: state.destPoint,
         currentPoint: action.currentPoint
       };
   }

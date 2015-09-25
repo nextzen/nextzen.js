@@ -11,6 +11,7 @@ var SearchButton = require('./Search/SearchButton');
 var CancelButton = require('./Search/CancelButton');
 var RouteButton = require('./Routing/RouteButton');
 
+var Actions = require('../actions');
 var Main = React.createClass({
 
   getInitialState: function(){
@@ -53,11 +54,7 @@ var Main = React.createClass({
     var marker = L.marker([mrkr.lat,mrkr.lon]);
     //replace not to mutate state directly
     this.state.markerLayer.addLayer(marker);
-    
     this.map.setView(marker.getLatLng(),14);
-    this.setState({
-      destPoint: mrkr
-    });
   },
   addPOIMarkers: function(mrkrs){
     this.state.markerLayer.clearLayers();
@@ -108,7 +105,7 @@ var Main = React.createClass({
   },
   addRouteLayer : function(routes){
     this.state.markerLayer.clearLayers();
-    var marker = new L.marker([this.state.destPoint.lat, this.state.destPoint.lon]);
+    var marker = new L.marker([this.props.destPoint.lat, this.props.destPoint.lon]);
     this.state.markerLayer.addLayer(marker);
     this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.props.startPoint.lat,this.props.startPoint.lon)), 3, {
       color: '#32CAD6',
@@ -178,6 +175,7 @@ var Main = React.createClass({
                   setMapMode = {this.setMapMode} />
                 <SearchBox
                   addMarker = {this.addMarker}
+                  pointAction = {Actions.updateDestPointAction}
                   searchBoxId = "main-search"
                   placeholder = "Search addres or place."
                   childClassName = "searchBox"
@@ -196,11 +194,11 @@ var Main = React.createClass({
             <div id="map"></div>
             <RouteWindow 
                 startPoint = {this.props.startPoint}
+                setStartPoint = {this.setStartPoint}
                 currentPoint ={this.props.currentPoint}
-                destPoint = {this.state.destPoint}
+                destPoint = {this.props.destPoint}
                 clearMap = {this.clearMap}
                 addMarker = {this.addMarker}
-                setStartPoint = {this.setStartPoint}
                 addRouteLayer = {this.addRouteLayer}
                 setMapMode = {this.setMapMode}/>
           </div>

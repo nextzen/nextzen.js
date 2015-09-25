@@ -10,6 +10,9 @@ var LocationInformation = require('./LocationInformation');
 require('ratchet');
 require('../css/main.scss');
 
+var Actions = require('../../actions');
+var store = require('../../reducer');
+
 var SearchBox = React.createClass({
 
   getInitialState: function(){
@@ -105,6 +108,8 @@ var SearchBox = React.createClass({
   },
 
   addMarker: function(mrkr){
+
+    store.dispatch(this.props.pointAction(mrkr.name, mrkr.lat, mrkr.lon));
     this.props.addMarker(mrkr);
     if(this.props.childClassName === "searchBox") React.render(<LocationInformation 
                   markedLocation = {mrkr}
@@ -116,7 +121,7 @@ var SearchBox = React.createClass({
 
     var self = this;
     if(currentInput.length > 0){
-      var baseurl = '//pelias.mapzen.com';
+      var baseurl = 'https://pelias.mapzen.com';
 
       var point = this.props.currentPoint || this.props.destPoint || this.props.startPoint || null;
 
@@ -126,8 +131,8 @@ var SearchBox = React.createClass({
 
       var callurl ;
 
-      if(point !== null) callurl = baseurl + "/search?input="+ currentInput+ "&lat="+point.lat+"&lon="+point.lon+"&zoom="+ zoom;
-      else callurl = baseurl + "/search?input="+ currentInput;
+      if(point !== null) callurl = baseurl + "/suggest?input="+ currentInput+ "&lat="+point.lat+"&lon="+point.lon+"&zoom="+ zoom;
+      else callurl = baseurl + "/suggest?input="+ currentInput;
 
       $.get(callurl,function(data){
           self.setState({searchResult: data.features});
