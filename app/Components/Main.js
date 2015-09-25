@@ -11,6 +11,7 @@ var SearchButton = require('./Search/SearchButton');
 var CancelButton = require('./Search/CancelButton');
 var RouteButton = require('./Routing/RouteButton');
 
+var Actions = require('../actions');
 var Main = React.createClass({
 
   getInitialState: function(){
@@ -29,22 +30,12 @@ var Main = React.createClass({
   },
 
   setStartPoint: function(mrkr){
-    this.setState({startPoint:mrkr},function(){
-    });
+    //this.setState({startPoint:mrkr},function(){
+    //});
   },
 
   setCurrentPoint: function(pos){
-    
-    var newCurrentLocation = {
-      name : "Current location",
-      lat: pos.coords.latitude,
-      lon: pos.coords.longitude
-    }
-
-    this.setState({
-      currentPoint : newCurrentLocation,
-      startPoint : newCurrentLocation
-    },function(){
+    var newCurrentLocation = this.props.currentPoint;
       var center = L.latLng(pos.coords.latitude,pos.coords.longitude);
       this.state.currentLayer.clearLayers();
       this.state.currentLayer.addLayer(L.circleMarker(center), 3, {
@@ -55,8 +46,6 @@ var Main = React.createClass({
 
       });
       this.map.setView(center,14);
-    });
-
   },
 
   addMarker: function(mrkr){
@@ -65,11 +54,7 @@ var Main = React.createClass({
     var marker = L.marker([mrkr.lat,mrkr.lon]);
     //replace not to mutate state directly
     this.state.markerLayer.addLayer(marker);
-    
     this.map.setView(marker.getLatLng(),14);
-    this.setState({
-      destPoint: mrkr
-    });
   },
   addPOIMarkers: function(mrkrs){
     this.state.markerLayer.clearLayers();
@@ -120,9 +105,9 @@ var Main = React.createClass({
   },
   addRouteLayer : function(routes){
     this.state.markerLayer.clearLayers();
-    var marker = new L.marker([this.state.destPoint.lat, this.state.destPoint.lon]);
+    var marker = new L.marker([this.props.destPoint.lat, this.props.destPoint.lon]);
     this.state.markerLayer.addLayer(marker);
-    this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.state.startPoint.lat,this.state.startPoint.lon)), 3, {
+    this.state.markerLayer.addLayer(L.circleMarker(L.latLng(this.props.startPoint.lat,this.props.startPoint.lon)), 3, {
       color: '#32CAD6',
       opacity:1,
       fillColor: '#32CAD6',
@@ -190,6 +175,7 @@ var Main = React.createClass({
                   setMapMode = {this.setMapMode} />
                 <SearchBox
                   addMarker = {this.addMarker}
+                  pointAction = {Actions.updateDestPointAction}
                   searchBoxId = "main-search"
                   placeholder = "Search addres or place."
                   childClassName = "searchBox"
@@ -207,12 +193,12 @@ var Main = React.createClass({
           <div className="container">
             <div id="map"></div>
             <RouteWindow 
-                startPoint = {this.state.startPoint}
-                currentPoint ={this.state.currentPoint}
-                destPoint = {this.state.destPoint}
+                startPoint = {this.props.startPoint}
+                setStartPoint = {this.setStartPoint}
+                currentPoint ={this.props.currentPoint}
+                destPoint = {this.props.destPoint}
                 clearMap = {this.clearMap}
                 addMarker = {this.addMarker}
-                setStartPoint = {this.setStartPoint}
                 addRouteLayer = {this.addRouteLayer}
                 setMapMode = {this.setMapMode}/>
           </div>

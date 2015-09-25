@@ -1,5 +1,7 @@
 var React = require('react');
 var ReactSpinner = require('../Spin');
+var Actions = require('../../actions');
+var store = require('../../reducer');
 require('ratchet');
 require('../css/main.scss');
 
@@ -29,6 +31,8 @@ var CurrentLocation = React.createClass({
     var self = this;
      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
+          store.dispatch(Actions.updateCurrentPointAction(position.coords.latitude, position.coords.longitude));
+          store.dispatch(Actions.updateStartPointAction("Current Location", position.coords.latitude, position.coords.longitude));
           self.props.setCurrentLocation(position);
           self.unmountSpinner();
         });
@@ -59,3 +63,4 @@ var CurrentLocation = React.createClass({
 });
 
 module.exports = CurrentLocation;
+
