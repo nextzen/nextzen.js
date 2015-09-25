@@ -40,18 +40,22 @@ $route-btn-height: 48px;
     }
   }
 
-  .routeCancelButton {
+  #routeCancelButton {
     width: 20px;
     height: 20px;
     position: absolute;
     top: 0px;
     right: 0px;
     background-color: #fff;
-    background-image: url("./resources/icons.png");
+    margin: 30px 10px;
+  }
+
+  .routeCancelButton {
+    background-image: url("./resources/icons.svg");
     background-repeat: no-repeat;
     background-size: 160px 20px;
     background-position: -100px 0px;
-    margin: 30px 10px;
+
   }
 
   .table-view.search-table {

@@ -30,7 +30,7 @@ var SearchWhileRoute = React.createClass({
           childClassName = "searchBox destPoint"
           placeholder = "Choose destination point"
           currentPoint ={this.props.currentPoint}/>
-      <div className="routeCancelButton" onClick= {this.props.cancleRouteMode}></div>
+      <div id = "routeCancelButton" className="routeCancelButton" onClick= {this.props.cancleRouteMode}></div>
     </div>
     );
   }

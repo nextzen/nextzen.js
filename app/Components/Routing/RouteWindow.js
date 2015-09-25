@@ -1,18 +1,33 @@
 var React = require('react');
 var polyline = require('polyline');
 var $ = require('jquery');
-
+var ReactSpinner = require('../Spin');
 var RouteResultTable = require('./RouteResultTable');
 var SearchWhileRoute = require('./SearchWhileRoute');
+
+
 var RouteWindow = React.createClass({
 
-  getInitialState : function(){
+  getInitialState: function(){
     return{
-      //startPoint must be replaced current location // search result
-      activeTab: ""
+      //spin js options
+      activeTab: '',
+      config : {
+        lines: 9 // The number of lines to draw
+        , length: 0 // The length of each line
+        , width: 6 // The line thickness
+        , radius: 8 // The radius of the inner circle
+        , color: '#27AAE1' // #rgb or #rrggbb or array of colors
+        , speed: 1 // Rounds per second
+        , className: 'spinnerClass' // The CSS class to assign to the spinner
+        , top: '55%' // Top position relative to parent
+        , left: '55%' // Left position relative to parent
+        , shadow: false // Whether to render a shadow
+        , hwaccel: true // Whether to use hardware acceleration
+      },
+      spinning: false
     }
-  },
-  //
+  },  //
   route: function(mode){
     //valhalla call form : https://valhalla.mapzen.com/route?json={%22locations%22:[{%22lat%22:39.42923221970601,%22lon%22:-76.6356897354126},{%22lat%22:39.30727282892593,%22lon%22:-76.77203178405762}],%22costing%22:%22auto%22}&api_key=valhalla-RfDii2g
     var serviceurl = "https://valhalla.mapzen.com/";
@@ -37,17 +52,36 @@ var RouteWindow = React.createClass({
     });
 
     var routeUrl = serviceurl +  'route?json=' + params + apikey;
+    $('#routeCancelButton').toggleClass('routeCancelButton');
+    this.mountSpinner();
+
+
     $.get(routeUrl,function(data){
       
       var coord = polyline.decode(data.trip.legs[0].shape,6);
       self.props.addRouteLayer(coord);
       self.mountTable(data);
+      self.unmountSpinner();
+      $('#routeCancelButton').toggleClass('routeCancelButton');
     });
-    //there must be better way to do this
+
     self.setState({
       activeTab: mode
     })
 
+  },
+
+  mountSpinner: function(){
+    React.render(<ReactSpinner config={this.state.config}/>, document.getElementById('routeCancelButton'));
+    this.setState({
+      spinning:true
+    });
+  },
+  unmountSpinner: function(){
+    React.unmountComponentAtNode(document.getElementById('routeCancelButton'));
+    this.setState({
+      spinning:false
+    })
   },
   mountTable: function(data){
     React.render(<RouteResultTable searchData = {data}/>, document.getElementById('route-result-table'));
