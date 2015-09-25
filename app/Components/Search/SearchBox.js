@@ -134,9 +134,17 @@ var SearchBox = React.createClass({
       if(point !== null) callurl = baseurl + "/suggest?input="+ currentInput+ "&lat="+point.lat+"&lon="+point.lon+"&zoom="+ zoom;
       else callurl = baseurl + "/suggest?input="+ currentInput;
 
-      $.get(callurl,function(data){
-          self.setState({searchResult: data.features});
-        }); 
+      $.ajax({          
+          type:"GET",
+          dataType: "jsonp",
+          crossDomain: true,
+          url: callurl,
+          success: function(data){
+            self.setState({searchResult: data.features});
+          },
+          error: function(){//do nothing
+          }
+      });
     }else{
       self.setState({searchResult: []})
     }
