@@ -1,6 +1,4 @@
 var React = require('react');
-require('ratchet');
-require('../css/main.scss');
 
 var ResultRow = require('./ResultRow');
 var SearchTermRow = require('./SearchTermRow');

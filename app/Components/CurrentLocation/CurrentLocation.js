@@ -2,8 +2,6 @@ var React = require('react');
 var ReactSpinner = require('../Spin');
 var Actions = require('../../actions');
 var store = require('../../reducer');
-require('ratchet');
-require('../css/main.scss');
 
 
 var CurrentLocation = React.createClass({
