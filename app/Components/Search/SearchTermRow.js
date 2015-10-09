@@ -1,7 +1,5 @@
 var React = require('react');
 var $ = require('jquery');
-require('ratchet');
-require('../css/main.scss');
 
 var SearchTermRow = React.createClass({
   handleClick: function(){

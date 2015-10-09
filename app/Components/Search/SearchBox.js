@@ -7,8 +7,6 @@ var ResultRow = require('./ResultRow');
 var ResultTable = require('./ResultTable');
 var LocationInformation = require('./LocationInformation');
 
-require('ratchet');
-require('../css/main.scss');
 
 var Actions = require('../../actions');
 var store = require('../../reducer');
