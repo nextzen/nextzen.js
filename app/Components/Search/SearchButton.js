@@ -1,5 +1,4 @@
 var React = require('react');
-require('../css/main.scss');
 
 var SearchButton = React.createClass({
   setMode : function(){

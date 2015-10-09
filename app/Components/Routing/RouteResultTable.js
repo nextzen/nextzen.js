@@ -1,6 +1,4 @@
 var React = require('react');
-require('ratchet');
-require('../css/main.scss');
 
 
 var RouteResultRow = React.createClass({
@@ -40,15 +38,6 @@ var RouteResultTable = React.createClass({
     return{
       open : false
     }
-  },
-
-  componentDidMount: function() {
-  },
-
-  componentWillReceiveProps: function(newProps) {
-  },
-
-  componentWillUnmount: function() {
   },
   openThis: function(){
     this.setState({

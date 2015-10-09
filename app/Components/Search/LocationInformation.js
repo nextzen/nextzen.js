@@ -1,6 +1,5 @@
 var React = require('react');
 var RouteButton = require('../Routing/RouteButton')
-require('../css/main.scss');
 
 var LocationInformation = React.createClass({
 

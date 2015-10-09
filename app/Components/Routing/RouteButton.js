@@ -1,5 +1,4 @@
 var React = require('react');
-require('../css/main.scss');
 
 var RouteButton = React.createClass({
   setMode : function(){

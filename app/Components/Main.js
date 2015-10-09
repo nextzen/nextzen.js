@@ -1,7 +1,7 @@
 var React = require('react');
 var RouteHandler = require('react-router').RouteHandler;
 
-require('ratchet');
+require('./css/ratchet.css');
 require('./css/main.scss');
 
 var CurrentLocation = require('./CurrentLocation/CurrentLocation');
@@ -30,8 +30,7 @@ var Main = React.createClass({
   },
 
   setStartPoint: function(mrkr){
-    //this.setState({startPoint:mrkr},function(){
-    //});
+
   },
 
   setCurrentPoint: function(pos){
@@ -133,11 +132,6 @@ var Main = React.createClass({
     var map = L.map(element,{
       zoomControl:false
     });
-
-    // var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    // }).addTo(map);
-
     //loading scene yaml
      var layer = Tangram.leafletLayer({
          scene: 'https://cdn.rawgit.com/tangrams/multiverse/gh-pages/styles/blue-gray6.yaml',//sceneYaml,
