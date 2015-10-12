@@ -1,36 +1,24 @@
-function _updateCurrentPointAction(lat, lon) {
+function _updateCurrentPointAction(currentLocationObj) {
   return {
     type: 'updateCurrentPoint',
-    currentPoint: {
-      name : "Current location",
-      lat: lat,
-      lon: lon
-    }
+    currentPoint: currentLocationObj
   }
 }
 
 
-function _updateStartPointAction(name, lat, lon) {
+function _updateStartPointAction(locationObj) {
   return {
     type: 'updateStartPoint',
-    startPoint: {
-      name : name,
-      lat: lat,
-      lon: lon
-    }
+    startPoint: locationObj
   }
 }
 
 
 
-function _updateDestPointAction(name, lat, lon) {
+function _updateDestPointAction(locationObj) {
   return {
     type: 'updateDestPoint',
-    destPoint: {
-      name : name,
-      lat: lat,
-      lon: lon
-    }
+    destPoint: locationObj
   }
 }
 

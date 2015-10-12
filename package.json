@@ -13,6 +13,7 @@
     "html-webpack-plugin": "1.6.0",
     "jsx-loader": "^0.13.2",
     "polyline": "0.1.0",
+    "react-cookie": "^0.3.4",
     "react-redux": "^2.1.2",
     "react-router": "^0.13.3",
     "redux": "^3.0.0",

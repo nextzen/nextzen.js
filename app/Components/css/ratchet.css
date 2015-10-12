@@ -1261,6 +1261,7 @@ select {
   font-weight: normal;
 
   src: url("./resources/ratchicons.svg");
+  src: url("./resources/ratchicons.woff") format("woff"), url("./resources/ratchicons.svg#svgFontName") format("svg");
 }
 .icon {
   display: inline-block;

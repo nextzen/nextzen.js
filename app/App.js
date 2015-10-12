@@ -23,8 +23,8 @@ function mapStateToProps(state)  {
     };
   }
   return {
-    startPoint: state.startPoint  ,
-    destPoint: state.destPoint ,
+    startPoint: state.startPoint,
+    destPoint: state.destPoint,
     currentPoint: state.currentPoint,
     mode: state.mode
   }

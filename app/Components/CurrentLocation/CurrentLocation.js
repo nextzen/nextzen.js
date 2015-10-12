@@ -1,8 +1,10 @@
 var React = require('react');
 var ReactSpinner = require('../Spin');
+
 var Actions = require('../../actions');
 var store = require('../../reducer');
 
+var cookie = require('react-cookie');
 
 var CurrentLocation = React.createClass({
   getInitialState: function(){
@@ -29,9 +31,21 @@ var CurrentLocation = React.createClass({
     var self = this;
      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
-          store.dispatch(Actions.updateCurrentPointAction(position.coords.latitude, position.coords.longitude));
-          store.dispatch(Actions.updateStartPointAction("Current Location", position.coords.latitude, position.coords.longitude));
-          self.props.setCurrentLocation(position);
+          var currentLocation = {
+            name : "Current Location",
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          }
+
+          store.dispatch(Actions.updateCurrentPointAction(currentLocation));
+          store.dispatch(Actions.updateStartPointAction(currentLocation));
+
+          //mark it on the map
+          self.props.setCurrentLocation();
+
+          //save it on cookie
+          cookie.save('currentLocation', currentLocation);
+
           self.unmountSpinner();
         });
     } else {

@@ -25,8 +25,8 @@ var ResultTable = React.createClass({
           currentLocationRow.push(<li className="table-view-cell currentLocation"> current location </li>);
         }
           this.props.searchData.forEach(function(result){
-            var displayName = result.properties.text;
-            rows.push(<ResultRow name = {displayName}
+
+            rows.push(<ResultRow name = {result.properties.label}
                                  loc = {result.geometry.coordinates} 
                                  key = {result.properties.id} 
                                  addMarker = {self.props.addMarker} 
