@@ -6,8 +6,8 @@ var store = require('../../reducer');
 var SwapPoints = React.createClass({
   swapPoints: function(){
     var tempPoint = this.props.startPoint;
-    store.dispatch(this.props.updateStartPointAction(this.props.destPoint.name, this.props.destPoint.lat, this.props.destPoint.lon));
-    store.dispatch(this.props.updateDestPointAction(tempPoint.name, tempPoint.lat, tempPoint.lon));
+    store.dispatch(this.props.updateStartPointAction(this.props.destPoint));
+    store.dispatch(this.props.updateDestPointAction(tempPoint));
   },
   render: function(){
     return (

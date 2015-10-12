@@ -5,6 +5,11 @@ var ReactSpinner = require('../Spin');
 var RouteResultTable = require('./RouteResultTable');
 var SearchWhileRoute = require('./SearchWhileRoute');
 
+var Actions = require('../../actions');
+var store = require('../../reducer');
+
+var Keys = require('../Keys');
+
 
 var RouteWindow = React.createClass({
 
@@ -31,7 +36,7 @@ var RouteWindow = React.createClass({
   route: function(mode){
     //valhalla call form : https://valhalla.mapzen.com/route?json={%22locations%22:[{%22lat%22:39.42923221970601,%22lon%22:-76.6356897354126},{%22lat%22:39.30727282892593,%22lon%22:-76.77203178405762}],%22costing%22:%22auto%22}&api_key=valhalla-RfDii2g
     var serviceurl = "https://valhalla.mapzen.com/";
-    var apikey = '&api_key=valhalla-RfDii2g';
+    var apikey = '&api_key=' + Keys.turnByTurn;
 
     var transitM = mode || 'auto';
     var locs = [];
@@ -92,6 +97,8 @@ var RouteWindow = React.createClass({
 
   cancleRouteMode: function(){
     this.props.setMapMode('default');
+    store.dispatch(Actions.updateStartPointAction({}));
+    store.dispatch(Actions.updateDestPointAction({}));
     this.props.clearMap();
   },
   render: function(){
@@ -102,7 +109,8 @@ var RouteWindow = React.createClass({
           destPoint = {this.props.destPoint}
           addMarker = {this.props.addMarker}
           setStartPoint = {this.props.setStartPoint}
-          currentPoint ={this.props.currentPoint} 
+          currentPoint = {this.props.currentPoint}
+          unmountTable = {this.unmountTable}
           cancleRouteMode = {this.cancleRouteMode}/>
         <div className="routeBtnGroup segmented-control">
           <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto")}>

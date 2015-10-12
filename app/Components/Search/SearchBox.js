@@ -7,9 +7,10 @@ var ResultRow = require('./ResultRow');
 var ResultTable = require('./ResultTable');
 var LocationInformation = require('./LocationInformation');
 
-
 var Actions = require('../../actions');
 var store = require('../../reducer');
+
+var Keys = require('../Keys.js');
 
 var SearchBox = React.createClass({
 
@@ -107,7 +108,7 @@ var SearchBox = React.createClass({
 
   addMarker: function(mrkr){
 
-    store.dispatch(this.props.pointAction(mrkr.name, mrkr.lat, mrkr.lon));
+    store.dispatch(this.props.pointAction(mrkr));
     this.props.addMarker(mrkr);
     if(this.props.childClassName === "searchBox") React.render(<LocationInformation 
                   markedLocation = {mrkr}
@@ -119,28 +120,27 @@ var SearchBox = React.createClass({
 
     var self = this;
     if(currentInput.length > 0){
-      var baseurl = 'https://pelias.mapzen.com';
-
-      var point = this.props.currentPoint || this.props.destPoint || this.props.startPoint || null;
+      var baseurl = 'https://search.mapzen.com/v1';
+      var point = this.props.destPoint || this.props.startPoint || this.props.currentPoint || null;
 
       var input = currentInput;
-      var zoom = 10;
-      var searchData;
+      var radius = 50;
 
-      var callurl ;
+      var callurl = baseurl + "/autocomplete?text=" + currentInput;
+      callurl += '&api_key=' + Keys.search;
 
-      if(point !== null) callurl = baseurl + "/suggest?input="+ currentInput+ "&lat="+point.lat+"&lon="+point.lon+"&zoom="+ zoom;
-      else callurl = baseurl + "/suggest?input="+ currentInput;
+      //if object is not empty object
+      if(Object.keys(point).length !== 0) callurl += "&focus.point.lat=" + point.lat + "&focus.point.lon=" + point.lon;
 
-      $.ajax({          
+      $.ajax({
           type:"GET",
-          dataType: "jsonp",
           crossDomain: true,
           url: callurl,
           success: function(data){
             self.setState({searchResult: data.features});
           },
-          error: function(){//do nothing
+          error: function(){
+              // when there is no search result? 
           }
       });
     }else{

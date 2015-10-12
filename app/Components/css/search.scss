@@ -81,14 +81,18 @@ $search-bar-height: 46px;
 
     li {
       background-color: #fff;
-      font-size:13px;
+      font-size: 14px;
       width: 100%;
       float: left;
       z-index: 50;
       cursor: pointer;
       border-top: 1px solid #ddd;
       border-bottom: 0;
-      padding-left:10px;
+      padding-left: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
       &:hover {
         background-color: #ddd;
       }

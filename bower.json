@@ -17,8 +17,6 @@
   ],
   "dependencies": {
     "spinjs": "2.3.1",
-    "jquery": "2.1.4",
-    "tangram": "0.1",
-    "ratchet": "2.0.2"
+    "jquery": "2.1.4"
   }
 }

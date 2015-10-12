@@ -4,6 +4,8 @@ var RouteHandler = require('react-router').RouteHandler;
 require('./css/ratchet.css');
 require('./css/main.scss');
 
+var cookie = require('react-cookie');
+
 var CurrentLocation = require('./CurrentLocation/CurrentLocation');
 var SearchBox = require('./Search/SearchBox');
 var RouteWindow = require('./Routing/RouteWindow');
@@ -12,21 +14,19 @@ var CancelButton = require('./Search/CancelButton');
 var RouteButton = require('./Routing/RouteButton');
 
 var Actions = require('../actions');
+var store = require('../reducer');
+
 var Main = React.createClass({
 
   getInitialState: function(){
     return{
-      // markerLyaer is being mutated, not the way react recommends
-      currentPoint : null,
-      startPoint : null,
-      destPoint : null,
+      currentPoint : cookie.load('currentLocation') || {},
       poiMarkers:[],
       currentLayer : L.layerGroup(),
       markerLayer : L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')]),
       routeLayer : L.layerGroup(),
       mode : "default"
     }
-
   },
 
   setStartPoint: function(mrkr){
@@ -35,26 +35,27 @@ var Main = React.createClass({
 
   setCurrentPoint: function(pos){
     var newCurrentLocation = this.props.currentPoint;
-      var center = L.latLng(pos.coords.latitude,pos.coords.longitude);
-      this.state.currentLayer.clearLayers();
-      this.state.currentLayer.addLayer(L.circleMarker(center), 3, {
-        color: '#00f',
-        opacity:1,
-        fillColor: '#00f',
-        fillOpacity: 0.8,
+    var center = L.latLng(newCurrentLocation.lat, newCurrentLocation.lon);
 
-      });
-      this.map.setView(center,14);
+    this.state.currentLayer.clearLayers();
+    this.state.currentLayer.addLayer(L.circleMarker(center), 3, {
+      color: '#00f',
+      opacity:1,
+      fillColor: '#00f',
+      fillOpacity: 0.8,
+    });
+
+    this.map.setView(center,14);
   },
 
   addMarker: function(mrkr){
 
     this.state.markerLayer.clearLayers();
     var marker = L.marker([mrkr.lat,mrkr.lon]);
-    //replace not to mutate state directly
     this.state.markerLayer.addLayer(marker);
     this.map.setView(marker.getLatLng(),14);
   },
+
   addPOIMarkers: function(mrkrs){
     this.state.markerLayer.clearLayers();
     
@@ -71,15 +72,6 @@ var Main = React.createClass({
 
       var marker = new L.marker([mrkrs[i].lat,mrkrs[i].lon]).bindPopup(mrkrs[i].name);
       marker.name = mrkrs[i].name;
-      marker.on('click', function (e) {
-        self.setState({
-          destPoint:{
-            name : this.name,
-            lat : this.getLatLng().lat,
-            lon : this.getLatLng().lng
-          }
-        });
-      });
 
       if(mrkrs[i].lat < minLat) minLat = mrkrs[i].lat;
       if(mrkrs[i].lat > maxLat) maxLat = mrkrs[i].lat;
@@ -97,10 +89,6 @@ var Main = React.createClass({
     this.state.markerLayer.clearLayers();
     this.state.currentLayer.clearLayers();
     this.state.routeLayer.clearLayers();
-    this.setState({
-      startPoint:{},
-      destPoint:{}
-    });
   },
   addRouteLayer : function(routes){
     this.state.markerLayer.clearLayers();
@@ -141,20 +129,27 @@ var Main = React.createClass({
     return map;
     },
 
-    setupMap: function () {
-      this.map.setView([40.728, -73.99], 12);
+    setupMap: function (point) {
+      if (this.props.createMap) {
+        this.map = this.props.createMap(this.getDOMNode());
+      } else {
+        this.map = this.createMap(document.getElementById('map'));
+      }
+
+      this.map.setView([point.lat, point.lon], 12);
     },
 
     componentDidMount: function () {
-        if (this.props.createMap) {
-            this.map = this.props.createMap(this.getDOMNode());
-        } else {
-            this.map = this.createMap(document.getElementById('map'));
-        }
-        this.setupMap();
-        this.state.markerLayer.addTo(this.map);
-        this.state.currentLayer.addTo(this.map);
-        this.state.routeLayer.addTo(this.map);
+
+      //check cookie if there is anything that map can position it self
+      var cookieLocation = cookie.load('currentLocation');
+      if(cookieLocation) store.dispatch(Actions.updateCurrentPointAction(cookieLocation));
+
+      //when there is no cookie, nyc is default
+      this.setupMap(cookieLocation || {lat: 40.758224, lon: -73.917404});
+      this.state.markerLayer.addTo(this.map);
+      this.state.currentLayer.addTo(this.map);
+      this.state.routeLayer.addTo(this.map);
     },
 
     render: function () {
