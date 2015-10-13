@@ -19,14 +19,14 @@ function mapStateToProps(state)  {
       startPoint: {},
       destPoint: {},
       currentPoint: {},
-      mode: ""
+      mapMode: "deafult"
     };
   }
   return {
     startPoint: state.startPoint,
     destPoint: state.destPoint,
     currentPoint: state.currentPoint,
-    mode: state.mode
+    mapMode: state.mapMode
   }
 }
 

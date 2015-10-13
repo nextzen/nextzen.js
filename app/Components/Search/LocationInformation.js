@@ -11,8 +11,7 @@ var LocationInformation = React.createClass({
       <div className = "locationInformation">
         <div className = "locationTitle">{title}</div>
         <div className = "neighborhood">{neighborhood}</div>
-        <RouteButton 
-          setMapMode = {this.props.setMapMode} />
+        <RouteButton />
       </div>
     );
   }

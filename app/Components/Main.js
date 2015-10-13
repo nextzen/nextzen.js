@@ -24,8 +24,7 @@ var Main = React.createClass({
       poiMarkers:[],
       currentLayer : L.layerGroup(),
       markerLayer : L.layerGroup([L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.')]),
-      routeLayer : L.layerGroup(),
-      mode : "default"
+      routeLayer : L.layerGroup()
     }
   },
 
@@ -110,9 +109,9 @@ var Main = React.createClass({
     this.render();
   },
   setMapMode : function(mapMode){
-    this.setState({mode:mapMode},function(){
-      if(mapMode === "default") this.clearMap();
-    });
+    // this.setState({mode:mapMode},function(){
+    //   if(mapMode === "default") this.clearMap();
+    // });
 
   },
   createMap: function (element) {
@@ -144,6 +143,7 @@ var Main = React.createClass({
       //check cookie if there is anything that map can position it self
       var cookieLocation = cookie.load('currentLocation');
       if(cookieLocation) store.dispatch(Actions.updateCurrentPointAction(cookieLocation));
+      store.dispatch(Actions.setMapModeAction('default'));
 
       //when there is no cookie, nyc is default
       this.setupMap(cookieLocation || {lat: 40.758224, lon: -73.917404});
@@ -153,15 +153,14 @@ var Main = React.createClass({
     },
 
     render: function () {
-      switch(this.state.mode){
+      switch(this.props.mapMode){
         case "search":
         console.log("mode : search");
           return(
             <div className="container">
               <div id="map"></div>
               <div className = "searchBoxContainer search">
-                <CancelButton
-                  setMapMode = {this.setMapMode} />
+                <CancelButton/>
                 <SearchBox
                   addMarker = {this.addMarker}
                   pointAction = {Actions.updateDestPointAction}
@@ -169,8 +168,7 @@ var Main = React.createClass({
                   placeholder = "Search addres or place."
                   childClassName = "searchBox"
                   addPOIMarkers = {this.addPOIMarkers}
-                  currentPoint = {this.state.currentPoint}
-                  setMapMode = {this.setMapMode} />
+                  currentPoint = {this.state.currentPoint}/>
               </div>
               <div id = "locationInfoContainer" />
               <CurrentLocation
@@ -197,10 +195,8 @@ var Main = React.createClass({
             <div className="container default">
               <div id="map"></div>
               <div className = "searchBoxContainer">
-                <SearchButton
-                  setMapMode = {this.setMapMode}/>
-                <RouteButton 
-                  setMapMode = {this.setMapMode}/>
+                <SearchButton/>
+                <RouteButton />
               </div>
               <CurrentLocation
                 setCurrentLocation = {this.setCurrentPoint} />

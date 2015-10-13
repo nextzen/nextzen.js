@@ -13,8 +13,6 @@ function _updateStartPointAction(locationObj) {
   }
 }
 
-
-
 function _updateDestPointAction(locationObj) {
   return {
     type: 'updateDestPoint',
@@ -22,10 +20,17 @@ function _updateDestPointAction(locationObj) {
   }
 }
 
+function _setMapModeAction(mapMode) {
+  return {
+    type: 'setMapMode',
+    mapMode: mapMode
+  }
+}
 
 
 module.exports = {
   updateCurrentPointAction: _updateCurrentPointAction, 
   updateStartPointAction: _updateStartPointAction, 
-  updateDestPointAction: _updateDestPointAction
+  updateDestPointAction: _updateDestPointAction,
+  setMapModeAction: _setMapModeAction
 };

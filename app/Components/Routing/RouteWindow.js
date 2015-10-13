@@ -96,7 +96,7 @@ var RouteWindow = React.createClass({
   },
 
   cancleRouteMode: function(){
-    this.props.setMapMode('default');
+    store.dispatch(Actions.setMapModeAction('default'));
     store.dispatch(Actions.updateStartPointAction({}));
     store.dispatch(Actions.updateDestPointAction({}));
     this.props.clearMap();

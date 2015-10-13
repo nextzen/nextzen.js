@@ -111,8 +111,7 @@ var SearchBox = React.createClass({
     store.dispatch(this.props.pointAction(mrkr));
     this.props.addMarker(mrkr);
     if(this.props.childClassName === "searchBox") React.render(<LocationInformation 
-                  markedLocation = {mrkr}
-                  setMapMode = {this.props.setMapMode}/>, document.getElementById('locationInfoContainer'));
+                  markedLocation = {mrkr}/>, document.getElementById('locationInfoContainer'));
 
   },
 
