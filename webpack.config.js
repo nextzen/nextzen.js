@@ -37,6 +37,11 @@ var config = {
     {
       test: /\.(woff|eot|ttf|svg|png|yaml)$/,
       loader: 'url-loader?limit=100000'
+    },
+    { 
+      test: /.jsx?$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/
     }]
   },
   plugins: [
