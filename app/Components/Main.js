@@ -1,5 +1,4 @@
 var React = require('react');
-var RouteHandler = require('react-router').RouteHandler;
 
 require('./css/ratchet.css');
 require('./css/main.scss');
@@ -153,56 +152,12 @@ var Main = React.createClass({
     },
 
     render: function () {
-      switch(this.props.mapMode){
-        case "search":
-        console.log("mode : search");
-          return(
-            <div className="container">
-              <div id="map"></div>
-              <div className = "searchBoxContainer search">
-                <CancelButton/>
-                <SearchBox
-                  addMarker = {this.addMarker}
-                  pointAction = {Actions.updateDestPointAction}
-                  searchBoxId = "main-search"
-                  placeholder = "Search addres or place."
-                  childClassName = "searchBox"
-                  addPOIMarkers = {this.addPOIMarkers}
-                  currentPoint = {this.state.currentPoint}/>
-              </div>
-              <div id = "locationInfoContainer" />
-              <CurrentLocation
-                setCurrentLocation = {this.setCurrentPoint} />
-            </div>);
-        case "route":
-        console.log("mode : route");
-          return (
-          <div className="container">
-            <div id="map"></div>
-            <RouteWindow 
-                startPoint = {this.props.startPoint}
-                setStartPoint = {this.setStartPoint}
-                currentPoint ={this.props.currentPoint}
-                destPoint = {this.props.destPoint}
-                clearMap = {this.clearMap}
-                addMarker = {this.addMarker}
-                addRouteLayer = {this.addRouteLayer}
-                setMapMode = {this.setMapMode}/>
+      return(
+        <div className="container default">
+            {this.props.children}
           </div>
-            );
-        default:
-          return(
-            <div className="container default">
-              <div id="map"></div>
-              <div className = "searchBoxContainer">
-                <SearchButton/>
-                <RouteButton />
-              </div>
-              <CurrentLocation
-                setCurrentLocation = {this.setCurrentPoint} />
-            </div>
-          );
-      }
+        );
+      
     }
 });
 

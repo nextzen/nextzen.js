@@ -1,54 +1,70 @@
-var React = require('react');
-var Main = require('./Components/Main');
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { createStore, compose, combineReducers } from 'redux';
 
-var Redux = require('redux');
-var ReactRedux = require('react-redux');
+import {
+  ReduxRouter,
+  routerStateReducer,
+  reduxReactRouter
+} from 'redux-router';
 
-var createStore = Redux.createStore;
-var Provider = ReactRedux.Provider;
-var connect = ReactRedux.connect;
+import { Provider, connect } from 'react-redux';
+import { devTools } from 'redux-devtools';
+import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+import createHistory from 'history/lib/createBrowserHistory';
+import {IndexRoute, Route, Link} from 'react-router';
+import Main from './Components/Main'
 
-var store = require('./reducer.js');
+import store from './reducer';
+import Home from './Components/Home';
+import SearchWrapper from './Components/Search/SearchWrapper';
+import RoutingWrapper from './Components/Routing/RoutingWrapper';
+
+connect(state => ({ routerState: state.router }));
 
 
-// Map Redux state to component props
+class App extends Component {
 
-function mapStateToProps(state)  {
-    if (typeof state === 'undefined') {
-    state = {
-      startPoint: {},
-      destPoint: {},
-      currentPoint: {},
-      mapMode: "deafult"
-    };
-  }
-  return {
-    startPoint: state.startPoint,
-    destPoint: state.destPoint,
-    currentPoint: state.currentPoint,
-    mapMode: state.mapMode
+
+  render() {
+    const links = [
+      '/',
+      '/maps'
+    ].map(l =>
+      <p>
+        <Link to={l}>{l}</Link>
+      </p>
+    );
+
+    return (
+      <div>
+        <h1>App Container</h1>
+        {links}
+        {this.props.children}
+      </div>
+    );
   }
 }
 
-// Map Redux actions to component props
-function mapDispatchToProps(dispatch) {
-  return {
-  };
+class Root extends Component {
+  render() {
+    return (
+      <div className = "temp">
+        <Provider store={store}>
+          <ReduxRouter>
+            <Route path="/" component={Main}>
+              <IndexRoute component = {Home} />
+              <Route path="search" component = {SearchWrapper} />
+              <Route path="direction" component = {RoutingWrapper} />
+            </Route>
+          </ReduxRouter>
+        </Provider>
+        <DebugPanel top right bottom>
+          <DevTools store={store} monitor={LogMonitor} />
+        </DebugPanel>
+      </div>
+    );
+  }
 }
 
-
-// Connected Component:
-var App = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main);
-
-
-React.render(
-  React.createElement(Provider, {store: store}, 
-    function(){
-      return (<App/>)
-    }
-  ),
-  document.body
-);
+ReactDOM.render(<Root />, document.getElementById('root'));

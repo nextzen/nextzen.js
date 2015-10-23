@@ -2,6 +2,7 @@ var React = require('react');
 var SearchBox = require('../Search/SearchBox');
 var SwapPoints = require('./SwapPoints');
 var Actions = require('../../actions');
+import { Link } from 'react-router';
 
 var SearchWhileRoute = React.createClass({
   render: function(){
@@ -30,7 +31,9 @@ var SearchWhileRoute = React.createClass({
           childClassName = "searchBox destPoint"
           placeholder = "Choose destination point"
           currentPoint ={this.props.currentPoint}/>
-      <div id = "routeCancelButton" className="routeCancelButton" onClick= {this.props.cancleRouteMode}></div>
+      <Link to = "/">
+        <div id = "routeCancelButton" className="routeCancelButton" onClick= {this.props.cancleRouteMode}></div>
+      </Link>
     </div>
     );
   }

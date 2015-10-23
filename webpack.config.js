@@ -24,13 +24,9 @@ var config = {
   module: {
     noParse: [],
     loaders: [{
-      test: /\.js$/,
-      loader: 'jsx-loader',
-      exclude: [bower_dir, node_modules_dir]
-    },{
       test: /\.css$/,
       loader: 'style-loader!css-loader'
-    }, {
+    },  {
       test: /\.scss$/,
       loader: 'style!css!sass?sourceMap'
     },
@@ -39,7 +35,7 @@ var config = {
       loader: 'url-loader?limit=100000'
     },
     { 
-      test: /.jsx?$/,
+      test: /.js?$/,
       loader: 'babel-loader',
       exclude: /node_modules/
     }]

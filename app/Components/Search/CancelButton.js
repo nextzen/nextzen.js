@@ -1,7 +1,7 @@
 var React = require('react');
 var Actions = require('../../actions');
 var store = require('../../reducer');
-
+import { Link } from 'react-router';
 
 var CancelButton = React.createClass({
   setMode : function(){
@@ -11,7 +11,9 @@ var CancelButton = React.createClass({
   },
   render : function(){
     return(
-      <div className="cancelButton" onClick = {this.setMode} />
+      <Link to = "/">
+        <div className="cancelButton" onClick = {this.setMode} />
+      </Link>
     );
   }
 });

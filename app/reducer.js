@@ -4,17 +4,37 @@ var Main = require('./Components/Main');
 var Redux = require('redux');
 var ReactRedux = require('react-redux');
 
-var createStore = Redux.createStore;
-var Provider = ReactRedux.Provider;
 
-function updatePoint(state, action) {
-  if (typeof state === 'undefined') {
-    state = {
-      startPoint: {},
-      destPoint: {},
-      mapMode: 'default'
-    };
-  }
+var Provider = ReactRedux.Provider;
+import { createStore, compose, combineReducers } from 'redux';
+
+import {
+  ReduxRouter,
+  routerStateReducer,
+  reduxReactRouter
+} from 'redux-router';
+
+import { devTools } from 'redux-devtools';
+import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+
+import createHistory from 'history/lib/createBrowserHistory';
+
+
+const initialState = {
+  startPoint: {},
+  destPoint: {},
+  isThisInitialState : "yes",
+  mapMode: 'default'
+}
+function updatePoint(state = initialState, action) {
+  // if (typeof state === 'undefined') {
+  //   state = {
+  //     startPoint: {},
+  //     destPoint: {},
+  //     isThisInitialState : "yes",
+  //     mapMode: 'default'
+  //   };
+  // }
   switch(action.type) {
     case 'updateStartPoint':
       return { 
@@ -47,9 +67,21 @@ function updatePoint(state, action) {
         currentPoint: state.destPoint,
         mapMode: action.mapMode
       };
+    default:
+      return state;
   }
 }
 
-var store = createStore(updatePoint);
+const reducer = combineReducers({
+  updatePoint,
+  router: routerStateReducer
+})
+
+var store = compose(
+  reduxReactRouter({createHistory}),
+  devTools()
+)(createStore)(reducer);
+
+//var store = createStore(updatePoint);
 
 module.exports = store;
