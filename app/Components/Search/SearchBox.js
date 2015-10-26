@@ -41,7 +41,6 @@ var SearchBox = React.createClass({
       for(i = 0; i< this.state.searchResult.length; i++){
 
         var result = this.state.searchResult[i];
-
         locationArr.push({
           name: result.properties.text,
           lat: result.geometry.coordinates[1],
@@ -62,7 +61,7 @@ var SearchBox = React.createClass({
        
        this.makeCall(currentType);
 
-      if(this.props.mapMode !== "route") this.checkCategories(currentVal,matchingVals);
+      //if(this.props.mapMode !== "route") this.checkCategories(currentVal,matchingVals);
 
       this.setState({
         searchTerm: matchingVals,

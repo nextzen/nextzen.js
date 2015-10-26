@@ -3,7 +3,7 @@ var Main = require('./Components/Main');
 
 var Redux = require('redux');
 var ReactRedux = require('react-redux');
-
+var cookie = require('react-cookie');
 
 var Provider = ReactRedux.Provider;
 import { createStore, compose, combineReducers } from 'redux';
@@ -23,6 +23,7 @@ import createHistory from 'history/lib/createBrowserHistory';
 const initialState = {
   startPoint: {},
   destPoint: {},
+  currentPoint: cookie.load('currentLocation') | {},
   isThisInitialState : "yes",
   mapMode: 'default'
 }
@@ -53,6 +54,7 @@ function updatePoint(state = initialState, action) {
       };
 
     case 'updateCurrentPoint':
+      console.log('updating!');
       return { 
         startPoint: state.startPoint,
         destPoint: state.destPoint,

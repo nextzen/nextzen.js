@@ -7,7 +7,7 @@ import CurrentLocation from './CurrentLocation/CurrentLocation';
 
 class Home extends Component {
   render() {
-    console.log('home is being rendered');
+    console.log(this.props);
     return (
       <div>
         <div className = "searchBoxContainer">
@@ -15,7 +15,7 @@ class Home extends Component {
           <Link to = '/direction'> <RouteButton /> </Link>
         </div>
         <CurrentLocation
-          setCurrentLocation = {this.setCurrentPoint} />
+          setCurrentLocation = {this.props.setCurrentLocation} />
       </div>
     )
   }

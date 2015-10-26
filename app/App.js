@@ -16,35 +16,52 @@ import {IndexRoute, Route, Link} from 'react-router';
 import Main from './Components/Main'
 
 import store from './reducer';
+import Actions from './actions';
 import Home from './Components/Home';
 import SearchWrapper from './Components/Search/SearchWrapper';
 import RoutingWrapper from './Components/Routing/RoutingWrapper';
 
-connect(state => ({ routerState: state.router }));
+import Map from './Components/Map/Map';
+import MapObject from './Components/Map/MapObject';
 
-
-class App extends Component {
-
-
-  render() {
-    const links = [
-      '/',
-      '/maps'
-    ].map(l =>
-      <p>
-        <Link to={l}>{l}</Link>
-      </p>
-    );
-
-    return (
-      <div>
-        <h1>App Container</h1>
-        {links}
-        {this.props.children}
-      </div>
-    );
+function mapStateToProps(state) {
+    if (typeof state === 'undefined') {
+    state = {
+      startPoint: {},
+      destPoint: {},
+      currentPoint: {},
+      mode: ""
+    };
+  }
+  return {
+    routerState: state.router,
+    startPoint: state.updatePoint.startPoint,
+    destPoint: state.updatePoint.destPoint,
+    currentPoint: state.updatePoint.currentPoint,
+    mode: state.updatePoint.mode
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentLocation: function(currentLocation) {
+      MapObject.setCurrentPoint(currentLocation);
+      store.dispatch(Actions.updateCurrentPointAction(currentLocation));
+      store.dispatch(Actions.updateStartPointAction(currentLocation));
+    }
+  }
+}
+
+var ConnectedHome = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
+
+var ConnectedSearch = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchWrapper);
+
 
 class Root extends Component {
   render() {
@@ -53,15 +70,12 @@ class Root extends Component {
         <Provider store={store}>
           <ReduxRouter>
             <Route path="/" component={Main}>
-              <IndexRoute component = {Home} />
-              <Route path="search" component = {SearchWrapper} />
+              <IndexRoute component = {ConnectedHome} />
+              <Route path="search" component = {ConnectedSearch} />
               <Route path="direction" component = {RoutingWrapper} />
             </Route>
           </ReduxRouter>
         </Provider>
-        <DebugPanel top right bottom>
-          <DevTools store={store} monitor={LogMonitor} />
-        </DebugPanel>
       </div>
     );
   }

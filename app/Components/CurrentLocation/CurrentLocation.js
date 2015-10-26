@@ -26,6 +26,7 @@ var CurrentLocation = React.createClass({
       spinning: false
     }
   },
+
   getCurrentLocation: function(){
     this.mountSpinner();
     var self = this;
@@ -36,12 +37,9 @@ var CurrentLocation = React.createClass({
             lat: position.coords.latitude,
             lon: position.coords.longitude
           }
-
-          store.dispatch(Actions.updateCurrentPointAction(currentLocation));
-          store.dispatch(Actions.updateStartPointAction(currentLocation));
-
+          self.props.setCurrentLocation(currentLocation);
           //mark it on the map
-          self.props.setCurrentLocation();
+          //self.props.setCurrentLocation();
 
           //save it on cookie
           cookie.save('currentLocation', currentLocation);
@@ -65,6 +63,7 @@ var CurrentLocation = React.createClass({
     })
   },
   render : function(){
+
     return(
       <div className="currentLocation side">
         <div className={(this.state.spinning === false)? "icon-current-location" : "icon-hexagon"} onClick= {this.getCurrentLocation}></div>
