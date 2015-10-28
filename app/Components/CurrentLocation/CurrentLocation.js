@@ -63,7 +63,6 @@ var CurrentLocation = React.createClass({
     })
   },
   render : function(){
-
     return(
       <div className="currentLocation side">
         <div className={(this.state.spinning === false)? "icon-current-location" : "icon-hexagon"} onClick= {this.getCurrentLocation}></div>

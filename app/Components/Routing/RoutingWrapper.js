@@ -2,6 +2,12 @@ import React, { Component} from 'react';
 
 import RouteWindow from './RouteWindow';
 
+import { Provider, connect } from 'react-redux';
+import store from '../../reducer';
+import Actions from '../../actions';
+
+import MapObject from '../Map/MapObject';
+
 class RoutingWrapper extends Component {
   render () {
     return (
@@ -18,4 +24,35 @@ class RoutingWrapper extends Component {
   }
 }
 
-module.exports = RoutingWrapper;
+function mapStateToProps(state) {
+    if (typeof state === 'undefined') {
+    state = {
+      startPoint: {},
+      destPoint: {},
+      currentPoint: {},
+      mode: ""
+    };
+  }
+  return {
+    routerState: state.router,
+    startPoint: state.updatePoint.startPoint,
+    destPoint: state.updatePoint.destPoint,
+    currentPoint: state.updatePoint.currentPoint,
+    mode: state.updatePoint.mode
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addMarker: function(mrkr) {
+      MapObject.addMarker(mrkr);
+    }
+  }
+}
+
+var ConnectedRouting = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RoutingWrapper);
+
+module.exports = ConnectedRouting;

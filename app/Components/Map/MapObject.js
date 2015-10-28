@@ -37,9 +37,24 @@ var MapObject = (function(){
     map.setView(center, 14);
   };
 
+  var _addMarker = function(mrkr) {
+    markerLayer.clearLayers();
+    var marker = L.marker([mrkr.lat,mrkr.lon]);
+    markerLayer.addLayer(marker);
+    map.setView(marker.getLatLng(),14);
+  };
+
+  var _clearMap = function() {
+    markerLayer.clearLayers();
+    currentLayer.clearLayers();
+    routeLayer.clearLayers();
+  }
+
   return {
     init : _init,
-    setCurrentPoint: _setCurrentPoint
+    setCurrentPoint: _setCurrentPoint,
+    addMarker: _addMarker,
+    clearMap: _clearMap
   };
 })();
 

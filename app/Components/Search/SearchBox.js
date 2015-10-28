@@ -5,7 +5,6 @@ var categoryMap = require('./CategoryMap');
 
 var ResultRow = require('./ResultRow');
 var ResultTable = require('./ResultTable');
-var LocationInformation = require('./LocationInformation');
 
 var Actions = require('../../actions');
 var store = require('../../reducer');
@@ -54,7 +53,7 @@ var SearchBox = React.createClass({
 
   handleChange: function(){
 
-     var currentType = this.refs.filterTextInput.getDOMNode().value;
+     var currentType = this.refs.filterTextInput.value;
      if(currentType.length > 0) {
        var currentVal = '^(?=.*\\b' + $.trim(currentType.split(/\s+/).join('\\b)(?=.*\\b') + ').*$');
        var matchingVals = [];
@@ -101,7 +100,7 @@ var SearchBox = React.createClass({
     this.setState({
       filterText : val
     },function(){
-      this.refs.filterTextInput.getDOMNode().value = val;
+      this.refs.filterTextInput.value = val;
     });
   },
 
@@ -109,8 +108,8 @@ var SearchBox = React.createClass({
 
     store.dispatch(this.props.pointAction(mrkr));
     this.props.addMarker(mrkr);
-    if(this.props.childClassName === "searchBox") React.render(<LocationInformation 
-                  markedLocation = {mrkr}/>, document.getElementById('locationInfoContainer'));
+     // if(this.props.childClassName === "searchBox") React.render(<LocationInformation 
+     //               markedLocation = {mrkr}/>, document.getElementById('locationInfoContainer'));
 
   },
 

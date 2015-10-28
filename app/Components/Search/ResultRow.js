@@ -1,4 +1,5 @@
-var React = require('react');
+import React from 'react';
+import { Link } from 'react-router';
 
 var ResultRow = React.createClass({
   handleClick: function(){
@@ -17,7 +18,7 @@ var ResultRow = React.createClass({
   render: function(){
     var displayName = this.props.name;
     return(
-    <li className="table-view-cell search-result" onClick= {this.handleClick} > {displayName} </li>
+    <Link to = "/search/place"> <li className="table-view-cell search-result" onClick= {this.handleClick} > {displayName} </li> </Link>
     );
   }
 });

@@ -7,6 +7,10 @@
   padding: 20px;
   background-color: #fff; 
 
+  &.hidden {
+    visibility: hidden;
+  }
+
   .locationTitle {
     font-size: 20px;
     line-height: 25px;

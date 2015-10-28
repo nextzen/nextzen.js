@@ -25,14 +25,7 @@ import Map from './Components/Map/Map';
 import MapObject from './Components/Map/MapObject';
 
 function mapStateToProps(state) {
-    if (typeof state === 'undefined') {
-    state = {
-      startPoint: {},
-      destPoint: {},
-      currentPoint: {},
-      mode: ""
-    };
-  }
+
   return {
     routerState: state.router,
     startPoint: state.updatePoint.startPoint,
@@ -52,15 +45,10 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-var ConnectedHome = connect(
+var ConnectedMain = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
-
-var ConnectedSearch = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchWrapper);
+)(Main);
 
 
 class Root extends Component {
@@ -69,9 +57,10 @@ class Root extends Component {
       <div className = "temp">
         <Provider store={store}>
           <ReduxRouter>
-            <Route path="/" component={Main}>
-              <IndexRoute component = {ConnectedHome} />
-              <Route path="search" component = {ConnectedSearch} />
+            <Route path="/" component={ConnectedMain}>
+              <IndexRoute component = {Home} />
+              <Route path="search" component = {SearchWrapper} />
+              <Route path="search/place" component = {SearchWrapper} />
               <Route path="direction" component = {RoutingWrapper} />
             </Route>
           </ReduxRouter>

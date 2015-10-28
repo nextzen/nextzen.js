@@ -23,51 +23,56 @@ import createHistory from 'history/lib/createBrowserHistory';
 const initialState = {
   startPoint: {},
   destPoint: {},
-  currentPoint: cookie.load('currentLocation') | {},
+  currentPoint: cookie.load('currentLocation'),
   isThisInitialState : "yes",
+  selectedPoint: {},
   mapMode: 'default'
 }
-function updatePoint(state = initialState, action) {
+function updatePoint(state = initialState, action = {}) {
   // if (typeof state === 'undefined') {
-  //   state = {
-  //     startPoint: {},
-  //     destPoint: {},
-  //     isThisInitialState : "yes",
-  //     mapMode: 'default'
-  //   };
+  //   state = initialState;
   // }
+  // console.log('state');
+  // console.log(state);
+  
+  
   switch(action.type) {
     case 'updateStartPoint':
-      return { 
-        startPoint: action.startPoint,
-        destPoint: state.destPoint,
-        currentPoint: state.currentPoint,
-        mapMode: state.mapMode
+      return {
+        ...state,
+        startPoint: action.startPoint
       };
 
     case 'updateDestPoint':
       return { 
-        startPoint: state.startPoint,
-        destPoint: action.destPoint,
-        currentPoint: state.currentPoint,
-        mapMode: state.mapMode
+        ...state,
+        destPoint: action.destPoint
       };
 
     case 'updateCurrentPoint':
-      console.log('updating!');
-      return { 
-        startPoint: state.startPoint,
-        destPoint: state.destPoint,
+      return {
+        ...state,
         currentPoint: action.currentPoint,
-        mapMode: state.mapMode
       };
 
     case 'setMapMode':
       return {
-        startPoint: state.startPoint,
-        destPoint: state.destPoint,
-        currentPoint: state.destPoint,
+        ...state,
         mapMode: action.mapMode
+      };
+    case 'selectPlace':
+      return {
+        ...state,
+        selectedPoint: action.selectedPoint
+      };
+
+    case 'clearPoints':
+      console.log('clearing');
+      return {
+        ...state,
+        startPoint: {},
+        destPoint: {},
+        selectedPoint: {}
       };
     default:
       return state;

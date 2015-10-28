@@ -3,13 +3,16 @@ import React, { Component} from 'react';
 import CancelButton from './CancelButton';
 import SearchBox from './SearchBox';
 
-var Actions = require('../../actions');
+import { Provider, connect } from 'react-redux';
+import store from '../../reducer';
+import Actions from '../../actions';
+
+import MapObject from '../Map/MapObject';
+import LocationInformation from './LocationInformation';
 
 class SearchWrapper extends Component {
 
   render () {
-    console.log('wrapper');
-    console.log(this.props);
     return (
       <div className = "searchBoxContainer search">
         <CancelButton/>
@@ -23,11 +26,45 @@ class SearchWrapper extends Component {
           placeholder = "Search addres or place."
           childClassName = "searchBox"
           addPOIMarkers = {this.props.addPOIMarkers} />
-          <div id = "locationInfoContainer" />
+          <LocationInformation 
+            selectedPoint = {this.props.selectedPoint} />
       </div>
-      
     )
   }
 }
 
-module.exports = SearchWrapper;
+function mapStateToProps(state) {
+    if (typeof state === 'undefined') {
+    state = {
+      startPoint: {},
+      destPoint: {},
+      currentPoint: {},
+      selectedPoint:{},
+      mode: ""
+    };
+  }
+  return {
+    routerState: state.router,
+    startPoint: state.updatePoint.startPoint,
+    destPoint: state.updatePoint.destPoint,
+    currentPoint: state.updatePoint.currentPoint,
+    selectedPoint: state.updatePoint.selectedPoint,
+    mode: state.updatePoint.mode
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addMarker: function(selectedLocation) {
+      MapObject.addMarker(selectedLocation);
+      store.dispatch(Actions.selectPlace(selectedLocation));
+    }
+  }
+}
+
+var ConnectedSearch = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchWrapper);
+
+module.exports = ConnectedSearch;
