@@ -24,40 +24,13 @@ import RoutingWrapper from './Components/Routing/RoutingWrapper';
 import Map from './Components/Map/Map';
 import MapObject from './Components/Map/MapObject';
 
-function mapStateToProps(state) {
-
-  return {
-    routerState: state.router,
-    startPoint: state.updatePoint.startPoint,
-    destPoint: state.updatePoint.destPoint,
-    currentPoint: state.updatePoint.currentPoint,
-    mode: state.updatePoint.mode
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setCurrentLocation: function(currentLocation) {
-      MapObject.setCurrentPoint(currentLocation);
-      store.dispatch(Actions.updateCurrentPointAction(currentLocation));
-      store.dispatch(Actions.updateStartPointAction(currentLocation));
-    }
-  }
-}
-
-var ConnectedMain = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main);
-
-
 class Root extends Component {
   render() {
     return (
       <div className = "temp">
         <Provider store={store}>
           <ReduxRouter>
-            <Route path="/" component={ConnectedMain}>
+            <Route path="/" component={Main}>
               <IndexRoute component = {Home} />
               <Route path="search" component = {SearchWrapper} />
               <Route path="search/place" component = {SearchWrapper} />
