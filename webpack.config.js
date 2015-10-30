@@ -40,11 +40,15 @@ var config = {
       exclude: /node_modules/
     }]
   },
+
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('app', null, false),
     new HtmlWebpackPlugin({
      template:'index.html'
-    })
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 };
 
