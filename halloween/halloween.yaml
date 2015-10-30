@@ -1,0 +1,703 @@
+# Author @patriciogv - 2015
+
+sources:
+    osm:
+        type: TopoJSON
+        url:  //vector.mapzen.com/osm/all/{z}/{x}/{y}.topojson?api_key=vector-tiles-P6dkVl4
+cameras:
+    perspective:
+        type: perspective
+        vanishing_point: [0, -500]
+lights:
+    directional1:
+        type: directional
+        direction: [.1, .5, -1]
+        diffuse: [0.404, 0.404, 0.404]
+        ambient: [0.184, 0.125, 0.310]
+textures:
+    pois:
+        url: images/halloween-sprite.png
+        filtering: mipmap
+        sprites:
+            # define sprites: [x origin, y origin, width, height]
+            axe: [5, 5, 210, 210]
+            sport: [215, 5, 210, 210]
+            bats: [425, 5, 210, 210]
+            pet-store: [635, 5, 210, 210]
+            mummy: [840, 5, 210, 210]
+            cemetary: [5, 215, 210, 210]
+            toys: [215, 215, 210, 210]
+            cop: [425, 215, 210, 210]
+            death: [635, 215, 210, 210]
+            nurse: [840, 215, 210, 210]
+            dracula: [5, 425, 210, 210]
+            eyeball: [215, 425, 210, 210]
+            fangs: [425, 425, 210, 210]
+            frankenstein: [635, 425, 210, 210]
+            skull1: [840, 425, 210, 210]
+            hand: [5, 635, 210, 210]
+            haunted_house: [215, 635, 210, 210]
+            jacko: [425, 635, 210, 210]
+            mask: [635, 635, 210, 210]
+            skull2: [840, 635, 210, 210]
+            spider: [5, 840, 210, 210]
+            boy: [215, 840, 210, 210]
+            zombie: [425, 840, 210, 210]
+
+styles:
+    icons:
+        base: points
+        texture: pois
+        interactive: false
+    space-tile:
+        shaders:
+            defines:
+                TILE_SCALE: 0.0002445
+                NORMALIZED_SHORT(x): (x * 32767.)
+            blocks:
+                global: |
+                    // Variant to be add to both vertex and fragments shaders
+                    varying vec3 v_pos;
+                    //
+                    // Get the coordinates in tile space
+                    // ================================
+                    vec2 getTileCoords () {
+                        return fract(v_pos.xy*TILE_SCALE);
+                    }
+                position: |
+                    // Normalize the attribute position of a vertex
+                    v_pos = NORMALIZED_SHORT(a_position.xyz);
+    space-constant:
+        shaders:
+            blocks:
+                global: |
+                    // Get the constant coordinates (glitches on zooms)
+                    // ================================
+                    vec2 getConstantCoords () {
+                        #ifdef TANGRAM_FRAGMENT_SHADER
+                        const float pixel_scale = 695.;
+                        float meter_pixels = u_meters_per_pixel / u_device_pixel_ratio;
+                        vec2 st = gl_FragCoord.xy/pixel_scale;
+                        const float dot_wrap = 1000.;
+                        st += mod(u_map_position.xy / meter_pixels, dot_wrap)/pixel_scale;
+                        return st;
+                        #else
+                        return vec2(0.0,0.0);
+                        #endif
+                    }
+    grids-grid:
+        shaders:
+            blocks:
+                global: |
+                    // Draw a grid in the space a specific resolution and pressition
+                    bool grid(vec2 st, float res, float press){
+                        vec2 grid = fract(st*res);
+                        return grid.x < res*press || grid.y < res*press;
+                    }
+                    //
+                    // Draw a grid in the space a specific resolution
+                    bool grid(vec2 st, float res){
+                        return grid(st, res, 1.0);
+                    }
+    grids-tile:
+        mix: [space-tile,grids-grid]
+        shaders:
+            blocks:
+                global: |
+                    // Draw a grid using tile coordenates in a specific resolution
+                    float tileGrid(float res){
+                        vec2 st = getTileCoords()*100.*res;
+                        float pct = 0.0;
+                        float press = 0.4+(1.0-fract(u_map_position.z))*0.1;
+                        if (grid(st,0.01,press)) pct += 0.5;
+                        if (grid(st,0.1,press)) pct += 0.1;
+                        return pct;
+                    }
+                    // Draw two grid that smoothly interpolates acording to zooms
+                    float tileGrid(){
+                        return mix(tileGrid(1.),tileGrid(2.),fract(u_map_position.z));
+                    }
+    generative-random:
+        shaders:
+            blocks:
+                global: |
+                    // 1D Random for 1 and 2 dimentions
+                    // ================================
+                    float random (float x) {
+                        return fract(sin(x)*1e4);
+                    }
+                    float random (vec2 xy) {
+                        return fract(sin(dot(xy.xy, vec2(12.9898,78.233)))* 43758.5453123);
+                    }
+                    //
+                    // 2D Random for 2 dimentions
+                    // ================================
+                    vec2 random2 (vec2 xy) {
+                        return fract(sin(vec2(dot(xy,vec2(127.1,311.7)),dot(xy,vec2(269.5,183.3))))*43758.5453);
+                    }
+                    //
+                    // 3D Random for 2 dimentions
+                    // ================================
+                    vec3 random3 (vec2 xy) {
+                        return fract(sin(vec3( dot(xy,vec2(127.1,311.7)), dot(xy,vec2(269.5,183.3)), dot(xy,vec2(419.2,371.9)) ))*43758.5453);
+                    }
+    generative-noise:
+        mix: generative-random
+        shaders:
+            blocks:
+                global: |
+                    // 1D Value Noise for 1, 2 and 3 dimentions
+                    // ================================
+                    float noise (in float x) {
+                        float i = floor(x);
+                        float f = fract(x);
+                        float u = f * f * (3.0 - 2.0 * f);
+                        return mix(random(i), random(i + 1.0), u);
+                    }
+                    float noise (vec2 xy) {
+                        vec2 i = floor(xy);
+                        vec2 f = fract(xy);
+                        float a = random(i);
+                        float b = random(i + vec2(1.0, 0.0));
+                        float c = random(i + vec2(0.0, 1.0));
+                        float d = random(i + vec2(1.0, 1.0));
+                        vec2 u = f * f * (3.0 - 2.0 * f);
+                        return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+                    }
+                    float noise (vec3 xyz) {
+                        const vec3 step = vec3(110.0, 241.0, 171.0);
+                        vec3 i = floor(xyz);
+                        vec3 f = fract(xyz);
+                        float n = dot(i, step);
+                        vec3 u = f * f * (3.0 - 2.0 * f);
+                        return mix( mix(mix(random(n + dot(step, vec3(0,0,0))),
+                                            random(n + dot(step, vec3(1,0,0))),
+                                            u.x),
+                                        mix(random(n + dot(step, vec3(0,1,0))),
+                                            random(n + dot(step, vec3(1,1,0))),
+                                            u.x),
+                                        u.y),
+                                    mix(mix(random(n + dot(step, vec3(0,0,1))),
+                                        random(n + dot(step, vec3(1,0,1))),
+                                        u.x),
+                                        mix(random(n + dot(step, vec3(0,1,1))),
+                                            random(n + dot(step, vec3(1,1,1))),
+                                            u.x),
+                                    u.y),
+                                u.z);
+                    }
+    generative-fbm:
+        mix: generative-noise
+        shaders:
+            defines:
+                NUM_OCTAVES: 5
+            blocks:
+                global: |
+                    // Fractional Brownian motion for 1 and 2 dimensions
+                    float fbm (float x) {
+                        float v = 0.0;
+                        float a = 0.5;
+                        float shift = float(100.0);
+                        for (int i = 0; i < int(NUM_OCTAVES); ++i) {
+                            v += a * noise(x);
+                            x = x * 2.0 + shift;
+                            a *= 0.5;
+                        }
+                        return v;
+                    }
+                    float fbm (vec2 xy) {
+                        float v = 0.0;
+                        float a = 0.5;
+                        vec2 shift = vec2(100.0);
+                        mat2 rot = mat2(cos(0.5), sin(0.5),
+                                        -sin(0.5), cos(0.50));
+                        for (int i = 0; i < int(NUM_OCTAVES); ++i) {
+                            v += a * noise(xy);
+                            xy = rot * xy * 2.0 + shift;
+                            a *= 0.5;
+                        }
+                        return v;
+                    }
+    filter-grain:
+        mix: generative-fbm
+        shaders:
+            defines:
+                GRAIN_AMOUNT: .3
+                NUM_OCTAVES: 2
+            blocks:
+                global: |
+                    // Grain fractor on screen space with less concetration in the center
+                    // ================================
+                    float grain(){
+                        #ifdef TANGRAM_FRAGMENT_SHADER
+                        vec2 pos = gl_FragCoord.xy;
+                        vec2 st = pos/u_resolution.xy-vec2(.5);
+                        return dot(st,st)+(fbm(pos*0.6)*0.1);
+                        #else
+                        return 0.0;
+                        #endif
+                    }
+                filter: |
+                    // Apply the grain in the amount defined on GRAIN_AMOUNT
+                    color.rgb -= grain()*GRAIN_AMOUNT;
+    functions-aastep:
+        shaders:
+            extensions: OES_standard_derivatives
+            blocks:
+                global: |
+                    // AntiAliased Step function
+                    //=============================
+                    float aastep(float threshold, float value) {
+                        #ifdef TANGRAM_FRAGMENT_SHADER
+                            #ifdef TANGRAM_EXTENSION_OES_standard_derivatives
+                                float afwidth = length(vec2(dFdx(value), dFdy(value))) * 0.70710678118654757;
+                                return smoothstep(threshold-afwidth, threshold+afwidth, value);
+                            #else
+                                return step(threshold, value);
+                            #endif
+                        #else
+                            return step(threshold, value);
+                        #endif
+                    }
+    patterns-stripes:
+        mix: functions-aastep
+        shaders:
+            defines:
+                PI: 3.14159265358979323846
+            blocks:
+                global: |
+                    // Return a distance function of stripes
+                    float stripesDF (vec2 st) {
+                        return abs(sin(st.y*PI));
+                    }
+
+                    // Adjustable width stripes
+                    float stripes (vec2 st, float width) {
+                        return aastep(width,stripesDF(st));
+                    }
+
+                    // Faster optimisation of diagonal stripes
+                    float diagonalStripes (vec2 st) {
+                        vec2 i_st = floor(st);
+                        vec2 f_st = fract(st);
+                        if (mod(i_st.y,2.) - mod(i_st.x,2.) == 0.) {
+                            return 1.0 - aastep(f_st.x,f_st.y);
+                        } else {
+                            return aastep(f_st.x,f_st.y);
+                        }
+                    }
+    grid:
+        base: polygons
+        mix: [grids-tile, filter-grain]
+        shaders:
+            blocks:
+                color: |
+                    color.rgb += vec3(.2)*tileGrid();
+    roads:
+        base: lines
+        animated: true
+        texcoords: true
+        lighting: false
+        shaders:
+            blocks:
+                global: |
+                    float getHatch(in vec2 _pos, float _angle, float _brigtness){
+                        _pos *= 10.;
+                        _pos = _pos.yx;
+                        return 1.0-smoothstep(-1.+_brigtness*2.0,3.,abs(sin(_pos.x*3.1415)));
+                    }
+                color: |
+                    vec2 st = v_texcoord.xy;
+                    float dir = -0.1;
+                    if ( v_color.r < 0.95) {
+                        if (st.x < 0.95) {
+                          dir *= -1.;
+                        }
+                        st.x = fract(st.x*2.0);
+                    }
+                    float pattern = getHatch( u_time*dir+st.xy*0.5, 3.1415*0.5, 0.5);
+                    color.rgb = vec3(0.5500,0.0,0.0)* pattern*sin(smoothstep(0.0,1.,st.x)*3.1415);
+    buildings:
+        base: polygons
+        mix: filter-grain
+        shaders:
+            blocks:
+                color: |
+                    color.rgb *= vec3(min((v_world_position.z*.001+.5),1.));
+    area:
+        base: polygons
+        mix: [patterns-stripes, space-constant, grid]
+        lighting: false
+        blend: inlay
+        shaders:
+            defines:
+                GRAIN_AMOUNT: 2.
+                NUM_OCTAVES: 2
+            blocks:
+                color: |
+                    color = mix(color,vec4(0.),diagonalStripes( getConstantCoords()*33.))*.8;
+
+
+    gradient:
+        base: polygons
+        mix: grid
+        texcoords: true
+        shaders:
+            blocks:
+                global: |
+                    float pulse(float x, float p, float w){
+                        return (smoothstep(p-w*.5,p,x) + smoothstep(p+w*.5,p,x))-1.0;
+                        }
+                color: |
+                    vec2 st = v_texcoord.xy;
+                    float sx = gl_FragCoord.x / u_resolution.x;
+
+                    const vec3 A = vec3(0.000,0.000,0.000);
+                    const vec3 B = vec3(0.854,0.423,0.195);
+                    const vec3 C = vec3(0.376,0.320,0.726);
+                    const vec3 D = vec3(0.854,0.423,0.195);
+
+                    color.rgb = mix(color.rgb,A,pulse(sx,.0,1.));
+                    color.rgb = mix(color.rgb,B,pulse(sx,.35,1.));
+                    color.rgb = mix(color.rgb,C,pulse(sx,.75,1.));
+                    color.rgb = mix(color.rgb,D,pulse(sx,1.,.75));
+
+layers:
+    water:
+        data: { source: osm }
+        draw:
+            gradient:
+                order: 2
+    earth:
+        data: { source: osm }
+        draw:
+            grid:
+                order: 0
+                color: [0.348,0.348,0.348]
+    landuse:
+        data: { source: osm }
+        draw:
+            area:
+                order: 1
+                color: [1.000, 0.580, 0.000]
+    buildings:
+        data: { source: osm }
+        filter: { $zoom: { min: 10 } }
+        draw:
+            polygons:
+                order: 5
+                color: '#999'
+        extruded:
+            filter: { $zoom: { min: 10 } }
+            draw:
+                polygons:
+                    style: buildings
+                    extrude: function () { return feature.height > 0 || $zoom >= 16; }
+    roads:
+        data: { source: osm, layer: roads }
+        filter: { not: { kind: [rail, ferry] } }
+
+        draw:
+            roads:
+                order: 4
+                color: [0, 0, 0]
+                width: 8
+
+        labels:
+            filter:
+                name: true
+                any:
+                    - $zoom: { min: 15 }
+                    - kind: [highway, major_road]
+            draw:
+                text:
+                    order: 6
+                    text_source: |
+                        function () {
+                            var name = feature.name;
+
+                            function adjective(name) {
+                                var dice = Math.random();
+                                var words = [
+                                    'Haunted', 'Scary', 'Morbid', 'Silent',
+                                    'Bizarre', 'Ghastly', 'Grim', 'Spooky',
+                                    'Mysterious', 'Gruesome', 'Gory', 'Moonlit',
+                                    'Deadly', 'Macabre', 'Dreadful', 'Supernatural',
+                                    'Unnerving', 'Shadowy', 'Creepy', 'Eerie',
+                                    'Bloody', 'Wicked'
+                                ];
+                                return words[Math.floor(dice * words.length)] + ' ' + name;
+                            }
+
+                            function replacement(name) {
+                                var dice = Math.random();
+                                // TODO
+                            }
+
+                            if (/\bO/.test(name)) {
+                                return (Math.random() > 0.5) ? name.replace(/\bO/, 'Oooooo') : adjective(name);
+                            } else if (/ave\b/.test(name)) {
+                                return name.replace(/(\w)ave\b/, 'grave');
+                            } else if (/Square/.test(name)) {
+                                return name.replace(/Square/, 'Scare');
+                            } else if (/are\b/.test(name)) {
+                                return name.replace(/(\w)are\b/, 'scare');
+                            } else if (/house\b/.test(name)) {
+                                return name.replace(/house\b/, 'Haunted House');
+                            } else if (/c(a|o)ry\b/.test(name)) {
+                                return name.replace(/c(a|o)ry\b/, '-gory');
+                            } else if (/dero\b/.test(name)) {
+                                return name.replace(/dero\b/, '-devil');
+                            } else if (/fair/.test(name)) {
+                                return name.replace(/fair/, 'fear');
+                            } else if (/Fair/.test(name)) {
+                                return name.replace(/Fair/, 'Fear');
+                            } else if (/park/.test(name)) {
+                                return name.replace(/park/, 'dark');
+                            } else if (/Park/.test(name)) {
+                                return name.replace(/Park/, 'Dark');
+                            } else if (/^New/.test(name)) {
+                                return name.replace(/^New/, 'Boo');
+                            } else if (/^Eye/.test(name)) {
+                                return name.replace(/^Eye/, 'Eyeball');
+                            } else if (/\bI\b/.test(name)) {
+                                return name.replace(/\bI\b/, 'Eyeball');
+                            } else if (/^S(\w+) Hill/.test(name)) {
+                                return name.replace(/^S(\w+) Hill/, 'Silent Hill');
+                            } else if (/Greenway/.test(name)) {
+                                return name.replace(/Greenway/, 'Graveyard');
+                            } else if (/Yard/.test(name)) {
+                                return name.replace(/Yard/, 'Graveyard');
+                            } else if (/Highway/.test(name)) {
+                                return name.replace(/Highway/, 'Frightway');
+                            } else if (/Center|Centre/.test(name)) {
+                                return name.replace(/Center|Centre/, 'Cemetary');
+                            } else if (/Walk$/.test(name)) {
+                                return name.replace(/Walk$/, 'Walking Dead');
+                            } else if (/walk\b/.test(name)) {
+                                return name.replace(/walk\b/, 'walking Dead');
+                            } else if (/Glade/.test(name)) {
+                                return name.replace(/Glade/, 'Grave');
+                            } else if (/Saint/.test(name)) {
+                                return name.replace(/Saint/, 'Ain’t');
+                            } else if (/Mort/.test(name)) {
+                                return name.replace(/Mort(\w+)/, 'Mortal');
+                            } else if (/ier\b/.test(name)) {
+                                return name.replace(/ier\b/, '-eerie');
+                            } else if (/Hous/.test(name)) {
+                                return name.replace(/Hous/, 'Howls');
+                            } else if (/Bleecker/.test(name)) {
+                                return name.replace(/Bleecker/, 'Bleaker');
+                            } else if (/Co(\w*)ver/.test(name)) {
+                                return name.replace(/Co(\w*)ver/, 'Cadaver');
+                            } else if (/Terrace/.test(name)) {
+                                return name.replace(/Terrace/, 'Terrors');
+                            } else if (/Pennsylvania/.test(name)) {
+                                // 50% chance that Pennsylvania gets replaced with Transylvania
+                                return (Math.random() > .5) ? name.replace(/Pennsylvania/, 'Transylvania') : name;
+                            } else if (/River\b/.test(name)) {
+                                return name.replace(/River/, 'River o’ Blood');
+                            } else if (/gheny\b/.test(name)) {
+                                return name.replace(/gheny/, 'ghouly');
+                            } else if (/view\b/.test(name)) {
+                                return name.replace(/view/, 'v-eeeew');
+                            } else if (/wich/.test(name)) {
+                                return name.replace(/wich/, ' Witch');
+                            } else if (/berry/.test(name)) {
+                                return name.replace(/berry/, 'scary');
+                            } else if (/\b66th/.test(name)) {
+                                return name.replace(/\b66th/, '666th');
+                            } else if (/\b6th/.test(name)) {
+                                return name.replace(/\b6th/, '666th');
+                            } else if (/\b9th/.test(name)) {
+                                return name.replace(/\b9th/, '9-ft Under');
+                            } else if (/\b13th/.test(name)) {
+                                return name.replace(/\b13th/, 'Friday the 13th');
+                            } else if (/\34th/.test(name)) {
+                                return name.replace(/\34th/, 'Nightmare on 34th');
+                            } else if (/\bZ\b/.test(name)) {
+                                return name.replace(/\bZ\b/, 'Zombie');
+                            } else if (/Broom/.test(name)) {
+                                return name.replace(/Broom/, 'Witch’s Broom');
+                            } else if (/Broo/.test(name)) {
+                                return name.replace(/Broo/, 'Booo');
+                            } else if (/Bow/.test(name)) {
+                                return name.replace(/Bow/, 'Boo!-w');
+                            } else if (/^W.?\s/.test(name)) {
+                                return name.replace(/^W(.?)\s/i, 'Pest ');
+                            } else if (/^West?\s/.test(name)) {
+                                return name.replace(/^West\s/i, 'Pest ');
+                            } else if (/^E.?\s/.test(name)) {
+                                return name.replace(/^E(.?)\s/i, 'Beast ');
+                            } else if (/^East?\s/.test(name)) {
+                                return name.replace(/^East\s/i, 'Beast ');
+                            }
+                            return (Math.random() > .20) ? adjective(name) : name;
+                        }
+                    font:
+                        fill: white
+                        typeface: 100 11px Helvetica
+        oneway:
+            filter: { oneway: yes }
+            draw: { roads: { color: red } }
+
+        highway:
+            filter:
+                kind: highway
+            draw:
+                roads:
+                    order: 5
+                    width: 12
+                outline:
+                    style: lines
+                    order: 4
+                    color: [0.769, 0.733, 0.710]
+                    width: 13
+        tunnel:
+            filter:
+                is_tunnel: yes
+            rail:
+                filter:
+                    kind: rail
+                visible: false
+        minor_road:
+            filter:
+                kind: minor_road
+            draw:
+                roads:
+                    width: 5
+        path:
+            filter:
+                kind: path
+            draw:
+                roads:
+                    width: 3
+        rail:
+            filter:
+                kind: rail
+                is_tunnel: no
+            draw:
+                roads:
+                    width: 3
+
+    # halloween icons
+    pois_and_landuse_labels:
+        data: { source: osm, layer: [pois, landuse_labels] }
+        icons:
+            pet-store:
+                filter: { kind: [pet, pet-store, pet-service, pet_store] }
+                draw:   { icons: { sprite: pet-store } }
+
+            sporting-goods-shop:
+                filter: { kind: [sporting_goods, sporting-goods-shop, sports, outdoor] }
+                draw:   { icons: { sprite: sport } }
+
+            athletics-sports:
+                filter: { kind: [athletic_sports, recreation_ground] }
+                draw:   { icons: { sprite: sport } }
+
+            sports-pitch:
+                filter: { kind: [grass, pitch], label_placement: yes, area: true, $zoom: { min: 17 } }
+                draw:
+                    icons:
+                        sprite: function() { return feature.sport }
+                        visible: true
+                baseball:
+                    filter: { sport: baseball }
+                    draw: { icons: { sprite: sport } }
+
+            toy-game-store:
+                filter: { kind: [toys, toy-game-store, baby_goods] }
+                draw:   { icons: { sprite: toys } }
+
+            video-game-store:
+                filter: { kind: [video_games] }
+                draw:   { icons: { sprite: toys } }
+
+            candy-store:
+                        filter: { kind: [candy, candy-store, confectionery] }
+                        draw:   { icons: { sprite: fangs } }
+
+            animal-shelter:
+                filter: { kind: [animal_shelter, animal-shelter, animal_boarding] }
+                draw:   { icons: { sprite: pet-store } }
+
+            bar:
+                filter: { kind: [pub, bar] }
+                draw:   { icons: { sprite: death } }
+
+            nightlife:
+                filter: { kind: [nightclub, nightlife] }
+                draw:   { icons: { sprite: death } }
+
+            bookstore:
+                filter: { kind: [books, bookstore] }
+                draw:   { icons: { sprite: haunted_house } }
+
+            castle:
+                filter: { kind: [castle, fort] }
+                draw:   { icons: { sprite: haunted_house } }
+
+            hotel:
+                filter: { kind: [hotel, motel, hostel] }
+                draw:   { icons: { sprite: haunted_house } }
+
+            cemetery:
+                filter: { kind: [grave_yard, cemetery] }
+                draw:   { icons: { sprite: cemetery } }
+
+            dog-run:
+                filter: { kind: [dog_park, dog_run, dog-run] }
+                draw:   { icons: { sprite: hand } }
+
+            fire-station:
+                filter: { kind: [fire_station, fire-station] }
+                draw:   { icons: { sprite: cop } }
+
+            gift-shop:
+                filter: { kind: [gift, gift-shop] }
+                draw:   { icons: { sprite: spider } }
+
+            museum:
+                filter: { kind: [museum, observatory] }
+                draw:   { icons: { sprite: mummy } }
+
+            pharmacy:
+                filter: { kind: [pharmacy, chemist] }
+                draw:   { icons: { sprite: nurse } }
+
+            optical-shop:
+                filter: { kind: [optician, optical_shop, optical-shop] }
+                draw:   { icons: { sprite: eyeball } }
+
+            post-office:
+                filter: { kind: [post_office, post-office] }
+                draw:   { icons: { sprite: zombie } }
+
+            restaurant:
+                filter: { kind: [restaurant, deli] }
+                draw:   { icons: { sprite: bats } }
+
+            school:
+                filter: { kind: [school, kindergarten] }
+                draw:   { icons: { sprite: boy } }
+
+            spiritual-center:
+                filter: { kind: [spiritual_center, spiritual-center, place_of_worship, wayside_chapel] }
+                draw:   { icons: { sprite: axe} }
+                # church:
+                #     filter: { kind: place_of_worship, religion: christian }
+                #     draw:   { icons: { sprite: axe } }
+                # synagogue:
+                #     filter: { kind: place_of_worship, religion: jewish }
+                #     draw:   { icons: { sprite: axe } }
+                # buddhist:
+                #     filter: { kind: place_of_worship, religion: buddhist }
+                #     draw:   { icons: { sprite: axe } }
+                # mosque:
+                #     filter: { kind: place_of_worship, religion: muslim }
+                #     draw:   { icons: { sprite: axe } }
+
+            theme-park:
+                filter: { kind: [theme_park, theme-park, miniature_golf] }
+                draw:   { icons: { sprite: bats } }
