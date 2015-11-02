@@ -16,6 +16,7 @@ var ResultTable = React.createClass({
                 searchTermRows.push(<SearchTermRow
                                     addPOIMarkers = {self.props.addPOIMarkers}
                                     searchTerm = {term}
+                                    linknode = {self.props.linknode}
                                     centerPoint = {self.props.centerPoint}
                                     setInputValue = {self.props.setInputValue}
                                     deactivateSearching = {self.props.deactivateSearching}/>);
@@ -25,10 +26,11 @@ var ResultTable = React.createClass({
           currentLocationRow.push(<li className="table-view-cell currentLocation"> current location </li>);
         }
           this.props.searchData.forEach(function(result){
-
             rows.push(<ResultRow name = {result.properties.label}
                                  loc = {result.geometry.coordinates} 
                                  key = {result.properties.id} 
+                                 gid = {result.properties.gid} 
+                                 linknode = {self.props.linknode}
                                  addMarker = {self.props.addMarker} 
                                  setInputValue = {self.props.setInputValue}
                                  deactivateSearching = {self.props.deactivateSearching}/>)

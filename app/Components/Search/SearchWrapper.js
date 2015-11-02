@@ -22,6 +22,7 @@ class SearchWrapper extends Component {
           startPoint = {this.props.startPoint}
           destPoint = {this.props.destPoint}
           currentPoint = {this.props.currentPoint}
+          linknode = {this.props.linknode}
           searchBoxId = "main-search"
           placeholder = "Search addres or place."
           childClassName = "searchBox"
@@ -34,21 +35,14 @@ class SearchWrapper extends Component {
 }
 
 function mapStateToProps(state) {
-    if (typeof state === 'undefined') {
-    state = {
-      startPoint: {},
-      destPoint: {},
-      currentPoint: {},
-      selectedPoint:{},
-      mode: ""
-    };
-  }
+  console.log(state);
   return {
     routerState: state.router,
     startPoint: state.updatePoint.startPoint,
     destPoint: state.updatePoint.destPoint,
     currentPoint: state.updatePoint.currentPoint,
     selectedPoint: state.updatePoint.selectedPoint,
+    linknode: 'search/place',
     mode: state.updatePoint.mode
   }
 }

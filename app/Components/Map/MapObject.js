@@ -50,11 +50,35 @@ var MapObject = (function(){
     routeLayer.clearLayers();
   }
 
+  var _addRouteLayer = function(routes, startPoint, destPoint) {
+    markerLayer.clearLayers();
+    console.log('map object level');
+    console.log(startPoint);
+    console.log(destPoint);
+    var marker = new L.marker([destPoint.lat, destPoint.lon]);
+    markerLayer.addLayer(marker);
+    markerLayer.addLayer(L.circleMarker(L.latLng(startPoint.lat, startPoint.lon)), 3, {
+      color: '#32CAD6',
+      opacity:1,
+      fillColor: '#32CAD6',
+      fillOpacity: 0.8,
+    });
+    
+    routeLayer.clearLayers();
+    var polylineRoute = L.polyline(routes, {color:'#32CAD6',opacity:1});
+    routeLayer.addLayer(polylineRoute);
+    map.fitBounds(polylineRoute.getBounds(),{
+      paddingTopLeft: [0,150],
+      paddingBottomRight : [0,30]
+    });
+  }
+
   return {
     init : _init,
     setCurrentPoint: _setCurrentPoint,
     addMarker: _addMarker,
-    clearMap: _clearMap
+    clearMap: _clearMap,
+    addRouteLayer: _addRouteLayer
   };
 })();
 

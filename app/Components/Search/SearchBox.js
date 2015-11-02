@@ -118,7 +118,7 @@ var SearchBox = React.createClass({
     var self = this;
     if(currentInput.length > 0){
       var baseurl = 'https://search.mapzen.com/v1';
-      var point = this.props.destPoint || this.props.startPoint || this.props.currentPoint || null;
+      var point = this.props.currentPoint || this.props.destPoint || this.props.startPoint || null;
 
       var input = currentInput;
       var radius = 50;
@@ -158,6 +158,7 @@ var SearchBox = React.createClass({
           onKeyPress = {this.handleKeyDown}></input>
         <ResultTable  childClassName = {this.props.childClassName}
                       mapMode = {this.props.mapMode}
+                      linknode = {this.props.linknode}
                       searchTerm = {this.state.searchTerm}
                       searchData = {this.state.searchResult}
                       searching = {this.state.searching} 

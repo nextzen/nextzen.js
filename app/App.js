@@ -1,28 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, compose, combineReducers } from 'redux';
 
 import {
   ReduxRouter,
-  routerStateReducer,
   reduxReactRouter
 } from 'redux-router';
 
-import { Provider, connect } from 'react-redux';
-import { devTools } from 'redux-devtools';
-import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
-import createHistory from 'history/lib/createBrowserHistory';
+import { Provider } from 'react-redux';
 import {IndexRoute, Route, Link} from 'react-router';
 import Main from './Components/Main'
 
 import store from './reducer';
-import Actions from './actions';
 import Home from './Components/Home';
 import SearchWrapper from './Components/Search/SearchWrapper';
 import RoutingWrapper from './Components/Routing/RoutingWrapper';
-
-import Map from './Components/Map/Map';
-import MapObject from './Components/Map/MapObject';
 
 class Root extends Component {
   render() {

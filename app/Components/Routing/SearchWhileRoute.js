@@ -14,11 +14,12 @@ var SearchWhileRoute = React.createClass({
         updateStartPointAction = {Actions.updateStartPointAction}
         updateDestPointAction = {Actions.updateDestPointAction} />
       <SearchBox 
-        addMarker = {this.props.setStartPoint} 
+        addMarker = {this.props.addMarker} 
         pointAction = {Actions.updateStartPointAction}
         value = {(this.props.startPoint !== undefined)? this.props.startPoint.name : ""}
         mapMode = "route"
         childClassName = "searchBox startPoint"
+        linknode = {this.props.linknode}
         placeholder = "Choose start point"
         destPoint = {this.props.destPoint}
         currentPoint ={this.props.currentPoint}/>
@@ -28,6 +29,7 @@ var SearchWhileRoute = React.createClass({
           mapMode = "route"
           value = {(this.props.destPoint !== undefined)? this.props.destPoint.name : ""}
           startPoint = {this.props.startPoint}
+          linknode = {this.props.linknode}
           childClassName = "searchBox destPoint"
           placeholder = "Choose destination point"
           currentPoint ={this.props.currentPoint}/>
