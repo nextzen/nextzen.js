@@ -10,15 +10,8 @@ if you are getting error at this step, try install webpack locally
 ```
 npm install webpack
 ```
-to run dev server
+to run locally
 ```
-npm run dev
+node server.js
 ```
-go to `localhost:8080`
-
-to see production version
-```
-cd dist
-python -m SimpleHTTPServer (or whatever local server you prefer)
-```
-go to `localhost:8000` on browser (or other port you opened)
+go to `localhost:3000`

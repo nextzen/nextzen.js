@@ -7,6 +7,10 @@
   padding: 20px;
   background-color: #fff; 
 
+  &.hidden {
+    visibility: hidden;
+  }
+
   .locationTitle {
     font-size: 20px;
     line-height: 25px;
@@ -32,8 +36,8 @@
     background-position: 10px 10px;
     z-index:30;
     
-    &.routeButton::before {
-      background-image: none;
+    &.routeButton.route-icon::before {
+      content: none;
     }
   }
 

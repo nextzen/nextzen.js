@@ -1,8 +1,11 @@
 var React = require('react');
 
+var Actions = require('../../actions');
+var store = require('../../reducer');
+
 var SearchButton = React.createClass({
   setMode : function(){
-    this.props.setMapMode("search");
+    store.dispatch(Actions.setMapModeAction('search'));
   },
   render : function(){
     return(

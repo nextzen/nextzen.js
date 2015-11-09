@@ -24,26 +24,31 @@ var config = {
   module: {
     noParse: [],
     loaders: [{
-      test: /\.js$/,
-      loader: 'jsx-loader',
-      exclude: [bower_dir, node_modules_dir]
-    },{
       test: /\.css$/,
       loader: 'style-loader!css-loader'
-    }, {
+    },  {
       test: /\.scss$/,
       loader: 'style!css!sass?sourceMap'
     },
     {
       test: /\.(woff|eot|ttf|svg|png|yaml)$/,
       loader: 'url-loader?limit=100000'
+    },
+    { 
+      test: /.js?$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/
     }]
   },
+
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('app', null, false),
     new HtmlWebpackPlugin({
      template:'index.html'
-    })
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 };
 

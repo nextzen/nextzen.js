@@ -1,4 +1,5 @@
-var React = require('react');
+import React from 'react';
+import ReactDOM from 'react-dom';
 var polyline = require('polyline');
 var $ = require('jquery');
 var ReactSpinner = require('../Spin');
@@ -49,6 +50,9 @@ var RouteWindow = React.createClass({
       lon : this.props.destPoint.lon
     });
 
+    var startPoint = this.props.startPoint;
+    var destPoint = this.props.destPoint;
+
     var self = this;
 
     var params = JSON.stringify({
@@ -60,11 +64,9 @@ var RouteWindow = React.createClass({
     $('#routeCancelButton').toggleClass('routeCancelButton');
     this.mountSpinner();
 
-
     $.get(routeUrl,function(data){
-      
       var coord = polyline.decode(data.trip.legs[0].shape,6);
-      self.props.addRouteLayer(coord);
+      self.props.addRouteLayer(coord, startPoint, destPoint);
       self.mountTable(data);
       self.unmountSpinner();
       $('#routeCancelButton').toggleClass('routeCancelButton');
@@ -77,7 +79,7 @@ var RouteWindow = React.createClass({
   },
 
   mountSpinner: function(){
-    React.render(<ReactSpinner config={this.state.config}/>, document.getElementById('routeCancelButton'));
+    ReactDOM.render(<ReactSpinner config={this.state.config}/>, document.getElementById('routeCancelButton'));
     this.setState({
       spinning:true
     });
@@ -89,16 +91,15 @@ var RouteWindow = React.createClass({
     })
   },
   mountTable: function(data){
-    React.render(<RouteResultTable searchData = {data}/>, document.getElementById('route-result-table'));
+    ReactDOM.render(<RouteResultTable searchData = {data}/>, document.getElementById('route-result-table'));
   },
   unmountTable: function(){
     React.unmountComponentAtNode(document.getElementById('route-result-table'));
   },
 
   cancleRouteMode: function(){
-    this.props.setMapMode('default');
-    store.dispatch(Actions.updateStartPointAction({}));
-    store.dispatch(Actions.updateDestPointAction({}));
+    store.dispatch(Actions.setMapModeAction('default'));
+    store.dispatch(Actions.clearPointsAction());
     this.props.clearMap();
   },
   render: function(){
@@ -107,6 +108,7 @@ var RouteWindow = React.createClass({
         <SearchWhileRoute 
           startPoint = {this.props.startPoint}
           destPoint = {this.props.destPoint}
+          linknode = {this.props.linknode}
           addMarker = {this.props.addMarker}
           setStartPoint = {this.props.setStartPoint}
           currentPoint = {this.props.currentPoint}
