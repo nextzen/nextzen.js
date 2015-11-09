@@ -61,6 +61,7 @@ function updatePoint(state = initialState, action = {}) {
         mapMode: action.mapMode
       };
     case 'selectPlace':
+      console.log(action);
       return {
         ...state,
         selectedPoint: action.selectedPoint

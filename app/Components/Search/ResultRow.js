@@ -17,14 +17,16 @@ var ResultRow = React.createClass({
   render: function(){
 
     var linknode = this.props.linknode;
-    if(linknode === 'search/place') {
+    if(linknode === '/search/place') {
       linknode += '?gid=';
       linknode += this.props.gid;
+      linknode += "&name=";
+      linknode += this.props.name;
     }
     var displayName = this.props.name;
 
     return(
-    <Link to = {linknode}> 
+    <Link to ={linknode}> 
     <li className="table-view-cell search-result" onClick= {this.handleClick} > {displayName} </li> 
     </Link>
     );

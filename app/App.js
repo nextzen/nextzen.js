@@ -14,6 +14,8 @@ import store from './reducer';
 import Home from './Components/Home';
 import SearchWrapper from './Components/Search/SearchWrapper';
 import RoutingWrapper from './Components/Routing/RoutingWrapper';
+import LocationInformation from './Components/Search/LocationInformation';
+
 
 class Root extends Component {
   render() {
@@ -23,8 +25,9 @@ class Root extends Component {
           <ReduxRouter>
             <Route path="/" component={Main}>
               <IndexRoute component = {Home} />
-              <Route path="search" component = {SearchWrapper} />
-              <Route path="search/place" component = {SearchWrapper} />
+              <Route path="search" component = {SearchWrapper}>
+                <Route path="place" component = {LocationInformation} />
+              </Route>
               <Route path="direction" component = {RoutingWrapper} />
             </Route>
           </ReduxRouter>
@@ -33,5 +36,6 @@ class Root extends Component {
     );
   }
 }
+
 
 ReactDOM.render(<Root />, document.getElementById('root'));

@@ -27,22 +27,20 @@ class SearchWrapper extends Component {
           placeholder = "Search addres or place."
           childClassName = "searchBox"
           addPOIMarkers = {this.props.addPOIMarkers} />
-          <LocationInformation 
-            selectedPoint = {this.props.selectedPoint} />
+          {this.props.children}
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     routerState: state.router,
     startPoint: state.updatePoint.startPoint,
     destPoint: state.updatePoint.destPoint,
     currentPoint: state.updatePoint.currentPoint,
     selectedPoint: state.updatePoint.selectedPoint,
-    linknode: 'search/place',
+    linknode: '/search/place',
     mode: state.updatePoint.mode
   }
 }

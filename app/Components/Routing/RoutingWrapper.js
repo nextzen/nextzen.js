@@ -31,7 +31,7 @@ function mapStateToProps(state) {
       startPoint: {},
       destPoint: {},
       currentPoint: {},
-      linknode: 'direction',
+      linknode: '/direction',
       mode: ""
     };
   }
@@ -40,7 +40,7 @@ function mapStateToProps(state) {
     startPoint: state.updatePoint.startPoint,
     destPoint: state.updatePoint.destPoint,
     currentPoint: state.updatePoint.currentPoint,
-    linknode: 'direction',
+    linknode: '/direction',
     mode: state.updatePoint.mode
   }
 }

@@ -1,27 +1,90 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RouteButton from '../Routing/RouteButton';
+import {connect} from 'react-redux';
+
+import store from '../../reducer';
+import Actions from '../../actions';
+
+var Keys = require('../Keys.js');
+
+var $ = require('jquery');
 
 var LocationInformation = React.createClass({
+
+  parsePlaceQuery: function() {
+
+  },
 
   render: function(){
     //var info = this.props.markedLocation.name.split(',');
     if((Object.keys(this.props.selectedPoint).length !== 0)) {
-    var title = this.props.selectedPoint.name.split(',');
-    var mainTitle = title[0];
-    var neighborhood = title[1] + title [2];
+      var title = this.props.selectedPoint.name.split(',');
+      var mainTitle = title[0];
+      var neighborhood = title[1] + title [2];
+    } else {
+      var gid = this.props.location.query.gid;
+      var callurl = 'https://search.mapzen.com/v1/place?api_key='
+      var apikey = Keys.search;
+      callurl += apikey;
+      callurl +='&ids=';
+      callurl += gid;
+      var self = this;
+      
+      $.ajax({
+        type:"GET",
+        crossDomain: true,
+          url: callurl,
+          success: function(data){
+            var title = data.features[0].properties.label.split(',');
+            var mainTitle = title[0];
+            var neighborhood = title[1] + title[2];
+
+
+            self.props.setDestinationPoint({
+              name: mainTitle,
+              lat: data.features[0].geometry.coordinates[0],
+              lon: data.features[0]. geometry.coordinates[1]
+            });
+            document.getElementById('locationTitle').innerHTML = mainTitle;
+            document.getElementById('locationNeighborhood').innerHTML = neighborhood;
+          },
+          error: function(){
+            console.log('can\'t find the place');
+          }
+      });
+
     }
-    //var neighborhood = info[1] + info[2];
-    // routing makes problem with injected componenet, doing css trick here
-    console.log(this.props);
     return(
-      <div className = {((Object.keys(this.props.selectedPoint).length !== 0) )? "locationInformation" : "locationInformation hidden"}>
-        <div className = "locationTitle"> {mainTitle} </div>
-        <div className = "neighborhood"> {neighborhood} </div>
+      <div className = "locationInformation">
+        <div id = "locationTitle" className = "locationTitle"> {title} </div>
+        <div id = "locationNeighborhood" className = "neighborhood"> {neighborhood} </div>
         <RouteButton />
       </div>
     );
   }
 });
 
-module.exports = LocationInformation;
+function mapStateToProps(state) {
+  return {
+    selectedPoint: state.updatePoint.selectedPoint,
+    routerState: state.router
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setDestinationPoint: function(selectedLocation) {
+      store.dispatch(Actions.selectPlace(selectedLocation));
+      store.dispatch(Actions.updateDestPointAction(selectedLocation));
+    }
+  }
+}
+
+var ConnectedLocationInformation = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LocationInformation);
+
+
+module.exports = ConnectedLocationInformation;
