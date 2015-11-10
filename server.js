@@ -1,24 +1,30 @@
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackHotMiddleware = require('webpack-hot-middleware')
-var config = require('./webpack.config')
+import express from 'express';
+import webpack from 'webpack';
+import config from './webpack.config';
+import path from 'path';
 
-var app = new (require('express'))()
-var port = 3000
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
-var compiler = webpack(config)
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
-app.use(webpackHotMiddleware(compiler))
+const app = express();
+const compiler = webpack(config);
 
-app.use(function(req, res) {
-  res.sendFile(__dirname + '/index.html')
-})
+app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
 
-app.listen(port, function(error) {
+app.use(webpackHotMiddleware(compiler));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.listen(3000, 'localhost', error => {
   if (error) {
-    console.error(error)
-  } else {
-    console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
+    console.log(error);
+    return;
   }
-})
 
+  console.log('Listening at http://localhost:3000 🎨 ');
+});

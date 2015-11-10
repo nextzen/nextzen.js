@@ -17,11 +17,14 @@ var LocationInformation = React.createClass({
   },
 
   render: function(){
-    //var info = this.props.markedLocation.name.split(',');
+
+    var mainTitle = "";
+    var neighborhood = "";
+
     if((Object.keys(this.props.selectedPoint).length !== 0)) {
       var title = this.props.selectedPoint.name.split(',');
-      var mainTitle = title[0];
-      var neighborhood = title[1] + title [2];
+      mainTitle = title[0];
+      neighborhood = title[1] + title [2];
     } else {
       var gid = this.props.location.query.gid;
       var callurl = 'https://search.mapzen.com/v1/place?api_key='
@@ -37,8 +40,8 @@ var LocationInformation = React.createClass({
           url: callurl,
           success: function(data){
             var title = data.features[0].properties.label.split(',');
-            var mainTitle = title[0];
-            var neighborhood = title[1] + title[2];
+            mainTitle = title[0];
+            neighborhood = title[1] + title[2];
 
 
             self.props.setDestinationPoint({
@@ -57,7 +60,7 @@ var LocationInformation = React.createClass({
     }
     return(
       <div className = "locationInformation">
-        <div id = "locationTitle" className = "locationTitle"> {title} </div>
+        <div id = "locationTitle" className = "locationTitle"> {mainTitle} </div>
         <div id = "locationNeighborhood" className = "neighborhood"> {neighborhood} </div>
         <RouteButton />
       </div>
