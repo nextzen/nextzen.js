@@ -40,7 +40,7 @@ function mapStateToProps(state) {
     destPoint: state.updatePoint.destPoint,
     currentPoint: state.updatePoint.currentPoint,
     selectedPoint: state.updatePoint.selectedPoint,
-    linknode: '/search/place',
+    linknode: '/maps/search/place',
     mode: state.updatePoint.mode
   }
 }

@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 
 import {
   ReduxRouter,
-  reduxReactRouter
+  reduxReactRouterre
 } from 'redux-router';
 
 import { Provider } from 'react-redux';
-import {IndexRoute, Route, Link} from 'react-router';
+import {IndexRoute, Route, Link, Redirect} from 'react-router';
 import Main from './Components/Main'
 
 import store from './reducer';
@@ -23,6 +23,7 @@ class Root extends Component {
       <div className = "temp">
         <Provider store={store}>
           <ReduxRouter>
+            <Redirect from="/" to="/maps"/>
             <Route path="/maps" component={Main}>
               <IndexRoute component = {Home} />
               <Route path="search" component = {SearchWrapper}>

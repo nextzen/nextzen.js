@@ -11,11 +11,6 @@ var Keys = require('../Keys.js');
 var $ = require('jquery');
 
 var LocationInformation = React.createClass({
-
-  parsePlaceQuery: function() {
-
-  },
-
   render: function(){
 
     var mainTitle = "";
