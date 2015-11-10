@@ -2,7 +2,7 @@ echo "lets deploy"
 
 npm install
 bower install
-NODE_ENV=production webpack -p
+webpack -p
 
 aws s3 sync dist s3://static-$1.mapzen.com/maps/
 mv dist/* $CIRCLE_ARTIFACTS/

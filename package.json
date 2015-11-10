@@ -4,8 +4,7 @@
   "main": "app/main.js",
   "scripts": {
     "dev": "node -r babel/register server.js",
-    "build": "webpack -p",
-    "localbuild": "NODE_ENV=local webpack -p"
+    "build": "webpack -p"
   },
   "author": "hanbyul",
   "license": "MIT",

@@ -16,7 +16,7 @@ const config = {
     './app/App'
   ],
   output: {
-    path: process.env.NODE_ENV === 'local'? path.resolve(__dirname, '/maps/maps') : path.resolve(__dirname, '/maps'),
+    path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
     publicPath: '/maps/'
   },
