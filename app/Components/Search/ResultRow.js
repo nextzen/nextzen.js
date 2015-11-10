@@ -17,7 +17,7 @@ var ResultRow = React.createClass({
   render: function(){
 
     var linknode = this.props.linknode;
-    if(linknode === '/search/place') {
+    if(linknode === '/maps/search/place') {
       linknode += '?gid=';
       linknode += this.props.gid;
       linknode += "&name=";

@@ -11,7 +11,7 @@ var RouteButton = React.createClass({
   },
   render : function(){
     return(
-      <Link to = "/direction">
+      <Link to = "/maps/direction">
         <div className = "routeButton route-icon" onClick = {this.setMode} />
       </Link>
     );

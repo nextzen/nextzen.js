@@ -16,7 +16,7 @@ class Home extends Component {
     return (
       <div>
         <div className = "searchBoxContainer">
-          <Link to = '/search'> <SearchButton/> </Link>
+          <Link to = '/maps/search'> <SearchButton/> </Link>
            <RouteButton />
         </div>
         <CurrentLocation

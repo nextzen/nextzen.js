@@ -9,7 +9,7 @@ var CancelButton = React.createClass({
   },
   render : function(){
     return(
-      <Link to = "/">
+      <Link to = "/maps">
         <div className="cancelButton" onClick = {this.setMode} />
       </Link>
     );
