@@ -1,17 +1,28 @@
 ## How to run
 
+
 ```
 sudo npm install webpack -g
 npm install
 bower install
-NODE_ENV=production webpack -p
+npm run dev
 ```
+go to `localhost:3000`.
 if you are getting error at this step, try install webpack locally
 ```
 npm install webpack
 ```
-to run locally
+
+There are some asset path issue here, so if you want to see production version on local you should
+
 ```
-node server.js
+npm run localbuild
 ```
-go to `localhost:3000`
+
+then 
+
+```
+ls maps
+python -m simpleHTTPServer
+```
+go to `localhost:8000`, you should be able to see the production version.

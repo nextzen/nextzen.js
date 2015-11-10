@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "main": "app/main.js",
   "scripts": {
-    "dev": "webpack-dev-server --devtool eval --hot --progress --colors"
+    "dev": "node -r babel/register server.js",
+    "build": "webpack -p",
+    "localbuild": "NODE_ENV=local webpack -p"
   },
   "author": "hanbyul",
   "license": "MIT",
