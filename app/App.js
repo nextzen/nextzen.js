@@ -23,7 +23,7 @@ class Root extends Component {
       <div className = "temp">
         <Provider store={store}>
           <ReduxRouter>
-            <Route path="/" component={Main}>
+            <Route path="/maps" component={Main}>
               <IndexRoute component = {Home} />
               <Route path="search" component = {SearchWrapper}>
                 <Route path="place" component = {LocationInformation} />
