@@ -33,8 +33,23 @@ var RouteWindow = React.createClass({
       },
       spinning: false
     }
-  },  //
-  route: function(mode){
+  },
+
+  componentDidMount: function() {
+    //query check
+    if((Object.keys(this.props.location.query).length !== 0)) {
+      var startPoint = this.props.location.query.start;
+      var destPoint = this.props.location.query.dest;
+
+      this.props.setStartPoint(startPoint);
+      this.props.setDestPoint(destPoint);
+
+      this.route("auto", startPoint, destPoint);
+      this.props.history.replaceState({},'/maps/direction',{start: startPoint, dest: destPoint});
+    }
+  },
+
+  route: function(mode, startPoint, destPoint){
     //valhalla call form : https://valhalla.mapzen.com/route?json={%22locations%22:[{%22lat%22:39.42923221970601,%22lon%22:-76.6356897354126},{%22lat%22:39.30727282892593,%22lon%22:-76.77203178405762}],%22costing%22:%22auto%22}&api_key=valhalla-RfDii2g
     var serviceurl = "https://valhalla.mapzen.com/";
     var apikey = '&api_key=' + Keys.turnByTurn;
@@ -42,12 +57,13 @@ var RouteWindow = React.createClass({
     var transitM = mode || 'auto';
     var locs = [];
     locs.push({
-      lat : this.props.startPoint.lat,
-      lon : this.props.startPoint.lon
+      lat : startPoint.lat || this.props.startPoint.lat,
+      lon : startPoint.lon || this.props.startPoint.lon
     });
+
     locs.push({
-      lat : this.props.destPoint.lat,
-      lon : this.props.destPoint.lon
+      lat : destPoint.lat || this.props.destPoint.lat,
+      lon : destPoint.lon || this.props.destPoint.lon
     });
 
     var startPoint = this.props.startPoint;
@@ -72,10 +88,10 @@ var RouteWindow = React.createClass({
       $('#routeCancelButton').toggleClass('routeCancelButton');
     });
 
+    this.props.history.pushState({},'/maps/direction',{start: this.props.startPoint, dest: this.props.destPoint});
     self.setState({
       activeTab: mode
     })
-
   },
 
   mountSpinner: function(){
@@ -84,15 +100,18 @@ var RouteWindow = React.createClass({
       spinning:true
     });
   },
+
   unmountSpinner: function(){
-    React.unmountComponentAtNode(document.getElementById('routeCancelButton'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('routeCancelButton'));
     this.setState({
       spinning:false
     })
   },
+
   mountTable: function(data){
     ReactDOM.render(<RouteResultTable searchData = {data}/>, document.getElementById('route-result-table'));
   },
+
   unmountTable: function(){
     React.unmountComponentAtNode(document.getElementById('route-result-table'));
   },
@@ -102,7 +121,9 @@ var RouteWindow = React.createClass({
     store.dispatch(Actions.clearPointsAction());
     this.props.clearMap();
   },
+
   render: function(){
+
     return(
       <div>
         <SearchWhileRoute 
