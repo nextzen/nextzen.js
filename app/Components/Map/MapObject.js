@@ -10,7 +10,7 @@ var MapObject = (function(){
       zoomControl:false
     });
      var layer = Tangram.leafletLayer({
-         scene: 'https://cdn.rawgit.com/tangrams/refill-style/gh-pages/refill-style.yaml',
+         scene: 'https://cdn.rawgit.com/tangrams/cinnabar-style-more-labels/gh-pages/cinnabar-style-more-labels.yaml',
          attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
      });
     map.setView([40.7099948, -74.0298132], 12);
