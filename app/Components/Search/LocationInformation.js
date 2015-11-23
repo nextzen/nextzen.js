@@ -12,14 +12,14 @@ var $ = require('jquery');
 
 var LocationInformation = React.createClass({
   
-  getInitialState: function(){    
+  getInitialState: function(){
     var _mainTitle = "";
     var _neighborhood = "";
     if((Object.keys(this.props.selectedPoint).length !== 0)) {
       var title = this.props.selectedPoint.name.split(',');
       _mainTitle = title[0];
       _neighborhood = title[1] + title [2];
-    } 
+    }
     return {
       mainTitle: _mainTitle,
       neighborhood: _neighborhood
@@ -48,15 +48,15 @@ var LocationInformation = React.createClass({
 
             self.props.setDestinationPoint({
               name: _mainTitle,
-              lat: data.features[0].geometry.coordinates[0],
-              lon: data.features[0]. geometry.coordinates[1]
+              lat: data.features[0].geometry.coordinates[1],
+              lon: data.features[0]. geometry.coordinates[0]
             });
           self.setState({
             mainTitle: _mainTitle,
             neighborhood: _neighborhood
           }, function() {
-            document.getElementById('locationTitle').innerHTML = mainTitle;
-            document.getElementById('locationNeighborhood').innerHTML = neighborhood;
+            document.getElementById('locationTitle').innerHTML = self.state.mainTitle;
+            document.getElementById('locationNeighborhood').innerHTML = self.state.neighborhood;
           });
         },
         error: function(){
@@ -67,7 +67,6 @@ var LocationInformation = React.createClass({
   },
 
   render: function(){
-
     return(
       <div className = "locationInformation">
         <div id = "locationTitle" className = "locationTitle"> {this.state.mainTitle} </div>

@@ -61,14 +61,12 @@ function updatePoint(state = initialState, action = {}) {
         mapMode: action.mapMode
       };
     case 'selectPlace':
-      console.log(action);
       return {
         ...state,
         selectedPoint: action.selectedPoint
       };
 
     case 'clearPoints':
-      console.log('clearing');
       return {
         ...state,
         startPoint: {},
