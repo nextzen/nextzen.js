@@ -82,14 +82,6 @@ var RouteWindow = React.createClass({
     $('#routeCancelButton').toggleClass('routeCancelButton');
     this.mountSpinner();
 
-    $.get(routeUrl,function(data){
-      var coord = polyline.decode(data.trip.legs[0].shape,6);
-      self.props.addRouteLayer(coord, startPoint, destPoint);
-      self.mountTable(data);
-      self.unmountSpinner();
-      $('#routeCancelButton').toggleClass('routeCancelButton');
-    });
-
     $.ajax({
       type:"GET",
       crossDomain: true,
