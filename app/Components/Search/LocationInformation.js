@@ -26,7 +26,6 @@ var LocationInformation = React.createClass({
     }
   },
 
-
   componentDidMount: function() {
     if((Object.keys(this.props.location.query).length !== 0)) {
       var gid = this.props.location.query.gid;
@@ -60,7 +59,7 @@ var LocationInformation = React.createClass({
           });
         },
         error: function(){
-            console.log('can\'t find the place');
+          console.log('can\'t find the place');
         }
       });
     }
