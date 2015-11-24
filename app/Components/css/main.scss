@@ -25,6 +25,16 @@ html,body {
     height: 100%;
   }
 
+  .errorMessage {
+    position: absolute;
+    left: 50%;
+    top: 50%;  
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color:#fff;
+    padding: 30px;
+  }
+
   &.default {
 
     .searchBoxContainer{

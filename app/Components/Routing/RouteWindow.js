@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-var polyline = require('polyline');
+import polyline from 'polyline';
 var $ = require('jquery');
 var ReactSpinner = require('../Spin');
 var RouteResultTable = require('./RouteResultTable');
@@ -8,6 +8,8 @@ var SearchWhileRoute = require('./SearchWhileRoute');
 
 var Actions = require('../../actions');
 var store = require('../../reducer');
+
+import ErrorMessage from '../Util/ErrorMessage';
 
 var Keys = require('../Keys');
 
@@ -87,6 +89,26 @@ var RouteWindow = React.createClass({
       self.unmountSpinner();
       $('#routeCancelButton').toggleClass('routeCancelButton');
     });
+
+    $.ajax({
+      type:"GET",
+      crossDomain: true,
+      url: routeUrl,
+      success: function(data){
+        var coord = polyline.decode(data.trip.legs[0].shape,6);
+        self.props.addRouteLayer(coord, startPoint, destPoint);
+        self.mountTable(data);
+        self.unmountSpinner();
+      $('#routeCancelButton').toggleClass('routeCancelButton');
+          },
+          error: function(){
+            var msg = "No route available between the points.";
+            self.unmountSpinner();
+            $('#routeCancelButton').toggleClass('routeCancelButton');
+            ReactDOM.render(<ErrorMessage errorMessage = {msg}/>, document.getElementById('route-result-table'));
+          }
+      });
+
 
     this.props.history.pushState({},'/maps/direction',{start: this.props.startPoint, dest: this.props.destPoint});
     self.setState({
