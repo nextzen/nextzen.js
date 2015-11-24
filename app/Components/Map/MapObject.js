@@ -5,7 +5,8 @@ var MapObject = (function(){
   var markerLayer = L.layerGroup();
   var routeLayer = L.layerGroup();
   var markerIcon;
-  var startMakerIcon;
+  var startMarkerIcon;
+  var currentMarkerIcon;
 
 
   var _init = function() {
@@ -24,11 +25,15 @@ var MapObject = (function(){
       iconUrl: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjEwIDE2IDUwIDUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDEwIDE2IDUwIDUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojQ0NDQ0NDO3N0cm9rZTojMDAwMDAwO3N0cm9rZS1taXRlcmxpbWl0OjEwO30NCjwvc3R5bGU+DQo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzEuNiwxOC41Yy04LjksMC4xLTE2LjEsNy40LTE2LjEsMTYuM2MwLjEsOC45LDE2LjQsMjguNywxNi40LDI4LjdzMTUuOS0yMCwxNS45LTI5LjENCglDNDcuOCwyNS42LDQwLjUsMTguNCwzMS42LDE4LjV6IE0zNS43LDM3LjRjLTIsMi01LjQsMi03LjQsMGMtMi0yLTItNS40LDAtNy40czUuNC0yLDcuNCwwQzM3LjcsMzIsMzcuNywzNS40LDM1LjcsMzcuNHoiLz4NCjwvc3ZnPg0K',
       iconSize:[45, 57]
     });
+    currentMarkerIcon = L.icon({
+      iconUrl: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCA1MCA1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTAgNTA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtvcGFjaXR5OjAuNTtmaWxsOiNBMTMxMkY7ZW5hYmxlLWJhY2tncm91bmQ6bmV3ICAgIDt9DQoJLnN0MXtvcGFjaXR5OjAuODtmaWxsOiNBMTMxMkY7ZW5hYmxlLWJhY2tncm91bmQ6bmV3ICAgIDt9DQo8L3N0eWxlPg0KPHBhdGggaWQ9IlhNTElEXzJfIiBjbGFzcz0ic3QwIiBkPSJNMzkuMywzOS4zYy03LjcsNy43LTIwLjksNy43LTI4LjUsMHMtNy43LTIwLjksMC0yOC41czIwLjktNy43LDI4LjUsMFM0Ni45LDMxLjYsMzkuMywzOS4zeiIvPg0KPHBhdGggaWQ9IlhNTElEXzFfIiBjbGFzcz0ic3QwIiBkPSJNMzQuNiwzNC42Yy01LjIsNS4yLTE0LjEsNS4yLTE5LjIsMHMtNS4yLTE0LjEsMC0xOS4yczE0LjEtNS4yLDE5LjIsMFMzOS44LDI5LjUsMzQuNiwzNC42eiIvPg0KPHBhdGggaWQ9IlhNTElEXzNfIiBjbGFzcz0ic3QxIiBkPSJNMzAuNCwzMC40Yy0yLjgsMi44LTgsMi44LTEwLjgsMHMtMi44LTgsMC0xMC44czgtMi44LDEwLjgsMFMzMy4yLDI3LjYsMzAuNCwzMC40eiIvPg0KPC9zdmc+DQo=',
+      iconSize: [35,35]
+    });
 
-    startMakerIcon = L.icon({
+    startMarkerIcon = L.icon({
       iconUrl: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAzMCAzMCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMzAgMzA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiNDRENDQ0M7c3Ryb2tlOiMzMzMzMzM7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fQ0KPC9zdHlsZT4NCjxwYXRoIGlkPSJYTUxJRF8yXyIgY2xhc3M9InN0MCIgZD0iTTIwLjQsMjAuNGMtMi45LDIuOS03LjksMi45LTEwLjgsMHMtMi45LTcuOSwwLTEwLjhzNy45LTIuOSwxMC44LDBTMjMuMywxNy41LDIwLjQsMjAuNHoiLz4NCjwvc3ZnPg0K',
       iconSize: [20,20]
-    })
+    });
 
     layer.addTo(map);
     currentLayer.addTo(map);
@@ -44,7 +49,7 @@ var MapObject = (function(){
     }
     var center = L.latLng(newCurrentLocation.lat, newCurrentLocation.lon);
 
-    currentLayer.addLayer(L.marker(center));
+    currentLayer.addLayer(L.marker(center, {icon: currentMarkerIcon}));
 
     map.setView(center, 14);
   };
@@ -66,7 +71,7 @@ var MapObject = (function(){
     markerLayer.clearLayers();
     var marker = L.marker([destPoint.lat, destPoint.lon], {icon: markerIcon});
     markerLayer.addLayer(marker);
-    markerLayer.addLayer(L.marker([startPoint.lat, startPoint.lon], {icon: startMakerIcon}));
+    markerLayer.addLayer(L.marker([startPoint.lat, startPoint.lon], {icon: startMarkerIcon}));
     
     routeLayer.clearLayers();
     var polylineRoute = L.polyline(routes, {color:'#32CAD6',opacity:1});
