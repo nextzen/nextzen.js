@@ -49,25 +49,25 @@ var RouteWindow = React.createClass({
     }
   },
 
-  route: function(mode, startPoint, destPoint){
+  route: function(mode, _startPoint, _destPoint){
     //valhalla call form : https://valhalla.mapzen.com/route?json={%22locations%22:[{%22lat%22:39.42923221970601,%22lon%22:-76.6356897354126},{%22lat%22:39.30727282892593,%22lon%22:-76.77203178405762}],%22costing%22:%22auto%22}&api_key=valhalla-RfDii2g
     var serviceurl = "https://valhalla.mapzen.com/";
     var apikey = '&api_key=' + Keys.turnByTurn;
 
     var transitM = mode || 'auto';
     var locs = [];
+
+    var startPoint = _startPoint;
+    var destPoint = _destPoint;
     locs.push({
-      lat : startPoint.lat || this.props.startPoint.lat,
-      lon : startPoint.lon || this.props.startPoint.lon
+      lat : startPoint.lat,
+      lon : startPoint.lon
     });
 
     locs.push({
-      lat : destPoint.lat || this.props.destPoint.lat,
-      lon : destPoint.lon || this.props.destPoint.lon
+      lat : destPoint.lat,
+      lon : destPoint.lon
     });
-
-    var startPoint = this.props.startPoint;
-    var destPoint = this.props.destPoint;
 
     var self = this;
 
@@ -136,13 +136,13 @@ var RouteWindow = React.createClass({
           unmountTable = {this.unmountTable}
           cancleRouteMode = {this.cancleRouteMode}/>
         <div className="routeBtnGroup segmented-control">
-          <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto")}>
+          <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto", this.props.startPoint, this.props.destPoint)}>
             <div className = "routeModeButton" id="autoRoute" />
           </a>
-          <a className={(this.state.activeTab === "bicycle")? "active control-item" : "control-item"} ref="bicycleBtn" onClick= {this.route.bind(this,"bicycle")}>
+          <a className={(this.state.activeTab === "bicycle")? "active control-item" : "control-item"} ref="bicycleBtn" onClick= {this.route.bind(this,"bicycle",this.props.startPoint, this.props.destPoint)}>
             <div className = "routeModeButton" id="bikeRoute" />
           </a>
-          <a className={(this.state.activeTab === "pedestrian")? "active control-item" : "control-item"} ref="pedestrianBtn" onClick= {this.route.bind(this,"pedestrian")} > 
+          <a className={(this.state.activeTab === "pedestrian")? "active control-item" : "control-item"} ref="pedestrianBtn" onClick= {this.route.bind(this,"pedestrian",this.props.startPoint, this.props.destPoint)} > 
             <div className = "routeModeButton" id="walkRoute" />
           </a>
         </div>
