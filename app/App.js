@@ -1,54 +1,42 @@
-var React = require('react');
-var Main = require('./Components/Main');
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 
-var Redux = require('redux');
-var ReactRedux = require('react-redux');
+import {
+  ReduxRouter,
+  reduxReactRouterre
+} from 'redux-router';
 
-var createStore = Redux.createStore;
-var Provider = ReactRedux.Provider;
-var connect = ReactRedux.connect;
+import { Provider } from 'react-redux';
+import {IndexRoute, Route, Link, Redirect} from 'react-router';
+import Main from './Components/Main'
 
-var store = require('./reducer.js');
+import store from './reducer';
+import Home from './Components/Home';
+import SearchWrapper from './Components/Search/SearchWrapper';
+import RoutingWrapper from './Components/Routing/RoutingWrapper';
+import LocationInformation from './Components/Search/LocationInformation';
 
 
-// Map Redux state to component props
-
-function mapStateToProps(state)  {
-    if (typeof state === 'undefined') {
-    state = {
-      startPoint: {},
-      destPoint: {},
-      currentPoint: {},
-      mapMode: "deafult"
-    };
-  }
-  return {
-    startPoint: state.startPoint,
-    destPoint: state.destPoint,
-    currentPoint: state.currentPoint,
-    mapMode: state.mapMode
+class Root extends Component {
+  render() {
+    return (
+      <div className = "temp">
+        <Provider store={store}>
+          <ReduxRouter>
+            <Redirect from="/" to="/maps"/>
+            <Route path="/maps" component={Main}>
+              <IndexRoute component = {Home} />
+              <Route path="search" component = {SearchWrapper}>
+                <Route path="place" component = {LocationInformation} />
+              </Route>
+              <Route path="direction" component = {RoutingWrapper} />
+            </Route>
+          </ReduxRouter>
+        </Provider>
+      </div>
+    );
   }
 }
 
-// Map Redux actions to component props
-function mapDispatchToProps(dispatch) {
-  return {
-  };
-}
 
-
-// Connected Component:
-var App = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main);
-
-
-React.render(
-  React.createElement(Provider, {store: store}, 
-    function(){
-      return (<App/>)
-    }
-  ),
-  document.body
-);
+ReactDOM.render(<Root />, document.getElementById('root'));

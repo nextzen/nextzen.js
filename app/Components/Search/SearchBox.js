@@ -5,7 +5,6 @@ var categoryMap = require('./CategoryMap');
 
 var ResultRow = require('./ResultRow');
 var ResultTable = require('./ResultTable');
-var LocationInformation = require('./LocationInformation');
 
 var Actions = require('../../actions');
 var store = require('../../reducer');
@@ -41,7 +40,6 @@ var SearchBox = React.createClass({
       for(i = 0; i< this.state.searchResult.length; i++){
 
         var result = this.state.searchResult[i];
-
         locationArr.push({
           name: result.properties.text,
           lat: result.geometry.coordinates[1],
@@ -55,14 +53,14 @@ var SearchBox = React.createClass({
 
   handleChange: function(){
 
-     var currentType = this.refs.filterTextInput.getDOMNode().value;
+     var currentType = this.refs.filterTextInput.value;
      if(currentType.length > 0) {
        var currentVal = '^(?=.*\\b' + $.trim(currentType.split(/\s+/).join('\\b)(?=.*\\b') + ').*$');
        var matchingVals = [];
        
        this.makeCall(currentType);
 
-      if(this.props.mapMode !== "route") this.checkCategories(currentVal,matchingVals);
+      //if(this.props.mapMode !== "route") this.checkCategories(currentVal,matchingVals);
 
       this.setState({
         searchTerm: matchingVals,
@@ -102,7 +100,7 @@ var SearchBox = React.createClass({
     this.setState({
       filterText : val
     },function(){
-      this.refs.filterTextInput.getDOMNode().value = val;
+      this.refs.filterTextInput.value = val;
     });
   },
 
@@ -110,8 +108,8 @@ var SearchBox = React.createClass({
 
     store.dispatch(this.props.pointAction(mrkr));
     this.props.addMarker(mrkr);
-    if(this.props.childClassName === "searchBox") React.render(<LocationInformation 
-                  markedLocation = {mrkr}/>, document.getElementById('locationInfoContainer'));
+     // if(this.props.childClassName === "searchBox") React.render(<LocationInformation 
+     //               markedLocation = {mrkr}/>, document.getElementById('locationInfoContainer'));
 
   },
 
@@ -120,7 +118,7 @@ var SearchBox = React.createClass({
     var self = this;
     if(currentInput.length > 0){
       var baseurl = 'https://search.mapzen.com/v1';
-      var point = this.props.destPoint || this.props.startPoint || this.props.currentPoint || null;
+      var point = this.props.currentPoint || this.props.destPoint || this.props.startPoint || null;
 
       var input = currentInput;
       var radius = 50;
@@ -160,6 +158,7 @@ var SearchBox = React.createClass({
           onKeyPress = {this.handleKeyDown}></input>
         <ResultTable  childClassName = {this.props.childClassName}
                       mapMode = {this.props.mapMode}
+                      linknode = {this.props.linknode}
                       searchTerm = {this.state.searchTerm}
                       searchData = {this.state.searchResult}
                       searching = {this.state.searching} 

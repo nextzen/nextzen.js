@@ -1,13 +1,11 @@
 var React = require('react');
-var Main = require('../Components/Main');
-var Router = require('react-router');
-var DefaultRoute = Router.DefaultRoute;
-var Route = Router.Route;
+import {IndexRoute, Route} from 'react-router';
 
+import TestUnit from '../Components/TestComponent';
+var Main = require('../Components/Main');
 
 module.exports = (
-  //always rendering
-  <Route name="app" path="/" handler={Main}></Route>
-    //swapped out
-    //<DefaultRoute handler = {Home}>
+  <Route path="/" component={TestUnit}>
+    <Route path = "maps" component = {Main} />
+  </Route>
 );

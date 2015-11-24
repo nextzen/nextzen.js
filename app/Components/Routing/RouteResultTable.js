@@ -23,7 +23,7 @@ var OpenButton= React.createClass({
   render: function(){
     return(
       <span className="open-route-table" onClick = {this.handleclick}> 
-        <span className = {(this.props.open == true)?"icon icon-down" : "icon icon-up"}></span>
+        <span className = {(this.props.open == true)?"icon status icon-down" : "icon status icon-up"}></span>
       </span>
     );
   }

@@ -1,36 +1,39 @@
 var webpack = require('webpack');
+
 var path = require('path');
+
+const PROJECT_SRC = path.resolve(__dirname, '../src');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var bower_dir = path.join(__dirname, 'bower_components');
-var node_modules_dir = path.join(__dirname, 'node_modules');
 
-var config = {
+const config = {
   addVendor: function (name, path) {
     this.resolve.alias[name] = path;
     this.module.noParse.push(path);
   },
-  context: __dirname,
-  entry: {
-    app: process.env.NODE_ENV === 'production' ? ['./app/App.js'] : ['webpack/hot/dev-server', './app/App.js']
-  },
+  entry: [
+    'webpack-hot-middleware/client',
+    './app/App'
+  ],
   output: {
-    publicPath: '/',
-    path: path.resolve(__dirname, process.env.NODE_ENV === 'production' ? './dist/' : './build'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, './dist'),
+    filename: 'bundle.js',
+    publicPath: '/maps/'
   },
-  resolve: {
-    alias: {}
-  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.html'
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
+  devtool: 'eval',
   module: {
     noParse: [],
     loaders: [{
-      test: /\.js$/,
-      loader: 'jsx-loader',
-      exclude: [bower_dir, node_modules_dir]
-    },{
       test: /\.css$/,
       loader: 'style-loader!css-loader'
-    }, {
+    },  {
       test: /\.scss$/,
       loader: 'style!css!sass?sourceMap'
     },
@@ -39,21 +42,23 @@ var config = {
       loader: 'url-loader?limit=100000'
     },
     { 
-      test: /.jsx?$/,
+      test: /.js?$/,
       loader: 'babel-loader',
-      exclude: /node_modules/
+      exclude: /node_modules/,
+      include: [
+        path.resolve(__dirname)
+      ]
     }]
   },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin('app', null, false),
-    new HtmlWebpackPlugin({
-     template:'index.html'
-    })
-  ]
+  resolve: {
+    alias: {
+      'redux-react-router': PROJECT_SRC
+    },
+    extensions: ['', '.js']
+  }
 };
-
 
 config.addVendor('spinjs', path.resolve(bower_dir, 'spinjs/spin.min.js'));
 config.addVendor('jquery', path.resolve(bower_dir, 'jquery/dist/jquery.min.js'));
- 
+
 module.exports = config;

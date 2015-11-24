@@ -1,5 +1,6 @@
-var React = require('react');
-var polyline = require('polyline');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import polyline from 'polyline';
 var $ = require('jquery');
 var ReactSpinner = require('../Spin');
 var RouteResultTable = require('./RouteResultTable');
@@ -7,6 +8,8 @@ var SearchWhileRoute = require('./SearchWhileRoute');
 
 var Actions = require('../../actions');
 var store = require('../../reducer');
+
+import ErrorMessage from '../Util/ErrorMessage';
 
 var Keys = require('../Keys');
 
@@ -32,21 +35,40 @@ var RouteWindow = React.createClass({
       },
       spinning: false
     }
-  },  //
-  route: function(mode){
+  },
+
+  componentDidMount: function() {
+    //query check
+    if((Object.keys(this.props.location.query).length !== 0)) {
+      var startPoint = this.props.location.query.start;
+      var destPoint = this.props.location.query.dest;
+
+      this.props.setStartPoint(startPoint);
+      this.props.setDestPoint(destPoint);
+
+      this.route("auto", startPoint, destPoint);
+      this.props.history.replaceState({},'/maps/direction',{start: startPoint, dest: destPoint});
+    }
+  },
+
+  route: function(mode, _startPoint, _destPoint){
     //valhalla call form : https://valhalla.mapzen.com/route?json={%22locations%22:[{%22lat%22:39.42923221970601,%22lon%22:-76.6356897354126},{%22lat%22:39.30727282892593,%22lon%22:-76.77203178405762}],%22costing%22:%22auto%22}&api_key=valhalla-RfDii2g
     var serviceurl = "https://valhalla.mapzen.com/";
     var apikey = '&api_key=' + Keys.turnByTurn;
 
     var transitM = mode || 'auto';
     var locs = [];
+
+    var startPoint = _startPoint;
+    var destPoint = _destPoint;
     locs.push({
-      lat : this.props.startPoint.lat,
-      lon : this.props.startPoint.lon
+      lat : startPoint.lat,
+      lon : startPoint.lon
     });
+
     locs.push({
-      lat : this.props.destPoint.lat,
-      lon : this.props.destPoint.lon
+      lat : destPoint.lat,
+      lon : destPoint.lon
     });
 
     var self = this;
@@ -60,66 +82,81 @@ var RouteWindow = React.createClass({
     $('#routeCancelButton').toggleClass('routeCancelButton');
     this.mountSpinner();
 
-
-    $.get(routeUrl,function(data){
-      
-      var coord = polyline.decode(data.trip.legs[0].shape,6);
-      self.props.addRouteLayer(coord);
-      self.mountTable(data);
-      self.unmountSpinner();
+    $.ajax({
+      type:"GET",
+      crossDomain: true,
+      url: routeUrl,
+      success: function(data){
+        var coord = polyline.decode(data.trip.legs[0].shape,6);
+        self.props.addRouteLayer(coord, startPoint, destPoint);
+        self.mountTable(data);
+        self.unmountSpinner();
       $('#routeCancelButton').toggleClass('routeCancelButton');
-    });
+          },
+          error: function(){
+            var msg = "No route available between the points.";
+            self.unmountSpinner();
+            $('#routeCancelButton').toggleClass('routeCancelButton');
+            ReactDOM.render(<ErrorMessage errorMessage = {msg}/>, document.getElementById('route-result-table'));
+          }
+      });
 
+
+    this.props.history.pushState({},'/maps/direction',{start: this.props.startPoint, dest: this.props.destPoint});
     self.setState({
       activeTab: mode
     })
-
   },
 
   mountSpinner: function(){
-    React.render(<ReactSpinner config={this.state.config}/>, document.getElementById('routeCancelButton'));
+    ReactDOM.render(<ReactSpinner config={this.state.config}/>, document.getElementById('routeCancelButton'));
     this.setState({
       spinning:true
     });
   },
+
   unmountSpinner: function(){
-    React.unmountComponentAtNode(document.getElementById('routeCancelButton'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('routeCancelButton'));
     this.setState({
       spinning:false
     })
   },
+
   mountTable: function(data){
-    React.render(<RouteResultTable searchData = {data}/>, document.getElementById('route-result-table'));
+    ReactDOM.render(<RouteResultTable searchData = {data}/>, document.getElementById('route-result-table'));
   },
+
   unmountTable: function(){
     React.unmountComponentAtNode(document.getElementById('route-result-table'));
   },
 
   cancleRouteMode: function(){
     store.dispatch(Actions.setMapModeAction('default'));
-    store.dispatch(Actions.updateStartPointAction({}));
-    store.dispatch(Actions.updateDestPointAction({}));
+    store.dispatch(Actions.clearPointsAction());
     this.props.clearMap();
   },
+
   render: function(){
+
     return(
       <div>
         <SearchWhileRoute 
           startPoint = {this.props.startPoint}
           destPoint = {this.props.destPoint}
+          linknode = {this.props.linknode}
           addMarker = {this.props.addMarker}
           setStartPoint = {this.props.setStartPoint}
           currentPoint = {this.props.currentPoint}
           unmountTable = {this.unmountTable}
           cancleRouteMode = {this.cancleRouteMode}/>
         <div className="routeBtnGroup segmented-control">
-          <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto")}>
+          <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto", this.props.startPoint, this.props.destPoint)}>
             <div className = "routeModeButton" id="autoRoute" />
           </a>
-          <a className={(this.state.activeTab === "bicycle")? "active control-item" : "control-item"} ref="bicycleBtn" onClick= {this.route.bind(this,"bicycle")}>
+          <a className={(this.state.activeTab === "bicycle")? "active control-item" : "control-item"} ref="bicycleBtn" onClick= {this.route.bind(this,"bicycle",this.props.startPoint, this.props.destPoint)}>
             <div className = "routeModeButton" id="bikeRoute" />
           </a>
-          <a className={(this.state.activeTab === "pedestrian")? "active control-item" : "control-item"} ref="pedestrianBtn" onClick= {this.route.bind(this,"pedestrian")} > 
+          <a className={(this.state.activeTab === "pedestrian")? "active control-item" : "control-item"} ref="pedestrianBtn" onClick= {this.route.bind(this,"pedestrian",this.props.startPoint, this.props.destPoint)} > 
             <div className = "routeModeButton" id="walkRoute" />
           </a>
         </div>

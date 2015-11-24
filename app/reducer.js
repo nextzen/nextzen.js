@@ -3,53 +3,91 @@ var Main = require('./Components/Main');
 
 var Redux = require('redux');
 var ReactRedux = require('react-redux');
+var cookie = require('react-cookie');
 
-var createStore = Redux.createStore;
 var Provider = ReactRedux.Provider;
+import { createStore, compose, combineReducers } from 'redux';
 
-function updatePoint(state, action) {
-  if (typeof state === 'undefined') {
-    state = {
-      startPoint: {},
-      destPoint: {},
-      mapMode: 'default'
-    };
-  }
+import {
+  ReduxRouter,
+  routerStateReducer,
+  reduxReactRouter
+} from 'redux-router';
+
+import { devTools } from 'redux-devtools';
+import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+
+import createHistory from 'history/lib/createBrowserHistory';
+
+
+const initialState = {
+  startPoint: {},
+  destPoint: {},
+  currentPoint: cookie.load('currentLocation'),
+  isThisInitialState : "yes",
+  selectedPoint: {},
+  mapMode: 'default'
+}
+function updatePoint(state = initialState, action = {}) {
+  // if (typeof state === 'undefined') {
+  //   state = initialState;
+  // }
+  // console.log('state');
+  // console.log(state);
+  
+  
   switch(action.type) {
     case 'updateStartPoint':
-      return { 
-        startPoint: action.startPoint,
-        destPoint: state.destPoint,
-        currentPoint: state.currentPoint,
-        mapMode: state.mapMode
+      return {
+        ...state,
+        startPoint: action.startPoint
       };
 
     case 'updateDestPoint':
       return { 
-        startPoint: state.startPoint,
-        destPoint: action.destPoint,
-        currentPoint: state.currentPoint,
-        mapMode: state.mapMode
+        ...state,
+        destPoint: action.destPoint
       };
 
     case 'updateCurrentPoint':
-      return { 
-        startPoint: state.startPoint,
-        destPoint: state.destPoint,
+      return {
+        ...state,
         currentPoint: action.currentPoint,
-        mapMode: state.mapMode
       };
 
     case 'setMapMode':
       return {
-        startPoint: state.startPoint,
-        destPoint: state.destPoint,
-        currentPoint: state.destPoint,
+        ...state,
         mapMode: action.mapMode
       };
+    case 'selectPlace':
+      return {
+        ...state,
+        selectedPoint: action.selectedPoint
+      };
+
+    case 'clearPoints':
+      return {
+        ...state,
+        startPoint: {},
+        destPoint: {},
+        selectedPoint: {}
+      };
+    default:
+      return state;
   }
 }
 
-var store = createStore(updatePoint);
+const reducer = combineReducers({
+  updatePoint,
+  router: routerStateReducer
+})
+
+var store = compose(
+  reduxReactRouter({createHistory}),
+  devTools()
+)(createStore)(reducer);
+
+//var store = createStore(updatePoint);
 
 module.exports = store;
