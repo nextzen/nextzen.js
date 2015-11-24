@@ -8,7 +8,6 @@ import store from '../../reducer';
 import Actions from '../../actions';
 
 import MapObject from '../Map/MapObject';
-import LocationInformation from './LocationInformation';
 
 class SearchWrapper extends Component {
 

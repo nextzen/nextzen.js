@@ -9,32 +9,17 @@ var ResultTable = React.createClass({
     var searchTermRows = [];
     var rows = [];
     var self = this;
-    if(this.props.searching){
-      if(this.props.mapMode !== "route"){
-          if(this.props.centerPoint !== undefined){
-              this.props.searchTerm.forEach(function(term){
-                searchTermRows.push(<SearchTermRow
-                                    addPOIMarkers = {self.props.addPOIMarkers}
-                                    searchTerm = {term}
-                                    linknode = {self.props.linknode}
-                                    centerPoint = {self.props.centerPoint}
-                                    setInputValue = {self.props.setInputValue}
-                                    deactivateSearching = {self.props.deactivateSearching}/>);
-            });
-          }
-        }else{
-          currentLocationRow.push(<li className="table-view-cell currentLocation"> current location </li>);
-        }
-          this.props.searchData.forEach(function(result){
-            rows.push(<ResultRow name = {result.properties.label}
-                                 loc = {result.geometry.coordinates} 
-                                 key = {result.properties.id} 
-                                 gid = {result.properties.gid} 
-                                 linknode = {self.props.linknode}
-                                 addMarker = {self.props.addMarker} 
-                                 setInputValue = {self.props.setInputValue}
-                                 deactivateSearching = {self.props.deactivateSearching}/>)
-          });
+    if(this.props.searching) {
+      this.props.searchData.forEach(function(result){
+        rows.push(<ResultRow name = {result.properties.label}
+                             loc = {result.geometry.coordinates} 
+                             key = {result.properties.id} 
+                             gid = {result.properties.gid} 
+                             linknode = {self.props.linknode}
+                             addMarker = {self.props.addMarker} 
+                             setInputValue = {self.props.setInputValue}
+                             deactivateSearching = {self.props.deactivateSearching}/>)
+      });
     }
 
     var classString =  "table-view search-table ";

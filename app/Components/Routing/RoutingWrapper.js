@@ -14,9 +14,12 @@ class RoutingWrapper extends Component {
         <RouteWindow 
             startPoint = {this.props.startPoint}
             setStartPoint = {this.props.setStartPoint}
+            setDestPoint = {this.props.setDestPoint}
             currentPoint ={this.props.currentPoint}
             destPoint = {this.props.destPoint}
             linknode = {this.props.linknode}
+            location = {this.props.location}
+            history = {this.props.history}
             clearMap = {this.props.clearMap}
             addMarker = {this.props.addMarker}
             addRouteLayer = {this.props.addRouteLayer}
@@ -49,6 +52,12 @@ function mapDispatchToProps(dispatch) {
   return {
     addMarker: function(mrkr) {
       MapObject.addMarker(mrkr);
+    },
+    setStartPoint: function(location) {
+      store.dispatch(Actions.updateStartPointAction(location));
+    },
+    setDestPoint: function(location) {
+      store.dispatch(Actions.updateDestPointAction(location));
     },
     clearMap: function() {
       MapObject.clearMap();
