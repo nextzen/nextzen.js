@@ -18,6 +18,7 @@ var SearchBox = React.createClass({
       searchResult : [],
       searchTerm : [],
       searching : false,
+      dataIndex: -1,
       filterText: this.props.value || ""
     };
   },
@@ -36,19 +37,32 @@ var SearchBox = React.createClass({
     var key = event.which || event.keyCode;
     var i;
     var locationArr = [];
-    if(key == 13){
-      for(i = 0; i< this.state.searchResult.length; i++){
 
-        var result = this.state.searchResult[i];
-        locationArr.push({
-          name: result.properties.text,
-          lat: result.geometry.coordinates[1],
-          lon: result.geometry.coordinates[0]
-        });
-      }
-      this.props.addPOIMarkers(locationArr);
-      this.deactivateSearching();
+    var self = this;
+
+    var currentDataIndex = this.state.dataIndex;
+    switch(key) {
+      case 13:
+        if(self.props.linknode === '/maps/search/place' && self.state.dataIndex !== -1) {
+          self.props.history.pushState({ },self.props.linknode,{gid: self.state.searchResult[currentDataIndex].properties["gid"], dest: self.state.searchResult[currentDataIndex].properties["name"]});
+          self.deactivateSearching();
+        }
+
+      case 38:
+        currentDataIndex--;
+        currentDataIndex += self.state.searchResult.length;
+        currentDataIndex %= self.state.searchResult.length;
+        break;
+      case 40:
+        currentDataIndex++;
+        currentDataIndex %= self.state.searchResult.length;
+        break;
     }
+
+    this.setState({
+      dataIndex: currentDataIndex
+    })
+
   },
 
   handleChange: function(){
@@ -89,14 +103,14 @@ var SearchBox = React.createClass({
     }
   },
 
-  deactivateSearching: function(){
+  deactivateSearching: function() {
     this.setState({
       searching : false,
       searchTerm : []
     });
   },
 
-  setInputValue: function(val){
+  setInputValue: function(val) {
     this.setState({
       filterText : val
     },function(){
@@ -104,12 +118,9 @@ var SearchBox = React.createClass({
     });
   },
 
-  addMarker: function(mrkr){
-
+  addMarker: function(mrkr) {
     store.dispatch(this.props.pointAction(mrkr));
     this.props.addMarker(mrkr);
-     // if(this.props.childClassName === "searchBox") React.render(<LocationInformation 
-     //               markedLocation = {mrkr}/>, document.getElementById('locationInfoContainer'));
 
   },
 
@@ -155,13 +166,14 @@ var SearchBox = React.createClass({
           id = {this.props.searchBoxId}
           value = {this.state.filterText} 
           onChange = {this.handleChange}
-          onKeyPress = {this.handleKeyDown}></input>
+          onKeyDown = {this.handleKeyDown}></input>
         <ResultTable  childClassName = {this.props.childClassName}
                       mapMode = {this.props.mapMode}
                       linknode = {this.props.linknode}
                       searchTerm = {this.state.searchTerm}
                       searchData = {this.state.searchResult}
-                      searching = {this.state.searching} 
+                      searching = {this.state.searching}
+                      dataIndex = {this.state.dataIndex}
                       addMarker = {this.addMarker}
                       addPOIMarkers = {this.props.addPOIMarkers}
                       centerPoint = {this.props.currentPoint || this.props.startPoint || this.props.destPoint}

@@ -21,6 +21,7 @@ class SearchWrapper extends Component {
           startPoint = {this.props.startPoint}
           destPoint = {this.props.destPoint}
           currentPoint = {this.props.currentPoint}
+          history = {this.props.history}
           linknode = {this.props.linknode}
           searchBoxId = "main-search"
           placeholder = "Search addres or place."

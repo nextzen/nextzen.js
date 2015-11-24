@@ -26,8 +26,8 @@ var ResultRow = React.createClass({
     var displayName = this.props.name;
 
     return(
-    <Link to ={linknode}> 
-    <li className="table-view-cell search-result" onClick= {this.handleClick} > {displayName} </li> 
+    <Link to ={linknode}>
+      <li className={(this.props.dataIndex === this.props.rowIndex)? "select table-view-cell search-result" : "table-view-cell search-result"} onClick= {this.handleClick} > {displayName} </li> 
     </Link>
     );
   }
