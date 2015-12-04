@@ -1,12 +1,8 @@
-var React = require('react');
-var Main = require('./Components/Main');
+import React from 'react';
 
-var Redux = require('redux');
-var ReactRedux = require('react-redux');
-var cookie = require('react-cookie');
-
-var Provider = ReactRedux.Provider;
-import { createStore, compose, combineReducers } from 'redux';
+import Redux, { createStore, compose, combineReducers } from 'redux';
+import {Provider} from'react-redux';
+import cookie from 'react-cookie';
 
 import {
   ReduxRouter,
@@ -17,24 +13,19 @@ import {
 import { devTools } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
-import createHistory from 'history/lib/createBrowserHistory';
+import {createHistory} from 'history/lib/createBrowserHistory';
 
 
 const initialState = {
   startPoint: {},
   destPoint: {},
   currentPoint: cookie.load('currentLocation'),
-  isThisInitialState : "yes",
+  isThisInitialState : "yes", 
   selectedPoint: {},
   mapMode: 'default'
 }
+
 function updatePoint(state = initialState, action = {}) {
-  // if (typeof state === 'undefined') {
-  //   state = initialState;
-  // }
-  // console.log('state');
-  // console.log(state);
-  
   
   switch(action.type) {
     case 'updateStartPoint':
@@ -83,11 +74,4 @@ const reducer = combineReducers({
   router: routerStateReducer
 })
 
-var store = compose(
-  reduxReactRouter({createHistory}),
-  devTools()
-)(createStore)(reducer);
-
-//var store = createStore(updatePoint);
-
-module.exports = store;
+module.exports = reducer;

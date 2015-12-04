@@ -1,4 +1,4 @@
-var MapObject = (function(){
+var Map = (function(){
 
   var map;
   var currentLayer = L.layerGroup();
@@ -10,15 +10,19 @@ var MapObject = (function(){
 
 
   var _init = function() {
+    
     map = L.map(document.getElementById('map'), {
       zoomControl:false
     });
+    // var layer = Tangram.leafletLayer({
+    //   scene: 'https://cdn.rawgit.com/tangrams/cinnabar-style-more-labels/gh-pages/cinnabar-style-more-labels.yaml',
+    //   attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+    // });
 
+    var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-    var layer = Tangram.leafletLayer({
-      scene: 'https://cdn.rawgit.com/tangrams/cinnabar-style-more-labels/gh-pages/cinnabar-style-more-labels.yaml',
-      attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-    });
     map.setView([40.7099948, -74.0298132], 12);
 
     markerIcon = L.icon({
@@ -50,7 +54,6 @@ var MapObject = (function(){
     var center = L.latLng(newCurrentLocation.lat, newCurrentLocation.lon);
 
     currentLayer.addLayer(L.marker(center, {icon: currentMarkerIcon}));
-
     map.setView(center, 14);
   };
 
@@ -58,10 +61,12 @@ var MapObject = (function(){
     markerLayer.clearLayers();
     var marker = L.marker([mrkr.lat,mrkr.lon], {icon: markerIcon});
     markerLayer.addLayer(marker);
+    console.log(map);
     map.setView(marker.getLatLng(),14);
   };
 
   var _clearMap = function() {
+    console.log('clearing');
     markerLayer.clearLayers();
     currentLayer.clearLayers();
     routeLayer.clearLayers();
@@ -92,4 +97,4 @@ var MapObject = (function(){
 })();
 
 
-module.exports = MapObject;
+module.exports = Map;

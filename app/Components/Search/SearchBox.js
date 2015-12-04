@@ -1,53 +1,58 @@
-var React = require('react');
-var $ = require('jquery');
-var Router = require('react-router');
-var categoryMap = require('./CategoryMap');
+import React from 'react'
+import $ from 'jquery'
 
-var ResultRow = require('./ResultRow');
-var ResultTable = require('./ResultTable');
+import categoryMap from './CategoryMap'
 
-var Actions = require('../../actions');
-var store = require('../../reducer');
+import ResultRow from './ResultRow'
+import ResultTable from './ResultTable'
 
-var Keys = require('../Keys.js');
+import Map from '../LeafletMap/Map'
 
 var SearchBox = React.createClass({
 
   getInitialState: function(){
-    return{ 
+    return { 
       searchResult : [],
-      searchTerm : [],
-      searching : false,
       dataIndex: -1,
       filterText: this.props.value || ""
     };
   },
 
-  componentWillReceiveProps: function(newProps) {
-    this.setState({filterText : newProps.value });
-  },
-
   componentDidMount: function(){
 
-    var searchBoxId = this.props.searchBoxId;
-    if(searchBoxId) document.getElementById(searchBoxId).focus();
+    const { location } = this.props;
+    const { placeholder, link } = this.props.config;
+
+    if(link === '/maps/search/place' && (Object.keys(location.query).length !== 0)) {
+      var name = location.query.name;
+      this.refs.searchInput.value = name;
+    } else {
+      this.refs.searchInput.focus();
+    }
+
+    if(placeholder == 'Choose start point' && (Object.keys(location.query).length !== 0)) {
+      var name = location.query.start.name;
+      this.refs.searchInput.value = name;
+      console.log(this.refs.searchInput.value);
+
+    } else if(placeholder == 'Choose destination point' && (Object.keys(location.query).length !== 0)) {
+      var name = location.query.dest.name;
+      this.refs.searchInput.value = name;
+    } else {
+      this.refs.searchInput.focus();
+    }
   },
 
   handleKeyDown: function(event){
     var key = event.which || event.keyCode;
-    var i;
-    var locationArr = [];
-
     var self = this;
 
     var currentDataIndex = this.state.dataIndex;
+
     switch(key) {
       case 13:
-        if(self.props.linknode === '/maps/search/place' && self.state.dataIndex !== -1) {
-          self.props.history.pushState({ },self.props.linknode,{gid: self.state.searchResult[currentDataIndex].properties["gid"], dest: self.state.searchResult[currentDataIndex].properties["name"]});
-          self.deactivateSearching();
-        }
-
+          var data = self.state.searchResult[currentDataIndex];
+          self.pointAction(data);
       case 38:
         currentDataIndex--;
         currentDataIndex += self.state.searchResult.length;
@@ -65,26 +70,49 @@ var SearchBox = React.createClass({
 
   },
 
+  pointAction: function(data) {
+
+    const { pointAction } = this.props.config
+
+    var selectedPoint = {
+        name: data.properties.label,
+        gid: data.properties.gid,
+        lat: data.geometry.coordinates[1],
+        lon: data.geometry.coordinates[0]
+    };
+    pointAction(selectedPoint);
+
+    this.setInputValue(data.properties.label);
+    this.setState({
+      dataIndex: -1
+    });
+    Map.addMarker(selectedPoint);
+
+    const { link } = this.props.config
+
+    if( link === '/maps/search/place') {
+      const { pushState } = this.props
+      pushState({ }, link, {gid: selectedPoint.gid, name: selectedPoint.name});
+    }
+  },
+
   handleChange: function(){
 
-     var currentType = this.refs.filterTextInput.value;
-     if(currentType.length > 0) {
-       var currentVal = '^(?=.*\\b' + $.trim(currentType.split(/\s+/).join('\\b)(?=.*\\b') + ').*$');
-       var matchingVals = [];
+    var currentType = this.refs.searchInput.value;
+    if(currentType.length > 0) {
+      var currentVal = '^(?=.*\\b' + $.trim(currentType.split(/\s+/).join('\\b)(?=.*\\b') + ').*$');
+      var matchingVals = [];
        
-       this.makeCall(currentType);
-
-      //if(this.props.mapMode !== "route") this.checkCategories(currentVal,matchingVals);
-
+      this.makeCall(currentType);
       this.setState({
-        searchTerm: matchingVals,
-        filterText : currentType,
-        searching: true});
-      }else{
+        
+        filterText : currentType
+      })
+    } else {
         this.setState({
-        searchTerm: "",
-        filterText : "",
-        searching: false});
+          searchResult: [],
+          filterText : ""
+        })
       }
     },
 
@@ -103,25 +131,20 @@ var SearchBox = React.createClass({
     }
   },
 
-  deactivateSearching: function() {
-    this.setState({
-      searching : false,
-      searchTerm : []
-    });
-  },
-
   setInputValue: function(val) {
     this.setState({
       filterText : val
     },function(){
-      this.refs.filterTextInput.value = val;
+      this.refs.searchInput.value = val;
+      this.deactivateSearching();
     });
   },
 
-  addMarker: function(mrkr) {
-    store.dispatch(this.props.pointAction(mrkr));
-    this.props.addMarker(mrkr);
-
+  deactivateSearching: function() {
+    this.setState({
+      searchTerm : [],
+      searchResult: []
+    });
   },
 
   makeCall: function(currentInput){
@@ -129,13 +152,13 @@ var SearchBox = React.createClass({
     var self = this;
     if(currentInput.length > 0){
       var baseurl = 'https://search.mapzen.com/v1';
-      var point = this.props.currentPoint || this.props.destPoint || this.props.startPoint || null;
+      var point = this.props.focusPoint|| {};
 
       var input = currentInput;
       var radius = 50;
 
       var callurl = baseurl + "/autocomplete?text=" + currentInput;
-      callurl += '&api_key=' + Keys.search;
+      callurl += '&api_key=' + this.props.config.key;
 
       //if object is not empty object
       if(Object.keys(point).length !== 0) callurl += "&focus.point.lat=" + point.lat + "&focus.point.lon=" + point.lon;
@@ -151,34 +174,30 @@ var SearchBox = React.createClass({
               // when there is no search result? 
           }
       });
-    }else{
+    } else {
       self.setState({searchResult: []})
     }
   },
+
   render: function(){
+    const { config } = this.props
+    const { searchResult, dataIndex} = this.state
     return(
       <div>
-        <input style = {this.props.style}
-          placeholder = {this.props.placeholder}
-          className = {this.props.childClassName}
-          ref = "filterTextInput" 
+        <input 
+          placeholder = {config.placeholder}
+          className = {config.childClass}
+          ref = "searchInput" 
           type = "search" 
           id = {this.props.searchBoxId}
           value = {this.state.filterText} 
           onChange = {this.handleChange}
           onKeyDown = {this.handleKeyDown}></input>
-        <ResultTable  childClassName = {this.props.childClassName}
-                      mapMode = {this.props.mapMode}
-                      linknode = {this.props.linknode}
-                      searchTerm = {this.state.searchTerm}
-                      searchData = {this.state.searchResult}
-                      searching = {this.state.searching}
-                      dataIndex = {this.state.dataIndex}
-                      addMarker = {this.addMarker}
-                      addPOIMarkers = {this.props.addPOIMarkers}
-                      centerPoint = {this.props.currentPoint || this.props.startPoint || this.props.destPoint}
-                      setInputValue = {this.setInputValue}
-                      deactivateSearching = {this.deactivateSearching} />
+        <ResultTable childClassName = {config.childClassName}
+                      searchData = {searchResult}
+                      dataIndex = {dataIndex}
+                      centerPoint = {config.focusPoint}
+                      pointAction = {this.pointAction} />
       </div>
     );
   }

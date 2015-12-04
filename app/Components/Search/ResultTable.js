@@ -1,44 +1,32 @@
-var React = require('react');
+import React, { Component } from 'react'
 
-var ResultRow = require('./ResultRow');
-var SearchTermRow = require('./SearchTermRow');
+import ResultRow from './ResultRow';
+import SearchTermRow from './SearchTermRow';
 
-var ResultTable = React.createClass({
+export default class ResultTable extends Component {
 
-  render: function(){
-    var currentLocationRow = [];
-    var searchTermRows = [];
-    var rows = [];
-    var self = this;
-    if(this.props.searching) {
-      var rowIndex = 0;
-      this.props.searchData.forEach(function(result){
-        rows.push(<ResultRow name = {result.properties.label}
-                             loc = {result.geometry.coordinates} 
-                             key = {result.properties.id} 
-                             rowIndex = {rowIndex}
-                             dataIndex = {self.props.dataIndex}
-                             gid = {result.properties.gid} 
-                             linknode = {self.props.linknode}
-                             addMarker = {self.props.addMarker} 
-                             setInputValue = {self.props.setInputValue}
-                             deactivateSearching = {self.props.deactivateSearching}/>);
-        rowIndex++;
-      });
-    }
+  //turning off poi search for now  Dec, 2015
 
-    var classString =  "table-view search-table ";
-    classString += this.props.childClassName;
+  render() {
+
+    let rows = [];
+    let rowIndex = 0;
+
+    const { searchData, dataIndex, pointAction } = this.props
+
+    searchData.forEach(result => {
+      rows.push( <ResultRow data = {result}
+                            key = {result.properties.gid}
+                           rowIndex = {rowIndex}
+                           dataIndex = {dataIndex}
+                           pointAction = {pointAction}/> );
+      rowIndex++;
+    });
 
     return(
-      <ul
-        className = {classString}>
-        {currentLocationRow}
-        {searchTermRows}
+      <ul className = "table-view search-table">
         {rows}
       </ul>
     );
   }
-});
-
-module.exports = ResultTable;
+}

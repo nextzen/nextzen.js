@@ -1,11 +1,19 @@
-var React = require('react');
-import {IndexRoute, Route} from 'react-router';
+import React from 'react'
+import { Route, Redirect, IndexRoute } from 'react-router'
 
-import TestUnit from '../Components/TestComponent';
-var Main = require('../Components/Main');
+import Main from '../components/Main'
+import Home from '../components/Home';
+import SearchWrapper from '../containers/SearchBoxcontainer';
+import RoutingWrapper from '../containers/TurnByTurnContainer';
+import LocationInformation from '../components/Search/LocationInformation';
 
-module.exports = (
-  <Route path="/" component={TestUnit}>
-    <Route path = "maps" component = {Main} />
+export default (
+  <Route path="/maps" component={Main}>\
+  <Redirect from="/" to="/maps"/>
+    <IndexRoute component = {Home} />
+    <Route path="search" component = {SearchWrapper}>
+      <Route path="place" component = {LocationInformation} />
+    </Route>
+    <Route path="direction" component = {RoutingWrapper} />
   </Route>
-);
+)
