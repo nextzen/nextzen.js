@@ -1,15 +1,8 @@
-import React, { Component} from 'react';
-import { Link } from 'react-router';
+import React, { Component} from 'react'
 
-import SearchButton from './Search/SearchButton';
-import RouteButton from './Routing/RouteButton';
-import CurrentLocation from './CurrentLocation/CurrentLocation';
-
-import { Provider, connect } from 'react-redux';
-import store from '../reducer';
-import Actions from '../actions';
-
-import MapObject from './Map/MapObject';
+import SearchButton from './Search/SearchButton'
+import RouteButton from './TurnByTurn/RouteButton'
+import CurrentLocation from './CurrentLocation/CurrentLocation'
 
 class Home extends Component {
   render() {
@@ -19,44 +12,10 @@ class Home extends Component {
           <SearchButton/>
           <RouteButton />
         </div>
-        <CurrentLocation
-          setCurrentLocation = {this.props.setCurrentLocation} />
+        <CurrentLocation />
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-    if (typeof state === 'undefined') {
-    state = {
-      startPoint: {},
-      destPoint: {},
-      currentPoint: {},
-      mode: ""
-    };
-  }
-  return {
-    routerState: state.router,
-    startPoint: state.updatePoint.startPoint,
-    destPoint: state.updatePoint.destPoint,
-    currentPoint: state.updatePoint.currentPoint,
-    mode: state.updatePoint.mode
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setCurrentLocation: function(currentLocation) {
-      MapObject.setCurrentPoint(currentLocation);
-      store.dispatch(Actions.updateCurrentPointAction(currentLocation));
-      store.dispatch(Actions.updateStartPointAction(currentLocation));
-    }
-  }
-}
-
-var ConnectedHome = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
-
-module.exports = ConnectedHome;
+module.exports = Home;

@@ -1,6 +1,6 @@
 var React = require('react');
-var Actions = require('../../actions');
-var store = require('../../reducer');
+var Actions = require('../../actions/index');
+var store = require('../../reducers/index');
 import { Link } from 'react-router';
 
 var CancelButton = React.createClass({

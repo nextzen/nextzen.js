@@ -81,6 +81,9 @@ $route-btn-height: 48px;
       &:hover {
         background-color: #ddd;
       }
+      &.select {
+        background-color: #ccc;
+      }
       &::before {
         content: ' ';
         width: 10px;

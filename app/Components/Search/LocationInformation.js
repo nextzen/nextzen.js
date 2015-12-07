@@ -1,11 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RouteButton from '../Routing/RouteButton';
+import RouteButton from '../TurnByTurn/RouteButton';
 import {connect} from 'react-redux';
-
-import store from '../../reducer';
-import Actions from '../../actions';
-
 var Keys = require('../Keys.js');
 
 var $ = require('jquery');
@@ -27,6 +23,7 @@ var LocationInformation = React.createClass({
   },
 
   componentDidMount: function() {
+    console.log(this.props.location.query);
     if((Object.keys(this.props.location.query).length !== 0)) {
       var gid = this.props.location.query.gid;
       var callurl = 'https://search.mapzen.com/v1/place?api_key=';
@@ -45,11 +42,11 @@ var LocationInformation = React.createClass({
             var _mainTitle = title[0];
             var _neighborhood = title[1] + title[2];
 
-            self.props.setDestinationPoint({
-              name: _mainTitle,
-              lat: data.features[0].geometry.coordinates[1],
-              lon: data.features[0]. geometry.coordinates[0]
-            });
+            // self.props.setDestinationPoint({
+            //   name: _mainTitle,
+            //   lat: data.features[0].geometry.coordinates[1],
+            //   lon: data.features[0]. geometry.coordinates[0]
+            // });
           self.setState({
             mainTitle: _mainTitle,
             neighborhood: _neighborhood
@@ -83,19 +80,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    setDestinationPoint: function(selectedLocation) {
-      store.dispatch(Actions.selectPlace(selectedLocation));
-      store.dispatch(Actions.updateDestPointAction(selectedLocation));
-    }
-  }
-}
-
-var ConnectedLocationInformation = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LocationInformation);
+var ConnectedLocationInformation = connect(mapStateToProps)(LocationInformation);
 
 
 module.exports = ConnectedLocationInformation;

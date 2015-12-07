@@ -1,14 +1,14 @@
-var React = require('react');
+import React from 'react';
 
 require('./css/ratchet.css');
 require('./css/main.scss');
 
-var MapObject = require('./Map/MapObject');
+import Map from './LeafletMap/Map';
 
 var Main = React.createClass({
 
     componentDidMount: function () {
-      MapObject.init();
+      Map.init();
     },
 
     render: function () {

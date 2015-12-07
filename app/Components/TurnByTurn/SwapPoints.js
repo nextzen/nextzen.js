@@ -1,7 +1,4 @@
-var React = require('react');
-var Actions = require('../../actions');
-var store = require('../../reducer');
-
+import React from 'react';
 
 var SwapPoints = React.createClass({
   swapPoints: function(){

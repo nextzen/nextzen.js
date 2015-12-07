@@ -1,10 +1,7 @@
-var React = require('react');
-var ReactSpinner = require('../Spin');
+import React from 'react';
+import ReactSpinner from '../Util/Spin';
 
-var Actions = require('../../actions');
-var store = require('../../reducer');
-
-var cookie = require('react-cookie');
+import cookie from 'react-cookie';
 
 var CurrentLocation = React.createClass({
   getInitialState: function(){
@@ -37,9 +34,7 @@ var CurrentLocation = React.createClass({
             lat: position.coords.latitude,
             lon: position.coords.longitude
           }
-          self.props.setCurrentLocation(currentLocation);
-          //mark it on the map
-          //self.props.setCurrentLocation();
+          //self.props.setCurrentLocation(currentLocation);
 
           //save it on cookie
           cookie.save('currentLocation', currentLocation);

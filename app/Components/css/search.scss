@@ -96,6 +96,10 @@ $search-bar-height: 46px;
       &:hover {
         background-color: #ddd;
       }
+      &.select {
+        background-color: #ccc;
+      }
+
       &::before {
         content: ' ';
         width: 10px;
