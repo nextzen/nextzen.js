@@ -16,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "spinjs": "2.3.1",
-    "jquery": "2.1.4"
+    "spinjs": "2.3.1"
   }
 }

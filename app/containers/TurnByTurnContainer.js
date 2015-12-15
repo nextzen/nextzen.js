@@ -13,7 +13,6 @@ class TurnByTurnContainer extends Component {
     const turnByTurnConfig = {
       startPoint: this.props.startPoint,
       destPoint: this.props.destPoint,
-      focustPoint: this.props.focusPoint,
       link: '/maps/direction',
       key: Keys.turnByTurn
     }
@@ -23,6 +22,7 @@ class TurnByTurnContainer extends Component {
             config = {turnByTurnConfig}
             updateStartPoint = {this.props.updateStartPoint}
             updateDestPoint = {this.props.updateDestPoint}
+            clearPoints = {this.props.clearPoints}
             location = {this.props.location}
             pushState = {this.props.pushState}
             replaceState = {this.props.replaceState} />
@@ -34,16 +34,16 @@ function mapStateToProps(state) {
   return {
     routerState: state.router,
     startPoint: state.updatePoint.startPoint,
-    destPoint: state.updatePoint.destPoint,
-    focusPoint: state.updatePoint.currentPoint || state.updatePoint.destPoint || state.updatePoint.startPoint,
+    destPoint: state.updatePoint.destPoint
   }
 }
 
-import { updateStartPoint, updateDestPoint } from '../actions/index';
+import { updateStartPoint, updateDestPoint, clearPoints } from '../actions/index';
 
 export default connect(mapStateToProps,{
   updateStartPoint,
   updateDestPoint,
+  clearPoints,
   pushState,
   replaceState
 })(TurnByTurnContainer);

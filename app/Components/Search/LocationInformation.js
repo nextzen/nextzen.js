@@ -4,8 +4,6 @@ import RouteButton from '../TurnByTurn/RouteButton';
 import {connect} from 'react-redux';
 var Keys = require('../Keys.js');
 
-var $ = require('jquery');
-
 var LocationInformation = React.createClass({
   
   getInitialState: function(){
@@ -23,42 +21,41 @@ var LocationInformation = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log(this.props.location.query);
     if((Object.keys(this.props.location.query).length !== 0)) {
+
       var gid = this.props.location.query.gid;
       var callurl = 'https://search.mapzen.com/v1/place?api_key=';
       var apikey = Keys.search;
       callurl += apikey;
       callurl +='&ids=';
       callurl += gid; 
-      var self = this;
-      
-      $.ajax({
-        type:"GET",
-        crossDomain: true,
-        url: callurl,
-        success: function(data){
-            var title = data.features[0].properties.label.split(',');
-            var _mainTitle = title[0];
-            var _neighborhood = title[1] + title[2];
 
-            // self.props.setDestinationPoint({
-            //   name: _mainTitle,
-            //   lat: data.features[0].geometry.coordinates[1],
-            //   lon: data.features[0]. geometry.coordinates[0]
-            // });
-          self.setState({
+      var request = new XMLHttpRequest();
+      request.open('GET', callurl, true);
+      request.onload = () => {
+        if (request.status >= 200 && request.status < 400) {
+          // Success!
+          var data = JSON.parse(request.responseText);
+          var title = data.features[0].properties.label.split(',');
+          var _mainTitle = title[0];
+          var _neighborhood = title[1] + title[2];
+
+          this.setState({
             mainTitle: _mainTitle,
             neighborhood: _neighborhood
           }, function() {
-            document.getElementById('locationTitle').innerHTML = self.state.mainTitle;
-            document.getElementById('locationNeighborhood').innerHTML = self.state.neighborhood;
+            document.getElementById('locationTitle').innerHTML = _mainTitle;
+            document.getElementById('locationNeighborhood').innerHTML = _neighborhood;
           });
-        },
-        error: function(){
+        } else {
           console.log('can\'t find the place');
         }
-      });
+      };
+
+      request.onerror = function() {
+        // when there is no search result / error? 
+      };
+    request.send();
     }
   },
 

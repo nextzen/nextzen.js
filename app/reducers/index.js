@@ -16,7 +16,6 @@ const initialState = {
   startPoint: {},
   destPoint: {},
   currentPoint: cookie.load('currentLocation'),
-  isThisInitialState : "yes", 
   selectedPoint: {},
   mapMode: 'default'
 }
@@ -50,7 +49,8 @@ function updatePoint(state = initialState, action = {}) {
     case 'selectPlace':
       return {
         ...state,
-        selectedPoint: action.selectedPoint
+        selectedPoint: action.selectedPoint,
+        destPoint: action.selectedPoint
       };
 
     case 'clearPoints':
