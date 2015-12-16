@@ -59,6 +59,5 @@ const config = {
 };
 
 config.addVendor('spinjs', path.resolve(bower_dir, 'spinjs/spin.min.js'));
-config.addVendor('jquery', path.resolve(bower_dir, 'jquery/dist/jquery.min.js'));
 
 module.exports = config;

@@ -14,14 +14,14 @@ var Map = (function(){
     map = L.map(document.getElementById('map'), {
       zoomControl:false
     });
-    // var layer = Tangram.leafletLayer({
-    //   scene: 'https://cdn.rawgit.com/tangrams/cinnabar-style-more-labels/gh-pages/cinnabar-style-more-labels.yaml',
-    //   attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-    // });
+    var layer = Tangram.leafletLayer({
+      scene: 'https://cdn.rawgit.com/tangrams/cinnabar-style-more-labels/gh-pages/cinnabar-style-more-labels.yaml',
+      attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+    });
 
-    var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    // var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(map);
 
     map.setView([40.7099948, -74.0298132], 12);
 
@@ -91,7 +91,7 @@ var Map = (function(){
     init : _init,
     setCurrentPoint: _setCurrentPoint,
     addMarker: _addMarker,
-    clearMap: _clearMap,
+    clear: _clearMap,
     addRouteLayer: _addRouteLayer
   };
 })();

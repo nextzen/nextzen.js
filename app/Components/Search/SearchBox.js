@@ -1,6 +1,5 @@
 import React from 'react'
-import $ from 'jquery'
-
+import {debounce} from 'lodash';
 import categoryMap from './CategoryMap'
 
 import ResultRow from './ResultRow'
@@ -10,34 +9,70 @@ import Map from '../LeafletMap/Map'
 
 var SearchBox = React.createClass({
 
-  getInitialState: function(){
+  makeSearchCall: function(currentInput, focusPoint){
+
+    var baseurl = 'https://search.mapzen.com/v1';
+    var point = focusPoint|| {};
+
+    var callurl = baseurl + "/autocomplete?text=" + currentInput;
+    callurl += '&api_key=' + this.props.config.key;
+
+    //if object is not empty object
+    if(Object.keys(point).length !== 0) callurl += "&focus.point.lat=" + point.lat + "&focus.point.lon=" + point.lon;
+
+    var request = new XMLHttpRequest();
+    request.open('GET', callurl, true);
+    request.onload = () => {
+      if (request.status >= 200 && request.status < 400) {
+        // Success!
+        var resp = JSON.parse(request.responseText);
+        this.setState({searchResult: resp.features})
+      } else {
+        // when there is no search result? 
+      }
+    };
+
+    request.onerror = function() {
+      // when there is no search result / error? 
+    };
+
+    request.send();
+  },
+
+  componentWillMount: function() {
+    //make search call debounce
+    this.makeCall = debounce(function() {
+      this.makeSearchCall.apply(this, [this.state.filterText, this.props.config.focusPoint]);
+    }, 250);
+  },
+
+  getInitialState: function() {
+    console.log(this.props.config);
     return { 
       searchResult : [],
       dataIndex: -1,
-      filterText: this.props.value || ""
+      filterText: this.props.label || ""
     };
   },
 
   componentDidMount: function(){
-
     const { location } = this.props;
     const { placeholder, link } = this.props.config;
 
     if(link === '/maps/search/place' && (Object.keys(location.query).length !== 0)) {
       var name = location.query.name;
-      this.refs.searchInput.value = name;
+      this.setState({filterText: name});
     } else {
       this.refs.searchInput.focus();
     }
 
     if(placeholder == 'Choose start point' && (Object.keys(location.query).length !== 0)) {
       var name = location.query.start.name;
-      this.refs.searchInput.value = name;
-      console.log(this.refs.searchInput.value);
+      this.setState({filterText: name});
 
     } else if(placeholder == 'Choose destination point' && (Object.keys(location.query).length !== 0)) {
       var name = location.query.dest.name;
-      this.refs.searchInput.value = name;
+      this.setState({filterText: name});
     } else {
       this.refs.searchInput.focus();
     }
@@ -80,9 +115,10 @@ var SearchBox = React.createClass({
         lat: data.geometry.coordinates[1],
         lon: data.geometry.coordinates[0]
     };
+
     pointAction(selectedPoint);
 
-    this.setInputValue(data.properties.label);
+    this.setInputValue(selectedPoint.name);
     this.setState({
       dataIndex: -1
     });
@@ -100,14 +136,10 @@ var SearchBox = React.createClass({
 
     var currentType = this.refs.searchInput.value;
     if(currentType.length > 0) {
-      var currentVal = '^(?=.*\\b' + $.trim(currentType.split(/\s+/).join('\\b)(?=.*\\b') + ').*$');
       var matchingVals = [];
-       
-      this.makeCall(currentType);
       this.setState({
-        
-        filterText : currentType
-      })
+          filterText : currentType
+        },this.makeCall());
     } else {
         this.setState({
           searchResult: [],
@@ -117,10 +149,8 @@ var SearchBox = React.createClass({
     },
 
   checkCategories: function(currentVal,matchingVals){
-
     for(value in categoryMap){
       for(val in categoryMap[value]){
-        
         var reg = RegExp(currentVal, 'i');
         if(reg.test(val)){
           matchingVals.push(categoryMap[value][val]);
@@ -135,7 +165,6 @@ var SearchBox = React.createClass({
     this.setState({
       filterText : val
     },function(){
-      this.refs.searchInput.value = val;
       this.deactivateSearching();
     });
   },
@@ -145,38 +174,6 @@ var SearchBox = React.createClass({
       searchTerm : [],
       searchResult: []
     });
-  },
-
-  makeCall: function(currentInput){
-
-    var self = this;
-    if(currentInput.length > 0){
-      var baseurl = 'https://search.mapzen.com/v1';
-      var point = this.props.focusPoint|| {};
-
-      var input = currentInput;
-      var radius = 50;
-
-      var callurl = baseurl + "/autocomplete?text=" + currentInput;
-      callurl += '&api_key=' + this.props.config.key;
-
-      //if object is not empty object
-      if(Object.keys(point).length !== 0) callurl += "&focus.point.lat=" + point.lat + "&focus.point.lon=" + point.lon;
-
-      $.ajax({
-          type:"GET",
-          crossDomain: true,
-          url: callurl,
-          success: function(data){
-            self.setState({searchResult: data.features});
-          },
-          error: function(){
-              // when there is no search result? 
-          }
-      });
-    } else {
-      self.setState({searchResult: []})
-    }
   },
 
   render: function(){

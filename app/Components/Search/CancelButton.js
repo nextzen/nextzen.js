@@ -1,16 +1,19 @@
-var React = require('react');
-var Actions = require('../../actions/index');
-var store = require('../../reducers/index');
+import React from 'react';
+import Map from '../LeafletMap/Map'
+
+import {clearPoints} from '../../actions/index';
+
 import { Link } from 'react-router';
 
 var CancelButton = React.createClass({
-  setMode : function(){
-    store.dispatch(Actions.clearPointsAction());
+  clear : function(){
+    this.props.clearPoints();
+    Map.clear();
   },
   render : function(){
     return(
       <Link to = "/maps">
-        <div className="cancelButton" onClick = {this.setMode} />
+        <div id="cancelButton" className = {this.props.styles} onClick = {this.clear} />
       </Link>
     );
   }

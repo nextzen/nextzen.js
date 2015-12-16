@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import polyline from 'polyline';
-import $ from 'jquery';
-
 
 import RouteResultTable from './RouteResultTable';
 import SearchWhileRoute from './SearchWhileRoute';
@@ -72,30 +70,42 @@ var RouteWindow = React.createClass({
       costing: mode
     });
 
-    const routeUrl = serviceurl +  'route?json=' + params + apikey;
+    const callurl = serviceurl +  'route?json=' + params + apikey;
 
-    $('#routeCancelButton').toggleClass('routeCancelButton');
     this.mountSpinner();
 
-    $.ajax({
-      type:"GET",
-      crossDomain: true,
-      url: routeUrl,
-      success: function(data){
+    var request = new XMLHttpRequest();
+    request.open('GET', callurl, true);
+    request.onload = () => {
+      this.setState({spinning: true})
+      if (request.status >= 200 && request.status < 400) {
+        // Success!
+        var data = JSON.parse(request.responseText);
         var coord = polyline.decode(data.trip.legs[0].shape,6);
         Map.addRouteLayer(coord, startP, destP);
-        self.mountTable(data);
-        self.unmountSpinner();
-        $('#routeCancelButton').toggleClass('routeCancelButton');
-      },
-      error: function(){
+        this.mountTable(data);
+        this.unmountSpinner();
+        this.setState({spinning: false});
+      } else {
+        // when there is no search result? 
         const msg = "No route available between the points.";
-        self.unmountSpinner();
-        self.unmountTable();
-        $('#routeCancelButton').toggleClass('routeCancelButton');
+        this.unmountSpinner();
+        this.unmountTable();
+        this.setState({spinning: false});
         ReactDOM.render(<ErrorMessage errorMessage = {msg}/>, document.getElementById('route-result-table'));
       }
-    });
+    };
+
+    request.onerror = function() {
+      // when there is no search result / error? 
+        const msg = "No route available between the points.";
+        this.unmountSpinner();
+        this.unmountTable();
+        this.setState({spinning: false});
+        ReactDOM.render(<ErrorMessage errorMessage = {msg}/>, document.getElementById('route-result-table'));
+    };
+
+    request.send();
 
     const { pushState } = this.props;
 
@@ -107,14 +117,14 @@ var RouteWindow = React.createClass({
   },
 
   mountSpinner: function(){
-    ReactDOM.render(<ReactSpinner config={this.state.config}/>, document.getElementById('routeCancelButton'));
+    ReactDOM.render(<ReactSpinner config={this.state.config}/>, document.getElementById('cancelButton'));
     this.setState({
       spinning:true
     });
   },
 
   unmountSpinner: function(){
-    ReactDOM.unmountComponentAtNode(document.getElementById('routeCancelButton'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('cancelButton'));
     this.setState({
       spinning:false
     })
@@ -131,13 +141,15 @@ var RouteWindow = React.createClass({
   render: function(){
 
     const config = this.props.config;
-    const { updateStartPoint, updateDestPoint, location } = this.props;
+    const { updateStartPoint, updateDestPoint, clearPoints, location } = this.props;
     return(
       <div>
         <SearchWhileRoute 
           config = {config}
           updateStartPoint = { updateStartPoint}
           updateDestPoint = { updateDestPoint}
+          clearPoints = {clearPoints}
+          spinning = {this.state.spinning}
           location = {location} />
         <div className="routeBtnGroup segmented-control">
           <a className={(this.state.activeTab === "auto")? "active control-item" : "control-item"} ref="autoBtn" onClick= {this.route.bind(this,"auto", config.startPoint, config.destPoint)}>

@@ -23,7 +23,8 @@ export function selectPlace(locationObj) {
 
   return {
     type:'selectPlace',
-    selectedPoint: locationObj
+    selectedPoint: locationObj,
+    destPoint: locationObj
   }
 }
 

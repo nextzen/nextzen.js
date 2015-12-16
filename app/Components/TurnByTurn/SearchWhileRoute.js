@@ -1,22 +1,23 @@
-import React from 'react';
+import React,{propTypes} from 'react';
 import SearchBox from '../Search/SearchBox';
 import SwapPoints from './SwapPoints';
-import Actions from '../../actions/index';
+import CancelButton from '../Search/CancelButton'
 import { Link } from 'react-router';
 
 import Keys from '../Keys';
 
 var SearchWhileRoute = React.createClass({
+
   render: function(){
 
-      const { startPoint, destPoint, focusPoint, link } = this.props.config;
+      const { startPoint, destPoint, link } = this.props.config;
       const{ updateStartPoint, updateDestPoint, location } = this.props;
 
       const startSearchBoxConfig = {
         placeholder: 'Choose start point',
         pointAction: updateStartPoint,
         childClass: 'searchBox startPoint',
-        focusPoint: focusPoint,
+        focusPoint: destPoint || startPoint || {},
         link: link,
         key: Keys.search
       }
@@ -25,11 +26,10 @@ var SearchWhileRoute = React.createClass({
         placeholder: 'Choose destination point',
         pointAction: updateDestPoint,
         childClass: 'searchBox destPoint',
-        focusPoint: focusPoint,
+        focusPoint: startPoint || destPoint || {},
         link: '/maps/direction',
         key: Keys.search
       }
-
     return (
     <div className = "searchBoxContainer route">
       <SwapPoints 
@@ -39,13 +39,15 @@ var SearchWhileRoute = React.createClass({
         updateDestPoint = {updateDestPoint} />
       <SearchBox 
         config = {startSearchBoxConfig}
+        label = {startPoint.name}
         location = {location}/>
       <SearchBox 
           config = {destSearchBoxConfig}
+          label = {destPoint.name}
           location = {location}/>
-      <Link to = "/maps">
-        <div id = "routeCancelButton" className="routeCancelButton"></div>
-      </Link>
+      <CancelButton
+        styles={(this.props.spinning)? '':'routeCancelButton'}
+        clearPoints={this.props.clearPoints}/>
     </div>
     );
   }

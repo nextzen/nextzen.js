@@ -20,7 +20,9 @@ class SearchWrapper extends Component {
           };
     return (
       <div className = "searchBoxContainer search">
-        <CancelButton/>
+        <CancelButton 
+          styles = "cancelButton"
+          clearPoints={this.props.clearPoints}/>
         <SearchBox
           config = {searchConfig}
           pushState = {this.props.pushState}
@@ -40,9 +42,10 @@ function mapStateToProps(state) {
   }
 }
 
-import { selectPlace } from '../actions/index';
+import { selectPlace, clearPoints } from '../actions/index';
 
 export default connect( mapStateToProps,{
   selectPlace,
+  clearPoints,
   pushState
 })(SearchWrapper);

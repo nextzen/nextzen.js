@@ -1,33 +1,42 @@
 var React = require('react');
-var $ = require('jquery');
 
 var SearchTermRow = React.createClass({
   handleClick: function(){
 
+    //This category search doesn't work currently
     var locationArr = [];
   
-    var baseurl = '//pelias.mapzen.com';
+    var baseurl = 'https://search.mapzen.com/v1';
     var point = this.props.centerPoint;
-    var self = this;
+
     var callurl = baseurl + "/reverse?lat="+point.lat+"&lon="+point.lon+"&categories= "+ this.props.searchTerm;
 
-    $.ajax({
-      type : 'GET',
-      url : callurl,
-      datatype:'json',
-      success:function(data){
-        data.features.forEach(function(datum){
+    var request = new XMLHttpRequest();
+    request.open('GET', callurl, true);
+    request.onload = () => {
+      if (request.status >= 200 && request.status < 400) {
+        // Success!
+        var data = JSON.parse(request.responseText);
+        data.features.forEach((datum)=> {
           locationArr.push({
             name : datum.properties.text,
             lat : datum.geometry.coordinates[1],
             lon : datum.geometry.coordinates[0]
           });
+          self.props.addPOIMarkers(locationArr);
         });
-        self.props.addPOIMarkers(locationArr);
+        self.props.setInputValue(self.props.searchTerm);
+        self.props.deactivateSearching();
+      } else {
+        // when there is no search result? 
       }
-    });
-    self.props.setInputValue(self.props.searchTerm);
-    self.props.deactivateSearching();
+    };
+
+    request.onerror = function() {
+      // when there is no search result / error? 
+    };
+
+    request.send();
   },
 
   render: function(){
