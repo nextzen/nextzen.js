@@ -3,7 +3,7 @@ import { Route, Redirect, IndexRoute } from 'react-router'
 
 import Main from '../components/Main'
 import Home from '../components/Home';
-import SearchWrapper from '../containers/SearchBoxcontainer';
+import SearchWrapper from '../containers/SearchBoxContainer';
 import RoutingWrapper from '../containers/TurnByTurnContainer';
 import LocationInformation from '../components/Search/LocationInformation';
 
