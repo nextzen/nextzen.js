@@ -7,7 +7,7 @@ import cookie from 'react-cookie';
 import { routerStateReducer } from 'redux-router';
 
 import { devTools } from 'redux-devtools';
-import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools';
 
 import {createHistory} from 'history/lib/createBrowserHistory';
 
