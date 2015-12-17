@@ -4,7 +4,9 @@
   "main": "app/main.js",
   "scripts": {
     "dev": "node -r babel/register server.js",
-    "build": "webpack -p"
+    "dev build": "webpack -p",
+    "build": "webpack --config webpack.config.prod.js"
+
   },
   "author": "hanbyul",
   "license": "MIT",
