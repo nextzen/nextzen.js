@@ -5,6 +5,7 @@ import Root from './containers/Root'
 import configureStore from './store/configureStore'
 const store = configureStore()
 
+console.log(process);
 render(<Root store = {store} />, 
         document.getElementById('root')
 );

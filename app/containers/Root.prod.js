@@ -9,7 +9,7 @@ export default class Root extends Component {
     const { store } = this.props
 
     return (
-      <div className = "temp">
+      <div className = "full">
         <Provider store={store}>
           <ReduxRouter/>
         </Provider>
