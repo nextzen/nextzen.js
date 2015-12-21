@@ -38,6 +38,7 @@ var CurrentLocation = React.createClass({
         }
         cookie.save('currentLocation', currentLocation);
         this.props.updateCurrentPoint(currentLocation);
+        this.props.updateStartPoint(currentLocation);
         Map.setCurrentPoint(currentLocation);
         this.unmountSpinner();
       });
@@ -46,22 +47,22 @@ var CurrentLocation = React.createClass({
     }
   },
   mountSpinner: function(){
-    ReactDOM.render(<ReactSpinner config={this.state.config}/>, document.getElementById('spinnerSpot'));
     this.setState({
       spinning:true
     });
   },
   unmountSpinner: function(){
-    ReactDOM.unmountComponentAtNode(document.getElementById('spinnerSpot'));
     this.setState({
       spinning:false
     })
   },
   render : function(){
+    let spinner;
+    if(this.state.spinning) spinner = (<div id="spinnerSpot"> <ReactSpinner config={this.state.config}/></div>);
     return(
       <div className="currentLocation side">
         <div className={(this.state.spinning === false)? "icon-current-location" : "icon-hexagon"} onClick= {this.getCurrentLocation}></div>
-        <div id="spinnerSpot"></div>
+        {spinner}
       </div>
     );
   }
