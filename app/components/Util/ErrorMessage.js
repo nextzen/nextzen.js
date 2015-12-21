@@ -15,6 +15,7 @@ var ErrorMessage = React.createClass({
   },
 
   componentDidMount: function() {
+    //not showing after 3 sec
     this.setTimeout(()=>
       {
         this.setState({destroyed: true})
