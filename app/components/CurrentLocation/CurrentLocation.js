@@ -1,7 +1,10 @@
 import React from 'react';
-import ReactSpinner from '../Util/Spin';
-
+import ReactDOM from 'react-dom';
+import ReactSpinner from '../Util/Spin'
 import cookie from 'react-cookie';
+
+import Map from '../LeafletMap/Map';
+import ErrorMessage from '../Util/ErrorMessage';
 
 var CurrentLocation = React.createClass({
   getInitialState: function(){
@@ -26,33 +29,30 @@ var CurrentLocation = React.createClass({
 
   getCurrentLocation: function(){
     this.mountSpinner();
-    var self = this;
-     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position){
-          var currentLocation = {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        var currentLocation = {
             name : "Current Location",
             lat: position.coords.latitude,
             lon: position.coords.longitude
-          }
-          //self.props.setCurrentLocation(currentLocation);
-
-          //save it on cookie
-          cookie.save('currentLocation', currentLocation);
-
-          self.unmountSpinner();
-        });
+        }
+        cookie.save('currentLocation', currentLocation);
+        this.props.updateCurrentPoint(currentLocation);
+        Map.setCurrentPoint(currentLocation);
+        this.unmountSpinner();
+      });
     } else {
         //what will it show when browser doesn't support geolocation?
     }
   },
   mountSpinner: function(){
-    React.render(<ReactSpinner config={this.state.config}/>, document.getElementById('spinnerSpot'));
+    ReactDOM.render(<ReactSpinner config={this.state.config}/>, document.getElementById('spinnerSpot'));
     this.setState({
       spinning:true
     });
   },
   unmountSpinner: function(){
-    React.unmountComponentAtNode(document.getElementById('spinnerSpot'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('spinnerSpot'));
     this.setState({
       spinning:false
     })

@@ -2,7 +2,8 @@ import React, { Component} from 'react'
 
 import SearchButton from './Search/SearchButton'
 import RouteButton from './TurnByTurn/RouteButton'
-import CurrentLocation from './CurrentLocation/CurrentLocation'
+
+import CurrentLocation from '../containers/CurrentLocationContainer'
 
 class Home extends Component {
   render() {

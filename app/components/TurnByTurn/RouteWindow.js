@@ -73,11 +73,9 @@ var RouteWindow = React.createClass({
     const callurl = serviceurl +  'route?json=' + params + apikey;
 
     this.mountSpinner();
-
     var request = new XMLHttpRequest();
     request.open('GET', callurl, true);
     request.onload = () => {
-      this.setState({spinning: true})
       if (request.status >= 200 && request.status < 400) {
         // Success!
         var data = JSON.parse(request.responseText);
@@ -85,13 +83,11 @@ var RouteWindow = React.createClass({
         Map.addRouteLayer(coord, startP, destP);
         this.mountTable(data);
         this.unmountSpinner();
-        this.setState({spinning: false});
       } else {
         // when there is no search result? 
         const msg = "No route available between the points.";
         this.unmountSpinner();
         this.unmountTable();
-        this.setState({spinning: false});
         ReactDOM.render(<ErrorMessage errorMessage = {msg}/>, document.getElementById('route-result-table'));
       }
     };
@@ -101,7 +97,6 @@ var RouteWindow = React.createClass({
         const msg = "No route available between the points.";
         this.unmountSpinner();
         this.unmountTable();
-        this.setState({spinning: false});
         ReactDOM.render(<ErrorMessage errorMessage = {msg}/>, document.getElementById('route-result-table'));
     };
 
