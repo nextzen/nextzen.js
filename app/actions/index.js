@@ -1,4 +1,4 @@
-export function updateCurrentPointAction(currentLocationObj) {
+export function updateCurrentPoint(currentLocationObj) {
   return {
     type: 'updateCurrentPoint',
     currentPoint: currentLocationObj
