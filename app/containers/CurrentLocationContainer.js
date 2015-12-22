@@ -20,10 +20,11 @@ function mapStateToProps(state) {
   }
 }
 
-import { updateCurrentPoint } from '../actions/index'
+import { updateCurrentPoint, updateStartPoint } from '../actions/index'
 import { pushState } from 'redux-router'
 
 export default connect( mapStateToProps,{
   updateCurrentPoint,
+  updateStartPoint,
   pushState
 })(CurrentLocation);

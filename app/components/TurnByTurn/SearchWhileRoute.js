@@ -39,11 +39,11 @@ var SearchWhileRoute = React.createClass({
         updateDestPoint = {updateDestPoint} />
       <SearchBox 
         config = {startSearchBoxConfig}
-        label = {startPoint.name}
+        label = {startPoint.title}
         location = {location}/>
       <SearchBox 
           config = {destSearchBoxConfig}
-          label = {destPoint.name}
+          label = {destPoint.title}
           location = {location}/>
       <CancelButton
         styles={(this.props.spinning)? '':'routeCancelButton'}
