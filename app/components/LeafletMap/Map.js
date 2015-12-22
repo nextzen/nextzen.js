@@ -61,7 +61,6 @@ var Map = (function(){
     markerLayer.clearLayers();
     var marker = L.marker([mrkr.lat,mrkr.lon], {icon: markerIcon});
     markerLayer.addLayer(marker);
-    console.log(map);
     map.setView(marker.getLatLng(),14);
   };
 
@@ -86,13 +85,29 @@ var Map = (function(){
       paddingBottomRight : [0,30]
     });
   }
+  
+  var _setView = function(latLng,z) {
+    map.setView(latLng,z);
+  }
+
+  var _getHash = function() {
+    var _latLng = map.getCenter();
+    var _zoom = map.getZoom();
+
+    return ({
+      latLng: _latLng,
+      zoom: _zoom
+    })
+  }
 
   return {
     init : _init,
+    setView: _setView,
     setCurrentPoint: _setCurrentPoint,
     addMarker: _addMarker,
     clear: _clearMap,
-    addRouteLayer: _addRouteLayer
+    addRouteLayer: _addRouteLayer,
+    getHash: _getHash
   };
 })();
 

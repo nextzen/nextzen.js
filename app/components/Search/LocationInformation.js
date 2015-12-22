@@ -1,8 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import RouteButton from '../TurnByTurn/RouteButton';
-import {connect} from 'react-redux';
-var Keys = require('../Keys.js');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import RouteButton from '../TurnByTurn/RouteButton'
+import {connect} from 'react-redux'
+
+import Map from '../LeafletMap/Map'
+import Keys from '../Keys.js'
+
 
 var LocationInformation = React.createClass({
   
@@ -21,7 +24,7 @@ var LocationInformation = React.createClass({
   },
 
   componentDidMount: function() {
-    if((Object.keys(this.props.location.query).length !== 0)) {
+    if(this.props.location.query.hasOwnProperty('gid')) {
 
       var gid = this.props.location.query.gid;
       var callurl = 'https://search.mapzen.com/v1/place?api_key=';
@@ -36,17 +39,27 @@ var LocationInformation = React.createClass({
         if (request.status >= 200 && request.status < 400) {
           // Success!
           var data = JSON.parse(request.responseText);
+
           var title = data.features[0].properties.label.split(',');
+          var _lat = data.features[0].geometry.coordinates[1];
+          var _lon = data.features[0].geometry.coordinates[0];
+          
           var _mainTitle = title[0];
           var _neighborhood = title[1] + title[2];
+
+          var _selectedPoint = {
+             title: data.features[0].properties.label,
+             lat: _lat,
+             lon: _lon
+           }
+
+          this.props.selectPlace(_selectedPoint);
 
           this.setState({
             mainTitle: _mainTitle,
             neighborhood: _neighborhood
-          }, function() {
-            document.getElementById('locationTitle').innerHTML = _mainTitle;
-            document.getElementById('locationNeighborhood').innerHTML = _neighborhood;
           });
+          Map.addMarker(_selectedPoint);
         } else {
           console.log('can\'t find the place');
         }
@@ -62,8 +75,12 @@ var LocationInformation = React.createClass({
   render: function(){
     return(
       <div className = "locationInformation">
-        <div id = "locationTitle" className = "locationTitle"> {this.state.mainTitle} </div>
-        <div id = "locationNeighborhood" className = "neighborhood"> {this.state.neighborhood} </div>
+        <div id = "locationTitle" 
+        ref = "locationTitleRef"
+        className = "locationTitle"> {this.state.mainTitle}  </div>
+        <div id = "locationNeighborhood" 
+        ref = "locationNeighborhoodRef"
+        className = "neighborhood"> {this.state.neighborhood} </div>
         <RouteButton />
       </div>
     );
@@ -77,7 +94,10 @@ function mapStateToProps(state) {
   }
 }
 
-var ConnectedLocationInformation = connect(mapStateToProps)(LocationInformation);
+import {selectPlace} from '../../actions/index'
 
+var ConnectedLocationInformation = connect(mapStateToProps,{
+  selectPlace
+})(LocationInformation);
 
 module.exports = ConnectedLocationInformation;

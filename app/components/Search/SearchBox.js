@@ -39,20 +39,22 @@ var SearchBox = React.createClass({
     request.send();
   },
 
+  getInitialState: function() {
+    return { 
+      //this is search result that is be passed to child component ( search list)
+      searchResult : [],
+      //this is for keyboard interaction
+      dataIndex: -1,
+      //this is going to be input value to be displyaed
+      filterText: this.props.label || ""
+    };
+  },
+
   componentWillMount: function() {
     //make search call debounce
     this.makeCall = debounce(function() {
       this.makeSearchCall.apply(this, [this.state.filterText, this.props.config.focusPoint]);
     }, 250);
-  },
-
-  getInitialState: function() {
-    console.log(this.props.config);
-    return { 
-      searchResult : [],
-      dataIndex: -1,
-      filterText: this.props.label || ""
-    };
   },
 
   componentDidMount: function(){
@@ -165,6 +167,7 @@ var SearchBox = React.createClass({
     this.setState({
       filterText : val
     },function(){
+      // maeks search result go way 
       this.deactivateSearching();
     });
   },
