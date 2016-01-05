@@ -1,5 +1,5 @@
 import React,{propTypes} from 'react';
-import SearchBox from '../Search/SearchBox';
+import SearchBox from './SearchBox';
 import SwapPoints from './SwapPoints';
 import CancelButton from '../Search/CancelButton'
 import { Link } from 'react-router';
@@ -11,23 +11,23 @@ var SearchWhileRoute = React.createClass({
   render: function(){
 
       const { startPoint, destPoint, link } = this.props.config;
-      const{ updateStartPoint, updateDestPoint, location } = this.props;
+      const{ routeData, clearRouteData, updateStartPoint, updateDestPoint, location } = this.props;
 
       const startSearchBoxConfig = {
         placeholder: 'Choose start point',
+        name: 'start',
         pointAction: updateStartPoint,
         childClass: 'searchBox startPoint',
         focusPoint: destPoint || startPoint || {},
-        link: link,
         key: Keys.search
       }
 
       const destSearchBoxConfig = {
         placeholder: 'Choose destination point',
+        name: 'destination',
         pointAction: updateDestPoint,
         childClass: 'searchBox destPoint',
         focusPoint: startPoint || destPoint || {},
-        link: '/maps/direction',
         key: Keys.search
       }
     return (
@@ -39,10 +39,14 @@ var SearchWhileRoute = React.createClass({
         updateDestPoint = {updateDestPoint} />
       <SearchBox 
         config = {startSearchBoxConfig}
+        clearRouteData = {clearRouteData}
+        routeData = {routeData}
         label = {startPoint.name}
         location = {location}/>
       <SearchBox 
           config = {destSearchBoxConfig}
+          clearRouteData = {clearRouteData}
+          routeData = {routeData}
           label = {destPoint.name}
           location = {location}/>
       <CancelButton

@@ -43,3 +43,23 @@ export function clearPoints() {
     selectedPoint: {}
   }
 }
+
+export function updateRouteData(data) {
+  return {
+    type: 'updateRouteData',
+    routeData: data
+  }
+}
+
+export function clearRouteData() {
+  return {
+    type: 'clearRouteData'
+  }
+}
+
+export function updateSearchData(data) {
+  return {
+    type: 'updateSearchData',
+    searchData: data
+  }
+}

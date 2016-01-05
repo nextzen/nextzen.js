@@ -8,6 +8,9 @@ var Map = (function(){
   var startMarkerIcon;
   var currentMarkerIcon;
 
+  var startMarker;
+  var destMarker;
+
 
   var _init = function() {
     
@@ -61,7 +64,6 @@ var Map = (function(){
     markerLayer.clearLayers();
     var marker = L.marker([mrkr.lat,mrkr.lon], {icon: markerIcon});
     markerLayer.addLayer(marker);
-    console.log(map);
     map.setView(marker.getLatLng(),14);
   };
 
@@ -73,12 +75,13 @@ var Map = (function(){
   }
 
   var _addRouteLayer = function(routes, startPoint, destPoint) {
+
     markerLayer.clearLayers();
-    var marker = L.marker([destPoint.lat, destPoint.lon], {icon: markerIcon});
-    markerLayer.addLayer(marker);
-    markerLayer.addLayer(L.marker([startPoint.lat, startPoint.lon], {icon: startMarkerIcon}));
-    
     routeLayer.clearLayers();
+    startMarker = L.marker([startPoint.lat, startPoint.lon], {icon: startMarkerIcon});
+    destMarker = L.marker([destPoint.lat, destPoint.lon], {icon: markerIcon});
+    markerLayer.addLayer(startMarker);
+    markerLayer.addLayer(destMarker);
     var polylineRoute = L.polyline(routes, {color:'#32CAD6',opacity:1});
     routeLayer.addLayer(polylineRoute);
     map.fitBounds(polylineRoute.getBounds(),{
@@ -87,12 +90,27 @@ var Map = (function(){
     });
   }
 
+  var _clearRouteLayer = function(point) {
+    routeLayer.clearLayers();
+  }
+
+  var _clearStartMarker = function() {
+    markerLayer.removeLayer(startMarker);
+  }
+
+  var _clearDestMarker = function() {
+    markerLayer.removeLayer(destMarker);
+  }
+
   return {
     init : _init,
     setCurrentPoint: _setCurrentPoint,
     addMarker: _addMarker,
     clear: _clearMap,
-    addRouteLayer: _addRouteLayer
+    addRouteLayer: _addRouteLayer,
+    clearRouteLayer: _clearRouteLayer,
+    clearStartMarker: _clearStartMarker,
+    clearDestMarker: _clearDestMarker
   };
 })();
 

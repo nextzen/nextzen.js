@@ -13,9 +13,10 @@ import Map from '../LeafletMap/Map';
 var RouteWindow = React.createClass({
 
   getInitialState: function(){
-    return{
+    return {
       //spin js options
       activeTab: '',
+      routeData: {},
       config : {
         lines: 9 // The number of lines to draw
         , length: 0 // The length of each line
@@ -57,7 +58,6 @@ var RouteWindow = React.createClass({
     const serviceurl = "https://valhalla.mapzen.com/";
     const apikey = '&api_key=' + key;
 
-    var self = this;
 
     const params = JSON.stringify({
       locations: [{
@@ -72,7 +72,7 @@ var RouteWindow = React.createClass({
 
     const callurl = serviceurl +  'route?json=' + params + apikey;
 
-    this.mountSpinner();
+    this.setState({spinning: true})
     var request = new XMLHttpRequest();
     request.open('GET', callurl, true);
     request.onload = () => {
@@ -81,13 +81,18 @@ var RouteWindow = React.createClass({
         var data = JSON.parse(request.responseText);
         var coord = polyline.decode(data.trip.legs[0].shape,6);
         Map.addRouteLayer(coord, startP, destP);
-        this.mountTable(data);
+        this.setState({
+          spinning: false
+        })
+        this.props.updateRouteData(data);
         this.unmountSpinner();
       } else {
         // when there is no search result? 
         const msg = "No route available between the points.";
-        this.unmountSpinner();
-        this.unmountTable();
+        this.setState({
+          routeData: {},
+          spinning: false
+        })
         ReactDOM.render(<ErrorMessage errorMessage = {msg}/>, document.getElementById('route-result-table'));
       }
     };
@@ -96,7 +101,9 @@ var RouteWindow = React.createClass({
       // when there is no search result / error? 
         const msg = "No route available between the points.";
         this.unmountSpinner();
-        this.unmountTable();
+        this.setState({
+
+        })
         ReactDOM.render(<ErrorMessage errorMessage = {msg}/>, document.getElementById('route-result-table'));
     };
 
@@ -106,7 +113,7 @@ var RouteWindow = React.createClass({
 
     pushState({},link,{start: startP, dest: destP});
 
-    self.setState({
+    this.setState({
       activeTab: mode
     })
   },
@@ -125,24 +132,18 @@ var RouteWindow = React.createClass({
     })
   },
 
-  mountTable: function(data){
-    ReactDOM.render(<RouteResultTable searchData = {data}/>, document.getElementById('route-result-table'));
-  },
-
-  unmountTable: function(){
-    ReactDOM.unmountComponentAtNode(document.getElementById('route-result-table'));
-  },
-
   render: function(){
 
     const config = this.props.config;
-    const { updateStartPoint, updateDestPoint, clearPoints, location } = this.props;
+    const { startPoint, destPoint, routeData, clearRouteData, updateStartPoint, updateDestPoint, clearPoints, location } = this.props;
     return(
       <div>
         <SearchWhileRoute 
           config = {config}
           updateStartPoint = { updateStartPoint}
           updateDestPoint = { updateDestPoint}
+          clearRouteData = {clearRouteData}
+          routeData = {routeData}
           clearPoints = {clearPoints}
           spinning = {this.state.spinning}
           location = {location} />
@@ -157,9 +158,12 @@ var RouteWindow = React.createClass({
             <div className = "routeModeButton" id="walkRoute" />
           </a>
         </div>
-        <div id="route-result-table"></div>
+        <div id="route-result-table">
+          <RouteResultTable 
+            routeData = {routeData}/>
+        </div>
       </div>
-      )
+    )
   }
 });
 
