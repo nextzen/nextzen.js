@@ -8,6 +8,11 @@ import Keys from '../Keys';
 
 var SearchWhileRoute = React.createClass({
 
+  clearPointsAndRoute: function() {
+    this.props.clearPoints();
+    this.props.clearRouteData();
+  },
+
   render: function(){
 
       const { startPoint, destPoint, link } = this.props.config;
@@ -51,7 +56,7 @@ var SearchWhileRoute = React.createClass({
           location = {location}/>
       <CancelButton
         styles={(this.props.spinning)? '':'routeCancelButton'}
-        clearPoints={this.props.clearPoints}/>
+        clearPoints={this.clearPointsAndRoute}/>
     </div>
     );
   }
