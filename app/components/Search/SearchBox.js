@@ -47,7 +47,6 @@ var SearchBox = React.createClass({
   },
 
   getInitialState: function() {
-    console.log(this.props.config);
     return { 
       searchResult : [],
       dataIndex: -1,
