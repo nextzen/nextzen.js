@@ -1,23 +1,16 @@
 import React from 'react';
-
 import Redux, { createStore, compose, combineReducers } from 'redux';
-import {Provider} from'react-redux';
 import cookie from 'react-cookie';
 
 import { routerStateReducer } from 'redux-router';
 
-import { devTools } from 'redux-devtools';
-import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools';
-
-import {createHistory} from 'history/lib/createBrowserHistory';
-
+import updateResponse from './response';
 
 const initialState = {
   startPoint: {},
   destPoint: {},
   currentPoint: cookie.load('currentLocation'),
-  selectedPoint: {},
-  mapMode: 'default'
+  selectedPoint: {}
 }
 
 function updatePoint(state = initialState, action = {}) {
@@ -67,6 +60,7 @@ function updatePoint(state = initialState, action = {}) {
 
 const reducer = combineReducers({
   updatePoint,
+  updateResponse,
   router: routerStateReducer
 })
 

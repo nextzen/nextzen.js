@@ -8,8 +8,7 @@ import ErrorMessage from '../Util/ErrorMessage';
 
 var CurrentLocation = React.createClass({
   getInitialState: function(){
-    return{
-      //spin js options
+    return {
       config : {
         lines: 9 // The number of lines to draw
         , length: 0 // The length of each line
@@ -17,7 +16,7 @@ var CurrentLocation = React.createClass({
         , radius: 8 // The radius of the inner circle
         , color: '#27AAE1' // #rgb or #rrggbb or array of colors
         , speed: 1 // Rounds per second
-        , className: 'spinner' // The CSS class to assign to the spinner
+        , className: 'spinnerClass' // The CSS class to assign to the spinner
         , top: '55%' // Top position relative to parent
         , left: '55%' // Left position relative to parent
         , shadow: false // Whether to render a shadow
@@ -38,6 +37,7 @@ var CurrentLocation = React.createClass({
         }
         cookie.save('currentLocation', currentLocation);
         this.props.updateCurrentPoint(currentLocation);
+        this.props.updateStartPoint(currentLocation);
         Map.setCurrentPoint(currentLocation);
         this.unmountSpinner();
       });
@@ -46,24 +46,33 @@ var CurrentLocation = React.createClass({
     }
   },
   mountSpinner: function(){
-    ReactDOM.render(<ReactSpinner config={this.state.config}/>, document.getElementById('spinnerSpot'));
     this.setState({
       spinning:true
     });
   },
   unmountSpinner: function(){
-    ReactDOM.unmountComponentAtNode(document.getElementById('spinnerSpot'));
     this.setState({
       spinning:false
     })
   },
   render : function(){
-    return(
-      <div className="currentLocation side">
-        <div className={(this.state.spinning === false)? "icon-current-location" : "icon-hexagon"} onClick= {this.getCurrentLocation}></div>
-        <div id="spinnerSpot"></div>
-      </div>
-    );
+    if(!this.state.spinning) {
+      return(
+        <div className="currentLocation side">
+          <div className="icon-current-location" onClick= {this.getCurrentLocation} />
+        </div>
+      )
+    } else 
+      return(
+        <div className="currentLocation side">
+          <div className="icon-hexagon" onClick= {this.getCurrentLocation}></div>
+          <div id="spinnerSpot">
+            <ReactSpinner 
+              config = {this.state.config} />
+          </div>
+        </div> 
+      )
+
   }
 });
 

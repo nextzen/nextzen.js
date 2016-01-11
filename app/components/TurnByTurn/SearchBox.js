@@ -1,9 +1,8 @@
 import React from 'react'
 import {debounce} from 'lodash';
-import categoryMap from './CategoryMap'
 
-import ResultRow from './ResultRow'
-import ResultTable from './ResultTable'
+import ResultRow from '../Search/ResultRow'
+import ResultTable from '../Search/ResultTable'
 
 import Map from '../LeafletMap/Map'
 
@@ -57,13 +56,6 @@ var SearchBox = React.createClass({
   componentDidMount: function(){
     const { location } = this.props;
     const { placeholder, link } = this.props.config;
-
-    if(link === '/maps/search/place' && (Object.keys(location.query).length !== 0)) {
-      var name = location.query.name;
-      this.setState({filterText: name});
-    } else {
-      this.refs.searchInput.focus();
-    }
 
     if(placeholder == 'Choose start point' && (Object.keys(location.query).length !== 0)) {
       var name = location.query.start.name;
@@ -123,21 +115,29 @@ var SearchBox = React.createClass({
     });
     Map.addMarker(selectedPoint);
 
-    const { link } = this.props.config
-
-    if( link === '/maps/search/place') {
-      const { pushState } = this.props
-      pushState({ }, link, {gid: selectedPoint.gid, name: selectedPoint.name});
-    }
   },
 
   handleChange: function(){
 
-    var currentType = this.refs.searchInput.value;
+    var currentType = this.refs.searchInput.value
+    const {label, routeData, clearRouteData} = this.props
+    const {name} = this.props.config
+
+    if(label != undefined && Object.keys(routeData).length != 0) {
+      if(label.length - currentType.length > Math.floor(label.length/3)) {
+        clearRouteData();
+        Map.clearRouteLayer(name);
+        if(name.match('^start$')) Map.clearStartMarker();
+        if(name.match('^destination$')) Map.clearDestMarker();
+      }
+    }
+    
     if(currentType.length > 0) {
-      var matchingVals = [];
-      this.setState({
-          filterText : currentType
+      if(Object.keys(routeData).length !=0) 
+        this.setState({filterText: currentType})
+      else
+        this.setState({
+            filterText : currentType
         },this.makeCall());
     } else {
         this.setState({

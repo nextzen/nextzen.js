@@ -6,7 +6,6 @@ var ReactSpinner = React.createClass({
     config: React.PropTypes.object,
     stopped: React.PropTypes.bool
   },
-
   componentDidMount: function() {
     this.spinner = new Spinner(this.props.config);
     this.spinner.spin(this.refs.container);

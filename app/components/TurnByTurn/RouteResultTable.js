@@ -60,7 +60,6 @@ var RouteResultTable = React.createClass({
       }
   },
 
-
   getIconName: function(i) {
     // you can find all Valhalla's direction types at https://github.com/valhalla/odin/blob/master/proto/tripdirections.proto
     switch (i) {
@@ -127,29 +126,36 @@ var RouteResultTable = React.createClass({
 
   render: function() {
 
-    var rows = [];
-    var self = this;
+    const {routeData} = this.props;
 
-    this.props.searchData.trip.legs[0].maneuvers.forEach(function(result){
-      var iconName = "route-icon " + self.getIconName(result.type);
-      rows.push(<RouteResultRow name = {result.instruction} 
+    if(Object.keys(routeData).length!= 0) {
+      //woo hoo there is routing data!
+      const rows = [];
+      routeData.trip.legs[0].maneuvers.forEach((result)=>{
+        const iconName = "route-icon " + this.getIconName(result.type);
+        rows.push(<RouteResultRow name = {result.instruction} 
                               key= {result.begin_shape_index} 
                               type = {result.type}
                               roouteIconName = {iconName}/>)
-    });
-    return(
-      <ul className={(this.state.open === true )? "table-view route-table opened" :"table-view route-table closed"}>
-        <li className="trip-summary table-view-cell">
-         <span className = "distance"> {this.props.searchData.trip.legs[0].summary.length} km </span>
-         <span className = "time"> ( {this.formatTime(this.props.searchData.trip.legs[0].summary.time)} ) </span>
-        <OpenButton 
-            open = {this.state.open}
-            openThis = {this.openThis}/>
-        </li>
-        <li className = "table-view-cell route-type"> <div className ="route-icon kStart"/>Start where you are.</li>
-        {rows}
-      </ul>
-    );
+      });
+
+      return (
+        <ul className={(this.state.open === true )? "table-view route-table opened" :"table-view route-table closed"}>
+          <li className="trip-summary table-view-cell">
+           <span className = "distance"> {routeData.trip.legs[0].summary.length} km </span>
+           <span className = "time"> ( {this.formatTime(routeData.trip.legs[0].summary.time)} ) </span>
+          <OpenButton 
+              open = {this.state.open}
+              openThis = {this.openThis}/>
+          </li>
+          <li className = "table-view-cell route-type"> <div className ="route-icon kStart"/>Start where you are.</li>
+          {rows}
+        </ul>
+      );
+    } else {
+      //when data is empty, return nothing
+      return null
+    }
   }
 });
 

@@ -23,7 +23,6 @@ var ErrorMessage = React.createClass({
   },
 
   render: function() {
-    console.log(this.destroyed);
     if(!this.state.destroyed) return (
       <div className="errorMessage">
         <p> {this.props.errorMessage} </p>
