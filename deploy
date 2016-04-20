@@ -1,9 +1,0 @@
-echo "lets deploy"
-
-npm install
-bower install
-npm run build
-
-aws s3 sync dist s3://static-$1.mapzen.com/maps/
-mv dist/* $CIRCLE_ARTIFACTS/
-
