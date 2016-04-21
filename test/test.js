@@ -1,29 +1,32 @@
-// var assert = require('chai').assert;
-// var happen = require('happen');
+// Use require only if available (ran from Node)
+// if (typeof require == 'function') {
+//     var assert = require('assert'),
+//     L = require('leaflet');
+//     YourApp = require('./../index');
+// }
 
-// describe('zoom', function() {
-//   it('zooms-in with double click', function(done) {
-//      assert.equal(0, map.getZoom());
 
-//      map.on('zoomend', function () {
-//         assert.equal(1, map.getZoom());
-//         map.off('zoomend');
-//         done();
-//      });
+var expect = require('chai').expect;
+var jsdom = require('mocha-jsdom');
+var WebMap = require('./../index');
 
-//      // Simulate double-click
-//      happen.dblclick(map._container);
-//   });
-// });
-describe("DOM Test", function () {
 
-    var el = document.createElement("div");
-    el.id = "myDiv";
-    el.innerHTML = "Hello World!";
-    document.body.appendChild(el);
-    var myEl = document.getElementById('myDiv');
+describe('leaflet', function() {
+  jsdom();
+  it('check which Leaflet version it is', function() {
+    var L = require('leaflet');
+    console.log(WebMap);
+    expect(L.version).to.eq('0.7.7');
+  });
+});
 
-    it("has the right text", function () {
-        (myEl.innerHTML).should.equal("Hello World!");
-    });
+
+
+describe('test', function() {
+  jsdom();
+  it('tests just to see how DOM works', function() {
+    WebMap.domTest();
+    var testEl = document.querySelector('#testEl');
+    expect(testEl.innerHTML).to.equal('Hello world');
+  });
 });

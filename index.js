@@ -1,9 +1,32 @@
-var express = require('express');
-var app = express();
-var path = require("path");
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname+'/public/index.html'));
-});
+(function (root, factory) {
+  // Universal Module Definition (UMD)
+  // via https://github.com/umdjs/umd/blob/master/templates/returnExports.js
+  if (typeof module === 'object' && module.exports) {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory();
+  } else {
+    // Browser globals (root is window)
+    root.returnExports = factory();
+  }
+}(this, function () {
 
-app.listen(3000);
+
+  WebMap = {
+
+    init: function() {
+      return 2;
+    },
+
+    domTest: function() {
+      var testEl = document.createElement('div');
+      testEl.id = 'testEl'
+      testEl.innerHTML = 'Hello world'
+      document.body.appendChild(testEl);
+    }
+  }
+
+  return WebMap;
+}))

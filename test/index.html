@@ -1,29 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mocha</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mocha</title>
     <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.css" />
+    <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css" />
   </head>
   <body>
     <div id="mocha"></div>
     <div id="map" style="height: 300px"></div>
     <script src="../node_modules/mocha/mocha.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
+    <script src="../node_modules/leaflet/dist/leaflet.js"></script>
     <script src="https://mapzen.com/tangram/0.4/tangram.min.js"></script>
-
-    <script>
-        var map = L.map('map');
-        var layer = Tangram.leafletLayer({
-            scene: '../public/bubble-wrap.yaml',
-            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-        });
-        layer.addTo(map);
-        map.setView([40.70531887544228, -74.00976419448853], 15);
-    </script>
-
+    <script src="../index.js"></script>
     <script>mocha.setup('bdd')</script>
     <script src="test.js"></script>
     <script>
