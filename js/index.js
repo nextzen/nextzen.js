@@ -13,11 +13,21 @@
   }
 }(this, function () {
 
+  var map;
 
   WebMap = {
 
-    init: function() {
-      return 2;
+    init: function(domEl, centerLatLon, zoom) {
+      map = L.map(domEl).setView(centerLatLon, zoom);
+      return this;
+    },
+
+    setupScene: function(scene) {
+      var layer = Tangram.leafletLayer({
+        scene: scene,
+        attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+      });
+      layer.addTo(map);
     },
 
     domTest: function() {
@@ -29,4 +39,5 @@
   }
 
   return WebMap;
+
 }))
