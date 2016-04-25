@@ -22,8 +22,7 @@ describe('leaflet', function() {
 
   it('check that zoom is being set',function(){
     map.setView([51.505, -0.09], 13);
-    expect(map.getZoom()).to.eq(13);
-    console.log(WebMap.draw())
+    expect(map.getZoom()).to.equal(13);
   });
 
 });

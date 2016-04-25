@@ -12,17 +12,17 @@
     root.returnExports = factory();
   }
 }(this, function () {
+  'use strict';
 
   var map;
 
-  WebMap = {
-
-    init: function(domEl, centerLatLon, zoom) {
+  window.WebMap = {
+    init: function (domEl, centerLatLon, zoom) {
       map = L.map(domEl).setView(centerLatLon, zoom);
       return this;
     },
 
-    setupScene: function(scene) {
+    setupScene: function (scene) {
       var layer = Tangram.leafletLayer({
         scene: scene,
         attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
@@ -30,25 +30,17 @@
       layer.addTo(map);
     },
 
-    domTest: function() {
-      var testEl = document.createElement('div');
-      testEl.id = 'testEl'
-      testEl.innerHTML = 'Hello world'
-      document.body.appendChild(testEl);
-    },
-
-    draw: function() {
+    draw: function () {
       var map = L.map('map');
-        var layer = Tangram.leafletLayer({
-            scene: 'bubble-wrap.yaml',
-            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-        });
-        layer.addTo(map);
-        map.setView([40.70531887544228, -74.00976419448853], 15);
-        return map.getZoom();
+      var layer = Tangram.leafletLayer({
+        scene: 'bubble-wrap.yaml',
+        attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+      });
+      layer.addTo(map);
+      map.setView([40.70531887544228, -74.00976419448853], 15);
+      return map.getZoom();
     }
-  }
+  };
 
   return WebMap;
-
-}))
+}));
