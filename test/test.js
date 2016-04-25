@@ -19,13 +19,11 @@ describe('leaflet', function() {
   it('check which Leaflet version it is', function() {
     expect(L.version).to.equal('0.7.7');
   });
-});
 
-
-describe('test', function() {
-  it('tests just to see how DOM works', function() {
-    WebMap.domTest();
-    var testEl = document.querySelector('#testEl');
-    expect(testEl.innerHTML).to.equal('Hello world');
+  it('check that zoom is being set',function(){
+    map.setView([51.505, -0.09], 13);
+    expect(map.getZoom()).to.eq(13);
+    console.log(WebMap.draw())
   });
+
 });
