@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "karma start test/karma.conf.js --log-level debug --single-run",
+    "test": "karma start test/karma.conf.js --log-level debug --single-run"
   },
   "dependencies": {
     "leaflet": "^0.7.7"
