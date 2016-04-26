@@ -16,9 +16,10 @@
 
   var map;
 
-  window.WebMap = {
+  var WebMap = {
     init: function (domEl, centerLatLon, zoom) {
       map = L.map(domEl).setView(centerLatLon, zoom);
+      map.scrollWheelZoom = this._isThisIframed();
       return this;
     },
 
@@ -30,17 +31,11 @@
       layer.addTo(map);
     },
 
-    draw: function () {
-      var map = L.map('map');
-      var layer = Tangram.leafletLayer({
-        scene: 'bubble-wrap.yaml',
-        attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-      });
-      layer.addTo(map);
-      map.setView([40.70531887544228, -74.00976419448853], 15);
-      return map.getZoom();
+    _isThisIframed: function () {
+      if(window.self !== window.top) return true;
+      else return false;
     }
   };
 
-  return WebMap;
+  window.WebMap = WebMap;
 }));
