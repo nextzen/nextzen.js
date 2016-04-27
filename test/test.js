@@ -20,10 +20,10 @@ describe('leaflet', function () {
   });
 
   describe('stateful urls', function(){
-    it('checks whether a hash is set', function(){
-      //map needs to be altered to set a location hash
-      webmap.setZoom(5);
-      expect(location.hash).to.have.string("#");
+    it('checks that leaflet-hash is listening', function(){
+      window.setTimeout(function() {
+        expect(location.hash).to.equal("#13/51.505/-0.090");
+      }, 200);
     });
   });
 });
