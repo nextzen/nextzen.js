@@ -3,9 +3,9 @@ before(function() {
 })
 
 describe('leaflet', function() {
-  //jsdom();
+
   var el;
-  var map;
+  var webmap;
 
   beforeEach('initialize map', function () {
     el = document.createElement('div');
@@ -13,16 +13,16 @@ describe('leaflet', function() {
     // in order for .focus() to work properly
     el.style.cssText = 'position: absolute; left: 0; top: 0; width: 100%; height: 100%;';
     document.body.appendChild(el);
-    map = L.map(el);
+    webmap = WebMap.init(el,[51.505, -0.09], 13);
   });
 
   it('check which Leaflet version it is', function() {
     expect(L.version).to.equal('0.7.7');
   });
 
-  it('check that zoom is being set',function(){
-    map.setView([51.505, -0.09], 13);
-    expect(map.getZoom()).to.equal(13);
+  it('check that zoom is being set', function(){
+    var leafletMap = webmap.getLeafletMap();
+    expect(leafletMap.getZoom()).to.equal(13);
   });
 
 });
