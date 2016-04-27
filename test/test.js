@@ -19,8 +19,11 @@ describe('leaflet', function () {
     expect(L.version).to.equal('0.7.7');
   });
 
-  it('check that zoom is being set', function () {
-    var leafletMap = webmap.getLeafletMap();
-    expect(leafletMap.getZoom()).to.equal(13);
+  describe('stateful urls', function(){
+    it('checks whether a hash is set', function(){
+      //map needs to be altered to set a location hash
+      webmap.setZoom(5);
+      expect(location.hash).to.have.string("#");
+    });
   });
 });
