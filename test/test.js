@@ -19,8 +19,9 @@ describe('leaflet', function () {
     expect(L.version).to.equal('0.7.7');
   });
 
-  it('check that zoom is being set', function () {
-    var leafletMap = webmap.getLeafletMap();
-    expect(leafletMap.getZoom()).to.equal(13);
+  it('checks that leaflet-hash is listening', function(){
+    window.setTimeout(function() {
+      expect(location.hash).to.equal("#13/51.505/-0.090");
+    }, 200);
   });
 });
