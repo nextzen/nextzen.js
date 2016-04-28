@@ -27,10 +27,6 @@ var WebMap = (function () {
       layer.addTo(map);
     },
 
-    setZoom: function(zoomLevel) {
-      map.setZoom(zoomLevel);
-    },
-
     getLeafletMap: function () {
       return map;
     },
