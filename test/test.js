@@ -19,9 +19,9 @@ describe('leaflet', function () {
     expect(L.version).to.equal('0.7.7');
   });
 
-  it('checks that leaflet-hash is listening', function(){
-    window.setTimeout(function() {
-      expect(location.hash).to.equal("#13/51.505/-0.090");
+  it('checks that hashable is listening', function () {
+    window.setTimeout(function () {
+      expect(location.hash).to.equal('#13/51.505/-0.090');
     }, 200);
   });
 });
