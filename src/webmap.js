@@ -2,7 +2,6 @@
 
 module.exports = (function WebMap() {
   var map;
-  var Hashable = require('hashable');
 
   var webMapObj = {
     init: function (domEl, centerLatLon, zoom) {
@@ -23,8 +22,8 @@ module.exports = (function WebMap() {
 
     _setupHash: function () {
       // setting Location Hash with hashable
-      var hash = Hashable.hash()
-        .format(Hashable.format.map())
+      var hash = hashable.hash()
+        .format(hashable.format.map())
         .change(function (e) {
           var data = e.data;
           map.setView([data.y, data.x], data.z);
