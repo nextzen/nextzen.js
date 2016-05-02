@@ -24,4 +24,13 @@ describe('leaflet', function () {
       expect(location.hash).to.equal('#13/51.505/-0.090');
     }, 200);
   });
+
+  it('checks that states are not pushed to history', function () {
+    var historyObj = window.history;
+    var map = webmap.getLeafletMap();
+    map.setZoom(10);
+    window.setTimeout(function () {
+      expect(window.history).to.equal(historyObj);
+    }, 200);
+  });
 });
