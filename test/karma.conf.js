@@ -16,7 +16,6 @@ module.exports = function (config) {
       // test dependancies
       'node_modules/sinon/pkg/sinon.js',
       'node_modules/expect.js/index.js',
-      'node_modules/chai/expect.js',
       'node_modules/happen/happen.js',
       // Leaflet library
       'node_modules/leaflet/dist/leaflet.js',
@@ -34,7 +33,8 @@ module.exports = function (config) {
       'karma-chrome-launcher',
       'karma-safari-launcher',
       'karma-firefox-launcher',
-      'karma-nyan-reporter'
+      'karma-nyan-reporter',
+      'karma-browserstack-launcher'
     ],
 
     // list of files to exclude
@@ -69,16 +69,37 @@ module.exports = function (config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
-
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    // browser stack
+    // global config of your BrowserStack account
+    browserStack: {
+      username: process.env.BROWSERSTACK_USERNAME,
+      accessKey: process.env.BROWSERSTACK_KEY
+    },
+    // define browsers
+    customLaunchers: {
+      bs_firefox_mac: {
+        base: 'BrowserStack',
+        browser: 'firefox',
+        browser_version: '40.0',
+        os: 'OS X',
+        os_version: 'Mountain Lion'
+      },
+      bs_iphone5: {
+        base: 'BrowserStack',
+        device: 'iPhone 5',
+        os: 'ios',
+        os_version: '6.0'
+      }
+    },
+
+    browsers: ['bs_firefox_mac', 'bs_iphone5']
   });
 };
