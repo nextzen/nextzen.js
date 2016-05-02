@@ -42,8 +42,9 @@ module.exports = (function WebMap () {
 
       map.on('moveend', function () {
         var center = map.getCenter();
-        hash.update({lng: center.lng, lat: center.lat});
         var fmt = hashable.format.path();
+        var p = precision(hash.data().z);
+        hash.update({lng: center.lng.toFixed(p), lat: center.lat.toFixed(p)});
         var formattedData = fmt(hash.data());
         window.history.replaceState({}, null, '#' + formattedData);
       })
@@ -53,6 +54,10 @@ module.exports = (function WebMap () {
           var formattedData = fmt(hash.data());
           window.history.replaceState({}, null, '#' + formattedData);
         });
+
+      var precision = function (z) {
+        return Math.max(0, Math.ceil(Math.log(z) / Math.LN2));
+      };
     },
 
     setupScene: function (scene) {
