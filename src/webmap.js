@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = (function WebMap() {
+module.exports = (function WebMap () {
   var map;
-  var Hashable = require('hashable');
+  var hashable = require('hashable');
 
   var webMapObj = {
     init: function (domEl, centerLatLon, zoom) {
@@ -23,17 +23,18 @@ module.exports = (function WebMap() {
 
     _setupHash: function () {
       // setting Location Hash with hashable
-      var hash = Hashable.hash()
-        .format(Hashable.format.map())
+      var hash = hashable.hash()
         .change(function (e) {
           var data = e.data;
-          map.setView([data.y, data.x], data.z);
+          map.setView([data.lat, data.lng], data.z);
         })
         .default(function () {
+          var fmt = hashable.format.path();
+          var path = fmt.parse(window.location.hash);
           return {
-            z: map.getZoom(),
-            x: map.getCenter().lng,
-            y: map.getCenter().lat
+            z: path.z || map.getZoom(),
+            lng: path.lng || map.getCenter().lng,
+            lat: path.lat || map.getCenter().lat
           };
         })
         .enable()
@@ -41,13 +42,22 @@ module.exports = (function WebMap() {
 
       map.on('moveend', function () {
         var center = map.getCenter();
-        hash.update({x: center.lng, y: center.lat})
-        .write();
+        var fmt = hashable.format.path();
+        var p = precision(hash.data().z);
+        hash.update({lng: center.lng.toFixed(p), lat: center.lat.toFixed(p)});
+        var formattedData = fmt(hash.data());
+        window.history.replaceState({}, null, '#' + formattedData);
       })
         .on('zoomend', function () {
-          hash.update({z: map.getZoom()})
-          .write();
+          hash.update({z: map.getZoom()});
+          var fmt = hashable.format.path();
+          var formattedData = fmt(hash.data());
+          window.history.replaceState({}, null, '#' + formattedData);
         });
+
+      var precision = function (z) {
+        return Math.max(0, Math.ceil(Math.log(z) / Math.LN2));
+      };
     },
 
     setupScene: function (scene) {
