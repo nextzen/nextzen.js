@@ -1,7 +1,8 @@
 'use strict';
 
-module.exports = (function WebMap() {
+module.exports = (function WebMap () {
   var map;
+  var hashable = require('hashable');
 
   var webMapObj = {
     init: function (domEl, centerLatLon, zoom) {
@@ -23,16 +24,17 @@ module.exports = (function WebMap() {
     _setupHash: function () {
       // setting Location Hash with hashable
       var hash = hashable.hash()
-        .format(hashable.format.map())
         .change(function (e) {
           var data = e.data;
-          map.setView([data.y, data.x], data.z);
+          map.setView([data.lat, data.lng], data.z);
         })
         .default(function () {
+          var fmt = hashable.format.path();
+          var path = fmt.parse(window.location.hash);
           return {
-            z: map.getZoom(),
-            x: map.getCenter().lng,
-            y: map.getCenter().lat
+            z: path.z || map.getZoom(),
+            lng: path.lng || map.getCenter().lng,
+            lat: path.lat || map.getCenter().lat
           };
         })
         .enable()
@@ -40,12 +42,16 @@ module.exports = (function WebMap() {
 
       map.on('moveend', function () {
         var center = map.getCenter();
-        hash.update({x: center.lng, y: center.lat})
-        .write();
+        hash.update({lng: center.lng, lat: center.lat});
+        var fmt = hashable.format.path();
+        var formattedData = fmt(hash.data());
+        window.history.replaceState({}, null, '#' + formattedData);
       })
         .on('zoomend', function () {
-          hash.update({z: map.getZoom()})
-          .write();
+          hash.update({z: map.getZoom()});
+          var fmt = hashable.format.path();
+          var formattedData = fmt(hash.data());
+          window.history.replaceState({}, null, '#' + formattedData);
         });
     },
 
