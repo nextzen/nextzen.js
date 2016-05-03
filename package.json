@@ -9,7 +9,7 @@
   "scripts": {
     "test": "karma start test/karma.conf.js --log-level debug --single-run",
     "lint": "eslint ./src/*.js ./test/*.js; exit 0;",
-    "build": "browserify -t browserify-shim src/webmap.js --standalone WebMap > dist/bundle.js"
+    "build": "browserify -t browserify-shim ./src/webmap.js --standalone WebMap > dist/bundle.js; browserify -t uglifyify ./src/webmap.js --standalone  WebMap | uglifyjs -c > dist/bundle.min.js"
   },
   "browserify-shim": {
     "leaflet": "global:L"
@@ -45,7 +45,9 @@
     "mocha": "^2.4.5",
     "phantomjs-prebuilt": "^2.1.7",
     "requirejs": "^2.2.0",
-    "sinon": "^1.17.3"
+    "sinon": "^1.17.3",
+    "uglifyify": "^3.0.1",
+    "uglifyjs": "^2.4.10"
   },
   "repository": {
     "type": "git",

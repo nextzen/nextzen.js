@@ -613,12 +613,12 @@ module.exports = (function WebMap () {
       })
         .on('zoomend', function () {
           hash.update({z: map.getZoom()});
-          var fmt = hashable.format.path(); 
+          var fmt = hashable.format.path();
           var formattedData = fmt(hash.data());
           window.history.replaceState({}, null, '#' + formattedData);
         });
 
-      var precision = function(z) {
+      var precision = function (z) {
         return Math.max(0, Math.ceil(Math.log(z) / Math.LN2));
       };
     },
