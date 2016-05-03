@@ -20,9 +20,7 @@ describe('leaflet', function () {
   });
 
   it('checks that hashable is listening', function () {
-    window.setTimeout(function () {
-      expect(location.hash).to.equal('#13/51.505/-0.090');
-    }, 200);
+      expect(window.location.hash).to.equal('#?z=13&lng=-0.09&lat=51.505');
   });
 
   it('checks that states are not pushed to history', function () {
