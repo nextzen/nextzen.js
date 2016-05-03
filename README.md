@@ -12,3 +12,5 @@ We are using browserify to bundle up the JS scripts, to generate a new bundle ru
 
 Testing is set up with CircleCI and Browserstack, and tied together with Karma. The /test folder contains our tests, written in Mocha. To run the test suite, run
 `npm test`
+ 
+ Mind that you need to set BROWSERSTACK_USERNAME, BROWSERSTACK_KEY [in your node env](https://github.com/browserstack/karma-browserstack-example#browserstack-configuration) before your test.
