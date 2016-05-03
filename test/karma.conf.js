@@ -19,8 +19,6 @@ module.exports = function (config) {
       'node_modules/happen/happen.js',
       // Leaflet library
       'node_modules/leaflet/dist/leaflet.js',
-      // hashable
-      'src/hashable-state.js',
       // tests
       'test/*.js',
       // web map js
