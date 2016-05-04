@@ -1,6 +1,13 @@
 ## Eraser Map for web
 
-Eraser Map is a web map using the Bubble Wrap Tangram style. Future plans include integrating Mapzen Search and Mapzen Turn-by-Turn Directions.
+Eraser Map is a web map using the [Bubble Wrap](https://mapzen.com/blog/bubble-wrap-carto/) Tangram style. [Tangram](https://mapzen.com/projects/tangram/) is a WebGL implementation of vector map tiles.
+
+You can view a live demo here: [Erasermap](http://erasermap.com.s3-website-us-east-1.amazonaws.com/maps/#?z=15&lng=-74.0098&lat=40.7053) TODO: REPLACE WITH LIVE LINK
+
+Current features include:
+* URLs that keep track of your location for easy sharing
+* Raster tile fallback on browsers that don't support WebGL
+* A rigorous test suite that uncludes both unit tests and integration tests
 
 ## Installation
 
@@ -19,4 +26,12 @@ Testing is set up with [CircleCI](https://circleci.com/) and [Browserstack](http
 npm test
 ```
  
- Keep in mind that you will need to set BROWSERSTACK_USERNAME, BROWSERSTACK_KEY [in your node env](https://github.com/browserstack/karma-browserstack-example#browserstack-configuration) before your test.
+Keep in mind that you will need to set `BROWSERSTACK_USERNAME`, `BROWSERSTACK_KEY` [in your node env](https://github.com/browserstack/karma-browserstack-example#browserstack-configuration) before your test.
+
+## Future Plans
+
+We plan to use this repo to showcase the suite of Mapzen products, working in harmony together with easily shareable URLs.
+
+* Mapzen Search to center the map
+* Mapzen Turn-by-Turn to show multimodal directions
+* Additional Tangram styles for the map
