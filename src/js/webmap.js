@@ -63,7 +63,7 @@ module.exports = (function WebMap () {
     setupScene: function (scene) {
       if (this._hasWebGL()) {
         // adding tangram layer
-        var layer = Tangram.leafletLayer({
+        Tangram.leafletLayer({
           scene: scene,
           attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
         }).addTo(map);

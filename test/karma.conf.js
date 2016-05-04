@@ -100,6 +100,6 @@ module.exports = function (config) {
       }
     },
 
-    browsers: ['bs_firefox_mac', 'bs_iphone5']
+    browsers: ['PhantomJS', 'bs_firefox_mac', 'bs_iphone5']
   });
 };

@@ -1,7 +1,7 @@
 {
   "extends": "semistandard",
   "globals": {
-    "define": false,
-    "XMLHttpRequest": false
+    "Tangram": false,
+    "L": false
   }
 }
