@@ -16,4 +16,5 @@ deployment:
       - npm install
       - npm run build
       - cp index.html dist/
+      - cp -R public dist/
       - aws s3 sync dist "s3://erasermap.com/maps"
