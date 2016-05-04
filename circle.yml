@@ -11,7 +11,7 @@ test:
 
 deployment:
   production:
-    branch: baldur/*
+    branch: /baldur*/
     commands:
       - npm install
       - npm run build
