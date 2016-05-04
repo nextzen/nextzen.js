@@ -7,6 +7,8 @@ general:
 
 deployment:
   production:
-    branch: master
+    branch: baldur/*
     commands:
+      - npm install
+      - npm run build
       - aws s3 sync dist "s3://erasermap.com/" --exclude "what_to_exclude*"
