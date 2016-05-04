@@ -1,6 +1,10 @@
 ## Eraser Map for web
 
-Eraser Map is a web map using the Bubble Wrap Tangram style.
+Eraser Map is a web map using the [Bubble Wrap](https://mapzen.com/blog/bubble-wrap-carto/) Tangram style. [Tangram](https://mapzen.com/projects/tangram/) is a WebGL implementation of vector map tiles.
+
+You can view a live demo here: [Erasermap](http://erasermap.com.s3-website-us-east-1.amazonaws.com/maps/#?z=15&lng=-74.0098&lat=40.7053) TODO: REPLACE WITH LIVE LINK
+
+Current features include:
 * URLs that keep track of your location for easy sharing
 * Raster tile fallback on browsers that don't support WebGL
 * A rigorous test suite that uncludes both unit tests and integration tests
