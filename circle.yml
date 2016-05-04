@@ -13,6 +13,4 @@ deployment:
   production:
     branch: master
     commands:
-      - cp index.html dist/
-      - cp -R public dist/
       - aws s3 sync dist "s3://erasermap.com/maps"
