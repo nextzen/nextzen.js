@@ -5,6 +5,10 @@ general:
   artifacts:
     - "dist"
 
+test:
+  override:
+    - echo "Testing enabled later"
+
 deployment:
   production:
     branch: baldur/*
