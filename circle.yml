@@ -15,4 +15,5 @@ deployment:
     commands:
       - npm install
       - npm run build
-      - aws s3 sync dist "s3://erasermap.com/" --exclude "what_to_exclude*"
+      - cp index.html dist/
+      - aws s3 sync dist "s3://erasermap.com/maps"
