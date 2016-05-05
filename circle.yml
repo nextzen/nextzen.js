@@ -13,4 +13,4 @@ deployment:
   production:
     branch: master
     commands:
-      - aws s3 sync dist "s3://erasermap.com/maps"
+      - aws s3 sync dist "s3://erasermap.com/map"
