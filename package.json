@@ -9,7 +9,7 @@
   "scripts": {
     "test": "karma start test/karma.conf.js --log-level debug --single-run",
     "lint": "eslint ./src/js/*.js ./test/*.js; exit 0;",
-    "build": "browserify -t browserify-shim ./src/js/webmap.js --standalone WebMap > dist/bundle.js; browserify -t uglifyify ./src/js/webmap.js --standalone  WebMap | uglifyjs -c > dist/bundle.min.js; cp src/index.html dist/;cp -R src/css dist/;"
+    "build": "browserify -t browserify-shim ./src/js/webmap.js --standalone WebMap > dist/bundle.js; browserify -t browserify-shim -t uglifyify ./src/js/webmap.js --standalone  WebMap | uglifyjs -c > dist/bundle.min.js; cp src/index.html dist/;cp -R src/css dist/;"
   },
   "browserify-shim": {
     "leaflet": "global:L"
