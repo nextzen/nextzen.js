@@ -8,11 +8,24 @@
   </head>
   <body>
     <div id="map"></div>
+    <script src='https://geoiplookup.wikimedia.org/'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
     <script src="https://mapzen.com/tangram/tangram.min.js"></script>
     <script src="./bundle.min.js"></script>
     <script>
-      var webmap = WebMap.init(document.getElementById('map'), [40.70531887544228, -74.00976419448853], 15);
+
+      // when GeoIP is available, set the map's initial view to detected coords.
+      var lat, lon;
+
+      if (typeof Geo === 'object') {
+        lon = Geo.lon
+        lat = Geo.lat
+      } else {
+        lon = -74.009
+        lat = 40.70531
+      }
+
+      var webmap = WebMap.init(document.getElementById('map'), [lat, lon], 14);
       //going with rawgit file since bubble wrap style is still work in process,
       //and has some dependancies.
       webmap.setupScene('https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml');
