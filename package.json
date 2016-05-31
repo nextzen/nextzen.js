@@ -9,8 +9,9 @@
   "scripts": {
     "test": "karma start test/karma.conf.js --log-level debug --single-run",
     "lint": "eslint ./src/js/*.js ./test/*.js; exit 0;",
+    "build-style": "node-sass --output-style compressed -o dist/css src/scss",
     "dev": "browserify -t browserify-shim ./src/js/webmap.js --standalone WebMap > dist/bundle.min.js; cp src/index.html dist/;cp -R src/css dist/;",
-    "build": "browserify -t browserify-shim ./src/js/webmap.js --standalone WebMap > dist/bundle.js; browserify -t browserify-shim -t uglifyify ./src/js/webmap.js --standalone  WebMap | uglifyjs -c > dist/bundle.min.js; cp src/index.html dist/;cp -R src/css dist/;"
+    "build": "browserify -t browserify-shim ./src/js/webmap.js --standalone WebMap > dist/bundle.js; browserify -t browserify-shim -t uglifyify ./src/js/webmap.js --standalone  WebMap | uglifyjs -c > dist/bundle.min.js; cp src/index.html dist/; npm run-script build-style;"
   },
   "browserify-shim": {
     "leaflet": "global:L"
@@ -42,9 +43,11 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-requirejs": "^0.2.6",
     "karma-safari-launcher": "^0.1.1",
+    "leaflet-geocoder-mapzen": "^1.6.2",
     "leaflet-hash": "^0.2.1",
     "mapzen-scarab": "git+https://github.com/mapzen/scarab.git",
     "mocha": "^2.4.5",
+    "node-sass": "^3.7.0",
     "phantomjs-prebuilt": "^2.1.7",
     "requirejs": "^2.2.0",
     "sinon": "^1.17.3",

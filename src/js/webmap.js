@@ -1,15 +1,11 @@
 'use strict';
 
-module.exports = (function WebMap () {
+var mapControl = require('./components/mapControl');
 
-  var mapControl = require('./components/mapControl');
+var Geocoder = require('./components/search');
+console.log(Geocoder);
 
-  var webMapObj = {
-    init: function (domEl, centerLatLon, zoom) {
-      var map = mapControl.init(domEl, centerLatLon, zoom);
-      return map;
-    }
-  };
-
-  return webMapObj;
-})();
+window.Mapzen = module.exports = {
+  map: mapControl.map,
+  geocoder: Geocoder.geocoder
+}

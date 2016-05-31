@@ -14,7 +14,7 @@ describe('leaflet', function () {
     el.style.cssText = 'position: absolute; left: 0; top: 0; width: 100%; height: 100%;';
     document.body.appendChild(el);
     windowHistory = window.history;
-    webmap = WebMap.init(el, [51.505, -0.09], 13);
+    webmap = Mapzen.map(el);
   });
 
   it('check which Leaflet version it is', function () {
@@ -22,11 +22,12 @@ describe('leaflet', function () {
   });
 
   it('checks that hashable is listening', function () {
-      expect(window.location.hash).to.equal('#?z=13&lng=-0.09&lat=51.505');
+    webmap.setView([51.505, -0.09], 13);
+    expect(window.location.hash).to.equal('#?z=13&lng=-0.09&lat=51.505');
   });
 
   it('checks that states are not pushed to history', function () {
-    webmap.setView([51.505, -2.09]);
+    webmap.setView([51.505, -2.09], 13);
     expect(window.history).to.equal(windowHistory);
   });
 });

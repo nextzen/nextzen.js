@@ -9,7 +9,7 @@
   <body>
     <div id="map"></div>
     <script src='https://geoiplookup.wikimedia.org/'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
+    <script src="../node_modules/leaflet/dist/leaflet-src.js"></script>
     <script src="https://mapzen.com/tangram/tangram.min.js"></script>
     <script src="./bundle.min.js"></script>
     <script>
@@ -25,11 +25,13 @@
         lat = 40.70531
       }
 
-      var webmap = WebMap.init(document.getElementById('map'), [lat, lon], 14);
-      webmap.setView([51.505, -2.09]);
-      //going with rawgit file since bubble wrap style is still work in process,
-      //and has some dependancies.
-      webmap.setupScene('https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml');
+      //var map = L.map('map');
+      var map = Mapzen.map('map');
+      map.setupScene('https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml');
+      map.setView([lat, lon],13);
+
+      var geocoder = Mapzen.geocoder('search--NA8UXg');//
+      geocoder.addTo(map);
     </script>
   </body>
 </html>
