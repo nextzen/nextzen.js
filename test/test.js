@@ -22,7 +22,7 @@ describe('leaflet', function () {
   });
 
   it('checks that hashable is listening', function () {
-    webmap.setView([51.505, -0.09], 13);
+    //webmap.setView([51.5051, -0.09], 13);
     expect(window.location.hash).to.equal('#?z=13&lng=-0.09&lat=51.505');
   });
 
