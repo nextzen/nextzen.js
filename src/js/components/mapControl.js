@@ -11,8 +11,11 @@ var MapControl = L.Map.extend ({
   },
 
   _isThisIframed: function () {
-    if (window.self !== window.top) return true;
-    else return false;
+    return  (window.self == window.top);
+  },
+
+  _disableZoomControl: function() {
+    this.zoomControl._container.style.display = 'none'
   },
 
   //overriding Leaflet's map initializer
@@ -26,11 +29,38 @@ var MapControl = L.Map.extend ({
       this.setView(e.latlng, this.getZoom() + 1);
     });
 
-    // do not activate scroll wheel zoom when map is iframed
-    this.scrollWheelZoom = this._isThisIframed();
+
     this._setupHash(this);
 
-    this.setupScene = function (scene) {
+    },
+
+    checkConditions: function() {
+
+      if(this._isThisIframed()) {
+        // do not scroll zoom when it is iframed
+        this.scrollWheelZoom = false;
+        var anchors = document.querySelectorAll('a')
+
+        for (var i = 0, j = anchors.length; i < j; i++) {
+          var el = anchors[i]
+
+          // Only set target when not explicitly specified
+          // to avoid overwriting intentional targeting behavior
+          // Unless the force parameter is true, then targets of
+          // '_blank' are forced to to be '_top'
+          if (!el.target || (force === true && el.target === '_blank')) {
+            el.target = '_top'
+          }
+        }
+      }
+      // do not show zoom control buttons on mobile
+      // need to add more check to detect touch device
+      if ('ontouchstart' in window) {
+        this._disableZoomControl();
+      }
+    },
+
+    setupScene: function (scene) {
         if (this._hasWebGL()) {
           // adding tangram layer
           Tangram.leafletLayer({
@@ -44,7 +74,6 @@ var MapControl = L.Map.extend ({
             attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
           }).addTo(this);
         }
-      }
     },
 
     _setupHash: function (map) {
