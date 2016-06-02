@@ -218,7 +218,7 @@ var MapzenBug = (function () {
 
     this.opts = opts
   }
-  console.log('??')
+
   return MapzenBug
 })()
 
