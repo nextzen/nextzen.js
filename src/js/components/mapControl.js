@@ -1,22 +1,5 @@
-'use strict';
+'use strict'
 var MapControl = L.Map.extend ({
-
-  _hasWebGL: function () {
-    try {
-      var canvas = document.createElement('canvas');
-      return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-    } catch (x) {
-      return false;
-    }
-  },
-
-  _isThisIframed: function () {
-    return  (window.self == window.top);
-  },
-
-  _disableZoomControl: function() {
-    this.zoomControl._container.style.display = 'none'
-  },
 
   //overriding Leaflet's map initializer
   initialize: function (element, options) {
@@ -74,6 +57,22 @@ var MapControl = L.Map.extend ({
             attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
           }).addTo(this);
         }
+    },
+    _hasWebGL: function () {
+      try {
+        var canvas = document.createElement('canvas');
+        return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+      } catch (x) {
+        return false;
+      }
+    },
+
+    _isThisIframed: function () {
+      return  (window.self == window.top);
+    },
+
+    _disableZoomControl: function() {
+      this.zoomControl._container.style.display = 'none'
     },
 
     _setupHash: function (map) {

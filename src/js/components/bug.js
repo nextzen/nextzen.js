@@ -219,7 +219,6 @@ var MapzenBug = (function () {
   }
 
   return MapzenBug
-})
+})()
 
-module.exports = MapzenBug
-
+module.exports = MapzenBug;

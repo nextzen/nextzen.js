@@ -1,11 +1,11 @@
 'use strict';
 
-var mapControl = require('./components/mapControl');
-var Scarab = require('./components/scarab')
+var MapControl = require('./components/mapControl');
+var Bug = require('./components/bug')
 var Geocoder = require('./components/search');
 
 window.Mapzen = module.exports = {
-  map: mapControl.map,
+  map: MapControl.map,
   geocoder: Geocoder.geocoder,
-  scarab: Scarab.scarab
+  bug: Bug
 }
