@@ -14,7 +14,7 @@ describe('leaflet', function () {
     el.style.cssText = 'position: absolute; left: 0; top: 0; width: 100%; height: 100%;';
     document.body.appendChild(el);
     windowHistory = window.history;
-    webmap = Mapzen.map(el);
+    webmap = L.Mapzen.map(el);
   });
 
   it('check which Leaflet version it is', function () {
