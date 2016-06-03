@@ -26,14 +26,14 @@
       }
 
       //var map = L.map('map');
-      var map = Mapzen.map('map');
+      var map = L.Mapzen.map('map');
       map.setupScene('https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml');
       //map.setView([lat, lon],13);
 
-      var geocoder = Mapzen.geocoder('search--NA8UXg');//
+      var geocoder = L.Mapzen.geocoder('search--NA8UXg');//
       geocoder.addTo(map);
 
-      Mapzen.bug({
+      L.Mapzen.bug({
         name: 'Tangram',
         link: 'https://mapzen.com/projects/tangram',
         tweet: 'Tangram: real-time WebGL maps from @mapzen',

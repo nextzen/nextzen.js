@@ -154,7 +154,6 @@ var MapzenBug = (function () {
   }
 
   var MapzenBug = function (options) {
-    console.log('oOooOo')
     // nifty JS constructor pattern via browserify documentation
     // https://github.com/substack/browserify-handbook#reusable-components
     if (!(this instanceof MapzenBug)) return new MapzenBug(options)
