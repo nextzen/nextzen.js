@@ -5,14 +5,16 @@ before(function () {
 describe('leaflet', function () {
   var el;
   var webmap;
+  var windowHistory;
 
-  beforeEach('initialize map', function () {
+  before('initialize map', function () {
     el = document.createElement('div');
     // DOM needs to be visible: appended to the body and have dimensions
     // in order for .focus() to work properly
     el.style.cssText = 'position: absolute; left: 0; top: 0; width: 100%; height: 100%;';
     document.body.appendChild(el);
-    webmap = WebMap.init(el, [51.505, -0.09], 13);
+    windowHistory = window.history;
+    webmap = L.Mapzen.map(el);
   });
 
   it('check which Leaflet version it is', function () {
@@ -20,15 +22,11 @@ describe('leaflet', function () {
   });
 
   it('checks that hashable is listening', function () {
-      expect(window.location.hash).to.equal('#?z=13&lng=-0.09&lat=51.505');
+    expect(window.location.hash).to.equal('#?z=13&lng=-0.09&lat=51.505');
   });
 
   it('checks that states are not pushed to history', function () {
-    var historyObj = window.history;
-    var map = webmap.getLeafletMap();
-    map.setZoom(10);
-    window.setTimeout(function () {
-      expect(window.history).to.equal(historyObj);
-    }, 200);
+    webmap.setView([51.505, -2.09], 13);
+    expect(window.history).to.equal(windowHistory);
   });
 });
