@@ -1,6 +1,7 @@
-@import 'node_modules/leaflet-geocoder-mapzen/dist/leaflet-geocoder-mapzen';
 @import 'node_modules/mapzen-scarab/src/components/bug/bug';
 @import 'node_modules/mapzen-scarab/src/components/geolocator/geolocator';
+@import './leaflet-custom';
+@import './search-custom';
 
 html, body {
   padding: 0;
