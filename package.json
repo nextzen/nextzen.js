@@ -45,6 +45,7 @@
     "karma-safari-launcher": "^0.1.1",
     "leaflet-geocoder-mapzen": "^1.6.2",
     "leaflet-hash": "^0.2.1",
+    "leaflet.locatecontrol": "^0.52.0",
     "mapzen-scarab": "git+https://github.com/mapzen/scarab.git",
     "mocha": "^2.4.5",
     "node-sass": "^3.7.0",

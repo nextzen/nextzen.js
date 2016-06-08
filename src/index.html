@@ -9,7 +9,7 @@
   <body>
     <div id="map"></div>
     <script src='https://geoiplookup.wikimedia.org/'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.js"></script>
     <script src="https://mapzen.com/tangram/tangram.min.js"></script>
     <script src="./bundle.min.js"></script>
     <script>
@@ -25,10 +25,10 @@
         lat = 40.70531
       }
 
-      //var map = L.map('map');
+
       var map = L.Mapzen.map('map');
-      map.setupScene('https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml');
-      //map.setView([lat, lon],13);
+      map.setupScene('https://mapzen.com/carto/refill-style/refill-style.yaml');
+      map.setView([lat, lon],13);
 
       var geocoder = L.Mapzen.geocoder('search--NA8UXg');//
       geocoder.addTo(map);
@@ -38,6 +38,9 @@
         link: 'https://mapzen.com/projects/tangram',
         tweet: 'Tangram: real-time WebGL maps from @mapzen',
         repo: 'https://github.com/tangrams/tangram'});
+
+      var locator = L.Mapzen.locator();
+      locator.addTo(map);
 
     </script>
   </body>
