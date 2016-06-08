@@ -16,17 +16,25 @@ To get started, clone the repo and run
 npm install
 ```
 
-We are using [Browserify](http://browserify.org/) to bundle up the Javascript files. Source files including html to run Eraser map are inside of `src` folder. To generate a new bundle.js run
+We are using [Browserify](http://browserify.org/) to bundle up the Javascript files. Source files including html to run Eraser map are inside of `src` folder. To generate a production version of new `bundle.js` run
 ```
 npm run build
 ```
+
+If you want to build dev version of `budle.js`, run
+```
+npm run dev
+```
+This results in non-minified version of `bundle.js`  and Leaflet.
+
+
 This command will also copy index.html and css to dist folder, so the Eraser Map will be fully run under /dist directory.
 
 Testing is set up with [CircleCI](https://circleci.com/) and [Browserstack](https://www.browserstack.com/), and tied together with [Karma](https://karma-runner.github.io/0.13/index.html). The /test folder contains our tests, written in [Mocha](https://mochajs.org) and [Chai](http://chaijs.com/). To run the test suite, run
 ```
 npm test
 ```
- 
+
 Keep in mind that you will need to set `BROWSERSTACK_USERNAME`, `BROWSERSTACK_KEY` [in your node env](https://github.com/browserstack/karma-browserstack-example#browserstack-configuration) before your test.
 
 ## Future Plans
