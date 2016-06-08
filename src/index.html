@@ -25,10 +25,10 @@
         lat = 40.70531
       }
 
-      //var map = L.map('map');
+
       var map = L.Mapzen.map('map');
       map.setupScene('https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml');
-      //map.setView([lat, lon],13);
+      map.setView([lat, lon],13);
 
       var geocoder = L.Mapzen.geocoder('search--NA8UXg');//
       geocoder.addTo(map);
@@ -38,6 +38,9 @@
         link: 'https://mapzen.com/projects/tangram',
         tweet: 'Tangram: real-time WebGL maps from @mapzen',
         repo: 'https://github.com/tangrams/tangram'});
+
+      var locator = L.Mapzen.locator();
+      locator.addTo(map);
 
     </script>
   </body>
