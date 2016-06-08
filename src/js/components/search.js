@@ -10,7 +10,6 @@
  */
 
 
-
   var MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE = 1;
   var FULL_WIDTH_MARGIN = 20; // in pixels
   var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
@@ -39,7 +38,8 @@
       markers: true,
       expanded: false,
       autocomplete: true,
-      place: false
+      place: false,
+      collapsible: true
     },
 
     initialize: function (apiKey, options) {
@@ -627,6 +627,24 @@
         this.expand();
       }
 
+
+
+      if (this.options.collapsible) {
+        var geocoder = this;
+        map.on('resize', function(e) {
+          var previousWidth = e.oldSize.x;
+          var width = e.newSize.x;
+                // don't do anything if the WIDTH has not changed.
+          if (width === previousWidth) return
+          if (width < 900) {
+            geocoder.collapse()
+          } else {
+            geocoder.expand()
+          }
+        })
+      }
+
+
       L.DomEvent
         .on(this._container, 'click', function (e) {
           // Child elements with 'click' listeners should call
@@ -1103,13 +1121,8 @@ function escapeRegExp (str) {
 }
 
 
-  // L.control.geocoder = function (apiKey, options) {
-  //   return new L.Control.Geocoder(apiKey, options);
-  // };
-
-
 module.exports = Geocoder;
 
-module.exports.geocoder = function(element, options) {
-  return new Geocoder(element, options);
+module.exports.geocoder = function(key, options) {
+  return new Geocoder(key, options);
 };

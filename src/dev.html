@@ -34,9 +34,9 @@
 
       var geocoder = L.Mapzen.geocoder('search--NA8UXg', {
         expanded: true,
-        fullWidth: 300
+        fullWidth: 300,
+        collapsible: false
       });
-
       geocoder.addTo(map);
 
       L.Mapzen.bug({

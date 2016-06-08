@@ -1,6 +1,6 @@
 'use strict';
 
-var L = (typeof window !== "undefined" ? window.L : typeof global !== "undefined" ? global.L : null);
+var L = require('leaflet');
 
 var MapControl = require('./components/mapControl');
 var Bug = require('./components/bug');
