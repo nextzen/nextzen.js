@@ -628,37 +628,41 @@
       }
 
 
+
       if (this.options.collapsible) {
-        var isListening = false;
-        var geocoder = this;
+        if(!this.options.expanded) console.log('Turning both collapsible and expanded options on is recommended.')
+        else {
+          var isListening = false;
+          var geocoder = this;
 
-        map.on('resize', function(e) {
-          var previousWidth = e.oldSize.x;
-          var width = e.newSize.x;
+          map.on('resize', function(e) {
+            var previousWidth = e.oldSize.x;
+            var width = e.newSize.x;
 
-          // don't do anything if the WIDTH has not changed.
-          if (width === previousWidth) return
-          if (width < 900) {
-            if (L.DomUtil.hasClass(geocoder._container, 'leaflet-pelias-expanded')) {
-              geocoder.collapse()
-              map.off('mousedown', geocoder.collapse.bind(geocoder))
-              isListening = false
+            // don't do anything if the WIDTH has not changed.
+            if (width === previousWidth) return
+            if (width < 900) {
+              if (L.DomUtil.hasClass(geocoder._container, 'leaflet-pelias-expanded')) {
+                geocoder.collapse()
+                map.off('mousedown', geocoder.collapse.bind(geocoder))
+                isListening = false
+              }
+            } else {
+              if (!L.DomUtil.hasClass(geocoder._container, 'leaflet-pelias-expanded')) {
+                geocoder.expand()
+                map.on('mousedown', geocoder.collapse.bind(geocoder))
+                isListening = true
+              }
             }
-          } else {
-            if (!L.DomUtil.hasClass(geocoder._container, 'leaflet-pelias-expanded')) {
-              geocoder.expand()
+          })
+
+          geocoder.on('expand', function (event) {
+            if (isListening === false) {
               map.on('mousedown', geocoder.collapse.bind(geocoder))
-              isListening = true
-            }
-          }
-        })
-
-        geocoder.on('expand', function (event) {
-          if (isListening === false) {
-            map.on('mousedown', geocoder.collapse.bind(geocoder))
-              isListening = true
-            }
-        })
+                isListening = true
+              }
+          })
+        }
       }
 
 
