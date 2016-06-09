@@ -36,7 +36,7 @@
       polygonIcon: true, // 'images/polygon_icon.png',
       fullWidth: 650,
       markers: true,
-      expanded: false,
+      expanded: true,
       autocomplete: true,
       place: false,
       collapsible: true
@@ -627,46 +627,14 @@
         this.expand();
       }
 
-
-
       if (this.options.collapsible) {
-        if(!this.options.expanded) console.log('Turning both collapsible and expanded options on is recommended.')
-        else {
-          var isListening = false;
-          var geocoder = this;
-
-          map.on('resize', function(e) {
-            var previousWidth = e.oldSize.x;
-            var width = e.newSize.x;
-
-            // don't do anything if the WIDTH has not changed.
-            if (width === previousWidth) return
-            if (width < 900) {
-              if (L.DomUtil.hasClass(geocoder._container, 'leaflet-pelias-expanded')) {
-                geocoder.collapse()
-                map.off('mousedown', geocoder.collapse.bind(geocoder))
-                isListening = false
-              }
-            } else {
-              if (!L.DomUtil.hasClass(geocoder._container, 'leaflet-pelias-expanded')) {
-                geocoder.expand()
-                map.on('mousedown', geocoder.collapse.bind(geocoder))
-                isListening = true
-              }
-            }
-          })
-
-          geocoder.on('expand', function (event) {
-            if (isListening === false) {
-              map.on('mousedown', geocoder.collapse.bind(geocoder))
-                isListening = true
-              }
-          })
-        }
+        this._checkResize();
       }
 
-
       L.DomEvent
+        .on(window, 'resize', function (e) {
+          this._checkResize();
+        }, this)
         .on(this._container, 'click', function (e) {
           // Child elements with 'click' listeners should call
           // stopPropagation() to prevent that event from bubbling to
@@ -938,6 +906,29 @@
           this.collapse();
         }
       }
+    },
+    _getViewportWidth: function () {
+      return window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : window.screen.width
+    },
+
+    _checkResize: function () {
+      var width =  this._getViewportWidth();
+      // don't do anything if the WIDTH has not changed.
+      if (width === previousWidth) return
+      // collapse when screen is smaller than 900,
+      // keep it expanded when screen is bigger than 900.
+      if (width < 900) {
+        if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+          this.collapse()
+          L.DomEvent.on(this._map, 'mousedown', this.collapse, this);
+        }
+      } else {
+        if (!L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+          this.expand()
+          L.DomEvent.off(this._map, 'mousedown', this.collapse , this);
+        }
+      }
+        var previousWidth = width;
     },
 
     onRemove: function (map) {

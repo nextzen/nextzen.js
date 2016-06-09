@@ -32,9 +32,7 @@
 
       map.zoomControl.setPosition('bottomright');
 
-      var geocoder = L.Mapzen.geocoder('search--NA8UXg', {
-        expanded: true,
-        collapsible: false});
+      var geocoder = L.Mapzen.geocoder('search--NA8UXg');
       geocoder.addTo(map);
 
       L.Mapzen.bug({
