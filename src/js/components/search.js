@@ -628,19 +628,36 @@
       }
 
 
-
       if (this.options.collapsible) {
+        var isListening = false;
         var geocoder = this;
+
         map.on('resize', function(e) {
           var previousWidth = e.oldSize.x;
           var width = e.newSize.x;
-                // don't do anything if the WIDTH has not changed.
+
+          // don't do anything if the WIDTH has not changed.
           if (width === previousWidth) return
           if (width < 900) {
-            geocoder.collapse()
+            if (L.DomUtil.hasClass(geocoder._container, 'leaflet-pelias-expanded')) {
+              geocoder.collapse()
+              map.off('mousedown', geocoder.collapse.bind(geocoder))
+              isListening = false
+            }
           } else {
-            geocoder.expand()
+            if (!L.DomUtil.hasClass(geocoder._container, 'leaflet-pelias-expanded')) {
+              geocoder.expand()
+              map.on('mousedown', geocoder.collapse.bind(geocoder))
+              isListening = true
+            }
           }
+        })
+
+        geocoder.on('expand', function (event) {
+          if (isListening === false) {
+            map.on('mousedown', geocoder.collapse.bind(geocoder))
+              isListening = true
+            }
         })
       }
 
