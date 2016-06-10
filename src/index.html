@@ -30,10 +30,9 @@
       map.setupScene('https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml');
       map.setView([lat, lon],13);
 
-      map.zoomControl.setPosition('topright');
-      var geocoder = L.Mapzen.geocoder('search--NA8UXg', {
-        expanded: true
-      });
+      map.zoomControl.setPosition('bottomright');
+
+      var geocoder = L.Mapzen.geocoder('search--NA8UXg');
       geocoder.addTo(map);
 
       L.Mapzen.bug({
@@ -43,7 +42,7 @@
         repo: 'https://github.com/mapzen/web-map'});
 
       var locator = L.Mapzen.locator();
-      locator.setPosition('topright');
+      locator.setPosition('bottomright');
       locator.addTo(map);
 
     </script>

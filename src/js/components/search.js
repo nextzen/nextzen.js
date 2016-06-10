@@ -10,7 +10,6 @@
  */
 
 
-
   var MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE = 1;
   var FULL_WIDTH_MARGIN = 20; // in pixels
   var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
@@ -37,9 +36,10 @@
       polygonIcon: true, // 'images/polygon_icon.png',
       fullWidth: 650,
       markers: true,
-      expanded: false,
+      expanded: true,
       autocomplete: true,
-      place: false
+      place: false,
+      collapsible: true
     },
 
     initialize: function (apiKey, options) {
@@ -627,7 +627,14 @@
         this.expand();
       }
 
+      if (this.options.collapsible) {
+        this._checkResize();
+      }
+
       L.DomEvent
+        .on(window, 'resize', function (e) {
+          this._checkResize();
+        }, this)
         .on(this._container, 'click', function (e) {
           // Child elements with 'click' listeners should call
           // stopPropagation() to prevent that event from bubbling to
@@ -900,6 +907,29 @@
         }
       }
     },
+    _getViewportWidth: function () {
+      return window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : window.screen.width
+    },
+
+    _checkResize: function () {
+      var width =  this._getViewportWidth();
+      // don't do anything if the WIDTH has not changed.
+      if (width === previousWidth) return
+      // collapse when screen is smaller than 900,
+      // keep it expanded when screen is bigger than 900.
+      if (width < 900) {
+        if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+          this.collapse()
+          L.DomEvent.on(this._map, 'mousedown', this.collapse, this);
+        }
+      } else {
+        if (!L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+          this.expand()
+          L.DomEvent.off(this._map, 'mousedown', this.collapse , this);
+        }
+      }
+        var previousWidth = width;
+    },
 
     onRemove: function (map) {
       map.attributionControl.removeAttribution(this.options.attribution);
@@ -1103,13 +1133,8 @@ function escapeRegExp (str) {
 }
 
 
-  // L.control.geocoder = function (apiKey, options) {
-  //   return new L.Control.Geocoder(apiKey, options);
-  // };
-
-
 module.exports = Geocoder;
 
-module.exports.geocoder = function(element, options) {
-  return new Geocoder(element, options);
+module.exports.geocoder = function(key, options) {
+  return new Geocoder(key, options);
 };

@@ -1,14 +1,10 @@
 @import 'node_modules/leaflet-geocoder-mapzen/dist/leaflet-geocoder-mapzen';
 
-.leaflet-pelias-expanded {
-  width: 360px;
+.leaflet-pelias-control {
+  top: 50px;
 }
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
-  .leaflet-left .leaflet-control {
-    top: 50px;
-  }
-  .leaflet-pelias-expanded {
-    width: 280px;
-  }
+
+
 }
