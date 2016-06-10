@@ -117,8 +117,8 @@ var MapzenBug = (function () {
   }
 
   function _appendEl(el) {
-    if (opts.mapId) {
-      var parentNode =  document.getElementById(opts.mapId);
+    if (opts.mapID) {
+      var parentNode =  document.getElementById(opts.mapID);
       // Bug uses position:absolute to align itself on center 
       // to do this, its parent should have relative value for its position property
       var parentPositionStyle =  window.getComputedStyle(parentNode, null).getPropertyValue('position')
