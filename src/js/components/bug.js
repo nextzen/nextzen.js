@@ -117,7 +117,14 @@ var MapzenBug = (function () {
   }
 
   function _appendEl(el) {
-    if (opts.mapId) document.getElementById(opts.mapId).appendChild(el);
+    if (opts.mapId) {
+      var parentNode =  document.getElementById(opts.mapId);
+      // Bug uses position:absolute to align itself on center 
+      // to do this, its parent should have relative value for its position property
+      var parentPositionStyle =  window.getComputedStyle(parentNode, null).getPropertyValue('position')
+      if (parentPositionStyle !== 'relative') console.log('Appending MPZN bug to not relatively positioned element can make display problem.')
+      else parentNode.appendChild(el);
+    }
     else document.body.appendChild(el);
   }
 
