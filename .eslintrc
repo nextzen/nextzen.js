@@ -1,7 +1,7 @@
 {
   "extends": "semistandard",
   "globals": {
-    "Tangram": false,
-    "L": false
+    "Tangram": true,
+    "L": true
   }
 }
