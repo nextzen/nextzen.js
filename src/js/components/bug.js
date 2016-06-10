@@ -1,3 +1,4 @@
+/* eslint-disable */
 // (c) 2015 Mapzen
 //
 // MAPZEN BUG (or MAPZEN DOG in the UK)
