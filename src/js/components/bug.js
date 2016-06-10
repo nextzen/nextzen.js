@@ -97,7 +97,7 @@ var MapzenBug = (function () {
 
     // Create container
     el.id = 'mz-bug'
-    el.className = 'mz-bug-container'
+    el.className = "mz-bug-container"
     el.setAttribute('role', 'widget')
 
     // Create buttons
@@ -111,9 +111,14 @@ var MapzenBug = (function () {
     el.appendChild(twitterEl)
     el.appendChild(facebookEl)
     el.appendChild(githubEl)
-    document.body.appendChild(el)
 
+    _appendEl(el);
     return el
+  }
+
+  function _appendEl(el) {
+    if (opts.mapId) document.getElementById(opts.mapId).appendChild(el);
+    else document.body.appendChild(el);
   }
 
   function _createButtonEl (id, linkHref, linkTitle, clickHandler) {
