@@ -19,16 +19,21 @@ var Hash = L.Class.extend({
 
   _startMapEvents: function () {
     this._watchHash();
+    this._updateLatLng();
+    this._updateZoom();
     L.DomEvent.on(window, 'onhashchange', this._watchHash, this);
     L.DomEvent.on(this._map, 'moveend', this._updateLatLng, this);
     L.DomEvent.on(this._map, 'zoomend', this._updateZoom, this);
   },
+
   _watchHash: function () {
     var currentDataObj = Formatter.parseHashToObj(location.hash);
-    this.hashData = currentDataObj;
-    this.changing = true;
-    this._map.setView([this.hashData.lat, this.hashData.lng],this.hashData.z)
-    this.changing = false;
+    if(currentDataObj) {
+      this.hashData = currentDataObj;
+      this.changing = true;
+      this._map.setView([this.hashData.lat, this.hashData.lng],this.hashData.z)
+      this.changing = false;
+    }
   },
 
   _updateLatLng: function () {
