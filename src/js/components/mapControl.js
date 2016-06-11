@@ -7,12 +7,11 @@ var MapControl = L.Map.extend({
 
     // overriding double click behaviour to zoom up where it is clicked
     this.doubleClickZoom.disable();
-    this.setView([51.505, -0.09], 13);
     this.on('dblclick', function (e) {
       this.setView(e.latlng, this.getZoom() + 1);
     });
     this._checkConditions(false);
-    this._setupHash(this);
+    //this._setupHash(this);
   },
 
   setupScene: function (scene) {

@@ -25,7 +25,6 @@
         lat = 40.70531
       }
 
-
       var map = L.Mapzen.map('map');
       map.setupScene('https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml');
       map.setView([lat, lon],13);
@@ -49,6 +48,7 @@
       locator.setPosition('bottomright');
       locator.addTo(map);
 
+      L.Mapzen.hash(map);
     </script>
   </body>
 </html>
