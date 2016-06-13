@@ -23,7 +23,7 @@ describe('leaflet', function () {
     expect(L.version).to.equal('0.7.7');
   });
 
-  it('checks that hash is working', function () {
+  it('checks that hash for coord is working', function () {
     L.Mapzen.hash(webmap);
       var zoom = webmap.getZoom();
       var center = webmap.getCenter();

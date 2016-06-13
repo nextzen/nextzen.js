@@ -1,76 +1,103 @@
 var Hash = L.Class.extend({
 
-  // we keep hash data here
-  hashData: {},
+  // We keep hash data in _hashData obj
+  _hashData: {},
   changing: false,
   _map: null,
   _geocoder: null,
 
   initialize: function (map, geocoder) {
-    if(map) {
+    if (map) {
       this._map = map;
       this._startMapEvents();
     }
-    if(geocoder) {
+
+    if (geocoder) {
       this._geocoder = geocoder;
-      this._startGeocoderevents()
+      this._startGeocoderEvents()
+    }
+
+    this._setupHash();
+    L.DomEvent.on(window, 'onhashchange', this._setupHash, this);
+  },
+
+  _setupHash: function () {
+    var currentDataObj = Formatter.parseHashToObj(location.hash);
+    this._hashData = currentDataObj;
+    if (this._hashData)  {
+
+      // When there is place query in hash, it takes priority to the coord data.
+      if (this._hashData.place) {
+        this._hashData.place = decodeURIComponent(this._hashData.place);
+        this._geocoder.place(this._hashData.place);
+      } else if (this._hashData.lat && this._hashData.lng && this._hashData.z) {
+        // boolean changing is to prevent recursive hash change
+        // Hash doesn't get updated while map is setting the view
+        this.changing = true;
+        this._map.setView([this._hashData.lat, this._hashData.lng],this._hashData.z);
+        this.changing = false;
+      }
+    } else {
+      // When there is no hash, get current map status
+      this._hashData = {};
+      this._updateLatLng();
+      this._updateZoom();
     }
   },
 
   _startMapEvents: function () {
-    this._watchHash();
-    this._updateLatLng();
-    this._updateZoom();
-    L.DomEvent.on(window, 'onhashchange', this._watchHash, this);
     L.DomEvent.on(this._map, 'moveend', this._updateLatLng, this);
     L.DomEvent.on(this._map, 'zoomend', this._updateZoom, this);
   },
 
-  _watchHash: function () {
-    var currentDataObj = Formatter.parseHashToObj(location.hash);
-    if(currentDataObj) {
-      this.hashData = currentDataObj;
-      this.changing = true;
-      this._map.setView([this.hashData.lat, this.hashData.lng],this.hashData.z)
-      this.changing = false;
-    }
+  _startGeocoderEvents: function () {
+    L.DomEvent.on(this._geocoder, 'select', this._updatePlace, this);
+    L.DomEvent.on(this._geocoder, 'reset', this._resetPlace, this);
   },
 
   _updateLatLng: function () {
 
     if (!this.changing) {
+
       var center = this._map.getCenter();
       var zoom = this._map.getZoom();
 
       var precision = this._precision(zoom);
       var newLat = center.lat.toFixed(precision);
       var newLng = center.lng.toFixed(precision);
-      this.hashData.lat = newLat;
-      this.hashData.lng = newLng;
+      this._hashData.lat = newLat;
+      this._hashData.lng = newLng;
 
-      var formattedData = Formatter.formatToHash(this.hashData);
-      window.history.replaceState({}, null, '#' + formattedData);
+      this._updateHash();
     }
   },
 
   _updateZoom: function () {
     if (!this.changing) {
       var zoom = this._map.getZoom();
-      this.hashData.z = zoom;
-      var formattedData = Formatter.formatToHash(this.hashData);
-      window.history.replaceState({}, null, '#' + formattedData);
+      this._hashData.z = zoom;
+      this._updateHash();
     }
   },
+
+  _updatePlace: function (e) {
+    this._hashData.place = e.feature.properties.gid;
+    this._updateHash();
+  },
+
+  _resetPlace: function () {
+
+    this._hashData = Formatter.deleteProperty(this._hashData, 'place');
+    this._updateHash();
+  },
+
+  _updateHash: function () {
+    var formattedData = Formatter.formatToHash(this._hashData);
+    window.history.replaceState({}, null, '#' + formattedData);
+  },
+
   _precision: function (z) {
     return Math.max(0, Math.ceil(Math.log(z) / Math.LN2));
-  },
-
-  _startGeocoderevents: function() {
-    L.DomEvent.on(this._geocoder, 'select', this._updatePlaceQuery, this);
-  },
-
-  _updatePlaceQuery: function () {
-
   }
 
 });
@@ -94,9 +121,18 @@ var Formatter = {
       return dObj;
     }
   },
-  isEmpty: function(str) {
+  isEmpty: function (str) {
     if (!str || 0 === str.length) return true;
     else return false;
+  },
+  deleteProperty: function (dobj, _prop) {
+    var newObj = {};
+    for (var p in dobj) {
+      if(p !== _prop) {
+        newObj[p] = dobj[p];
+      }
+    }
+    return newObj;
   },
 
   formatToHash: function (obj) {

@@ -35,6 +35,7 @@
       var geocoder = L.Mapzen.geocoder('search--NA8UXg', {
         expanded: true
       });
+
       geocoder.addTo(map);
 
       L.Mapzen.bug({
@@ -48,7 +49,7 @@
       locator.setPosition('bottomright');
       locator.addTo(map);
 
-      L.Mapzen.hash(map);
+      L.Mapzen.hash(map, geocoder);
     </script>
   </body>
 </html>
