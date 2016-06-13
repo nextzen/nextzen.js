@@ -1,3 +1,4 @@
+'use strict';
 var Hash = L.Class.extend({
 
   // We keep hash data in _hashData obj
