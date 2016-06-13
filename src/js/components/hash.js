@@ -14,7 +14,7 @@ var Hash = L.Class.extend({
 
     if (geocoder) {
       this._geocoder = geocoder;
-      this._startGeocoderEvents()
+      this._startGeocoderEvents();
     }
 
     this._setupHash();
@@ -22,10 +22,9 @@ var Hash = L.Class.extend({
   },
 
   _setupHash: function () {
-    var currentDataObj = Formatter.parseHashToObj(location.hash);
+    var currentDataObj = Formatter.parseHashToObj(window.location.hash);
     this._hashData = currentDataObj;
-    if (this._hashData)  {
-
+    if (this._hashData) {
       // When there is place query in hash, it takes priority to the coord data.
       if (this._hashData.place) {
         this._hashData.place = decodeURIComponent(this._hashData.place);
@@ -34,7 +33,7 @@ var Hash = L.Class.extend({
         // boolean changing is to prevent recursive hash change
         // Hash doesn't get updated while map is setting the view
         this.changing = true;
-        this._map.setView([this._hashData.lat, this._hashData.lng],this._hashData.z);
+        this._map.setView([this._hashData.lat, this._hashData.lng], this._hashData.z);
         this.changing = false;
       }
     } else {
@@ -56,9 +55,7 @@ var Hash = L.Class.extend({
   },
 
   _updateLatLng: function () {
-
     if (!this.changing) {
-
       var center = this._map.getCenter();
       var zoom = this._map.getZoom();
 
@@ -86,7 +83,6 @@ var Hash = L.Class.extend({
   },
 
   _resetPlace: function () {
-
     this._hashData = Formatter.deleteProperty(this._hashData, 'place');
     this._updateHash();
   },
@@ -102,7 +98,6 @@ var Hash = L.Class.extend({
 
 });
 
-
 var Formatter = {
   parseHashToObj: function (rawHash) {
     var dObj = {};
@@ -110,25 +105,25 @@ var Formatter = {
     if (this.isEmpty(rawHash)) {
       return null;
     } else {
-      var hashVal = rawHash.replace('#','');
+      var hashVal = rawHash.replace('#', '');
       var valArrs = hashVal.split('&');
 
-      for(var val in valArrs) {
+      for (var val in valArrs) {
         var keyAndValue = valArrs[val].split('=');
-        dObj[keyAndValue[0]] = keyAndValue[1]
+        dObj[keyAndValue[0]] = keyAndValue[1];
       }
 
       return dObj;
     }
   },
   isEmpty: function (str) {
-    if (!str || 0 === str.length) return true;
+    if (str.length === 0 || !str) return true;
     else return false;
   },
   deleteProperty: function (dobj, _prop) {
     var newObj = {};
     for (var p in dobj) {
-      if(p !== _prop) {
+      if (p !== _prop) {
         newObj[p] = dobj[p];
       }
     }
@@ -148,7 +143,7 @@ var Formatter = {
     }
     return str.join('&');
   }
-}
+};
 
 module.exports = Hash;
 
