@@ -97,7 +97,7 @@ var MapzenBug = (function () {
 
     // Create container
     el.id = 'mz-bug'
-    el.className = "mz-bug-container"
+    el.className = 'mz-bug-container'
     el.setAttribute('role', 'widget')
 
     // Create buttons
@@ -119,7 +119,7 @@ var MapzenBug = (function () {
   function _appendEl(el) {
     if (opts.mapID) {
       var parentNode =  document.getElementById(opts.mapID);
-      // Bug uses position:absolute to align itself on center 
+      // Bug uses position:absolute to align itself on center
       // to do this, its parent should have relative value for its position property
       var parentPositionStyle =  window.getComputedStyle(parentNode, null).getPropertyValue('position')
       if (parentPositionStyle !== 'relative') console.log('Appending MPZN bug to not relatively positioned element can make display problem.')
