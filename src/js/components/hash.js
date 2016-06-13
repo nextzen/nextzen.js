@@ -2,7 +2,7 @@ var Hash = L.Class.extend({
 
   // We keep hash data in _hashData obj
   _hashData: {},
-  changing: false,
+  _changing: false,
   _map: null,
   _geocoder: null,
 
@@ -32,9 +32,9 @@ var Hash = L.Class.extend({
       } else if (this._hashData.lat && this._hashData.lng && this._hashData.z) {
         // boolean changing is to prevent recursive hash change
         // Hash doesn't get updated while map is setting the view
-        this.changing = true;
+        this._changing = true;
         this._map.setView([this._hashData.lat, this._hashData.lng], this._hashData.z);
-        this.changing = false;
+        this._changing = false;
       }
     } else {
       // When there is no hash, get current map status
@@ -55,7 +55,7 @@ var Hash = L.Class.extend({
   },
 
   _updateLatLng: function () {
-    if (!this.changing) {
+    if (!this._changing) {
       var center = this._map.getCenter();
       var zoom = this._map.getZoom();
 
@@ -70,7 +70,7 @@ var Hash = L.Class.extend({
   },
 
   _updateZoom: function () {
-    if (!this.changing) {
+    if (!this._changing) {
       var zoom = this._map.getZoom();
       this._hashData.z = zoom;
       this._updateHash();
