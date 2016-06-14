@@ -223,7 +223,7 @@ var Geocoder = L.Control.extend({
     if (!id) return;
     var url = this.options.url + '/place';
     var params = {
-       ids: id
+      ids: id
     };
     this.callPelias(url, params, 'place');
   },
@@ -856,25 +856,25 @@ var Geocoder = L.Control.extend({
 
           // If nothing is selected, (e.g. it's a message, not a result),
           // do nothing.
-          if (selected) {
-            L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
-            this.setSelectedResult(selected, e);
-          }
-        }, this)
-        .on(this._results, 'mouseover', function (e) {
-          // Prevent scrolling over results list from zooming the map, if enabled
-          this._scrollWheelZoomEnabled = map.scrollWheelZoom;
-          if (this._scrollWheelZoomEnabled) {
-            map.scrollWheelZoom.disable();
-          }
-        }, this)
-        .on(this._results, 'mouseout', function (e) {
-          // Re-enable scroll wheel zoom (if previously enabled) after
-          // leaving the results box
-          if (this._scrollWheelZoomEnabled) {
-            map.scrollWheelZoom.enable();
-          }
-        }, this);
+        if (selected) {
+          L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
+          this.setSelectedResult(selected, e);
+        }
+      }, this)
+      .on(this._results, 'mouseover', function (e) {
+        // Prevent scrolling over results list from zooming the map, if enabled
+        this._scrollWheelZoomEnabled = map.scrollWheelZoom;
+        if (this._scrollWheelZoomEnabled) {
+          map.scrollWheelZoom.disable();
+        }
+      }, this)
+      .on(this._results, 'mouseout', function (e) {
+        // Re-enable scroll wheel zoom (if previously enabled) after
+        // leaving the results box
+        if (this._scrollWheelZoomEnabled) {
+          map.scrollWheelZoom.enable();
+        }
+      }, this);
 
     // Recalculate width of the input bar when window resizes
     if (this.options.fullWidth) {
