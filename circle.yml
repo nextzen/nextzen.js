@@ -14,3 +14,5 @@ deployment:
     branch: master
     commands:
       - aws s3 sync dist "s3://erasermap.com/map"
+      - aws s3 cp dist/bundle.min.js s3://static-dev.mapzen.com/js/0.0.0/mapzen.min.js
+      - aws s3 cp dist/bundle.min.js s3://static-prod.mapzen.com/js/0.0.0/mapzen.min.js
