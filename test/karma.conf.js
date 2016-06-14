@@ -22,7 +22,7 @@ module.exports = function (config) {
       // tests
       'test/*.js',
       // web map js
-      'dist/bundle.js'
+      'dist/mapzen.js'
     ],
 
     plugins: [
