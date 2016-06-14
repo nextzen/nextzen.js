@@ -1,3 +1,4 @@
+/* eslint-disable */
 before(function () {
   console.log('Leaflet version: ' + L.version);
 });
