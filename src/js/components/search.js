@@ -221,7 +221,11 @@ var Geocoder = L.Control.extend({
   place: function (id) {
     // Prevent lack of input from sending a malformed query to Pelias
     if (!id) return;
-      this.callPelias(url, params, 'place');
+    var url = this.options.url + '/place';
+    var params = {
+       ids: id
+    };
+    this.callPelias(url, params, 'place');
   },
 
   handlePlaceResponse: function (response) {
