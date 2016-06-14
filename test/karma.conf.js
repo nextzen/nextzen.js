@@ -17,8 +17,6 @@ module.exports = function (config) {
       'node_modules/sinon/pkg/sinon.js',
       'node_modules/expect.js/index.js',
       'node_modules/happen/happen.js',
-      // Leaflet library
-      'node_modules/leaflet/dist/leaflet.js',
       // tests
       'test/*.js',
       // web map js
