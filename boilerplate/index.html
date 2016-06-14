@@ -15,20 +15,9 @@
     <script src="./dist/mapzen.min.js"></script>
     <script>
 
-      // when GeoIP is available, set the map's initial view to detected coords.
-      var lat, lon;
-
-      if (typeof Geo === 'object') {
-        lon = Geo.lon
-        lat = Geo.lat
-      } else {
-      // When GeoIP is not available, use NYC coords as default
-        lon = -74.009
-        lat = 40.70531
-      }
-
       var map = L.Mapzen.map('map');
-      map.setView([lat, lon],13);
+      // Using NYC as default coords.
+      map.setView([40.70531, -74.009],13);
 
     </script>
   </body>
