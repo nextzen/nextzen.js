@@ -221,17 +221,17 @@ var Geocoder = L.Control.extend({
   place: function (id) {
     // Prevent lack of input from sending a malformed query to Pelias
     if (!id) return;
-
     var url = this.options.url + '/place';
     var params = {
-      ids: id
+       ids: id
     };
-
     this.callPelias(url, params, 'place');
   },
 
   handlePlaceResponse: function (response) {
-    // Placeholder for handling place response
+    // Handling place response
+    this._input.value = response.features[0].properties.label;
+    this.showMarker(response.features[0].properties.label, response.features[0].geometry.coordinates.reverse());
   },
 
   // Timestamp of the last response which was successfully rendered to the UI.
@@ -854,27 +854,27 @@ var Geocoder = L.Control.extend({
         // so its important to find the parent.
         findParent();
 
-        // If nothing is selected, (e.g. it's a message, not a result),
-        // do nothing.
-        if (selected) {
-          L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
-          this.setSelectedResult(selected, e);
-        }
-      }, this)
-      .on(this._results, 'mouseover', function (e) {
-        // Prevent scrolling over results list from zooming the map, if enabled
-        this._scrollWheelZoomEnabled = map.scrollWheelZoom.enabled();
-        if (this._scrollWheelZoomEnabled) {
-          map.scrollWheelZoom.disable();
-        }
-      }, this)
-      .on(this._results, 'mouseout', function (e) {
-        // Re-enable scroll wheel zoom (if previously enabled) after
-        // leaving the results box
-        if (this._scrollWheelZoomEnabled) {
-          map.scrollWheelZoom.enable();
-        }
-      }, this);
+          // If nothing is selected, (e.g. it's a message, not a result),
+          // do nothing.
+          if (selected) {
+            L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
+            this.setSelectedResult(selected, e);
+          }
+        }, this)
+        .on(this._results, 'mouseover', function (e) {
+          // Prevent scrolling over results list from zooming the map, if enabled
+          this._scrollWheelZoomEnabled = map.scrollWheelZoom;
+          if (this._scrollWheelZoomEnabled) {
+            map.scrollWheelZoom.disable();
+          }
+        }, this)
+        .on(this._results, 'mouseout', function (e) {
+          // Re-enable scroll wheel zoom (if previously enabled) after
+          // leaving the results box
+          if (this._scrollWheelZoomEnabled) {
+            map.scrollWheelZoom.enable();
+          }
+        }, this);
 
     // Recalculate width of the input bar when window resizes
     if (this.options.fullWidth) {

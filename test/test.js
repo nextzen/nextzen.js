@@ -16,14 +16,26 @@ describe('leaflet', function () {
     document.body.appendChild(el);
     windowHistory = window.history;
     webmap = L.Mapzen.map(el);
+    webmap.setView([51.505,-0.09], 13);
   });
 
   it('check which Leaflet version it is', function () {
     expect(L.version).to.equal('0.7.7');
   });
 
-  it('checks that hashable is listening', function () {
-    expect(window.location.hash).to.equal('#?z=13&lng=-0.09&lat=51.505');
+  it('checks that hash for coord is working', function () {
+    L.Mapzen.hash(webmap);
+      var zoom = webmap.getZoom();
+      var center = webmap.getCenter();
+
+      var getPrecision = function (z) {
+        return Math.max(0, Math.ceil(Math.log(z) / Math.LN2));
+      }
+      var precision = getPrecision(zoom);
+
+      var hashLat = center.lat.toFixed(precision);
+      var hashLng = center.lng.toFixed(precision);
+      expect(window.location.hash).to.equal('#lat='+hashLat+'&lng='+hashLng+'&z='+zoom);
   });
 
   it('checks that states are not pushed to history', function () {

@@ -25,17 +25,17 @@
         lat = 40.70531
       }
 
-
       var map = L.Mapzen.map('map');
+
       map.setupScene('https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml');
       map.setView([lat, lon],13);
-
       map.zoomControl.setPosition('bottomright');
 
 
       var geocoder = L.Mapzen.geocoder('search--NA8UXg', {
         expanded: true
       });
+
       geocoder.addTo(map);
 
       L.Mapzen.bug({
@@ -49,6 +49,7 @@
       locator.setPosition('bottomright');
       locator.addTo(map);
 
+      L.Mapzen.hash(map, geocoder);
     </script>
   </body>
 </html>
