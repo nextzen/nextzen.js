@@ -11,8 +11,8 @@
     "lint": "eslint ./src/js/* ./test/*.js; exit 0;",
     "build-style": "node-sass --output-style compressed -o dist/css src/scss; cp -R node_modules/mapzen-scarab/src/images dist/css;",
     "build-dev-style": "node-sass --output-style compressed -o dist/css src/scss -w; cp -R node_modules/mapzen-scarab/src/images dist/css;",
-    "dev": " cp src/dev.html dist/index.html; watchify ./src/js/webmap.js --standalone WebMap -o dist/bundle.min.js -v;",
-    "build": "browserify ./src/js/webmap.js --standalone WebMap > dist/bundle.js; browserify -t uglifyify ./src/js/webmap.js --standalone  WebMap | uglifyjs -c > dist/bundle.min.js; cp src/index.html dist/; npm run-script build-style;"
+    "dev": " cp src/dev.html dist/index.html; watchify -t browserify-shim ./src/js/mapzen.js -o dist/mapzen.min.js -v;",
+    "build": "browserify -t browserify-shim ./src/js/mapzen.js > dist/mapzen.js; browserify -t browserify-shim -t uglifyify ./src/js/mapzen.js | uglifyjs -c > dist/mapzen.min.js; cp src/index.html dist/; npm run-script build-style;"
   },
   "browserify-shim": {
     "leaflet": "global:L"
