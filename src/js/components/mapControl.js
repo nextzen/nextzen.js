@@ -1,9 +1,12 @@
 'use strict';
-var MapControl = L.Map.extend({
+var L = require('leaflet');
+var tangram = require('./tangram');
 
+var MapControl = L.Map.extend({
+  options: {},
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
-    L.Map.prototype.initialize.call(this, element, options);
+    L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
 
     // overriding double click behaviour to zoom up where it is clicked
     this.doubleClickZoom.disable();
@@ -11,21 +14,53 @@ var MapControl = L.Map.extend({
       this.setView(e.latlng, this.getZoom() + 1);
     });
     this._checkConditions(false);
+    // Tangram script is being injected,
+    L.DomEvent.on(tangram.scriptEl, 'load', this._setupScene, this);
   },
 
-  setupScene: function (scene) {
-    if (this._hasWebGL()) {
-      // adding tangram layer
-      Tangram.leafletLayer({
-        scene: scene,
-        attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-      }).addTo(this);
+  _setupScene: function () {
+    if (this._hasWebGL() && this.options.scene) {
+      console.log(this.options.scene);
+      switch (this.options.scene) {
+        case 'zinc':
+          Tangram.leafletLayer({
+            scene: 'https://mapzen.com/carto/zinc-style/zinc-style.yaml',
+            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+          }).addTo(this);
+          break;
+        case 'refill':
+          Tangram.leafletLayer({
+            scene: 'https://mapzen.com/carto/refill-style/refill-style.yaml',
+            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+          }).addTo(this);
+          break;
+        case 'bubble-wrap':
+          Tangram.leafletLayer({
+            scene: 'https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml',
+            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+          });
+          break;
+        case 'cinnabar':
+          Tangram.leafletLayer({
+            scene: 'https://mapzen.com/carto/cinnabar-style/cinnabar-style.yaml',
+            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+          }).addTo(this);
+          break;
+        default:
+          Tangram.leafletLayer({
+            scene: scene,
+            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+          }).addTo(this);
+          break;
+      }
     } else {
-      // adding osm default tile layer for
-      console.log('WebGL is not available, falling back to OSM default tile.');
-      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-      }).addTo(this);
+      // When Scene is required but WebGL is not avilable
+      if (this.options.scene) {
+        console.log('WebGL is not available, falling back to OSM default tile.');
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+        }).addTo(this);
+      }
     }
   },
 

@@ -1,4 +1,6 @@
 'use strict';
+var L = require('leaflet');
+
 var Hash = L.Class.extend({
 
   // We keep hash data in _hashData obj
