@@ -93,6 +93,6 @@ module.exports = function (config) {
       }
     },
 
-    browsers: ['bs_iphone5S', 'PhantomJS', 'Firefox']
+    browsers: ['PhantomJS', 'Firefox', 'bs_iphone5S']
   });
 };
