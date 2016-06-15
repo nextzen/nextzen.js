@@ -88,7 +88,7 @@ module.exports = function (config) {
       bs_firefox_mac: {
         base: 'BrowserStack',
         browser: 'firefox',
-        browser_version: '43.0',
+        browser_version: '47',
         os: 'OS X',
         os_version: 'Mountain Lion'
       },
@@ -100,6 +100,6 @@ module.exports = function (config) {
       }
     },
 
-    browsers: ['PhantomJS', 'bs_firefox_mac','bs_iphone5S']
+    browsers: ['bs_firefox_mac']
   });
 };

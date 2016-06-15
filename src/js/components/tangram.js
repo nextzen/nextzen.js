@@ -8,9 +8,7 @@ var TangramScript = (function () {
   var oScript;
 
   var loadError = function (oError) {
-    for (var key in oError) {
-      console.log(oError[key])
-    }
+    console.log(oError);
     throw new URIError("The script " + oError.target.src + " is not accessible.");
   };
 
