@@ -2,6 +2,8 @@
 //
 // "Locate me" button for demos
 // ----------------------------------------------------------------------------
+var L = require('leaflet');
+
 var Locator = require('leaflet.locatecontrol');
 
 module.exports = Locator;

@@ -1,5 +1,5 @@
 'use strict';
-
+var L = require('leaflet');
 /*
  * tweak from leaflet-geocoder-mapzen
  * Leaflet plugin to search (geocode) using Mapzen Search or your

@@ -22,7 +22,7 @@ module.exports = function (config) {
       // tests
       'test/*.js',
       // web map js
-      'dist/bundle.js'
+      'dist/mapzen.js'
     ],
 
     plugins: [
@@ -64,14 +64,14 @@ module.exports = function (config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
@@ -85,21 +85,14 @@ module.exports = function (config) {
     },
     // define browsers
     customLaunchers: {
-      bs_firefox_mac: {
+      bs_iphone5S: {
         base: 'BrowserStack',
-        browser: 'firefox',
-        browser_version: '40.0',
-        os: 'OS X',
-        os_version: 'Mountain Lion'
-      },
-      bs_iphone5: {
-        base: 'BrowserStack',
-        device: 'iPhone 5',
+        device: 'iPhone 5S',
         os: 'ios',
-        os_version: '6.0'
+        os_version: '7.0'
       }
     },
 
-    browsers: ['PhantomJS', 'bs_firefox_mac', 'bs_iphone5']
+    browsers: ['PhantomJS', 'Firefox', 'bs_iphone5S']
   });
 };

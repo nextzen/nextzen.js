@@ -1,8 +1,3 @@
-/* eslint-disable */
-before(function () {
-  console.log('Leaflet version: ' + L.version);
-});
-
 describe('leaflet', function () {
   var el;
   var webmap;
