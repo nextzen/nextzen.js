@@ -85,13 +85,6 @@ module.exports = function (config) {
     },
     // define browsers
     customLaunchers: {
-      bs_firefox_mac: {
-        base: 'BrowserStack',
-        browser: 'firefox',
-        browser_version: '47',
-        os: 'OS X',
-        os_version: 'Mountain Lion'
-      },
       bs_iphone5S: {
         base: 'BrowserStack',
         device: 'iPhone 5S',
@@ -100,6 +93,6 @@ module.exports = function (config) {
       }
     },
 
-    browsers: ['bs_firefox_mac']
+    browsers: ['bs_iphone5S', 'PhantomJS', 'Firefox']
   });
 };
