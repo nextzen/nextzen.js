@@ -6,15 +6,20 @@ var TangramScript = (function () {
   var tangramScriptURL = 'https://mapzen.com/tangram/0.8/tangram.min.js';
   var loaded = false;
   var oScript;
+
   var loadError = function (oError) {
     throw new URIError("The script " + oError.target.src + " is not accessible.");
   };
 
   var importScript = function (sSrc) {
     oScript = document.createElement("script");
+
     oScript.type = "text\/javascript";
     oScript.onerror = loadError;
-    document.currentScript.parentNode.insertBefore(oScript, document.currentScript);
+    if (document.currentScript) document.currentScript.parentNode.insertBefore(oScript, document.currentScript);
+    // If browser doesn't support currentscript position
+    // insert script inside of head
+    else document.getElementsByTagName('head')[0].appendChild(oScript);
     oScript.src = sSrc;
   };
 

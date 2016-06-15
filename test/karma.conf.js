@@ -17,10 +17,12 @@ module.exports = function (config) {
       'node_modules/sinon/pkg/sinon.js',
       'node_modules/expect.js/index.js',
       'node_modules/happen/happen.js',
+      // Leaflet library
+      'node_modules/leaflet/dist/leaflet.js',
       // tests
       'test/*.js',
       // web map js
-      'dist/mapzen.js'
+      'dist/mapzen.min.js'
     ],
 
     plugins: [
@@ -62,14 +64,14 @@ module.exports = function (config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
@@ -86,18 +88,18 @@ module.exports = function (config) {
       bs_firefox_mac: {
         base: 'BrowserStack',
         browser: 'firefox',
-        browser_version: '40.0',
+        browser_version: '43.0',
         os: 'OS X',
         os_version: 'Mountain Lion'
       },
-      bs_iphone5: {
+      bs_iphone5S: {
         base: 'BrowserStack',
-        device: 'iPhone 5',
+        device: 'iPhone 5S',
         os: 'ios',
-        os_version: '6.0'
+        os_version: '7.0'
       }
     },
 
-    browsers: ['PhantomJS', 'bs_firefox_mac', 'bs_iphone5']
+    browsers: ['PhantomJS', 'bs_firefox_mac','bs_iphone5S']
   });
 };
