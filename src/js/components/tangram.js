@@ -3,7 +3,7 @@
 // This script injects the Tangram with script tag, so that Tangram doesn't need to be included with oustdie tag
 
 var TangramScript = (function () {
-  var tangramScriptURL = 'http://mapzen.com/tangram/0.8/tangram.min.js';
+  var tangramScriptURL = 'https://mapzen.com/tangram/0.8/tangram.min.js';
   var loaded = false;
   var oScript;
   var loadError = function (oError) {
