@@ -1,8 +1,8 @@
 {
-  "name": "eraser-map-web",
+  "name": "mapzen.js",
   "version": "1.0.0",
-  "description": "mapzen web map",
-  "main": "index.js",
+  "description": "Javascript SDK for Mapzen products",
+  "main": "dist/mapzen.js",
   "directories": {
     "test": "test"
   },
