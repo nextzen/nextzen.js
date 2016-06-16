@@ -19,18 +19,20 @@ describe('leaflet', function () {
   });
 
   it('checks that hash for coord is working', function () {
-    L.Mapzen.hash(webmap);
-      var zoom = webmap.getZoom();
-      var center = webmap.getCenter();
+    L.Mapzen.hash({
+      map:webmap
+    });
+    var zoom = webmap.getZoom();
+    var center = webmap.getCenter();
 
-      var getPrecision = function (z) {
-        return Math.max(0, Math.ceil(Math.log(z) / Math.LN2));
-      }
-      var precision = getPrecision(zoom);
+    var getPrecision = function (z) {
+      return Math.max(0, Math.ceil(Math.log(z) / Math.LN2));
+    }
+    var precision = getPrecision(zoom);
 
-      var hashLat = center.lat.toFixed(precision);
-      var hashLng = center.lng.toFixed(precision);
-      expect(window.location.hash).to.equal('#lat='+hashLat+'&lng='+hashLng+'&z='+zoom);
+    var hashLat = center.lat.toFixed(precision);
+    var hashLng = center.lng.toFixed(precision);
+    expect(window.location.hash).to.equal('#lat='+hashLat+'&lng='+hashLng+'&z='+zoom);
   });
 
   it('checks that states are not pushed to history', function () {
