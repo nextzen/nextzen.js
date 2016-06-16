@@ -14,5 +14,5 @@ deployment:
     branch: master
     commands:
       - aws s3 sync dist "s3://erasermap.com/map"
-      - ./depoly.sh dev
-      - ./depoly.sh prod
+      - ./deploy.sh dev
+      - ./deploy.sh prod
