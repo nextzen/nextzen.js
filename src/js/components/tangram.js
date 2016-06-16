@@ -4,18 +4,17 @@
 
 var TangramScript = (function () {
   var tangramScriptURL = 'https://mapzen.com/tangram/0.8/tangram.min.js';
-  var loaded = false;
   var oScript;
 
   var loadError = function (oError) {
     console.log(oError);
-    throw new URIError("The script " + oError.target.src + " is not accessible.");
+    throw new URIError('The script ' + oError.target.src + ' is not accessible.');
   };
 
   var importScript = function (sSrc) {
-    oScript = document.createElement("script");
+    oScript = document.createElement('script');
 
-    oScript.type = "text\/javascript";
+    oScript.type = 'text\/javascript';
     oScript.onerror = loadError;
     if (document.currentScript) document.currentScript.parentNode.insertBefore(oScript, document.currentScript);
     // If browser doesn't support currentscript position
@@ -29,8 +28,7 @@ var TangramScript = (function () {
   // Return script element to get onload event from
   return {
     scriptEl: oScript
-  }
-
-})()
+  };
+})();
 
 module.exports = TangramScript;

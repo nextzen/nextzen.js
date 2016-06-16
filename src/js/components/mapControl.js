@@ -8,7 +8,7 @@ var MapControl = L.Map.extend({
   initialize: function (element, options) {
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
     // Set Icon path manually
-    L.Icon.Default.imagePath = './images'
+    L.Icon.Default.imagePath = './images';
 
     // overriding double click behaviour to zoom up where it is clicked
     this.doubleClickZoom.disable();
@@ -21,43 +21,32 @@ var MapControl = L.Map.extend({
   },
 
   _setupScene: function () {
-    if (this._hasWebGL() && this.options.scene) {
-      console.log(this.options.scene);
-      switch (this.options.scene) {
-        case 'zinc':
-          Tangram.leafletLayer({
-            scene: 'https://mapzen.com/carto/zinc-style/zinc-style.yaml',
-            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-          }).addTo(this);
-          break;
-        case 'refill':
-          Tangram.leafletLayer({
-            scene: 'https://mapzen.com/carto/refill-style/refill-style.yaml',
-            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-          }).addTo(this);
-          break;
-        case 'bubble-wrap':
-          Tangram.leafletLayer({
-            scene: 'https://mapzen.com/carto/bubble-wrap-style/2/bubble-wrap.yaml',
-            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-          });
-          break;
-        case 'cinnabar':
-          Tangram.leafletLayer({
-            scene: 'https://mapzen.com/carto/cinnabar-style/cinnabar-style.yaml',
-            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-          }).addTo(this);
-          break;
-        default:
-          Tangram.leafletLayer({
-            scene: scene,
-            attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-          }).addTo(this);
-          break;
-      }
-    } else {
-      // When Scene is required but WebGL is not avilable
-      if (this.options.scene) {
+    if (this.options.scene) {
+      if (this._hasWebGL()) {
+        switch (this.options.scene) {
+          // Set up Mapzen house style
+          case 'zinc':
+          case 'refill':
+          case 'cinnabar':
+            Tangram.leafletLayer({
+              scene: 'https://mapzen.com/carto/' + this.options.scene + '-style/' + this.options.scene + '-style.yaml',
+              attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+            }).addTo(this);
+            break;
+          case 'bubble-wrap':
+            Tangram.leafletLayer({
+              scene: 'https://mapzen.com/carto/' + this.options.scene + '-style/' + this.options.scene + '.yaml',
+              attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+            }).addTo(this);
+            break;
+          default:
+            Tangram.leafletLayer({
+              scene: this.options.scene,
+              attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+            }).addTo(this);
+            break;
+        }
+      } else {
         console.log('WebGL is not available, falling back to OSM default tile.');
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
