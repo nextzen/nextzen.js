@@ -9,14 +9,14 @@ var Hash = L.Class.extend({
   _map: null,
   _geocoder: null,
 
-  initialize: function (map, geocoder) {
-    if (map) {
-      this._map = map;
+  initialize: function (options) {
+    if (options.map) {
+      this._map = options.map;
       this._startMapEvents();
     }
 
-    if (geocoder) {
-      this._geocoder = geocoder;
+    if (options.geocoder) {
+      this._geocoder = options.geocoder;
       this._startGeocoderEvents();
     }
 
@@ -150,6 +150,6 @@ var Formatter = {
 
 module.exports = Hash;
 
-module.exports.hash = function (map, geocoder) {
-  return new Hash(map, geocoder);
+module.exports.hash = function (options) {
+  return new Hash(options);
 };
