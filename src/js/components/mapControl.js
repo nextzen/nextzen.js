@@ -8,7 +8,7 @@ var MapControl = L.Map.extend({
   initialize: function (element, options) {
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
     // Set Icon path manually
-    L.Icon.Default.imagePath = './images'
+    L.Icon.Default.imagePath = './images';
 
     // overriding double click behaviour to zoom up where it is clicked
     this.doubleClickZoom.disable();
