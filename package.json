@@ -9,8 +9,8 @@
   "scripts": {
     "test": "karma start test/karma.conf.js --log-level debug --single-run",
     "lint": "eslint ./src/js/* ./test/*.js; exit 0;",
-    "build-style": "node-sass --output-style compressed -o dist/css src/scss; cp -R node_modules/mapzen-scarab/src/images dist/css;",
-    "build-dev-style": "node-sass --output-style compressed -o dist/css src/scss -w; cp -R node_modules/mapzen-scarab/src/images dist/css;",
+    "build-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
+    "build-dev-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss -w; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "dev": " cp src/dev.html dist/index.html; watchify  ./src/js/mapzen.js -o dist/mapzen.min.js -v;",
     "build": "browserify ./src/js/mapzen.js > dist/mapzen.js; browserify -t uglifyify ./src/js/mapzen.js | uglifyjs -c > dist/mapzen.min.js; cp src/index.html dist/; npm run-script build-style;"
   },
