@@ -1,46 +1,70 @@
-## Eraser Map for web
+## MapzenJS
 
-Eraser Map is a web map using the [Bubble Wrap](https://mapzen.com/blog/bubble-wrap-carto/) Tangram style. [Tangram](https://mapzen.com/projects/tangram/) is a WebGL implementation of vector map tiles.
+### Leaflet Plugin
+Mapzen JS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS.
 
-You can view a [live demo at erasermap.com/map](https://erasermap.com/map/).
+### Getting Started
 
-Current features include:
-* URLs that keep track of your location for easy sharing
-* Raster tile fallback on browsers that don't support WebGL
-* A rigorous test suite that uncludes both unit tests and integration tests
+Mapzen.js is available via the url below.
+`https://mapzen.com/js/0.0.0/mapzen.js`
+`https://mapzen.com/js/0.0.0/mapzen.min.js`
+`https://mapzen.com/js/0.0.0/mapzen.css`
 
-## Installation
+The HTML below represents the minimum structure to display the map centered on NYC with [bubble-wrap](https://github.com/tangrams/bubble-wrap) style.
 
-To get started, clone the repo and run
+```
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://mapzen.com/js/0.0.0/mapzen.css">
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://mapzen.com/js/0.0.0/mapzen.min.js"></script>
+    <script>
+      var map = L.Mapzen.map('map', {
+        scene: 'bubble-wrap'
+      });
+      // Set first view as NYC
+      map.setView([-74.009,40.70531], 13);
+    </script>
+  </body>
+</html>
+```
+### Build Locally
+
+MapzenJS uses [npm]((https://docs.npmjs.com/getting-started/installing-node)) for its building process.
+
 ```
 npm install
 ```
+The comand above will install depandancies for develpments.
 
-We are using [Browserify](http://browserify.org/) to bundle up the Javascript files. Source files including html to run Eraser map are inside of `src` folder. To generate a production version of new `bundle.js` run
 ```
-npm run build
+npm build
 ```
+This command bundles the javascript source files in `src` folder to `mapzen.js` , compiles scss files to css. The command also copies the `index.html` inside of `src` foler to `dist`, so result can be run easily in `dist` folder.
 
-If you want to build dev version of `budle.js`, run
+If you are planning to actively changing the code, the commands below would help.
 ```
 npm run dev
 ```
-This results in non-minified version of `bundle.js`  and Leaflet.
 
-
-This command will also copy index.html and css to dist folder, so the Eraser Map will be fully run under /dist directory.
-
-Testing is set up with [CircleCI](https://circleci.com/) and [Browserstack](https://www.browserstack.com/), and tied together with [Karma](https://karma-runner.github.io/0.13/index.html). The /test folder contains our tests, written in [Mocha](https://mochajs.org) and [Chai](http://chaijs.com/). To run the test suite, run
+This command watches javascript source files and spits out the compiled script whenever there is change.
 ```
-npm test
+npm run build-dev-style
 ```
+This command watches scss files and compiles them to the css whenever change happens in the source files.
 
-Keep in mind that you will need to set `BROWSERSTACK_USERNAME`, `BROWSERSTACK_KEY` [in your node env](https://github.com/browserstack/karma-browserstack-example#browserstack-configuration) before your test.
 
-## Future Plans
 
-We plan to use this repo to showcase the suite of Mapzen products, working in harmony together with easily shareable URLs.
+### :two_hearts:
 
-* Mapzen Search to center the map
-* Mapzen Turn-by-Turn to show multimodal directions
-* Additional Tangram styles for the map
+This is the list of the great projects composing MapzenJS.
+
+- [Leaflet](http://leafletjs.com/)
+- [Leaflet Locatle Control](https://github.com/domoritz/leaflet-locatecontrol)
+- [Mapzen Leaflet Geocoder](https://github.com/mapzen/leaflet-geocoder)
+- [Mapzen Bug](https://github.com/mapzen/scarab/tree/master/src/components/bug)
