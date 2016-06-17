@@ -34,8 +34,7 @@ API
 
 ### Map
 
-
-`L.Mapzen.map` extends Leaflet's `L.Map` with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Whene there is no scene file declared, You would need to set your own tile to display the map.
+`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Whene there is no scene file declared, You would need to set your own tile to display the map.
 
 ```javascript
 var map = L.Mapzen.map('map', {
