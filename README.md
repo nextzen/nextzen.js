@@ -44,9 +44,9 @@ var map = L.Mapzen.map('map', {
 
 Map Options
 
-| Option  | Type     | Default | Description                      |
-|---------|----------|---------|----------------------------------|
-| `scene` | `String` | `null`  | Tangram scene identifier or URL. |
+| Option  | Type   | Default | Description                      |
+|---------|--------|---------|----------------------------------|
+| `scene` | String | `null`  | Tangram scene identifier or URL. |
 
 ### Geocoder Control
 
@@ -59,7 +59,7 @@ geocoder.addTo(map);
 
 ### Bug (“Scarab”) Control
 
-`L.Mapzen.bug` is mainly for full-size demo to brand it with Mapzen lgoo and social media links. You can pass options for `bug` as below.
+`L.Mapzen.bug` implements a small header for Mapzen demos, with the company logo and social media links.
 
 ```javascript
 L.Mapzen.bug({
@@ -70,6 +70,15 @@ L.Mapzen.bug({
 });
 bug.addTo(map);
 ```
+
+Bug Options
+
+| Option  | Type   | Default                        | Description                            |
+|---------|--------|--------------------------------|----------------------------------------|
+| `name`  | String | `'Web Map'`                    | Name of this map.                      |
+| `link`  | String | `'https://erasermap.com/maps'` | Permalink to this map.                 |
+| `tweet` | String | `'{name}, powered by @mapzen'` | Default tweet text for Twitter button. |
+| `repo`  | String | `'https://github.com/mapzen/'` | Github link for map source code.       |
 
 ### Locator Control
 
