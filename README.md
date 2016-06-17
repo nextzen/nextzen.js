@@ -92,15 +92,20 @@ locator.addTo(map);
 
 ### Hash Control
 
-`L.Mapzen.hash` sets/reads the hash value for components inside of the map, so that the map can offer deep link for the status that map is on. You can pass componenents that you want hash for as an option when hash is initialized. Hash currently received `L.Mapzen.map` and `L.Mapzen.geocoder` as arguments.
+`L.Mapzen.hash` adds a URL hash to a map, so that the user can link to map location and state. The Hash function accepts components whose state can be linked.
 
 ```javascript
 L.Mapzen.hash({
-  map: map,
-  geocoder: geocoder
+  map: map
 })
 ```
 
+Hash Options
+
+| Option     | Type              | Default | Description           |
+|------------|-------------------|---------|-----------------------|
+| `map`      | L.Mapzen.map      | `null`  | Instance of map.      |
+| `geocoder` | L.Mapzen.geocoder | `null`  | Instance of geocoder. |
 
 Build Locally
 ----
