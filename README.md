@@ -32,10 +32,10 @@ The HTML below represents the minimum structure to display the map centered on N
 API
 ---
 
-### `L.Mapzen.map`
+### Map
 
 
-extends Leaflet's `L.Map` with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Whene there is no scene file declared, You would need to set your own tile to display the map.
+`L.Mapzen.map` extends Leaflet's `L.Map` with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Whene there is no scene file declared, You would need to set your own tile to display the map.
 
 ```javascript
 var map = L.Mapzen.map('map',{
@@ -43,18 +43,18 @@ var map = L.Mapzen.map('map',{
 })
 ```
 
-### `L.Mapzen.geocoder`
+### Geocoder Control
 
-puts Mapzen Geocoder compoenent to the map. You need to [make API key](https://mapzen.com/developers) for Mapzen Search to use this. Its default behaviour is customized to be easily used in demo. You can check more options for Mapzen Leaflet Geocoder on [its page](https://github.com/mapzen/leaflet-geocoder).
+`L.Mapzen.geocoder` puts Mapzen Geocoder compoenent to the map. You need to [make API key](https://mapzen.com/developers) for Mapzen Search to use this. Its default behaviour is customized to be easily used in demo. You can check more options for Mapzen Leaflet Geocoder on [its page](https://github.com/mapzen/leaflet-geocoder).
 
 ```javascript
 var geocoder = L.Mapzen.geocoder('search--NA8UXg');
 geocoder.addTo(map);
 ```
 
-### `L.Mapzen.bug`
+### Bug (“Scarab”) Control
 
-is mainly for full-size demo to brand it with Mapzen lgoo and social media links. You can pass options for `bug` as below.
+`L.Mapzen.bug` is mainly for full-size demo to brand it with Mapzen lgoo and social media links. You can pass options for `bug` as below.
 
 ```javascript
 L.Mapzen.bug({
@@ -66,9 +66,9 @@ L.Mapzen.bug({
 bug.addTo(map);
 ```
 
-### `L.Mapzen.locator`
+### Locator Control
 
-puts Locator Control compoenent to the map. You can check its default option for MapzenJs at [its source file](https://github.com/mapzen/web-map/blob/master/src/js/components/locator.js#L14). You can check more possible options on [Leaflet Locatle Control page](https://github.com/domoritz/leaflet-locatecontrol).
+`L.Mapzen.locator` puts Locator Control compoenent to the map. You can check its default option for MapzenJs at [its source file](https://github.com/mapzen/web-map/blob/master/src/js/components/locator.js#L14). You can check more possible options on [Leaflet Locatle Control page](https://github.com/domoritz/leaflet-locatecontrol).
 
 ``` javascript
 var locator = L.Mapzen.locator();
@@ -76,9 +76,9 @@ locator.setPosition('bottomright');
 locator.addTo(map);
 ```
 
-### `L.Mapzen.hash`
+### Hash Control
 
-sets/reads the hash value for components inside of the map, so that the map can offer deep link for the status that map is on. You can pass componenents that you want hash for as an option when hash is initialized. Hash currently received `L.Mapzen.map` and `L.Mapzen.geocoder` as arguments.
+`L.Mapzen.hash` sets/reads the hash value for components inside of the map, so that the map can offer deep link for the status that map is on. You can pass componenents that you want hash for as an option when hash is initialized. Hash currently received `L.Mapzen.map` and `L.Mapzen.geocoder` as arguments.
 
 ```javascript
 L.Mapzen.hash({
