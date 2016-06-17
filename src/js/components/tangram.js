@@ -1,6 +1,6 @@
 // Tangram can't be bundled from source since it needs to be able to access a full copy of itself
 // (either as a URL or full string of all source code) in order to load itself into web workers
-// This script injects the Tangram with script tag, so that Tangram doesn't need to be included with oustdie tag
+// This script injects the Tangram with script tag, so that Tangram doesn't need to be included with outside tag
 
 var TangramScript = (function () {
   var tangramScriptURL = 'https://mapzen.com/tangram/0.8/tangram.min.js';
@@ -14,7 +14,7 @@ var TangramScript = (function () {
   var importScript = function (sSrc) {
     oScript = document.createElement('script');
 
-    oScript.type = 'text\/javascript';
+    oScript.type = 'text/javascript';
     oScript.onerror = loadError;
     if (document.currentScript) document.currentScript.parentNode.insertBefore(oScript, document.currentScript);
     // If browser doesn't support currentscript position
