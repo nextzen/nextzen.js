@@ -82,7 +82,7 @@ Bug Options
 
 ### Locator Control
 
-`L.Mapzen.locator` puts Locator Control compoenent to the map. You can check its default option for MapzenJs at [its source file](https://github.com/mapzen/web-map/blob/master/src/js/components/locator.js#L14). You can check more possible options on [Leaflet Locatle Control page](https://github.com/domoritz/leaflet-locatecontrol).
+`L.Mapzen.locator` adds a geolocation control to the map.
 
 ``` javascript
 var locator = L.Mapzen.locator();
