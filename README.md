@@ -25,16 +25,14 @@ The HTML below represents the minimum structure to display the map centered on N
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://mapzen.com/js/0.0.0/mapzen.css">
+    <script src="https://mapzen.com/js/0.0.0/mapzen.min.js"></script>
   </head>
   <body>
     <div id="map"></div>
-    <script src="https://mapzen.com/js/0.0.0/mapzen.min.js"></script>
     <script>
-      var map = L.Mapzen.map('map', {
-        scene: 'bubble-wrap'
-      });
-      // Set the first view as NYC
-      map.setView([-74.009,40.70531], 13);
+      // Add a map to the #map DIV, and center it on New York:
+      var map = L.Mapzen.map('map', { scene: 'bubble-wrap' });
+      map.setView([40.70531, -74.009], 13);
     </script>
   </body>
 </html>
