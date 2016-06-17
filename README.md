@@ -1,11 +1,11 @@
 ## MapzenJS
 
 ### Leaflet Plugin
-Mapzen JS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS. You can check more details at [API](#API) section.
+Mapzen JS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS. You can check more details at [API](./#API) section.
 
 ### Getting Started
 
-Mapzen.js is available via the url below.
+Mapzen.js is available via urls below.
 ```
 https://mapzen.com/js/0.0.0/mapzen.js
 ```
@@ -87,7 +87,7 @@ locator.addTo(map);
 
 - `L.Mapzen.hash`
 
-sets/reads the hash value for components inside of the map, so that the map can offer diplink for the status that you are on. You can pass the componenents that you want hash for as arguments when hash is initialized. Hash currently received `L.Mapzen.map` and `L.Mapzen.geocoder` as arguments.
+sets/reads the hash value for components inside of the map, so that the map can offer deep link for the status that map is on. You can pass componenents that you want hash for as an option when hash is initialized. Hash currently received `L.Mapzen.map` and `L.Mapzen.geocoder` as arguments.
 
 ```javascript
 L.Mapzen.hash({
@@ -126,7 +126,7 @@ This command watches scss files and compiles them to the css whenever change hap
 
 ### MapzenJS is consist of awesome open source projects :two_hearts:
 
-This is the list of the great projects composing MapzenJS.
+This is the list of great projects composing MapzenJS.
 
 - [Leaflet](http://leafletjs.com/)
 - [Leaflet Locatle Control](https://github.com/domoritz/leaflet-locatecontrol)
