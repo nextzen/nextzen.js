@@ -57,6 +57,10 @@ var geocoder = L.Mapzen.geocoder(search_api_key);
 geocoder.addTo(map);
 ```
 
+| Option  | Type   | Default | Description                      |
+|---------|--------|---------|----------------------------------|
+| `collapsible` | boolean | `true`  | Search component automatically adjusting collapsing behaviour. |
+
 ### Bug (“Scarab”) Control
 
 `L.Mapzen.bug` implements a small header for Mapzen demos, with the company logo and social media links.
