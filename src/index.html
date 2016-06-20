@@ -18,12 +18,12 @@
         lon = Geo.lon
         lat = Geo.lat
       } else {
-        lon = -74.009
+        lon = -74.009,
         lat = 40.70531
       }
 
-      var map = L.Mapzen.map('map', {
-        scene: L.Mapzen.HouseStyles.Zinc
+      var map = L.Mapzen.map('map',{
+        scene: L.Mapzen.HouseStyles.Refill
       });
       map.setView([lat, lon],13);
 
