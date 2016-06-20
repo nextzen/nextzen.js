@@ -11,7 +11,7 @@
 var MapzenBug = (function () {
   'use strict'
 
-  var DEFAULT_LINK = 'https://mapzen.com/'
+  var DEFAULT_LINK = window.location.href
   var DEFAULT_GITHUB_LINK = 'https://github.com/mapzen/'
   var TRACKING_CATEGORY = 'demo'
   var ANALYTICS_PROPERTY_ID = 'UA-47035811-1'
