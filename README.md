@@ -38,15 +38,15 @@ API
 
 ```javascript
 var map = L.Mapzen.map('map', {
-  scene: 'refill'
+  scene: L.Mapzen.HouseStyles.Refill
 })
 ```
 
 Map Options
 
-| Option  | Type   | Default | Description                      |
-|---------|--------|---------|----------------------------------|
-| `scene` | String | `null`  | Tangram scene identifier or URL. |
+| Option  | Type   | Default                           | Description                                                   |
+|---------|--------|-----------------------------------|---------------------------------------------------------------|
+| `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. |
 
 ### Geocoder Control
 
