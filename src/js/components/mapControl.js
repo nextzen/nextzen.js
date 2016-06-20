@@ -29,13 +29,11 @@ var MapControl = L.Map.extend({
         attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
       }).addTo(this);
     } else {
-      // When Scene is required but WebGL is not avilable
-      if (this.options.scene) {
-        console.log('WebGL is not available, falling back to OSM default tile.');
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-        }).addTo(this);
-      }
+      // When WebGL is not avilable
+      console.log('WebGL is not available, falling back to OSM default tile.');
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+      }).addTo(this);
     }
   },
 
