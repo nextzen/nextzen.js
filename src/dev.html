@@ -22,9 +22,7 @@
         lat = 40.70531
       }
 
-      var map = L.Mapzen.map('map', {
-        scene: 'bubble-wrap'
-      });
+      var map = L.Mapzen.map('map');
 
       map.setView([lat, lon],13);
       map.zoomControl.setPosition('bottomright');

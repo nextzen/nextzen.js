@@ -1,46 +1,125 @@
-## Eraser Map for web
+MapzenJS
+====
 
-Eraser Map is a web map using the [Bubble Wrap](https://mapzen.com/blog/bubble-wrap-carto/) Tangram style. [Tangram](https://mapzen.com/projects/tangram/) is a WebGL implementation of vector map tiles.
+### Leaflet Plugin
+Mapzen JS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS. You can check more details at [API](./#API) section.
 
-You can view a [live demo at erasermap.com/map](https://erasermap.com/map/).
+Getting Started
+----
 
-Current features include:
-* URLs that keep track of your location for easy sharing
-* Raster tile fallback on browsers that don't support WebGL
-* A rigorous test suite that uncludes both unit tests and integration tests
+The HTML below represents the minimum structure to display the map centered on NYC with [bubble-wrap](https://github.com/tangrams/bubble-wrap) style.
 
-## Installation
-
-To get started, clone the repo and run
-```
-npm install
-```
-
-We are using [Browserify](http://browserify.org/) to bundle up the Javascript files. Source files including html to run Eraser map are inside of `src` folder. To generate a production version of new `bundle.js` run
-```
-npm run build
-```
-
-If you want to build dev version of `budle.js`, run
-```
-npm run dev
-```
-This results in non-minified version of `bundle.js`  and Leaflet.
-
-
-This command will also copy index.html and css to dist folder, so the Eraser Map will be fully run under /dist directory.
-
-Testing is set up with [CircleCI](https://circleci.com/) and [Browserstack](https://www.browserstack.com/), and tied together with [Karma](https://karma-runner.github.io/0.13/index.html). The /test folder contains our tests, written in [Mocha](https://mochajs.org) and [Chai](http://chaijs.com/). To run the test suite, run
-```
-npm test
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://mapzen.com/js/0.0.0/mapzen.css">
+    <script src="https://mapzen.com/js/0.0.0/mapzen.min.js"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // Add a map to the #map DIV, and center it on New York:
+      var map = L.Mapzen.map('map', { scene: 'bubble-wrap' });
+      map.setView([40.70531, -74.009], 13);
+    </script>
+  </body>
+</html>
 ```
 
-Keep in mind that you will need to set `BROWSERSTACK_USERNAME`, `BROWSERSTACK_KEY` [in your node env](https://github.com/browserstack/karma-browserstack-example#browserstack-configuration) before your test.
+API
+---
 
-## Future Plans
+### Map
 
-We plan to use this repo to showcase the suite of Mapzen products, working in harmony together with easily shareable URLs.
+`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Whene there is no scene file declared, You would need to set your own tile to display the map.
 
-* Mapzen Search to center the map
-* Mapzen Turn-by-Turn to show multimodal directions
-* Additional Tangram styles for the map
+```javascript
+var map = L.Mapzen.map('map', {
+  scene: L.Mapzen.HouseStyles.Refill
+})
+```
+
+Map Options
+
+| Option  | Type   | Default                           | Description                                                   |
+|---------|--------|-----------------------------------|---------------------------------------------------------------|
+| `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. |
+
+### Geocoder Control
+
+`L.Mapzen.geocoder` adds a Mapzen Geocoder component to the map. [Create a Mapzen Search API key](https://mapzen.com/developers) to use the geocoder. Its default behaviour is customized to be easily used in demo. You can check more options for Mapzen Leaflet Geocoder on [its page](https://github.com/mapzen/leaflet-geocoder).
+
+```javascript
+var geocoder = L.Mapzen.geocoder(search_api_key);
+geocoder.addTo(map);
+```
+
+| Option  | Type   | Default | Description                      |
+|---------|--------|---------|----------------------------------|
+| `collapsible` | boolean | `true`  | Search component automatically adjusting collapsing behaviour. |
+
+### Bug (“Scarab”) Control
+
+`L.Mapzen.bug` implements a small header for Mapzen demos, with the company logo and social media links.
+
+```javascript
+L.Mapzen.bug({
+  name: 'Web Map',
+  link: 'https://erasermap.com/maps',
+  tweet: '@mapzen',
+  repo: 'https://github.com/mapzen/web-map'
+});
+bug.addTo(map);
+```
+
+Bug Options
+
+| Option  | Type   | Default                        | Description                            |
+|---------|--------|--------------------------------|----------------------------------------|
+| `name`  | String | `'Web Map'`                    | Name of this map.                      |
+| `link`  | String | `'https://erasermap.com/maps'` | Permalink to this map.                 |
+| `tweet` | String | `'{name}, powered by @mapzen'` | Default tweet text for Twitter button. |
+| `repo`  | String | `'https://github.com/mapzen/'` | Github link for map source code.       |
+
+### Locator Control
+
+`L.Mapzen.locator` adds a geolocation control to the map.
+
+``` javascript
+var locator = L.Mapzen.locator();
+locator.setPosition('bottomright');
+locator.addTo(map);
+```
+
+### Hash Control
+
+`L.Mapzen.hash` adds a URL hash to a map, so that the user can link to map location and state. The Hash function accepts components whose state can be linked.
+
+```javascript
+L.Mapzen.hash({
+  map: map
+})
+```
+
+Hash Options
+
+| Option     | Type              | Default | Description           |
+|------------|-------------------|---------|-----------------------|
+| `map`      | L.Mapzen.map      | `null`  | Instance of map.      |
+| `geocoder` | L.Mapzen.geocoder | `null`  | Instance of geocoder. |
+
+
+Open Source 💕
+----
+
+MapzenJS is made from awesome open source projects.
+
+- [Leaflet](http://leafletjs.com/)
+- [Leaflet Locate Control](https://github.com/domoritz/leaflet-locatecontrol)
+- [Mapzen Leaflet Geocoder](https://github.com/mapzen/leaflet-geocoder)
+- [Mapzen Bug](https://github.com/mapzen/scarab/tree/master/src/components/bug)
+
+[Build MapzenJS locally using `npm`](BUILD.md).
