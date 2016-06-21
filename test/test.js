@@ -18,22 +18,19 @@ describe('leaflet', function () {
     expect(L.version).to.equal('0.7.7');
   });
 
-
-  it("checks default style is set.", function(done){
-
+  it('checks default style is set.', function (done) {
     // Give time to load Tangram script
-    setTimeout(function() {
+    setTimeout(function () {
       if (map._hasWebGL()) {
         var tangramLayer = false;
 
-        map.eachLayer( function(layer) {
-          if (layer.scene) tangramLayer = true;
+        map.eachLayer(function (layer) {
+          if (layer.scene) done();
         });
 
-        if(tangramLayer) done();
-        else done(err);
-
+        done(err);
       } else {
+        // When WebGL is not avilable (like Phantom), skip the test.
         done();
       }
     }, 1500);
