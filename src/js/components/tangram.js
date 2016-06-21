@@ -16,10 +16,14 @@ var TangramScript = (function () {
 
     oScript.type = 'text/javascript';
     oScript.onerror = loadError;
-    if (document.currentScript) document.currentScript.parentNode.insertBefore(oScript, document.currentScript);
+    if (document.currentScript) {
+      document.currentScript.parentNode.insertBefore(oScript, document.currentScript);
+    }
     // If browser doesn't support currentscript position
     // insert script inside of head
-    else document.getElementsByTagName('head')[0].appendChild(oScript);
+    else {
+      document.getElementsByTagName('head')[0].appendChild(oScript);
+    }
     oScript.src = sSrc;
   };
 
