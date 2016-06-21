@@ -13,6 +13,5 @@ deployment:
   production:
     branch: master
     commands:
-      - aws s3 sync dist "s3://erasermap.com/map"
       - ./deploy.sh static-dev.mapzen.com
       - ./deploy.sh static-prod.mapzen.com
