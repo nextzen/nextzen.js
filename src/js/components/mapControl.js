@@ -23,16 +23,16 @@ var MapControl = L.Map.extend({
   _getImagePath: function () {
     // Modified Leaflet's Image Path function
     var scripts = document.getElementsByTagName('script');
-    var leafletRe = /[\/^]mapzen[\-\._]?([\w\-\._]*)\.js\??/;
+    var mapzenRe = /[\/^]mapzen[\-\._]?([\w\-\._]*)\.js\??/;
 
     var i, len, src, matches, path;
 
     for (i = 0, len = scripts.length; i < len; i++) {
       src = scripts[i].src;
-      matches = src.match(leafletRe);
+      matches = src.match(mapzenRe);
 
       if (matches) {
-        path = src.split(leafletRe)[0];
+        path = src.split(mapzenRe)[0];
         return (path ? path + '/' : '') + 'images';
       }
     }
@@ -78,6 +78,7 @@ var MapControl = L.Map.extend({
       this._disableZoomControl();
     }
   },
+
 
   _hasWebGL: function () {
     try {
