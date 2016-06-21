@@ -1,6 +1,14 @@
 #!/bin/bash
+set -e
 
-aws s3 cp dist/mapzen.min.js s3://$1/js/0.0.0/mapzen.min.js
-aws s3 cp dist/mapzen.js s3://$1/js/0.0.0/mapzen.js
-aws s3 cp dist/mapzen.css s3://$1/js/0.0.0/mapzen.css
-aws s3 cp --recursive dist/images s3://$1/js/0.0.0/images
+BUCKET="${1}"
+VPATCH=`cut -d. -f1,2,3 VERSION`
+VMINOR=`cut -d. -f1,2 VERSION`
+VMAJOR=`cut -d. -f1 VERSION`
+
+for DIR in "js/${VPATCH}" "js/${VMINOR}" "js/${VMAJOR}" "js"; do
+    aws s3 cp dist/mapzen.min.js s3://${BUCKET}/${DIR}/mapzen.min.js
+    aws s3 cp dist/mapzen.js s3://${BUCKET}/${DIR}/mapzen.js
+    aws s3 cp dist/mapzen.css s3://${BUCKET}/${DIR}/mapzen.css
+    aws s3 cp --recursive dist/images s3://${BUCKET}/${DIR}/images
+done
