@@ -16,23 +16,26 @@ var MapControl = L.Map.extend({
       this.setView(e.latlng, this.getZoom() + 1);
     });
     this._checkConditions(false);
-    // Tangram script is being injected,
-    L.DomEvent.on(tangram.scriptEl, 'load', this._setupScene, this);
+
+    // Set up scene when Tangram script is injected
+    // If there is already Tangram object available, just set up scene.
+    if (typeof Tangram === 'undefined') L.DomEvent.on(tangram.scriptEl, 'load', this._setupScene, this);
+    else this._setupScene();
   },
 
   _getImagePath: function () {
     // Modified Leaflet's Image Path function
     var scripts = document.getElementsByTagName('script');
-    var leafletRe = /[\/^]mapzen[\-\._]?([\w\-\._]*)\.js\??/;
+    var mapzenRe = /[\/^]mapzen[\-\._]?([\w\-\._]*)\.js\??/;
 
     var i, len, src, matches, path;
 
     for (i = 0, len = scripts.length; i < len; i++) {
       src = scripts[i].src;
-      matches = src.match(leafletRe);
+      matches = src.match(mapzenRe);
 
       if (matches) {
-        path = src.split(leafletRe)[0];
+        path = src.split(mapzenRe)[0];
         return (path ? path + '/' : '') + 'images';
       }
     }

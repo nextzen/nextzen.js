@@ -24,7 +24,8 @@ var TangramScript = (function () {
   };
 
   // Start importing script as soon as Mapzen.js started
-  importScript(tangramScriptURL);
+  // When there is no Tangram object available.
+  if (typeof Tangram === 'undefined') importScript(tangramScriptURL);
   // Return script element to get onload event from
   return {
     scriptEl: oScript
