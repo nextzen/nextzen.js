@@ -22,7 +22,9 @@
         lat = 40.70531
       }
 
-      var map = L.Mapzen.map('map');
+      var map = L.Mapzen.map('map',{
+        scene: L.Mapzen.HouseStyles.Refill
+      });
 
       map.setView([lat, lon],13);
 
