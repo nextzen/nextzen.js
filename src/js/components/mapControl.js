@@ -16,8 +16,11 @@ var MapControl = L.Map.extend({
       this.setView(e.latlng, this.getZoom() + 1);
     });
     this._checkConditions(false);
-    // Tangram script is being injected,
-    L.DomEvent.on(tangram.scriptEl, 'load', this._setupScene, this);
+
+    // Set up scene when Tangram script is injected
+    // If there is already Tangram object available, just set up scene.
+    if (typeof Tangram === 'undefined') L.DomEvent.on(tangram.scriptEl, 'load', this._setupScene, this);
+    else this._setupScene();
   },
 
   _getImagePath: function () {
