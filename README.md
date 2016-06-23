@@ -115,6 +115,12 @@ Hash Options
 
 Mapzen.JS has constants for House Styles under `L.Mapzen.HouseStyels` namspace to make it easy to access to them. One usage of `L.Mapzen.HouseStyles` is passing it as 'scene' option for `L.Mapzen.map` instance.
 
+```
+var map = L.Mapzen.map('map', {
+  scene: L.Mapzen.HouseStyles.Refill
+})
+```
+
 | Constant                                  | Value                                                                                  |
 |-------------------------------------------|----------------------------------------------------------------------------------------|
 | `L.Mapzen.HouseStyles.BubbleWrap`         | `https://mapzen.com/carto/bubble-wrap-style/bubble-wrap.yaml`                          |
