@@ -22,7 +22,7 @@ The HTML below represents the minimum structure to display the map centered on N
     <div id="map"></div>
     <script>
       // Add a map to the #map DIV, and center it on New York:
-      var map = L.Mapzen.map('map', { scene: 'bubble-wrap' });
+      var map = L.Mapzen.map('map', { scene: L.Mapzen.HouseStyles.BubbleWrap });
       map.setView([40.70531, -74.009], 13);
     </script>
   </body>
