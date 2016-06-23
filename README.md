@@ -111,6 +111,29 @@ Hash Options
 | `map`      | L.Mapzen.map      | `null`  | Instance of map.      |
 | `geocoder` | L.Mapzen.geocoder | `null`  | Instance of geocoder. |
 
+### House Styles
+
+Mapzen.JS has constants for House Styles under `L.Mapzen.HouseStyles` namspace to make it easy to access to them. One usage of `L.Mapzen.HouseStyles` is passing it as 'scene' option for `L.Mapzen.map` instance.
+
+```
+var map = L.Mapzen.map('map', {
+  scene: L.Mapzen.HouseStyles.Refill
+})
+```
+
+| Constant                                  | Value                                                                                  |
+|-------------------------------------------|----------------------------------------------------------------------------------------|
+| `L.Mapzen.HouseStyles.BubbleWrap`         | `https://mapzen.com/carto/bubble-wrap-style/bubble-wrap.yaml`                          |
+| `L.Mapzen.HouseStyles.Cinnabar`           | `https://mapzen.com/carto/cinnabar-style/cinnabar-style.yaml`                          |
+| `L.Mapzen.HouseStyles.CinnabarMoreLabels` | `https://mapzen.com/carto/cinnabar-style-more-labels/cinnabar-style-more-labels.yaml`  |
+| `L.Mapzen.HouseStyles.CinnabarNoLabels`   | `https://mapzen.com/carto/cinnabar-style-no-labels/cinnabar-style-no-labels.yaml`      |
+| `L.Mapzen.HouseStyles.Refill`             | `https://mapzen.com/carto/refill-style/refill-style.yaml`                              |
+| `L.Mapzen.HouseStyles.RefillMoreLables`   | `https://mapzen.com/carto/refill-style-more-labels/refill-style-more-labels.yaml`      |
+| `L.Mapzen.HouseStyles.RefillNoLabels`     | `https://mapzen.com/carto/refill-style-no-labels/refill-style-no-labels.yaml`          |
+| `L.Mapzen.HouseStyles.Zinc`               | `https://mapzen.com/carto/zinc-style/zinc-style.yaml`                                  |
+| `L.Mapzen.HouseStyles.ZincMoreLabels`     | `https://mapzen.com/carto/zinc-style-more-labels/zinc-style-more-labels.yaml`          |
+| `L.Mapzen.HouseStyles.ZincNoLabels`       | `https://mapzen.com/carto/zinc-style-no-labels/zinc-style-no-labels.yaml`              |
+
 
 Open Source 💕
 ----
