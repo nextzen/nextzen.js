@@ -113,7 +113,7 @@ Hash Options
 
 ### House Styles
 
-Mapzen.JS has constants to make it easy to access to Mapzen House Style. These can be passed as 'scene' option for `L.Mapzen.map` instance.
+Mapzen.JS has constants for House Styles under `L.Mapzen.HouseStyels` namspace to make it easy to access to them. One usage of `L.Mapzen.HouseStyles` is passing it as 'scene' option for `L.Mapzen.map` instance.
 
 | Constant                                  | Value                                                                                  |
 |-------------------------------------------|----------------------------------------------------------------------------------------|
