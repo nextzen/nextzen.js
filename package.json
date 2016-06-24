@@ -1,6 +1,6 @@
 {
   "name": "mapzen.js",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Javascript SDK for Mapzen products",
   "main": "dist/mapzen.js",
   "directories": {
@@ -52,14 +52,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mapzen/web-map.git"
+    "url": "git+https://github.com/mapzen/mapzen.js.git"
   },
   "author": "MAPZEN",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mapzen/web-map/issues"
+    "url": "https://github.com/mapzen/mapzen.js/issues"
   },
-  "homepage": "https://github.com/mapzen/web-map#readme",
+  "homepage": "https://github.com/mapzen/mapzen.js",
   "keywords": [
     "map",
     "mapzen",
