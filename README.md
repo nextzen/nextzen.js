@@ -38,6 +38,8 @@ API
 
 ```javascript
 var map = L.Mapzen.map('map', {
+  center: [40.74429, -73.99035],
+  zoom: 15,
   scene: L.Mapzen.HouseStyles.Refill
 })
 ```
@@ -60,6 +62,7 @@ geocoder.addTo(map);
 | Option  | Type   | Default | Description                      |
 |---------|--------|---------|----------------------------------|
 | `collapsible` | boolean | `true`  | Search component automatically adjusting collapsing behaviour. |
+| `expanded` | boolean | `true`  | Search component does not collapse into a button-only state. |
 
 ### Bug (“Scarab”) Control
 
