@@ -23,6 +23,7 @@ The HTML below represents the minimum structure to display the map centered on N
     <script>
       // Add a map to the #map DIV, and center it on New York:
       var map = L.Mapzen.map('map');
+      // Set default view on New York at zoom level 13
       map.setView([40.70531, -74.009], 13);
     </script>
   </body>
