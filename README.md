@@ -23,6 +23,7 @@ The HTML below represents the minimum structure to display the map centered on N
     <script>
       // Add a map to the #map DIV, and center it on New York:
       var map = L.Mapzen.map('map');
+      // Set default view on New York at zoom level 13
       map.setView([40.70531, -74.009], 13);
     </script>
   </body>
@@ -38,6 +39,8 @@ API
 
 ```javascript
 var map = L.Mapzen.map('map', {
+  center: [40.74429, -73.99035],
+  zoom: 15,
   scene: L.Mapzen.HouseStyles.Refill
 })
 ```
@@ -60,6 +63,7 @@ geocoder.addTo(map);
 | Option  | Type   | Default | Description                      |
 |---------|--------|---------|----------------------------------|
 | `collapsible` | boolean | `true`  | Search component automatically adjusting collapsing behaviour. |
+| `expanded` | boolean | `true`  | Search component does not collapse into a button-only state. |
 
 ### Bug (“Scarab”) Control
 
