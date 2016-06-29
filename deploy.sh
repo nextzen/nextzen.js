@@ -8,7 +8,16 @@ VMAJOR=`cut -d. -f1 VERSION`
 
 if aws s3 ls "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"; then
     echo "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js already exits"
-    exit 1
+    aws s3 cp --recursive "s3://static-prod.mapzen.com/js/${VPATCH}" "live-{$VPATCH}"
+
+    for NAME in mapzen.min.js mapzen.js mapzen.css images; do
+        if diff -r "dist/${NAME}" "live-{$VPATCH}/${NAME}"; then
+            echo "No differences between dist/${NAME} and live-{$VPATCH}/${NAME}"
+        else
+            echo "Found a difference between dist/${NAME} and live-{$VPATCH}/${NAME}"
+            exit 1
+        fi
+    done
 fi
 
 for DIR in "js/${VPATCH}" "js/${VMINOR}" "js/${VMAJOR}" "js"; do
