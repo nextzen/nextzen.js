@@ -6,6 +6,8 @@ VPATCH=`cut -d. -f1,2,3 VERSION`
 VMINOR=`cut -d. -f1,2 VERSION`
 VMAJOR=`cut -d. -f1 VERSION`
 
+echo ' /* whatever */ ' >> dist/mapzen.css
+
 if aws s3 ls "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"; then
     echo "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js already exits, checking diffs..."
     aws s3 cp --recursive --quiet "s3://static-prod.mapzen.com/js/${VPATCH}" "live-${VPATCH}"
