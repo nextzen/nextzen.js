@@ -6,6 +6,11 @@ VPATCH=`cut -d. -f1,2,3 VERSION`
 VMINOR=`cut -d. -f1,2 VERSION`
 VMAJOR=`cut -d. -f1 VERSION`
 
+if aws s3 ls "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"; then
+    echo "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js already exits"
+    exit 1
+fi
+
 for DIR in "js/${VPATCH}" "js/${VMINOR}" "js/${VMAJOR}" "js"; do
     aws s3 cp dist/mapzen.min.js s3://${BUCKET}/${DIR}/mapzen.min.js
     aws s3 cp dist/mapzen.js s3://${BUCKET}/${DIR}/mapzen.js
