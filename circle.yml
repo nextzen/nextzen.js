@@ -10,10 +10,6 @@ test:
     - npm run build
 
 deployment:
-  staging:
-    branch: 175-migurski-test-s3-clobbering
-    commands:
-      - ./deploy.sh static-dev.mapzen.com
   production:
     branch: master
     commands:
