@@ -49,7 +49,7 @@ Map Options
 
 | Option  | Type   | Default                           | Description                                                   |
 |---------|--------|-----------------------------------|---------------------------------------------------------------|
-| `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. `scene` can also be a URL to pointing to any `.yaml` Tangram scene file |
+| `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
 
 
 ### Geocoder Control
