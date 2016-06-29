@@ -56,7 +56,7 @@ Map Options
 `L.Mapzen.geocoder` adds a Mapzen Geocoder component to the map. [Create a Mapzen Search API key](https://mapzen.com/developers) to use the geocoder. Its default behaviour is customized to be easily used in demo. You can check more options for Mapzen Leaflet Geocoder on [its page](https://github.com/mapzen/leaflet-geocoder).
 
 ```javascript
-var geocoder = L.Mapzen.geocoder(search_api_key);
+var geocoder = L.Mapzen.geocoder('search-api-key');
 geocoder.addTo(map);
 ```
 
