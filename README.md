@@ -15,8 +15,8 @@ The HTML below represents the minimum structure to display the map centered on N
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="https://mapzen.com/js/0.0.0/mapzen.css">
-    <script src="https://mapzen.com/js/0.0.0/mapzen.min.js"></script>
+    <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+    <script src="https://mapzen.com/js/mapzen.min.js"></script>
   </head>
   <body>
     <div id="map"></div>
@@ -49,14 +49,15 @@ Map Options
 
 | Option  | Type   | Default                           | Description                                                   |
 |---------|--------|-----------------------------------|---------------------------------------------------------------|
-| `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. |
+| `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
+
 
 ### Geocoder Control
 
 `L.Mapzen.geocoder` adds a Mapzen Geocoder component to the map. [Create a Mapzen Search API key](https://mapzen.com/developers) to use the geocoder. Its default behaviour is customized to be easily used in demo. You can check more options for Mapzen Leaflet Geocoder on [its page](https://github.com/mapzen/leaflet-geocoder).
 
 ```javascript
-var geocoder = L.Mapzen.geocoder(search_api_key);
+var geocoder = L.Mapzen.geocoder('search-api-key');
 geocoder.addTo(map);
 ```
 
