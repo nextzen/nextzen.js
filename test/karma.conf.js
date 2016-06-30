@@ -28,9 +28,14 @@ module.exports = function (config) {
       'karma-phantomjs-launcher',
       'karma-browserstack-launcher'
     ],
-
     // list of files to exclude
     exclude: [],
+
+    client: {
+      mocha: {
+        timeout : 5000 // 5 seconds - upped from default 2 seconds
+      }
+    },
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
