@@ -7,11 +7,10 @@ var MapControl = L.Map.extend({
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
-
     // Adding Mapzen attribuition to Leaflet
     if (this.attributionControl) {
       this.attributionControl.setPrefix('');
-      this.attributionControl.addAttribution('Powered by <a href="https://mapzen.com">Mapzen</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors');
+      this.attributionControl.addAttribution('Powered by <a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data © <a href="https://openstreetmap.org/copyright">OSM</a>contributors');
       this.attributionControl.addAttribution('<a href="http://leafletjs.com/">Leaflet</a>');
     }
     // Set Icon path manually
