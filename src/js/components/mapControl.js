@@ -7,6 +7,13 @@ var MapControl = L.Map.extend({
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
+
+    // Adding Mapzen attribuition to Leaflet
+    if (this.attributionControl) {
+      this.attributionControl.setPrefix('');
+      this.attributionControl.addAttribution('Powered by <a href="https://mapzen.com">Mapzen</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors');
+      this.attributionControl.addAttribution('<a href="http://leafletjs.com/">Leaflet</a>');
+    }
     // Set Icon path manually
     L.Icon.Default.imagePath = this._getImagePath();
 
@@ -46,8 +53,7 @@ var MapControl = L.Map.extend({
       console.log('given scene:', this.options.scene);
       console.log('using scene:', (this.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
       Tangram.leafletLayer({
-        scene: (this.options.scene || L.Mapzen.HouseStyles.BubbleWrap),
-        attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+        scene: (this.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
       }).addTo(this);
     } else {
       // When WebGL is not avilable
