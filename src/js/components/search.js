@@ -23,7 +23,6 @@ var Geocoder = L.Control.extend({
 
   options: {
     position: 'topleft',
-    attribution: 'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>',
     url: 'https://search.mapzen.com/v1',
     placeholder: 'Search',
     title: 'Search',
@@ -889,9 +888,6 @@ var Geocoder = L.Control.extend({
     L.DomEvent.on(this._map, 'touchstart', this._onMapInteraction, this);
 
     L.DomEvent.disableClickPropagation(this._container);
-    if (map.attributionControl) {
-      map.attributionControl.addAttribution(this.options.attribution);
-    }
     return container;
   },
 
@@ -929,10 +925,6 @@ var Geocoder = L.Control.extend({
       }
     }
     previousWidth = width;
-  },
-
-  onRemove: function (map) {
-    map.attributionControl.removeAttribution(this.options.attribution);
   }
 });
 
