@@ -35,7 +35,9 @@ API
 
 ### Map
 
-`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Whene there is no scene file declared, You would need to set your own tile to display the map.
+`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. When there is no scene file declared, `L.Mapzen.Housestyle.BubbleWrap` becomes the scene.
+
+Please mind that the center and the zoom level of the map need to be set to see the map.
 
 ```javascript
 var map = L.Mapzen.map('map', {
@@ -50,7 +52,7 @@ Map Options
 | Option  | Type   | Default                           | Description                                                   |
 |---------|--------|-----------------------------------|---------------------------------------------------------------|
 | `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
-
+| `attributionText` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution text.  |
 
 ### Geocoder Control
 
