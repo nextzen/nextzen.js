@@ -1,6 +1,6 @@
 'use strict';
 var L = require('leaflet');
-var tangram = require('./tangram');
+var TangramLayer = require('./tangram');
 
 var MapControl = L.Map.extend({
   options: {
@@ -8,7 +8,16 @@ var MapControl = L.Map.extend({
   },
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
+    // Inject Tangram script right away
+    // var tangramLayer = new TangramControl({
+    //   scene: this.options.scene
+    // });
+
+
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
+
+    var tangramLayer = TangramLayer.addTo(this, this.options);
+
     // Adding Mapzen attribution to Leaflet
     if (this.attributionControl) {
       this.attributionControl.setPrefix('');
@@ -24,11 +33,6 @@ var MapControl = L.Map.extend({
       this.setView(e.latlng, this.getZoom() + 1);
     });
     this._checkConditions(false);
-
-    // Set up scene when Tangram script is injected
-    // If there is already Tangram object available, just set up scene.
-    if (typeof Tangram === 'undefined') L.DomEvent.on(tangram.scriptEl, 'load', this._setupScene, this);
-    else this._setupScene();
   },
 
   _getImagePath: function () {
@@ -46,22 +50,6 @@ var MapControl = L.Map.extend({
         path = src.split(mapzenRe)[0];
         return (path ? path + '/' : '') + 'images';
       }
-    }
-  },
-
-  _setupScene: function () {
-    if (this._hasWebGL()) {
-      console.log('given scene:', this.options.scene);
-      console.log('using scene:', (this.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
-      Tangram.leafletLayer({
-        scene: (this.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
-      }).addTo(this);
-    } else {
-      // When WebGL is not avilable
-      console.log('WebGL is not available, falling back to OSM default tile.');
-      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-      }).addTo(this);
     }
   },
 
@@ -86,15 +74,6 @@ var MapControl = L.Map.extend({
     // need to add more check to detect touch device
     if ('ontouchstart' in window) {
       this._disableZoomControl();
-    }
-  },
-
-  _hasWebGL: function () {
-    try {
-      var canvas = document.createElement('canvas');
-      return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-    } catch (x) {
-      return false;
     }
   },
 
