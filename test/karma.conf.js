@@ -18,7 +18,8 @@ module.exports = function (config) {
       'node_modules/expect.js/index.js',
       'node_modules/happen/happen.js',
       'dist/mapzen.js',
-      'test/spec/*.js',
+      'test/spec/mapControl.js',
+      'test/spec/hash.js'
     ],
 
     plugins: [
