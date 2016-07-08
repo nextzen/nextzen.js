@@ -34,7 +34,7 @@ module.exports = function (config) {
 
     client: {
       mocha: {
-        timeout : 5000 // 5 seconds - upped from default 2 seconds
+        timeout: 5000 // 5 seconds - upped from default 2 seconds
       }
     },
 
