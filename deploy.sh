@@ -14,10 +14,12 @@ if aws s3 ls "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"; then
         if diff -rq "dist/${NAME}" "live-${VPATCH}/${NAME}"; then
             echo "No differences between dist/${NAME} and live-${VPATCH}/${NAME}"
         else
-            echo "Found a difference between dist/${NAME} and live-${VPATCH}/${NAME}"
-            exit 1
+            echo "Refusing to deploy due to a difference between dist/${NAME} and live-${VPATCH}/${NAME}"
+            exit 0
         fi
     done
+else
+    echo "Nothing found at s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"
 fi
 
 for DIR in "js/${VPATCH}" "js/${VMINOR}" "js/${VMAJOR}" "js"; do
