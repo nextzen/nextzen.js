@@ -19,7 +19,9 @@ describe('Map Hash Test', function () {
 
   describe('Hash Working', function () {
     it('checks that hash for coord is working', function () {
-      var map = L.Mapzen.map(el);
+      var map = L.Mapzen.map(el,{
+        _useTangram: false
+      });
       map.setView([51.505, -0.09], 13);
       L.Mapzen.hash({
         map: map

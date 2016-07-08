@@ -18,7 +18,8 @@ module.exports = function (config) {
       'node_modules/expect.js/index.js',
       'node_modules/happen/happen.js',
       'dist/mapzen.js',
-      'test/spec/*.js',
+      'test/spec/mapControl.js',
+      'test/spec/hash.js'
     ],
 
     plugins: [
@@ -33,7 +34,7 @@ module.exports = function (config) {
 
     client: {
       mocha: {
-        timeout : 5000 // 5 seconds - upped from default 2 seconds
+        timeout: 5000 // 5 seconds - upped from default 2 seconds
       }
     },
 

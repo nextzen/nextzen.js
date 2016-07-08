@@ -13,10 +13,18 @@ describe('Map Control Test', function () {
 
   describe('Tangram check', function () {
     it('checks default style is set.', function (done) {
+      var _hasWebGL = function() {
+        try {
+          var canvas = document.createElement('canvas');
+          return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+        } catch (x) {
+          return false;
+        }
+      }
+      var thisMap = L.Mapzen.map(el);
       // Give time to load Tangram script
       setTimeout(function () {
-        var thisMap = L.Mapzen.map(el);
-        if (thisMap._hasWebGL()) {
+        if (_hasWebGL()) {
           thisMap.eachLayer(function (layer) {
             if (layer.scene) done();
           });
