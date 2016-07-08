@@ -30,7 +30,6 @@ var TangramLayer = (function () {
         return window.setTimeout(this.addTo.bind(this, map), 100);
       } else {
         if (this._hasWebGL()) {
-          console.log(map);
           console.log('given scene:', map.options.scene);
           console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
           Tangram.leafletLayer({
