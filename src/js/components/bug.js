@@ -12,8 +12,8 @@ var MapzenBug = (function () {
   'use strict'
 
   var DEFAULT_LINK = window.location.href
-  var DEFAULT_GITHUB_LINK = 'https://github.com/mapzen/'
-  var TRACKING_CATEGORY = 'demo'
+  var DEFAULT_GITHUB_LINK = 'https://github.com/mapzen/mapzen.js'
+  var TRACKING_CATEGORY = 'mapzen.js scarab'
   var ANALYTICS_PROPERTY_ID = 'UA-47035811-1'
 
   // Globals
