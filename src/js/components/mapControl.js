@@ -5,14 +5,14 @@ var TangramLayer = require('./tangram');
 var MapControl = L.Map.extend({
   options: {
     attributionText: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
-    useTangram: true
+    _useTangram: true
   },
 
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
 
-    if (this.options.useTangram) {
+    if (this.options._useTangram) {
       var tangramLayer = TangramLayer.init();
       tangramLayer.addTo(this);
     }
