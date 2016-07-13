@@ -1,2 +1,7 @@
+2016-07-13: 0.1.2
+- Fixed Body margin clobbering in CSS.
+- Updated attribution details.
+- Fixed Tangram usage.
+
 2016-07-08: 0.1.1
 - Edited attribution data.
