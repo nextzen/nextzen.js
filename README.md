@@ -3,8 +3,21 @@ MapzenJS
 
 Mapzen.js acts as a focal point for ad hoc demo needs throughout Mapzen.
 
+You can use MapzenJS through cdn.
+
+```
+<!-- style sheet for mapzen.js -->
+<link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+
+<!-- latest version of mapzen.js-->
+<script src="https://mapzen.com/js/mapzen.js"></script>
+
+<!-- latest minified version of mapzen.js -->
+<script src="https://mapzen.com/js/mapzen.min.js"></script>
+```
+
 ### Leaflet Plugin
-Mapzen JS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS. You can check more details at [API](./#API) section.
+MapzenJS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS. You can check more details at [API](./#API) section.
 
 Getting Started
 ----
