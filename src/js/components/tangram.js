@@ -39,17 +39,15 @@ var TangramLayer = (function () {
             return layer;
           }
         } else {
-          if(option.fallbackTile) {
+          if(map.options.fallbackTile) {
             console.log('WebGL is not available, falling back to fallbackTile option.');
-            L.tileLayer(fallbackTile.url, {
-              attribution: fallbackTile.attribution
+            L.tileLayer(map.options.fallbackTile.url, {
+              attribution: map.options.fallbackTile.attribution
             }).addTo(map);
           } else {
           // When WebGL is not avilable
             console.log('WebGL is not available, falling back to OSM default tile.');
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-              attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-            }).addTo(map);
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
           }
         }
     },
