@@ -18,6 +18,18 @@ The HTML below represents the minimum structure to display the map centered on N
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
   </head>
   <body>
