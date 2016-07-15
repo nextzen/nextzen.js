@@ -33,16 +33,24 @@ var TangramLayer = (function () {
           } else {
             console.log('given scene:', map.options.scene);
             console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
-            Tangram.leafletLayer({
+            var layer = Tangram.leafletLayer({
               scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
             }).addTo(map);
+            return layer;
           }
         } else {
+          if(option.fallbackTile) {
+            console.log('WebGL is not available, falling back to fallbackTile option.');
+            L.tileLayer(fallbackTile.url, {
+              attribution: fallbackTile.attribution
+            }).addTo(map);
+          } else {
           // When WebGL is not avilable
-          console.log('WebGL is not available, falling back to OSM default tile.');
-          L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-          }).addTo(map);
+            console.log('WebGL is not available, falling back to OSM default tile.');
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+            }).addTo(map);
+          }
         }
     },
 

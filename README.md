@@ -50,7 +50,7 @@ Map Options
 | Option  | Type   | Default                           | Description                                                   |
 |---------|--------|-----------------------------------|---------------------------------------------------------------|
 | `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
-
+| `fallBackTile` | object | `{url:'http://{s}.tile.osm.org/{z}/{x}/{y}.png', attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>' }` | Tile to fall back when WebGL is not available. |
 
 ### Geocoder Control
 
