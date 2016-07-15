@@ -52,7 +52,7 @@ Map Options
 
 | `attribution` | Object | `{url:'http://{s}.tile.osm.org/{z}/{x}/{y}.png', attribution: '' }` | Tile to fall back when WebGL is not available. |
 | `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
-| `fallBackTile` | [L.tileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | Tilelayer to fall back when WebGL is not available. |
+| `fallBackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | Tilelayer to fall back when WebGL is not available. |
 
 ### Geocoder Control
 
