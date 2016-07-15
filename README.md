@@ -1,6 +1,8 @@
 MapzenJS
 ====
 
+Mapzen.js acts as a focal point for ad hoc demo needs throughout Mapzen.
+
 ### Leaflet Plugin
 Mapzen JS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS. You can check more details at [API](./#API) section.
 
