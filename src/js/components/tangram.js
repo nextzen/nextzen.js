@@ -41,9 +41,7 @@ var TangramLayer = (function () {
         } else {
           if(map.options.fallbackTile) {
             console.log('WebGL is not available, falling back to fallbackTile option.');
-            L.tileLayer(map.options.fallbackTile.url, {
-              attribution: map.options.fallbackTile.attribution
-            }).addTo(map);
+            map.options.fallbackTile.addTo(map);
           } else {
           // When WebGL is not avilable
             console.log('WebGL is not available, falling back to OSM default tile.');
