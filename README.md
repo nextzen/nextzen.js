@@ -17,6 +17,8 @@ The HTML below represents the minimum structure to display the map centered on N
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
+    <style>
+    </style>
   </head>
   <body>
     <div id="map"></div>
@@ -50,7 +52,7 @@ Map Options
 | Option  | Type   | Default                           | Description                                                   |
 |---------|--------|-----------------------------------|---------------------------------------------------------------|
 | `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
-| `fallBackTile` | object | `{url:'http://{s}.tile.osm.org/{z}/{x}/{y}.png', attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>' }` | Tile to fall back when WebGL is not available. |
+| `fallBackTile` | Object | `{url:'http://{s}.tile.osm.org/{z}/{x}/{y}.png', attribution: '' }` | Tile to fall back when WebGL is not available. |
 
 ### Geocoder Control
 
