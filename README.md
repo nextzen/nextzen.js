@@ -49,10 +49,9 @@ Map Options
 
 | Option  | Type   | Default                           | Description                                                   |
 |---------|--------|-----------------------------------|---------------------------------------------------------------|
-
-| `attribution` | Object | `{url:'http://{s}.tile.osm.org/{z}/{x}/{y}.png', attribution: '' }` | Tile to fall back when WebGL is not available. |
 | `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
 | `fallBackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | Tilelayer to fall back when WebGL is not available. |
+| `attributionText` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box, which displayes before `Leaflet` attribution |
 
 ### Geocoder Control
 
