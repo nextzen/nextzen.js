@@ -1,8 +1,23 @@
 MapzenJS
 ====
 
+Mapzen.js acts as a focal point for ad hoc demo needs throughout Mapzen.
+
+You can use MapzenJS through cdn.
+
+```
+<!-- style sheet for mapzen.js -->
+<link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+
+<!-- latest version of mapzen.js-->
+<script src="https://mapzen.com/js/mapzen.js"></script>
+
+<!-- latest minified version of mapzen.js -->
+<script src="https://mapzen.com/js/mapzen.min.js"></script>
+```
+
 ### Leaflet Plugin
-Mapzen JS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS. You can check more details at [API](./#API) section.
+MapzenJS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS. You can check more details at [API](./#API) section.
 
 Getting Started
 ----
@@ -17,6 +32,18 @@ The HTML below represents the minimum structure to display the map centered on N
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Link to mapzen.js script and stylesheets: -->
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
     <style lang="text/css">
       /* Fill the entire page with a map: */
