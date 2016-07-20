@@ -17,7 +17,7 @@ You can use MapzenJS through cdn.
 ```
 
 ### Leaflet Plugin
-MapzenJS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to Leaflet API through MapzenJS. You can check more details at [API](./#API) section.
+MapzenJS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to the Leaflet API through MapzenJS. More details are in the API section.
 
 Getting Started
 ----
@@ -48,7 +48,7 @@ The HTML below represents the minimum structure to display the map centered on N
     <style lang="text/css">
       /* Fill the entire page with a map: */
       html, body { margin: 0; padding: 0 }
-      html, body, #map { width: 100%; height: 100% }
+      html, body, #map { width: 100%; height: 100%;}
     </style>
   </head>
   <body>
@@ -68,7 +68,7 @@ API
 
 ### Map
 
-`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Whene there is no scene file declared, You would need to set your own tile to display the map.
+`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Otherwise, the default scene is the [Bubble Wrap](https://mapzen.com/blog/bubble-wrap-carto/) style. 
 
 ```javascript
 var map = L.Mapzen.map('map', {
@@ -88,7 +88,7 @@ Map Options
 
 ### Geocoder Control
 
-`L.Mapzen.geocoder` adds a Mapzen Geocoder component to the map. [Create a Mapzen Search API key](https://mapzen.com/developers) to use the geocoder. Its default behaviour is customized to be easily used in demo. You can check more options for Mapzen Leaflet Geocoder on [its page](https://github.com/mapzen/leaflet-geocoder).
+`L.Mapzen.geocoder` adds a Mapzen Search component to the map. [Create a Mapzen Search API key](https://mapzen.com/developers) to use the geocoder. Its default behaviour is customized to be easily used in demo. You can check more options for Mapzen Leaflet Geocoder on [its page](https://github.com/mapzen/leaflet-geocoder).
 
 ```javascript
 var geocoder = L.Mapzen.geocoder('search-api-key');
@@ -135,7 +135,7 @@ locator.addTo(map);
 
 ### Hash Control
 
-`L.Mapzen.hash` adds a URL hash to a map, so that the user can link to map location and state. The Hash function accepts components whose state can be linked.
+`L.Mapzen.hash` adds a URL hash to a map, so that the user can link to map location and state. The hash function accepts components whose state can be linked.
 
 ```javascript
 L.Mapzen.hash({
@@ -152,7 +152,7 @@ Hash Options
 
 ### House Styles
 
-Mapzen.JS has constants for House Styles under `L.Mapzen.HouseStyles` namspace to make it easy to access to them. One usage of `L.Mapzen.HouseStyles` is passing it as 'scene' option for `L.Mapzen.map` instance.
+Mapzen.JS has constants for House Styles under `L.Mapzen.HouseStyles` namespace for easy access. A usage of `L.Mapzen.HouseStyles` is passing it as 'scene' option for `L.Mapzen.map` instance.
 
 ```
 var map = L.Mapzen.map('map', {
@@ -177,11 +177,11 @@ var map = L.Mapzen.map('map', {
 Open Source 💕
 ----
 
-MapzenJS is made from awesome open source projects.
+MapzenJS is made from awesome open source projects:
 
 - [Leaflet](http://leafletjs.com/)
 - [Leaflet Locate Control](https://github.com/domoritz/leaflet-locatecontrol)
-- [Mapzen Leaflet Geocoder](https://github.com/mapzen/leaflet-geocoder)
 - [Mapzen Bug](https://github.com/mapzen/scarab/tree/master/src/components/bug)
+- [Mapzen Leaflet Geocoder](https://github.com/mapzen/leaflet-geocoder)
 
 [Build MapzenJS locally using `npm`](BUILD.md).
