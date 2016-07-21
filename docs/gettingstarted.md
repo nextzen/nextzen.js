@@ -13,10 +13,10 @@ To get started using Mapzen.js, you need to link to the CSS and one of the JS fi
 <script src="https://mapzen.com/js/mapzen.min.js"></script>
 ```
 
-### Create a Simple Web Map using Mapzen.js
+## Create a Simple Web Map using Mapzen.js
 In this walkthrough, you will learn how to create a simple web map using Mapzen.js. You should have some familiarity with HTML/CSS and JavaScript, but the source code is provided. Any operating system or text editor will work, but you will need an internet connection while you are working.
 
-## Create an index page
+### Create an index page
 
 To get started making your map, you will need to use a text editor to update the HTML.
 
@@ -62,7 +62,7 @@ Your HTML should look like this:
 </html>
 ```
 
-## Add references to CSS and JavaScript files
+### Add references to CSS and JavaScript files
 
 A cascading style sheet (CSS) is used to style a webpage, including layout and fonts, and JavaScript adds functionality to the page. In your `index.html` file, you need to list the CSS and JavaScript files.
 
@@ -91,7 +91,7 @@ After adding these, your index.html file should look something like this.
 </html>
 ```
 
-## Add a map to the page
+### Add a map to the page
 
 To display a Leaflet map on a page, you need a `<div>` element, which is a container on the page that groups elements, with an ID value. If you want to know more about initializing a Leaflet map, see the [Leaflet getting started documentation](http://leafletjs.com/examples/quick-start.html).
 
