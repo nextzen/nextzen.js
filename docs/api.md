@@ -88,7 +88,7 @@ Hash Options
 
 ### House Styles
 
-Mapzen.JS has constants for House Styles under `L.Mapzen.HouseStyles` namspace to make it easy to access to them. One usage of `L.Mapzen.HouseStyles` is passing it as 'scene' option for `L.Mapzen.map` instance.
+Mapzen.JS has constants for [House Style]() basemaps under `L.Mapzen.HouseStyles` namspace to make it easy to access to them. One usage of `L.Mapzen.HouseStyles` is passing it as 'scene' option for `L.Mapzen.map` instance.
 
 ```
 var map = L.Mapzen.map('map', {
