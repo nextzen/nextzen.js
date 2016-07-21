@@ -1,7 +1,133 @@
 Getting Started
 ----
+To get started using Mapzen.js, you need to link to the CSS and one of the JS files in the <head> section. We provided an option between the original JavaScript file or the minified version, which is a compressed file that improves performance.
 
-The HTML below represents the minimum structure to display the map centered on NYC with [bubble-wrap](https://github.com/tangrams/bubble-wrap) style. 
+```html
+<!-- style sheet for mapzen.js -->
+<link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+
+<!-- latest version of mapzen.js-->
+<script src="https://mapzen.com/js/mapzen.js"></script>
+
+<!-- latest minified version of mapzen.js -->
+<script src="https://mapzen.com/js/mapzen.min.js"></script>
+```
+
+### Create a Simple Web Map using Mapzen.js
+In this walkthrough, you will learn how to create a simple web map using Mapzen.js. You should have some familiarity with HTML/CSS and JavaScript, but the source code is provided. Any operating system or text editor will work, but you will need an internet connection while you are working.
+
+## Create an index page
+
+To get started making your map, you will need to use a text editor to update the HTML.
+
+Suggested text editor applications include [Atom - OS X, Windows, Linux](https://atom.io/); [Notepad++ - Windows](https://notepad-plus-plus.org/); [TextWrangler - OS X](http://www.barebones.com/products/textwrangler/); and  [Sublime - OS X, Windows, Linux; free trial](http://www.sublimetext.com/). While you can use the apps installed with your operating system, such as Notepad or TextEdit, they do not provide the helpful indentations, code coloring and autocomplete, or text alignment options found in the other editors. For TextEdit, you must go to the Format menu and click Make Plain Text to use the plain-text version of the file. Do not use an app that applies rich formatting, such as Word or Wordpad.
+
+The end of the page has a finished version of the HTML that you can use to check your work or review if you need to troubleshoot an error.
+
+1. Start your text editor with a blank document and copy and paste the following HTML. (Note: If the text editor you are using requires you to name and save a document at the time when it is first created, call the file `index.html`.)
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+    <head>
+    </head>
+    <body>
+    </body>
+    </html>
+    ```
+
+    These form the basic structure of an HTML document. `<!DOCTYPE html>` goes at the top of every HTML page and indicates that it is written for HTML5, and the `<html>` tags tell your browser that the content is HTML. The `<head>` tag contains the title for the page and other metadata about the page, while the `<body>` is where you add the code and the rest of the content on your page. There are many [web tutorials](http://www.w3schools.com/html/default.asp) available to help you experiment with and learn more about HTML documents and the tags in them.
+
+2. In the `<head>` tag, add a title, such as `<title>Simple Web Map</title>`.
+3. On the next line, add a metadata tag so you can properly display diacritics and characters from different languages.
+
+    ```html
+    <meta charset="utf-8">
+    ```
+
+4. Name your the document `index.html` (where the file name is `index` and the type is `.html`) and save it.
+5. Drag your index.html file onto a web browser tab. It should show your title, `Simple Web Map`, but the web page canvas will be blank.
+
+Your HTML should look like this:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Web Map</title>
+  <meta charset="utf-8">
+</head>
+<body>
+</body>
+</html>
+```
+
+## Add references to CSS and JavaScript files
+
+A cascading style sheet (CSS) is used to style a webpage, including layout and fonts, and JavaScript adds functionality to the page. In your `index.html` file, you need to list the CSS and JavaScript files.
+
+1. In `index.html`, at the bottom of the `<head>` section, add references to the Mapzen.js CSS and JavaScript files. You are linking to these from a remote website, rather than from a file on your machine.
+
+    ```html
+    <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+    <script src="https://mapzen.com/js/mapzen.min.js"></script>
+    ```
+
+2. Save your edits and refresh the browser. The webpage should still appear empty because you have not added any code to interact with these references.
+
+After adding these, your index.html file should look something like this.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>My Geocoding Map</title>
+  <meta charset="utf-8">
+    <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+    <script src="https://mapzen.com/js/mapzen.min.js"></script>
+</head>
+<body>
+</body>
+</html>
+```
+
+## Add a map to the page
+
+To display a Leaflet map on a page, you need a `<div>` element, which is a container on the page that groups elements, with an ID value. If you want to know more about initializing a Leaflet map, see the [Leaflet getting started documentation](http://leafletjs.com/examples/quick-start.html).
+
+1. At the bottom of the `<head>` section, after the references you added in the earlier steps, add a `<style>` tag and the following attributes to set the size of the map on your webpage.
+
+    ```html
+    <style>
+      #map {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+      html,body{margin: 0; padding: 0}
+    </style>
+    ```
+
+2. At the top of the `<body>` section, add the `<div>`.
+
+    ```html
+    <div id="map"></div>
+    ```
+
+3. Directly after the `<div>`, add this JavaScript code within a `<script>` tag to initialize a map.
+
+    ```html
+    <script>
+      // Add a map to the 'map' div
+      var map = L.Mapzen.map('map');
+      // Set the center of the map to be the San Francisco Bay Area at zoom level 12
+      map.setView([37.7749, -122.4194], 12);
+    </script>
+    ```
+
+4. Save your edits and refresh the browser.
+
+Your index.html should look something like this:
 
 ```html
 <!DOCTYPE html>
@@ -9,35 +135,27 @@ The HTML below represents the minimum structure to display the map centered on N
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!-- Link to mapzen.js script and stylesheets: -->
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
-    <style>
-      html, body {
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-      }
-      #map {
-        width: 100%;
-        height: 100%;
-      }
-    </style>
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
-    <style lang="text/css">
-      /* Fill the entire page with a map: */
-      html, body { margin: 0; padding: 0 }
-      html, body, #map { width: 100%; height: 100% }
-    </style>
+
+    <style>
+      #map {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+    html,body{margin: 0; padding: 0}
+  </style>
+
   </head>
   <body>
     <div id="map"></div>
     <script>
-      // Add a map to the #map DIV, and center it on New York:
       var map = L.Mapzen.map('map');
-      // Set default view on New York at zoom level 13
-      map.setView([40.70531, -74.009], 13);
+      map.setView([37.7749, -122.4194], 12);
     </script>
   </body>
 </html>
 ```
+
+At this point, you have a map! You should see a map, zoom controls, and attribution in the bottom corner.
