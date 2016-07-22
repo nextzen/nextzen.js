@@ -1,74 +1,10 @@
-MapzenJS
-====
+# API reference
 
-Mapzen.js acts as a focal point for ad hoc demo needs throughout Mapzen.
-
-You can use MapzenJS through cdn.
-
-```
-<!-- style sheet for mapzen.js -->
-<link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
-
-<!-- latest version of mapzen.js-->
-<script src="https://mapzen.com/js/mapzen.js"></script>
-
-<!-- latest minified version of mapzen.js -->
-<script src="https://mapzen.com/js/mapzen.min.js"></script>
-```
-
-### Leaflet Plugin
-MapzenJS is written as an extension of [Leaflet](http://leafletjs.com/), which means you have full access to the Leaflet API through MapzenJS. More details are in the API section.
-
-Getting Started
-----
-
-The HTML below represents the minimum structure to display the map centered on NYC with [bubble-wrap](https://github.com/tangrams/bubble-wrap) style.
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!-- Link to mapzen.js script and stylesheets: -->
-    <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
-    <style>
-      html, body {
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-      }
-      #map {
-        width: 100%;
-        height: 100%;
-      }
-    </style>
-    <script src="https://mapzen.com/js/mapzen.min.js"></script>
-    <style lang="text/css">
-      /* Fill the entire page with a map: */
-      html, body { margin: 0; padding: 0 }
-      html, body, #map { width: 100%; height: 100%;}
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script>
-      // Add a map to the #map DIV, and center it on New York:
-      var map = L.Mapzen.map('map');
-      // Set default view on New York at zoom level 13
-      map.setView([40.70531, -74.009], 13);
-    </script>
-  </body>
-</html>
-```
-
-API
----
+Mapzen.js is an open-source web API and an extension of [Leaflet](http://leafletjs.com/). This API offers the full extent of the Leaflet library with additional functions to make using Mapzen tools as simple as possible. With Mapzen.js you can add [Mapzen House Styles]() as a basemap, build a customizable geocoder with [Mapzen Search](https://mapzen.com/products/search/), and can create fragment URLs to be able to share the exact map instance with someone.
 
 ### Map
 
-`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Otherwise, the default scene is the [Bubble Wrap](https://mapzen.com/blog/bubble-wrap-carto/) style. 
+`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Whene there is no scene file declared, You would need to set your own tile to display the map.
 
 ```javascript
 var map = L.Mapzen.map('map', {
@@ -88,7 +24,7 @@ Map Options
 
 ### Geocoder Control
 
-`L.Mapzen.geocoder` adds a Mapzen Search component to the map. [Create a Mapzen Search API key](https://mapzen.com/developers) to use the geocoder. Its default behaviour is customized to be easily used in demo. You can check more options for Mapzen Leaflet Geocoder on [its page](https://github.com/mapzen/leaflet-geocoder).
+`L.Mapzen.geocoder` adds a Mapzen Geocoder component to the map. [Create a Mapzen Search API key](https://mapzen.com/developers) to use the geocoder. Its default behaviour is customized to be easily used in demo. You can check more options for Mapzen Leaflet Geocoder on [its page](https://github.com/mapzen/leaflet-geocoder).
 
 ```javascript
 var geocoder = L.Mapzen.geocoder('search-api-key');
@@ -135,7 +71,7 @@ locator.addTo(map);
 
 ### Hash Control
 
-`L.Mapzen.hash` adds a URL hash to a map, so that the user can link to map location and state. The hash function accepts components whose state can be linked.
+`L.Mapzen.hash` adds a URL hash to a map, so that the user can link to map location and state. The Hash function accepts components whose state can be linked.
 
 ```javascript
 L.Mapzen.hash({
@@ -152,7 +88,7 @@ Hash Options
 
 ### House Styles
 
-Mapzen.JS has constants for House Styles under `L.Mapzen.HouseStyles` namespace for easy access. A usage of `L.Mapzen.HouseStyles` is passing it as 'scene' option for `L.Mapzen.map` instance.
+Mapzen.JS has constants for [House Style]() basemaps under `L.Mapzen.HouseStyles` namspace to make it easy to access to them. One usage of `L.Mapzen.HouseStyles` is passing it as 'scene' option for `L.Mapzen.map` instance.
 
 ```
 var map = L.Mapzen.map('map', {
@@ -172,16 +108,3 @@ var map = L.Mapzen.map('map', {
 | `L.Mapzen.HouseStyles.Zinc`               | `https://mapzen.com/carto/zinc-style/zinc-style.yaml`                                  |
 | `L.Mapzen.HouseStyles.ZincMoreLabels`     | `https://mapzen.com/carto/zinc-style-more-labels/zinc-style-more-labels.yaml`          |
 | `L.Mapzen.HouseStyles.ZincNoLabels`       | `https://mapzen.com/carto/zinc-style-no-labels/zinc-style-no-labels.yaml`              |
-
-
-Open Source 💕
-----
-
-MapzenJS is made from awesome open source projects:
-
-- [Leaflet](http://leafletjs.com/)
-- [Leaflet Locate Control](https://github.com/domoritz/leaflet-locatecontrol)
-- [Mapzen Bug](https://github.com/mapzen/scarab/tree/master/src/components/bug)
-- [Mapzen Leaflet Geocoder](https://github.com/mapzen/leaflet-geocoder)
-
-[Build MapzenJS locally using `npm`](BUILD.md).
