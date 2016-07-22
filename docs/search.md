@@ -1,5 +1,5 @@
-Add Mapzen Search to a map
----
+# Add Mapzen Search to a map
+
 Mapzen.js offers a simple geocoder plugin for a web map. To use this part of Mapzen.js, you will need to sign up for a [Mapzen Search API key](https://mapzen.com/developers). The geocoder's default behavior is customized for demonstration purposes, but can be customized with the options below.
 
 ```javascript
