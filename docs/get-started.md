@@ -1,6 +1,6 @@
-Getting Started
-----
-To get started using Mapzen.js, you need to link to the CSS and one of the JS files in the <head> section. We provided an option between the original JavaScript file or the minified version, which is a compressed file that improves performance.
+# Get started with Mapzen.js
+
+To get started using Mapzen.js, you need to link to the CSS and one of the JS files in the `<head>` section. Both the source JavaScript file or the minified version, which is a compressed file that improves performance, are available.
 
 ```html
 <!-- style sheet for mapzen.js -->
