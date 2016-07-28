@@ -1,16 +1,14 @@
 # Mapzen.js
 
-Mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices.
+Mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. Mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
 
-The [Mapzen.js library](https://www.mapzen.com/documentation/mapzen-js/) simplifies the process of using Mapzen's maps within Leaflet. Mapzen.js contains all the Leaflet functionality, as well as additional tools for working with Mapzen maps and search.
-
-With Mapzen.js you can add [Mapzen map styles](https://mapzen.com/products/maps/) as a basemap, build a customizable geocoder with [Mapzen Search](https://mapzen.com/products/search/), and create fragment URLs to be able to share the exact map instance with someone.
+Mapzen.js contains all the Leaflet functionality, as well as additional tools for working with Mapzen maps and search. With Mapzen.js you can add [Mapzen map styles](https://mapzen.com/products/maps/) as a basemap, build a customizable geocoder with [Mapzen Search](https://mapzen.com/products/search/), and create fragment URLs to be able to share the exact map instance with someone.
 
 ## Mapzen.js documentation
 
 You can find tutorials and a full API reference at https://mapzen.com/documentation/mapzen-js/.
 
-The source files for the documentation are in the [/docs folder](https://github.com/mapzen/mapzen.js/tree/master/docs) of this repository.
+The source files for the documentation are in the [/docs] folder(https://github.com/mapzen/mapzen.js/tree/master/docs) of this repository.
 
 ## Add Mapzen.js to your page
 
@@ -34,6 +32,6 @@ You can use [npm](BUILD.md) if you want to build locally.
 Mapzen.js includes components from these awesome open-source projects:
 
 - [Leaflet](http://leafletjs.com/)
-- [Leaflet Locate Control](https://github.com/domoritz/leaflet-locatecontrol)
-- [Mapzen Scarab](https://github.com/mapzen/scarab/tree/master/src/components/bug)
-- [Mapzen Leaflet Geocoder plug-in](https://github.com/mapzen/leaflet-geocoder)
+- [Leaflet.Locate control](https://github.com/domoritz/leaflet-locatecontrol)
+- [Mapzen Scarab social media control](https://github.com/mapzen/scarab/tree/master/src/components/bug)
+- [Mapzen Leaflet geocoder plug-in](https://github.com/mapzen/leaflet-geocoder)
