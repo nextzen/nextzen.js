@@ -76,7 +76,6 @@ L.Mapzen.bug({
   tweet: '@mapzen',
   repo: 'https://github.com/mapzen/web-map'
 });
-bug.addTo(map);
 ```
 
 Bug Options
