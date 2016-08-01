@@ -55,7 +55,7 @@ Your HTML should look like this:
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Simple Web Map</title>
+  <title>My Web Map</title>
   <meta charset="utf-8">
 </head>
 <body>
@@ -82,7 +82,7 @@ After adding these, your index.html file should look something like this.
 <!DOCTYPE html>
 <html>
   <head>
-  <title>Simple Web Map</title>
+  <title>My Web Map</title>
   <meta charset="utf-8">
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
@@ -134,8 +134,8 @@ Your index.html should look something like this:
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>My Web Map</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
 
