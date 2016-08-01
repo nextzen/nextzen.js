@@ -7,7 +7,7 @@ var Bug = require('./components/bug');
 var Locator = require('./components/locator');
 var Geocoder = require('./components/search');
 var Hash = require('./components/hash');
-var HouseStyles = require('./components/houseStyles');
+var BasemapStyles = require('./components/houseStyles');
 
 L.Mapzen = module.exports = {
   map: MapControl.map,
@@ -15,5 +15,6 @@ L.Mapzen = module.exports = {
   locator: Locator.locator,
   bug: Bug,
   hash: Hash.hash,
-  HouseStyles: HouseStyles
+  HouseStyles: BasemapStyles,
+  BasemapStyles: BasemapStyles
 };
