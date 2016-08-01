@@ -68,7 +68,7 @@ API
 
 ### Map
 
-`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Otherwise, the default scene is the [Bubble Wrap](https://mapzen.com/blog/bubble-wrap-carto/) style. 
+`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options. You can pass Mapzen House styles as `scene` inside of options, or you can have your own scene file path for Tangram. Otherwise, the default scene is the [Bubble Wrap](https://mapzen.com/blog/bubble-wrap-carto/) style.
 
 ```javascript
 var map = L.Mapzen.map('map', {
@@ -111,7 +111,6 @@ L.Mapzen.bug({
   tweet: '@mapzen',
   repo: 'https://github.com/mapzen/web-map'
 });
-bug.addTo(map);
 ```
 
 Bug Options
