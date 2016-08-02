@@ -4,7 +4,7 @@ var TangramLayer = require('./tangram');
 
 var MapControl = L.Map.extend({
   options: {
-    attributionText: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
+    attribution: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
     _useTangram: true
   },
 
@@ -20,7 +20,7 @@ var MapControl = L.Map.extend({
     // Adding Mapzen attribution to Leaflet
     if (this.attributionControl) {
       this.attributionControl.setPrefix('');
-      this.attributionControl.addAttribution(this.options.attributionText);
+      this.attributionControl.addAttribution(this.options.attribution);
       this.attributionControl.addAttribution('<a href="http://leafletjs.com/">Leaflet</a>');
     }
     // Set Icon path manually
