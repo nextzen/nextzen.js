@@ -11,8 +11,8 @@ var style = {
   ZincMoreLabels: 'https://mapzen.com/carto/zinc-style-more-labels/zinc-style-more-labels.yaml',
   ZincNoLabels: 'https://mapzen.com/carto/zinc-style-no-labels/zinc-style-no-labels.yaml',
   Walkabout: 'https://mapzen.com/carto/walkabout-style/walkabout-style.yaml',
-  WalkaboutMoreLables: 'https://mapzen.com/carto/walkabout-style-more-labels/walkabout-style-more-labels.yaml',
-  WalkaboutNoLables: 'https://mapzen.com/carto/walkabout-style-no-labels/walkabout-style-no-labels.yaml'
+  WalkaboutMoreLabels: 'https://mapzen.com/carto/walkabout-style-more-labels/walkabout-style-more-labels.yaml',
+  WalkaboutNoLabels: 'https://mapzen.com/carto/walkabout-style-no-labels/walkabout-style-no-labels.yaml'
 };
 
 module.exports = style;
