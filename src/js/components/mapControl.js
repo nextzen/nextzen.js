@@ -20,7 +20,8 @@ var MapControl = L.Map.extend({
     // Adding Mapzen attribution to Leaflet
     if (this.attributionControl) {
       this.attributionControl.setPrefix('');
-      this.attributionControl.addAttribution(this.options.attribution);
+      var tempAttr = this.options.attributionText || this.options.attribution;
+      this.attributionControl.addAttribution(tempAttr);
       this.attributionControl.addAttribution('<a href="http://leafletjs.com/">Leaflet</a>');
     }
     // Set Icon path manually
