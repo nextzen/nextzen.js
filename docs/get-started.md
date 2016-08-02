@@ -2,6 +2,8 @@
 
 To get started using Mapzen.js, you need to link to the CSS and one of the JS files in the `<head>` section. Both the source JavaScript file or the minified version, which is a compressed file that improves performance, are available.
 
+To reference the Mapzen.js cascading style sheet (CSS) and JavaScript file, add these links to your page.
+
 ```html
 <!-- style sheet for mapzen.js -->
 <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
@@ -13,8 +15,9 @@ To get started using Mapzen.js, you need to link to the CSS and one of the JS fi
 <script src="https://mapzen.com/js/mapzen.min.js"></script>
 ```
 
-## Create a Simple Web Map using Mapzen.js
-In this walkthrough, you will learn how to create a simple web map using Mapzen.js. You should have some familiarity with HTML/CSS and JavaScript, but the source code is provided. Any operating system or text editor will work, but you will need an internet connection while you are working.
+## Create a basic web map using Mapzen.js
+
+In this walkthrough, you will learn how to create a basic web map using Mapzen.js. You should have some familiarity with HTML/CSS and JavaScript, but the source code is provided. Any operating system or text editor will work, but you will need an internet connection while you are working.
 
 ### Create an index page
 
@@ -36,9 +39,7 @@ The end of the page has a finished version of the HTML that you can use to check
     </html>
     ```
 
-    These form the basic structure of an HTML document. `<!DOCTYPE html>` goes at the top of every HTML page and indicates that it is written for HTML5, and the `<html>` tags tell your browser that the content is HTML. The `<head>` tag contains the title for the page and other metadata about the page, while the `<body>` is where you add the code and the rest of the content on your page. There are many [web tutorials](http://www.w3schools.com/html/default.asp) available to help you experiment with and learn more about HTML documents and the tags in them.
-
-2. In the `<head>` tag, add a title, such as `<title>Simple Web Map</title>`.
+2. In the `<head>` tag, add a title, such as `<title>My Web Map</title>`.
 3. On the next line, add a metadata tag so you can properly display diacritics and characters from different languages.
 
     ```html
@@ -54,7 +55,7 @@ Your HTML should look like this:
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Simple Web Map</title>
+  <title>My Web Map</title>
   <meta charset="utf-8">
 </head>
 <body>
@@ -81,7 +82,7 @@ After adding these, your index.html file should look something like this.
 <!DOCTYPE html>
 <html>
   <head>
-  <title>My Geocoding Map</title>
+  <title>My Web Map</title>
   <meta charset="utf-8">
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
@@ -133,8 +134,8 @@ Your index.html should look something like this:
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>My Web Map</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
 
