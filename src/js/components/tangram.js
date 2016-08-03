@@ -23,13 +23,12 @@ var TangramLayer = L.Class.extend({
       // Not more than one Tangram instance is allowed.
       // console.log('Tangram is already on the page.');
     }
-
   },
 
   addTo: function (map) {
     var self = this;
 
-    this.scriptLoadedPromise.then( function () {
+    this.scriptLoadedPromise.then(function () {
       if (self._hasWebGL()) {
         console.log('given scene:', map.options.scene);
         console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
@@ -39,8 +38,7 @@ var TangramLayer = L.Class.extend({
 
         self.fire('loaded', {
           layer: _layer
-        })
-
+        });
       } else {
         if (map.options.fallbackTile) {
           console.log('WebGL is not available, falling back to fallbackTile option.');
@@ -51,7 +49,7 @@ var TangramLayer = L.Class.extend({
           self.options.fallbackTile.addTo(map);
         }
       }
-    })
+    });
   },
 
   _importScript: function (sSrc) {
@@ -90,4 +88,4 @@ module.exports.tangramLayer = function () {
     // console.log('Only one Tangram map on page can be drawn. Please look at https://github.com/tangrams/tangram/issues/350');
   }
   return tangramLayerInstance;
-}
+};
