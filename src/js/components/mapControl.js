@@ -10,7 +10,6 @@ var MapControl = L.Map.extend({
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
-    console.log(this.options.scene);
     if (this.options._useTangram) {
       var tangram = L.Mapzen.tangram();
       tangram.addTo(this);
