@@ -30,6 +30,7 @@ describe('Map Control Test', function () {
         thisMap.eachLayer(function (layer) {
           if (layer.scene) tangramLayer = layer;
         });
+        count++;
         if (_hasWebGL()) {
           if (tangramLayer === undefined && count < 20) return setTimeout(checkTangramLayer.bind(this), 200);
           else if (tangramLayer) done();
