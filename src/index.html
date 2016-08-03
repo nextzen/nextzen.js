@@ -61,6 +61,11 @@
         geocoder: geocoder
       });
 
+      var tangram = L.Mapzen.tangram();
+      tangram.on('loaded', function(layer) {
+        console.log(layer);
+      })
+
     </script>
   </body>
 </html>

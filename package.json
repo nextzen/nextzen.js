@@ -14,9 +14,7 @@
     "dev": " cp src/dev.html dist/index.html; watchify  ./src/js/mapzen.js -o dist/mapzen.min.js -v;",
     "build": "browserify ./src/js/mapzen.js > dist/mapzen.js; browserify -t uglifyify ./src/js/mapzen.js | uglifyjs -c > dist/mapzen.min.js; cp src/index.html dist/; npm run-script build-style;"
   },
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "benchmark": "^2.1.0",
     "browserify": "^13.0.0",
@@ -44,6 +42,7 @@
     "mocha": "^2.4.5",
     "node-sass": "^3.7.0",
     "phantomjs-prebuilt": "^2.1.7",
+    "promise-polyfill": "^6.0.1",
     "requirejs": "^2.2.0",
     "sinon": "^1.17.3",
     "uglifyify": "^3.0.1",

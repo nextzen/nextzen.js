@@ -1,6 +1,5 @@
 'use strict';
 var L = require('leaflet');
-var TangramLayer = require('./tangram');
 
 var MapControl = L.Map.extend({
   options: {
@@ -11,12 +10,11 @@ var MapControl = L.Map.extend({
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
-
+    console.log(this.options.scene);
     if (this.options._useTangram) {
-      var tangramLayer = TangramLayer.init();
-      tangramLayer.addTo(this);
+      var tangram = L.Mapzen.tangram();
+      tangram.addTo(this);
     }
-
     // Adding Mapzen attribution to Leaflet
     if (this.attributionControl) {
       this.attributionControl.setPrefix('');
