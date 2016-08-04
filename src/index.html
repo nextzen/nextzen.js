@@ -62,10 +62,13 @@
       });
 
       var tangram = L.Mapzen.tangram();
-      tangram.on('loaded', function(e) {
-        console.log(e.layer);
-      })
+      var failingTangramLayer = tangram.getLayer();
 
+      tangram.on('loaded', function(e) {
+        // Both have same result
+        console.log(e.layer);
+        console.log(tangram.getLayer());
+      })
     </script>
   </body>
 </html>

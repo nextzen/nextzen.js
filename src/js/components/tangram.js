@@ -34,6 +34,10 @@ var TangramLayer = L.Class.extend({
         var _layer = Tangram.leafletLayer({
           scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
         }).addTo(map);
+
+        this.layer = _layer;
+        this._layerLoaded = true;
+
         this.fire('loaded', {
           layer: _layer
         });
@@ -47,6 +51,13 @@ var TangramLayer = L.Class.extend({
         console.log('WebGL is not available, falling back to OSM default tile.');
         this.options.fallbackTile.addTo(map);
       }
+    }
+  },
+  getLayer: function () {
+    if (this._layerLoaded === true) {
+      return this.layer;
+    } else {
+      console.log('Tangram is not loaded yet. Please use the loaded event');
     }
   },
   _importScript: function (sSrc) {
