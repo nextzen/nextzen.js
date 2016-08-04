@@ -62,8 +62,8 @@
       });
 
       var tangram = L.Mapzen.tangram();
-      tangram.on('loaded', function(layer) {
-        console.log(layer);
+      tangram.on('loaded', function(e) {
+        console.log(e.layer);
       })
 
     </script>
