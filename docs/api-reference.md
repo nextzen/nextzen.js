@@ -14,43 +14,47 @@ If there is no scene file declared, you need to set your own tile to display the
 var map = L.Mapzen.map('map', {
   center: [40.74429, -73.99035],
   zoom: 15,
-  scene: L.Mapzen.HouseStyles.Refill
+  scene: L.Mapzen.BasemapStyles.Refill
 })
 ```
 
 The `center:` parameter sets the center point of the map, in decimal degrees. The next line sets the `zoom` level, which is like a map scale or resolution, where a smaller value shows a larger area in less detail, and a larger zoom level value depicts smaller area in great detail.
 
-The `scene: L.Mapzen.HouseStyles.BubbleWrap` line sets the style used for the map. In this case, it is Mapzen's all-purpose stylesheet called BubbleWrap.
+The `scene: L.Mapzen.BasemapStyles.BubbleWrap` line sets the style used for the map. In this case, it is Mapzen's all-purpose stylesheet called BubbleWrap.
 
 | Option  | Type   | Default                           | Description                                                   |
 |---------|--------|-----------------------------------|---------------------------------------------------------------|
-| `scene` | String | `L.Mapzen.HouseStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.HouseStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
+| `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
 | `fallBackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
-| `attributionText` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box.`Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
+| `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box.`Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
 
 ## Basemap styles
 
-Mapzen.js has constants for [Mapzen basemaps](https://mapzen.com/products/maps/) under `L.Mapzen.HouseStyles` namespace to make it easy to access to them. One usage of `L.Mapzen.HouseStyles` is passing it as `scene` option for `L.Mapzen.map` instance.
+Mapzen.js has constants for [Mapzen basemaps](https://mapzen.com/products/maps/) under the `L.Mapzen.BasemapStyles` namespace to make it easy to access to them. You can pass `L.Mapzen.BasemapStyles` as a `scene` option for the `L.Mapzen.map` instance.
 
 ```javascript
 var map = L.Mapzen.map('map', {
-  scene: L.Mapzen.HouseStyles.Refill
+  scene: L.Mapzen.BasemapStyles.Refill
 })
 ```
 
 | Constant                                  | Value                                                                                  |
 |-------------------------------------------|----------------------------------------------------------------------------------------|
-| `L.Mapzen.HouseStyles.BubbleWrap`         | `https://mapzen.com/carto/bubble-wrap-style/bubble-wrap.yaml`                          |
-| `L.Mapzen.HouseStyles.Cinnabar`           | `https://mapzen.com/carto/cinnabar-style/cinnabar-style.yaml`                          |
-| `L.Mapzen.HouseStyles.CinnabarMoreLabels` | `https://mapzen.com/carto/cinnabar-style-more-labels/cinnabar-style-more-labels.yaml`  |
-| `L.Mapzen.HouseStyles.CinnabarNoLabels`   | `https://mapzen.com/carto/cinnabar-style-no-labels/cinnabar-style-no-labels.yaml`      |
-| `L.Mapzen.HouseStyles.Refill`             | `https://mapzen.com/carto/refill-style/refill-style.yaml`                              |
-| `L.Mapzen.HouseStyles.RefillMoreLabels`   | `https://mapzen.com/carto/refill-style-more-labels/refill-style-more-labels.yaml`      |
-| `L.Mapzen.HouseStyles.RefillNoLabels`     | `https://mapzen.com/carto/refill-style-no-labels/refill-style-no-labels.yaml`          |
-| `L.Mapzen.HouseStyles.Zinc`               | `https://mapzen.com/carto/zinc-style/zinc-style.yaml`                                  |
-| `L.Mapzen.HouseStyles.ZincMoreLabels`     | `https://mapzen.com/carto/zinc-style-more-labels/zinc-style-more-labels.yaml`          |
-| `L.Mapzen.HouseStyles.ZincNoLabels`       | `https://mapzen.com/carto/zinc-style-no-labels/zinc-style-no-labels.yaml`              |
+| `L.Mapzen.BasemapStyles.BubbleWrap`         | `https://mapzen.com/carto/bubble-wrap-style/bubble-wrap.yaml`                          |
+| `L.Mapzen.BasemapStyles.Cinnabar`           | `https://mapzen.com/carto/cinnabar-style/cinnabar-style.yaml`                          |
+| `L.Mapzen.BasemapStyles.CinnabarMoreLabels` | `https://mapzen.com/carto/cinnabar-style-more-labels/cinnabar-style-more-labels.yaml`  |
+| `L.Mapzen.BasemapStyles.CinnabarNoLabels`   | `https://mapzen.com/carto/cinnabar-style-no-labels/cinnabar-style-no-labels.yaml`      |
+| `L.Mapzen.BasemapStyles.Refill`             | `https://mapzen.com/carto/refill-style/refill-style.yaml`                              |
+| `L.Mapzen.BasemapStyles.RefillMoreLabels`   | `https://mapzen.com/carto/refill-style-more-labels/refill-style-more-labels.yaml`      |
+| `L.Mapzen.BasemapStyles.RefillNoLabels`     | `https://mapzen.com/carto/refill-style-no-labels/refill-style-no-labels.yaml`          |
+| `L.Mapzen.BasemapStyles.Zinc`               | `https://mapzen.com/carto/zinc-style/zinc-style.yaml`                                  |
+| `L.Mapzen.BasemapStyles.ZincMoreLabels`     | `https://mapzen.com/carto/zinc-style-more-labels/zinc-style-more-labels.yaml`          |
+| `L.Mapzen.BasemapStyles.ZincNoLabels`       | `https://mapzen.com/carto/zinc-style-no-labels/zinc-style-no-labels.yaml`              |
+| `L.Mapzen.BasemapStyles.Walkabout` | `https://mapzen.com/carto/walkabout-style/walkabout-style.yaml` |
+| `L.Mapzen.BasemapStyles.WalkaboutMoreLabels` | `https://mapzen.com/carto/walkabout-style-more-labels/walkabout-style-more-labels.yaml` |
+| `L.Mapzen.BasemapStyles.WalkaboutNoLabels` | `https://mapzen.com/carto/walkabout-style-no-labels/walkabout-style-no-labels.yaml` |
 
+_Note: L.Mapzen.HouseStyles has been deprecated for L.Mapzen.BasemapStyles. Starting with Mapzen.js 1.0, you must use only L.Mapzen.BasemapStyles._
 
 ## Geocoder control
 
