@@ -2,7 +2,6 @@
 // (either as a URL or full string of all source code) in order to load itself into web workers
 // This script injects the Tangram with script tag, so that Tangram doesn't need to be included with outside tag
 var L = require('leaflet');
-var Promise = require('promise-polyfill');
 
 var tangramLayerInstance;
 
@@ -26,47 +25,45 @@ var TangramLayer = L.Class.extend({
   },
 
   addTo: function (map) {
-    var self = this;
-
-    this.scriptLoadedPromise.then(function () {
-      if (self._hasWebGL()) {
+    if (this._hasWebGL()) {
+      if (typeof Tangram === 'undefined') {
+        return window.setTimeout(this.addTo.bind(this, map), 100);
+      } else {
         console.log('given scene:', map.options.scene);
         console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
         var _layer = Tangram.leafletLayer({
           scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
         }).addTo(map);
-
-        self.fire('loaded', {
+        this.fire('loaded', {
           layer: _layer
         });
-      } else {
-        if (map.options.fallbackTile) {
-          console.log('WebGL is not available, falling back to fallbackTile option.');
-          self.options.fallbackTile.addTo(map);
-        } else {
-        // When WebGL is not avilable
-          console.log('WebGL is not available, falling back to OSM default tile.');
-          self.options.fallbackTile.addTo(map);
-        }
       }
-    });
+    } else {
+      if (map.options.fallbackTile) {
+        console.log('WebGL is not available, falling back to fallbackTile option.');
+        map.options.fallbackTile.addTo(map);
+      } else {
+      // When WebGL is not avilable
+        console.log('WebGL is not available, falling back to OSM default tile.');
+        this.options.fallbackTile.addTo(map);
+      }
+    }
   },
-
   _importScript: function (sSrc) {
-    this.scriptLoadedPromise = new Promise(function (resolve, reject) {
-      var oScript = document.createElement('script');
-      oScript.type = 'text/javascript';
-      oScript.onerror = reject;
-      oScript.onload = resolve;
+    var oScript = document.createElement('script');
+    oScript.type = 'text/javascript';
+    oScript.onerror = this._loadError;
 
-      if (document.currentScript) document.currentScript.parentNode.insertBefore(oScript, document.currentScript);
-      // If browser doesn't support currentscript position
-      // insert script inside of head
-      else document.getElementsByTagName('head')[0].appendChild(oScript);
-      oScript.src = sSrc;
-    });
+    if (document.currentScript) document.currentScript.parentNode.insertBefore(oScript, document.currentScript);
+    // If browser doesn't support currentscript position
+    // insert script inside of head
+    else document.getElementsByTagName('head')[0].appendChild(oScript);
+    oScript.src = sSrc;
   },
-
+  _loadError: function (oError) {
+    console.log(oError);
+    throw new URIError('The script ' + oError.target.src + ' is not accessible.');
+  },
   _hasWebGL: function () {
     try {
       var canvas = document.createElement('canvas');
