@@ -2,6 +2,7 @@
 var L = require('leaflet');
 
 var MapControl = L.Map.extend({
+  includes: L.Mixin.Events,
   options: {
     attributionText: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
     _useTangram: true
@@ -10,10 +11,18 @@ var MapControl = L.Map.extend({
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
+
     if (this.options._useTangram) {
       var tangram = L.Mapzen.tangram();
       tangram.addTo(this);
+      var self = this;
+      tangram.on('loaded', function (e) {
+        self.fire('tangramloaded', {
+          tangramLayer: e.layer
+        });
+      })
     }
+
     // Adding Mapzen attribution to Leaflet
     if (this.attributionControl) {
       this.attributionControl.setPrefix('');

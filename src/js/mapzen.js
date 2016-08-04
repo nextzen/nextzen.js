@@ -8,7 +8,6 @@ var Locator = require('./components/locator');
 var Geocoder = require('./components/search');
 var Hash = require('./components/hash');
 var BasemapStyles = require('./components/basemapStyles');
-var TangramLayer = require('./components/tangram');
 
 L.Mapzen = module.exports = {
   map: MapControl.map,
@@ -17,6 +16,5 @@ L.Mapzen = module.exports = {
   bug: Bug,
   hash: Hash.hash,
   HouseStyles: BasemapStyles,
-  BasemapStyles: BasemapStyles,
-  tangram: TangramLayer.tangramLayer
+  BasemapStyles: BasemapStyles
 };

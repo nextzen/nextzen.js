@@ -37,7 +37,6 @@ var TangramLayer = L.Class.extend({
 
         this.layer = _layer;
         this._layerLoaded = true;
-
         this.fire('loaded', {
           layer: _layer
         });
@@ -53,13 +52,13 @@ var TangramLayer = L.Class.extend({
       }
     }
   },
-  getLayer: function () {
-    if (this._layerLoaded === true) {
-      return this.layer;
-    } else {
-      console.log('Tangram is not loaded yet. Please use the loaded event');
-    }
-  },
+  // getLayer: function () {
+  //   if (this._layerLoaded === true) {
+  //     return this.layer;
+  //   } else {
+  //     console.log('Tangram is not loaded yet. Please use the loaded event');
+  //   }
+  // },
   _importScript: function (sSrc) {
     var oScript = document.createElement('script');
     oScript.type = 'text/javascript';
@@ -83,7 +82,6 @@ var TangramLayer = L.Class.extend({
       return false;
     }
   }
-
 });
 
 module.exports = TangramLayer;
