@@ -62,7 +62,7 @@
       });
 
       var tangram = L.Mapzen.tangram();
-      // This is likely to fail, since Tangram is not loaded in async.
+      // This is likely to fail, since Tangram is loaded in async.
       // If Tangram is not loaded, this will log 'Tangram is not loaded yet. Please use the loaded event'
       var failingTangramLayer = tangram.getLayer();
 
