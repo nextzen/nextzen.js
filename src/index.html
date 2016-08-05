@@ -61,6 +61,10 @@
         geocoder: geocoder
       });
 
+      map.on('tangramloaded', function(e) {
+        console.log(e.tangramLayer);
+      });
+
     </script>
   </body>
 </html>

@@ -14,9 +14,7 @@
     "dev": " cp src/dev.html dist/index.html; watchify  ./src/js/mapzen.js -o dist/mapzen.min.js -v;",
     "build": "browserify ./src/js/mapzen.js > dist/mapzen.js; browserify -t uglifyify ./src/js/mapzen.js | uglifyjs -c > dist/mapzen.min.js; cp src/index.html dist/; npm run-script build-style;"
   },
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "benchmark": "^2.1.0",
     "browserify": "^13.0.0",

@@ -1,8 +1,8 @@
 'use strict';
 var L = require('leaflet');
-var TangramLayer = require('./tangram');
 
 var MapControl = L.Map.extend({
+  includes: L.Mixin.Events,
   options: {
     attribution: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
     _useTangram: true
@@ -13,8 +13,14 @@ var MapControl = L.Map.extend({
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
 
     if (this.options._useTangram) {
-      var tangramLayer = TangramLayer.init();
-      tangramLayer.addTo(this);
+      var tangram = L.Mapzen._tangram();
+      tangram.addTo(this);
+      var self = this;
+      tangram.on('loaded', function (e) {
+        self.fire('tangramloaded', {
+          tangramLayer: e.layer
+        });
+      })
     }
 
     // Adding Mapzen attribution to Leaflet
