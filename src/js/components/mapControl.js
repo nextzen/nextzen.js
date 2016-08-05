@@ -13,7 +13,7 @@ var MapControl = L.Map.extend({
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
 
     if (this.options._useTangram) {
-      var tangram = L.Mapzen.tangram();
+      var tangram = L.Mapzen._tangram();
       tangram.addTo(this);
       var self = this;
       tangram.on('loaded', function (e) {
