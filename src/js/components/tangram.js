@@ -35,11 +35,11 @@ var TangramLayer = L.Class.extend({
           scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
         }).addTo(map);
 
-        this.layer = _layer;
-        this._layerLoaded = true;
-        this.fire('loaded', {
-          layer: _layer
-        });
+        _layer.on('init', function () {
+          this.fire('loaded', {
+            layer: _layer
+          });
+        })
       }
     } else {
       if (map.options.fallbackTile) {
