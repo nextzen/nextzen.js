@@ -93,7 +93,7 @@ Bug Options
 
 ## Locator control
 
-`L.Mapzen.locator` adds a geolocation control to the map.
+`L.Mapzen.locator` adds a geolocation control to the map. This integrates the [Leaflet.Locator control](https://github.com/domoritz/leaflet-locatecontrol); see that project's [documentation](https://github.com/domoritz/leaflet-locatecontrol/blob/gh-pages/README.md) for additional options.
 
 ``` javascript
 var locator = L.Mapzen.locator();
