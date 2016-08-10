@@ -124,3 +124,10 @@ Hash Options
 |------------|-------------------|---------|-----------------------|
 | `map`      | L.Mapzen.map      | `null`  | Instance of map.      |
 | `geocoder` | L.Mapzen.geocoder | `null`  | Instance of geocoder. |
+
+## Events
+
+All of Leaflet's event methods are available, such as `on`, `off`, `once`, and so on. In addition, Mapzen.js provides these events.
+
+| Event | Description |
+| `tangramloaded` | Fired when a Tangram layer is loaded in the map |
