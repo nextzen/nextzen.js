@@ -42,6 +42,7 @@
     "mocha": "^2.4.5",
     "node-sass": "^3.7.0",
     "phantomjs-prebuilt": "^2.1.7",
+    "raven-js": "^3.4.0",
     "requirejs": "^2.2.0",
     "sinon": "^1.17.3",
     "uglifyify": "^3.0.1",
