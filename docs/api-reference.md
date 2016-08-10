@@ -28,10 +28,11 @@ The `scene: L.Mapzen.BasemapStyles.BubbleWrap` line sets the style used for the 
 | `fallBackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
 | `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box.`Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
 
-To determine when a Tangram layer has loaded in the map, listen for the `tangramloaded` event.
+To determine when a Tangram layer has loaded in the map, listen for the `tangramloaded` event. You will find the Tangram layer in the event property `tangramLayer`.
 
 ```
-map.on('tangramloaded', function(e) {
+map.on('tangramloaded', function(event) {
+  event.tangramLayer;
 });
 ```
 
