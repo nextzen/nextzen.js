@@ -16,7 +16,7 @@ var TangramLayer = L.Class.extend({
     // Start importing script
     // When there is no Tangram object available.
     if (typeof Tangram === 'undefined') {
-      var tangramScriptURL = 'https://mapzen.com/tangram/0.8/tangram.min.js';
+      var tangramScriptURL = 'https://mapzen.com/tangram/0.9/tangram.min.js';
       this._importScript(tangramScriptURL);
     } else {
       // Not more than one Tangram instance is allowed.
