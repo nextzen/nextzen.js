@@ -25,9 +25,8 @@
     <script src="../dist/mapzen.min.js"></script>
     <script>
 
-      // when GeoIP is available, set the map's initial view to detected coords.
       var lat, lon;
-
+       // when GeoIP is available, set the map's initial view to detected coordinates
       if (typeof Geo === 'object') {
         lon = Geo.lon
         lat = Geo.lat
@@ -36,33 +35,39 @@
         lat = 40.70531
       }
 
+      // creates a map with the refill basemap
       var map = L.Mapzen.map('map',{
         scene: L.Mapzen.HouseStyles.Refill
       });
-
+      
       map.setView([lat, lon],13);
-
-
+    
+      // moves zoom control to the bottom right of the map page
       map.zoomControl.setPosition('bottomright');
-
+    
+      // adds a search box to a map
       var geocoder = L.Mapzen.geocoder('search--NA8UXg');
       geocoder.addTo(map);
 
+      // creates a Mapzen "bug" with header for Mapzen projects
       L.Mapzen.bug({
         name: 'Web Map',
         tweet: '@mapzen',
         repo: 'https://github.com/mapzen/web-map',
         mapID: 'map'});
 
+      // adds a locator button to the map
       var locator = L.Mapzen.locator();
       locator.setPosition('bottomright');
       locator.addTo(map);
 
+      // allows for a URL hash to be created
       L.Mapzen.hash({
         map: map,
         geocoder: geocoder
       });
 
+      // adds a tangram event listener
       map.on('tangramloaded', function(e) {
         console.log(e.tangramLayer);
       });
