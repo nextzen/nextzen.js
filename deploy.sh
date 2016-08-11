@@ -22,7 +22,10 @@ else
     echo "Nothing found at s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"
 fi
 
+tar -czf dist/docs.tar.gz docs
+
 for DIR in "js/${VPATCH}" "js/${VMINOR}" "js/${VMAJOR}" "js"; do
+    aws s3 cp dist/docs.tar.gz s3://${BUCKET}/${DIR}/docs.tar.gz
     aws s3 cp dist/mapzen.min.js s3://${BUCKET}/${DIR}/mapzen.min.js
     aws s3 cp dist/mapzen.js s3://${BUCKET}/${DIR}/mapzen.js
     aws s3 cp dist/mapzen.css s3://${BUCKET}/${DIR}/mapzen.css
