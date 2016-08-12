@@ -1,7 +1,7 @@
 Build Locally
 ====
 
-MapzenJS uses [npm]((https://docs.npmjs.com/getting-started/installing-node)) for its building process.
+MapzenJS uses [npm]((https://docs.npmjs.com/getting-started/installing-node)) for its building process. To run `mapzen.js` locally or to run examples in `examples` folder locally, `mapzen.js` expects the steps below.
 
 ```
 npm install
@@ -9,9 +9,9 @@ npm install
 The comand above will install depandancies for the development.
 
 ```
-npm build
+npm run build
 ```
-This command bundles the javascript source files in `src` folder to `mapzen.js` , compiles scss files to css. The command also copies the `index.html` inside of `src` foler to `dist`, so result can be run easily in `dist` folder.
+This command bundles the javascript source files in `src` folder to `dist` , also compiles scss files to css.
 
 If you are planning to actively changing the code, the commands below would help.
 ```
