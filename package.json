@@ -12,7 +12,6 @@
     "build-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "build-dev-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss -w; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "dev": " watchify  ./src/js/mapzen.js -o dist/mapzen.min.js -v;",
-    "npm-publish": "npm version from-git --no-git-tag-version; publish --on-major --on-minor --on-patch",
     "build": "browserify ./src/js/mapzen.js > dist/mapzen.js; browserify -t uglifyify ./src/js/mapzen.js | uglifyjs -c > dist/mapzen.min.js; npm run-script build-style;"
   },
   "dependencies": {},

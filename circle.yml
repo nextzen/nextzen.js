@@ -17,4 +17,4 @@ deployment:
       - ./deploy.sh static-prod.mapzen.com
       # npm release process
       - echo -e "$NPM_USERNAME\n$NPM_PASSWORD\n$NPM_ACCOUNT" | npm login
-      - npm run npm-publish
+      - npm version ${CIRCLE_TAG#release-v} --no-git-tag-version && publish --on-major --on-minor --on-patch
