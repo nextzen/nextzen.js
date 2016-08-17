@@ -15,3 +15,6 @@ deployment:
     commands:
       - ./deploy.sh static-dev.mapzen.com
       - ./deploy.sh static-prod.mapzen.com
+      # npm release process
+      - echo -e "$NPM_USERNAME\n$NPM_PASSWORD\n$NPM_ACCOUNT" | npm login
+      - npm run npm-publish
