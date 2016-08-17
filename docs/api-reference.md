@@ -28,6 +28,14 @@ The `scene: L.Mapzen.BasemapStyles.BubbleWrap` line sets the style used for the 
 | `fallBackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
 | `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box.`Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
 
+To determine when a Tangram layer has loaded in the map, listen for the `tangramloaded` event. You will find the Tangram layer in the event property `tangramLayer`.
+
+```
+map.on('tangramloaded', function(event) {
+  event.tangramLayer;
+});
+```
+
 ## Basemap styles
 
 Mapzen.js has constants for [Mapzen basemaps](https://mapzen.com/products/maps/) under the `L.Mapzen.BasemapStyles` namespace to make it easy to access to them. You can pass `L.Mapzen.BasemapStyles` as a `scene` option for the `L.Mapzen.map` instance.
@@ -117,3 +125,10 @@ Hash Options
 |------------|-------------------|---------|-----------------------|
 | `map`      | L.Mapzen.map      | `null`  | Instance of map.      |
 | `geocoder` | L.Mapzen.geocoder | `null`  | Instance of geocoder. |
+
+## Events
+
+All of Leaflet's event methods are available, such as `on`, `off`, `once`, and so on. In addition, Mapzen.js provides these events.
+
+| Event | Description |
+| `tangramloaded` | Fired when a Tangram layer is loaded in the map |
