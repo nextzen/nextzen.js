@@ -10,8 +10,8 @@ test:
     - npm run build
 
 deployment:
-  production:
-    branch: master
+  release:
+    tag: /release-v[0-9]+(\.[0-9])+/
     commands:
       - ./deploy.sh static-dev.mapzen.com
       - ./deploy.sh static-prod.mapzen.com
