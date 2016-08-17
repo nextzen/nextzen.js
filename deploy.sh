@@ -2,9 +2,9 @@
 set -e
 
 BUCKET="${1}"
-VPATCH=`cut -d. -f1,2,3 VERSION`
-VMINOR=`cut -d. -f1,2 VERSION`
-VMAJOR=`cut -d. -f1 VERSION`
+VPATCH=`echo ${CIRCLE_TAG#release-v} | cut -d. -f1,2,3 -`
+VMINOR=`echo ${CIRCLE_TAG#release-v} | cut -d. -f1,2 -`
+VMAJOR=`echo ${CIRCLE_TAG#release-v} | cut -d. -f1 -`
 
 if aws s3 ls "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"; then
     echo "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js already exits, checking diffs..."
