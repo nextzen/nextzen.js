@@ -9,15 +9,13 @@ var TangramLayer = L.Class.extend({
   includes: L.Mixin.Events,
   options: {
     fallbackTile: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
-    tangramURL: 'https://mapzen.com/tangram/0.8/tangram.min.js'
+    tangramURL: 'https://mapzen.com/tangram/0.9/tangram.min.js'
   },
-
   initialize: function () {
     // Start importing script
     // When there is no Tangram object available.
     if (typeof Tangram === 'undefined') {
-      var tangramScriptURL = 'https://mapzen.com/tangram/0.9/tangram.min.js';
-      this._importScript(tangramScriptURL);
+      this._importScript(this.options.tangramURL);
     } else {
       // Not more than one Tangram instance is allowed.
       // console.log('Tangram is already on the page.');
@@ -39,7 +37,7 @@ var TangramLayer = L.Class.extend({
           this.fire('loaded', {
             layer: _layer
           });
-        })
+        });
       }
     } else {
       if (map.options.fallbackTile) {
