@@ -8,7 +8,7 @@ var Locator = require('./components/locator');
 var Geocoder = require('./components/search');
 var Hash = require('./components/hash');
 var BasemapStyles = require('./components/basemapStyles');
-var TangramLayer = require('./components/tangram')
+var TangramLayer = require('./components/tangram');
 
 L.Mapzen = module.exports = {
   map: MapControl.map,
@@ -20,3 +20,6 @@ L.Mapzen = module.exports = {
   BasemapStyles: BasemapStyles,
   _tangram: TangramLayer.tangramLayer
 };
+
+// Set Icon Path manually (Leaflet detects the path based on where Leaflet script is)
+L.Icon.Default.imagePath = 'https://mapzen.com/js/images';
