@@ -20,7 +20,7 @@ var MapControl = L.Map.extend({
         self.fire('tangramloaded', {
           tangramLayer: e.layer
         });
-      })
+      });
     }
 
     // Adding Mapzen attribution to Leaflet
@@ -30,8 +30,6 @@ var MapControl = L.Map.extend({
       this.attributionControl.addAttribution(tempAttr);
       this.attributionControl.addAttribution('<a href="http://leafletjs.com/">Leaflet</a>');
     }
-    // Set Icon path manually
-    L.Icon.Default.imagePath = this._getImagePath();
 
     // overriding double click behaviour to zoom up where it is clicked
     this.doubleClickZoom.disable();
@@ -39,24 +37,6 @@ var MapControl = L.Map.extend({
       this.setView(e.latlng, this.getZoom() + 1);
     });
     this._checkConditions(false);
-  },
-
-  _getImagePath: function () {
-    // Modified Leaflet's Image Path function
-    var scripts = document.getElementsByTagName('script');
-    var mapzenRe = /[\/^]mapzen[\-\._]?([\w\-\._]*)\.js\??/;
-
-    var i, len, src, matches, path;
-
-    for (i = 0, len = scripts.length; i < len; i++) {
-      src = scripts[i].src;
-      matches = src.match(mapzenRe);
-
-      if (matches) {
-        path = src.split(mapzenRe)[0];
-        return (path ? path + '/' : '') + 'images';
-      }
-    }
   },
 
   _checkConditions: function (force) {
