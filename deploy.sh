@@ -6,10 +6,10 @@ if [ $# -ne 2 ]; then
     exit 1
 fi
 
-BUCKET="${1}"
-VPATCH=`echo ${2} | cut -d. -f1,2,3 -`
-VMINOR=`echo ${2} | cut -d. -f1,2 -`
-VMAJOR=`echo ${2} | cut -d. -f1 -`
+VPATCH=`echo ${1} | cut -d. -f1,2,3 -`
+VMINOR=`echo ${1} | cut -d. -f1,2 -`
+VMAJOR=`echo ${1} | cut -d. -f1 -`
+BUCKET="${2}"
 
 if aws s3 ls "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"; then
     echo "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js already exits, checking diffs..."

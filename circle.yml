@@ -13,8 +13,8 @@ deployment:
   release:
     tag: /release-v[0-9]+(\.[0-9])+/
     commands:
-      - ./deploy.sh static-dev.mapzen.com ${CIRCLE_TAG#release-v}
-      - ./deploy.sh static-prod.mapzen.com ${CIRCLE_TAG#release-v}
+      - ./deploy.sh ${CIRCLE_TAG#release-v} static-dev.mapzen.com
+      - ./deploy.sh ${CIRCLE_TAG#release-v} static-prod.mapzen.com
       # npm release process
       - echo -e "$NPM_USERNAME\n$NPM_PASSWORD\n$NPM_ACCOUNT" | npm login
       - npm version ${CIRCLE_TAG#release-v} --no-git-tag-version && publish --on-major --on-minor --on-patch
