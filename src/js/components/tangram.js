@@ -32,9 +32,9 @@ var TangramLayer = L.Class.extend({
         var _layer = Tangram.leafletLayer({
           scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
         }).addTo(map);
-
+        var self = this;
         _layer.on('init', function () {
-          this.fire('loaded', {
+          self.fire('loaded', {
             layer: _layer
           });
         });
