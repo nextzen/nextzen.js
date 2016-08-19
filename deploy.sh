@@ -1,10 +1,15 @@
 #!/bin/bash
 set -e
 
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 {S3 bucket} {version number}"
+    exit 1
+fi
+
 BUCKET="${1}"
-VPATCH=`echo ${CIRCLE_TAG#release-v} | cut -d. -f1,2,3 -`
-VMINOR=`echo ${CIRCLE_TAG#release-v} | cut -d. -f1,2 -`
-VMAJOR=`echo ${CIRCLE_TAG#release-v} | cut -d. -f1 -`
+VPATCH=`echo ${2} | cut -d. -f1,2,3 -`
+VMINOR=`echo ${2} | cut -d. -f1,2 -`
+VMAJOR=`echo ${2} | cut -d. -f1 -`
 
 if aws s3 ls "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"; then
     echo "s3://${BUCKET}/js/${VPATCH}/mapzen.min.js already exits, checking diffs..."
