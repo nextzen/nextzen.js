@@ -104,14 +104,14 @@ module.exports = function (config) {
         os: 'Windows',
         os_version: '10'
       },
-      bs_iphone5S: {
+      bs_iphone6S: {
         base: 'BrowserStack',
-        device: 'iPhone 5S',
+        device: 'iPhone 6S',
         os: 'ios',
-        os_version: '7.0'
+        os_version: '9.3'
       }
     },
 
-    browsers: ['PhantomJS', 'bs_iphone5S', 'bs_ie_window']
+    browsers: ['PhantomJS', 'bs_iphone6S', 'bs_ie_window']
   });
 };
