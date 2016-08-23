@@ -3,17 +3,7 @@ describe('Map Control Test', function () {
   var el;
   var testMap;
   var spy;
-
-
-  var _hasWebGL = function() {
-    try {
-      var canvas = document.createElement('canvas');
-      return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-    } catch (x) {
-      return false;
-    }
-  }
-
+  var hasWebGL;
 
   before(function () {
     el = document.createElement('div');
@@ -23,6 +13,8 @@ describe('Map Control Test', function () {
     spy = sinon.spy();
     testMap.addEventListener('tangramloaded', spy);
     testMap.setView([51.505, -0.09], 13);
+
+    hasWebGL = L.Mapzen._tangram()._hasWebGL();
 
   });
 
@@ -41,7 +33,7 @@ describe('Map Control Test', function () {
           if (layer.scene) tangramLayer = layer;
         });
         count++;
-        if (_hasWebGL()) {
+        if (hasWebGL) {
           if (tangramLayer === undefined && count < 40) return setTimeout(checkTangramLayer.bind(this), 200);
           else if (tangramLayer) done();
           else if (count >= 40) done(new Error('takes too long to load Tangram'))
@@ -54,10 +46,10 @@ describe('Map Control Test', function () {
 
     it('checks Tangram Event', function (done) {
       var tangramEventCheck = function () {
-        if(_hasWebGL())
+        if(hasWebGL) {
           if(spy.called) done();
           else return setTimeout(tangramEventCheck.bind(this), 200);
-        else done();
+        } else done();
       }
       tangramEventCheck();
     })
