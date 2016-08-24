@@ -36,7 +36,7 @@ module.exports = function (config) {
 
     client: {
       mocha: {
-        timeout: 5000 // 5 seconds - upped from default 2 seconds
+        timeout: 20000 // 20 seconds
       }
     },
 
@@ -95,6 +95,11 @@ module.exports = function (config) {
       username: process.env.BROWSERSTACK_USERNAME,
       accessKey: process.env.BROWSERSTACK_KEY
     },
+    // Tweaks for Browserstack timeout
+    browserDisconnectTimeout: 20000, // default 2000
+    browserDisconnectTolerance: 1, // default 0
+    browserNoActivityTimeout: 4 * 60 * 1000, // default 10000,
+    captureTimeout: 4 * 60 * 1000, // default 60000
     // define browsers
     customLaunchers: {
       bs_ie_window: {
