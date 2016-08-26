@@ -42,7 +42,7 @@ var MapControl = L.Map.extend({
   _checkConditions: function (force) {
     if (this._isThisIframed()) {
       // do not scroll zoom when it is iframed
-      this.scrollWheelZoom = false;
+      this.scrollWheelZoom.disable();
       var anchors = document.querySelectorAll('a');
 
       for (var i = 0, j = anchors.length; i < j; i++) {
@@ -64,7 +64,7 @@ var MapControl = L.Map.extend({
   },
 
   _isThisIframed: function () {
-    return (window.self === window.top);
+    return (window.self !== window.top);
   },
 
   _disableZoomControl: function () {
