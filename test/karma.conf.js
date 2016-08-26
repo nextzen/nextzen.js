@@ -39,12 +39,11 @@ module.exports = function (config) {
         timeout: 20000 // 20 seconds
       }
     },
-
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'src/**/*.js': ['browserify'],
-      'test/**/*.spec.js': ['browserify']
+      'test/spec/*.js': ['browserify']
     },
 
     browserify: {
