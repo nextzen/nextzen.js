@@ -36,14 +36,16 @@ var Hash = L.Class.extend({
         // boolean changing is to prevent recursive hash change
         // Hash doesn't get updated while map is setting the view
         this._changing = true;
-        this._map.setView([this._hashData.lat, this._hashData.lng], this._hashData.z);
+        if (this._map) this._map.setView([this._hashData.lat, this._hashData.lng], this._hashData.z);
         this._changing = false;
       }
     } else {
-      // When there is no hash, get current map status
+      // When there is no hash, setup hash data and get current map status
       this._hashData = {};
-      this._updateLatLng();
-      this._updateZoom();
+      if (this._map) {
+        this._updateLatLng();
+        this._updateZoom();
+      }
     }
   },
 
@@ -82,6 +84,18 @@ var Hash = L.Class.extend({
 
   _updatePlace: function (e) {
     this._hashData.place = e.feature.properties.gid;
+    this._updateHash();
+  },
+
+  _reset: function () {
+    this.hashData = {};
+    history.replaceState({}, document.title, '.');
+  },
+
+  _resetCoords: function () {
+    this._hashData = Formatter.deleteProperty(this._hashData, 'lat');
+    this._hashData = Formatter.deleteProperty(this._hashData, 'lng');
+    this._hashData = Formatter.deleteProperty(this._hashData, 'z');
     this._updateHash();
   },
 
