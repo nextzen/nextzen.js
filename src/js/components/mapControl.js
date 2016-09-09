@@ -31,11 +31,6 @@ var MapControl = L.Map.extend({
       this.attributionControl.addAttribution('<a href="http://leafletjs.com/">Leaflet</a>');
     }
 
-    // overriding double click behaviour to zoom up where it is clicked
-    this.doubleClickZoom.disable();
-    this.on('dblclick', function (e) {
-      this.setView(e.latlng, this.getZoom() + 1);
-    });
     this._checkConditions(false);
   },
 
