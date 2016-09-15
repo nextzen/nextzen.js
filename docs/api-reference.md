@@ -66,10 +66,10 @@ _Note: L.Mapzen.HouseStyles has been deprecated for L.Mapzen.BasemapStyles. Star
 
 ## Geocoder control
 
-`L.Mapzen.geocoder` adds a Mapzen Search box to the map. [Create a Mapzen Search API key](https://mapzen.com/developers) to use the geocoder.
+`L.Mapzen.geocoder` adds a Mapzen Search box to the map. [Create a Mapzen API key](https://mapzen.com/developers) to use the geocoder.
 
 ```javascript
-var geocoder = L.Mapzen.geocoder('search-api-key');
+var geocoder = L.Mapzen.geocoder('mapzen-api-key');
 geocoder.addTo(map);
 ```
 

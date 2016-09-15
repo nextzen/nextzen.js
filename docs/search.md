@@ -3,7 +3,7 @@
 Mapzen.js includes options for adding a Mapzen Search geocoder box to a map. To use this part of Mapzen.js, you need to sign up for a [Mapzen Search API key](https://mapzen.com/developers).
 
 ```javascript
-var geocoder = L.Mapzen.geocoder('search-api-key');
+var geocoder = L.Mapzen.geocoder('mapzen-api-key');
 geocoder.addTo(map);
 ```
 
