@@ -2,7 +2,7 @@
   "name": "mapzen.js",
   "version": null,
   "description": "Javascript SDK for Mapzen products",
-  "main": "dist/mapzen.js",
+  "main": "src/js/mapzen.js",
   "directories": {
     "test": "test"
   },
