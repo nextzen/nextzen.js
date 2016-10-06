@@ -11,7 +11,7 @@ test:
 
 deployment:
   release:
-    tag: /release-v[0-9]+(\.[0-9])+/
+    tag: /release-v[0-9]+\.[0-9]+\.[0-9]+/
     commands:
       - ./deploy.sh ${CIRCLE_TAG#release-v} static-dev.mapzen.com
       - ./deploy.sh ${CIRCLE_TAG#release-v} static-prod.mapzen.com
