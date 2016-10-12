@@ -10,17 +10,23 @@
     "test": "karma start test/karma.conf.js --log-level debug --single-run",
     "lint": "eslint ./src/js/* ./test/*.js; exit 0;",
     "build-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
+    "build-standalone-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.standalone.scss; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "build-dev-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss -w; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "dev": " watchify  ./src/js/mapzen.js -o dist/mapzen.min.js -v;",
+    "build-standalone": "browserify -t browserify-shim ./src/js/mapzen.js --standalone Mapzen > dist/mapzen.standalone.js; browserify -t browserify-shim -t uglifyify ./src/js/mapzen.js --standalone  Mapzen | uglifyjs -c > dist/mapzen.standalone.min.js; npm run-script build-standalone-style;",
     "build": "browserify ./src/js/mapzen.js > dist/mapzen.js; browserify -t uglifyify ./src/js/mapzen.js | uglifyjs -c > dist/mapzen.min.js; npm run-script build-style;"
   },
+
+  "browserify-shim": {
+    "leaflet": "global:L"
+  },
+
   "dependencies": {
     "leaflet": "^0.7.7",
     "leaflet-geocoder-mapzen": "^1.6.2",
-    "leaflet-hash": "^0.2.1",
-    "leaflet.locatecontrol": "^0.52.0",
     "mapzen-scarab": "git+https://github.com/mapzen/scarab.git"
   },
+
   "devDependencies": {
     "babel-preset-es2015": "^6.13.2",
     "babelify": "^7.3.0",

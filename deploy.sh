@@ -34,5 +34,8 @@ for DIR in "js/${VPATCH}" "js/${VMINOR}" "js/${VMAJOR}" "js"; do
     aws s3 cp dist/mapzen.min.js s3://${BUCKET}/${DIR}/mapzen.min.js
     aws s3 cp dist/mapzen.js s3://${BUCKET}/${DIR}/mapzen.js
     aws s3 cp dist/mapzen.css s3://${BUCKET}/${DIR}/mapzen.css
+    aws s3 cp dist/mapzen.js s3://${BUCKET}/${DIR}/mapzen.standalone.min.js
+    aws s3 cp dist/mapzen.js s3://${BUCKET}/${DIR}/mapzen.standalone.js
+    aws s3 cp dist/mapzen.js s3://${BUCKET}/${DIR}/mapzen.standalone.css
     aws s3 cp --recursive dist/images s3://${BUCKET}/${DIR}/images
 done
