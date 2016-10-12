@@ -17,16 +17,14 @@
     "build": "browserify ./src/js/mapzen.js > dist/mapzen.js; browserify -t uglifyify ./src/js/mapzen.js | uglifyjs -c > dist/mapzen.min.js; npm run-script build-style;"
   },
 
+  "browserify-shim": {
+    "leaflet": "global:L"
+  },
+
   "dependencies": {
     "leaflet": "^0.7.7",
     "leaflet-geocoder-mapzen": "^1.6.2",
-    "leaflet-hash": "^0.2.1",
-    "leaflet.locatecontrol": "^0.52.0",
     "mapzen-scarab": "git+https://github.com/mapzen/scarab.git"
-  },
-
-  "browserify-shim": {
-    "leaflet": "global:L"
   },
 
   "devDependencies": {

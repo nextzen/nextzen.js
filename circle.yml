@@ -8,6 +8,7 @@ general:
 test:
   pre:
     - npm run build
+    - npm run build-standalone
 
 deployment:
   release:
