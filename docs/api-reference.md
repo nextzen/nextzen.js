@@ -61,6 +61,10 @@ var map = L.Mapzen.map('map', {
 | `L.Mapzen.BasemapStyles.Walkabout` | `https://mapzen.com/carto/walkabout-style/walkabout-style.yaml` |
 | `L.Mapzen.BasemapStyles.WalkaboutMoreLabels` | `https://mapzen.com/carto/walkabout-style-more-labels/walkabout-style-more-labels.yaml` |
 | `L.Mapzen.BasemapStyles.WalkaboutNoLabels` | `https://mapzen.com/carto/walkabout-style-no-labels/walkabout-style-no-labels.yaml` |
+| `L.Mapzen.BasemapStyles.Tron`| `https://mapzen.com/carto/tron-style/tron-style.zip`                                                  |
+| `L.Mapzen.BasemapStyles.TronMoreLabels`| `https://mapzen.com/carto/tron-style-more-labels/tron-style-more-labels.zip`                |
+| `L.Mapzen.BasemapStyles.TronNoLabels`| `https://mapzen.com/carto/tron-style-no-labels/tron-style-no-labels.zip`                      |
+
 
 _Note: L.Mapzen.HouseStyles has been deprecated for L.Mapzen.BasemapStyles. Starting with Mapzen.js 1.0, you must use only L.Mapzen.BasemapStyles._
 
