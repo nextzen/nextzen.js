@@ -9,6 +9,8 @@ test:
   pre:
     - npm run build
     - npm run build-standalone
+  post:
+    - cp -Lr examples js $CIRCLE_ARTIFACTS/
 
 deployment:
   release:
