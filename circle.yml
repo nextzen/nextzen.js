@@ -11,6 +11,7 @@ test:
     - npm run build-standalone
   post:
     - cp -Lr examples dist $CIRCLE_ARTIFACTS/
+    - echo '<a href="examples/index.html">example</a>' > $CIRCLE_ARTIFACTS/index.html
 
 deployment:
   release:
