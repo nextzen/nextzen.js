@@ -8,7 +8,7 @@ test:
     - npm run build-standalone
   post:
     - cp -Lr examples dist $CIRCLE_ARTIFACTS/
-    - echo '<a href="examples/index.html">example</a>' > $CIRCLE_ARTIFACTS/index.html
+    - echo '<ul><li><a href="examples/index.html">Basic example</a></li><li><a href="examples/standalone.html">Standalone example</a></li><li><a href="examples/standalone-v1.0.html">Standalone + Leaflet 1.0 example</a></li></ul>' > $CIRCLE_ARTIFACTS/index.html
 
 deployment:
   release:
