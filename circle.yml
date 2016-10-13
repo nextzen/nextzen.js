@@ -1,14 +1,14 @@
 machine:
   node:
     version: 4.2.2
-general:
-  artifacts:
-    - "dist"
 
 test:
   pre:
     - npm run build
     - npm run build-standalone
+  post:
+    - cp -Lr examples dist $CIRCLE_ARTIFACTS/
+    - echo '<ul><li><a href="examples/index.html">Basic example</a></li><li><a href="examples/standalone.html">Standalone example</a></li><li><a href="examples/standalone-v1.0.html">Standalone + Leaflet 1.0 example</a></li></ul>' > $CIRCLE_ARTIFACTS/index.html
 
 deployment:
   release:
