@@ -1,9 +1,6 @@
 machine:
   node:
     version: 4.2.2
-general:
-  artifacts:
-    - "dist"
 
 test:
   pre:
