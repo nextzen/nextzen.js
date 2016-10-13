@@ -10,7 +10,7 @@ test:
     - npm run build
     - npm run build-standalone
   post:
-    - cp -Lr examples js $CIRCLE_ARTIFACTS/
+    - cp -Lr examples dist $CIRCLE_ARTIFACTS/
 
 deployment:
   release:
