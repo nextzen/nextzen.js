@@ -13,9 +13,9 @@ var style = {
   Walkabout: 'https://mapzen.com/carto/walkabout-style/1/walkabout-style.yaml',
   WalkaboutMoreLabels: 'https://mapzen.com/carto/walkabout-style-more-labels/1/walkabout-style-more-labels.yaml',
   WalkaboutNoLabels: 'https://mapzen.com/carto/walkabout-style-no-labels/1/walkabout-style-no-labels.yaml',
-  Tron: 'https://mapzen.com/carto/tron-style/tron-style.zip',
-  TronMoreLabels: 'https://mapzen.com/carto/tron-style-more-labels/tron-style-more-labels.zip',
-  TronNoLabels: 'https://mapzen.com/carto/tron-style-no-labels/tron-style-no-labels.zip'
+  Tron: 'https://mapzen.com/carto/tron-style/2/tron-style.zip',
+  TronMoreLabels: 'https://mapzen.com/carto/tron-style-more-labels/2/tron-style-more-labels.zip',
+  TronNoLabels: 'https://mapzen.com/carto/tron-style-no-labels/2/tron-style-no-labels.zip'
 };
 
 module.exports = style;
