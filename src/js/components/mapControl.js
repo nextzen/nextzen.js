@@ -38,6 +38,8 @@ var MapControl = L.Map.extend({
     if (this._isThisIframed()) {
       // do not scroll zoom when it is iframed
       this.scrollWheelZoom.disable();
+      this.scrollWheelZoom = false; // This is for Leaflet v1.0
+
       var anchors = document.querySelectorAll('a');
 
       for (var i = 0, j = anchors.length; i < j; i++) {
