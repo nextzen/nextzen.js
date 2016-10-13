@@ -36,9 +36,11 @@
         lat = 40.70531
       }
 
+      // creates a map with Tron style basemap
       var map = L.Mapzen.map('map',{
-        scene: L.Mapzen.BasemapStyles.Refill
+        scene: L.Mapzen.BasemapStyles.Tron
       });
+
 
       map.setView([lat, lon],13);
 

@@ -35,16 +35,14 @@
         lat = 40.70531
       }
 
-      // creates a map with the refill basemap
-      var map = L.Mapzen.map('map',{
-        scene: L.Mapzen.HouseStyles.Refill
-      });
-      
+      // creates a map with default (bubble-wrap) style
+      var map = L.Mapzen.map('map');
+
       map.setView([lat, lon],13);
-    
+
       // moves zoom control to the bottom right of the map page
       map.zoomControl.setPosition('bottomright');
-    
+
       // adds a search box to a map
       var geocoder = L.Mapzen.geocoder('search--NA8UXg');
       geocoder.addTo(map);
