@@ -5,7 +5,7 @@ var style = {
   CinnabarMoreLabels: 'https://mapzen.com/carto/cinnabar-style-more-labels/5/cinnabar-style-more-labels.yaml',
   CinnabarNoLabels: 'https://mapzen.com/carto/cinnabar-style-no-labels/4/cinnabar-style-no-labels.yaml',
   Refill: 'https://mapzen.com/carto/refill-style/4/refill-style.yaml',
-  RefillMoreLabels: 'https://mapzen.com/carto/refill-style-more-labels/4/refill-style-more-labels.yaml',
+  RefillMoreLabels: 'https://mapzen.com/carto/refill-style-more-labels/5/refill-style-more-labels.yaml',
   RefillNoLabels: 'https://mapzen.com/carto/refill-style-no-labels/4/refill-style-no-labels.yaml',
   Zinc: 'https://mapzen.com/carto/zinc-style/4/zinc-style.yaml',
   ZincMoreLabels: 'https://mapzen.com/carto/zinc-style-more-labels/4/zinc-style-more-labels.yaml',
