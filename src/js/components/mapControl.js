@@ -5,7 +5,8 @@ var MapControl = L.Map.extend({
   includes: L.Mixin.Events,
   options: {
     attribution: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
-    _useTangram: true
+    _useTangram: true,
+    _debug: false
   },
 
   // overriding Leaflet's map initializer
@@ -13,10 +14,14 @@ var MapControl = L.Map.extend({
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
 
     if (this.options._useTangram) {
-      var tangram = L.Mapzen._tangram();
-      tangram.addTo(this);
+      this.tangram = L.Mapzen._tangram({
+        _debug: this.options._debug
+      });
+
+      this.tangram.addTo(this);
+
       var self = this;
-      tangram.on('loaded', function (e) {
+      self.tangram.on('loaded', function (e) {
         self.fire('tangramloaded', {
           tangramLayer: e.layer
         });
