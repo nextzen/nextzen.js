@@ -50,13 +50,21 @@ var TangramLayer = L.Class.extend({
       }
     }
   },
-  // getLayer: function () {
-  //   if (this._layerLoaded === true) {
-  //     return this.layer;
-  //   } else {
-  //     console.log('Tangram is not loaded yet. Please use the loaded event');
-  //   }
-  // },
+
+  addData: function (customData) {
+    if (this._layer) {
+      if (this._layer.scene.config) {
+        this._layer.scene.config.layers.nyc = { 'data': { 'source': 'overlay' }, 'draw': { 'lines': { 'order': 1000, 'width': '2px', 'color': 'red' } } };
+        this._layer.scene.setDataSource('overlay', { type: 'GeoJSON', url: 'https://raw.githubusercontent.com/dwillis/nyc-maps/master/boroughs.geojson' });
+        // this._layer.scene.redraw();
+      } else {
+        return window.setTimeout(this.addData.bind(this, customData), 200);
+      }
+    } else {
+      return window.setTimeout(this.addData.bind(this, customData), 200);
+    }
+  },
+
   _importScript: function (sSrc) {
     var oScript = document.createElement('script');
     oScript.type = 'text/javascript';

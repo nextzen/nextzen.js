@@ -22,7 +22,7 @@
   <body>
     <div id="map"></div>
     <script src='https://geoiplookup.wikimedia.org/'></script>
-    <script src="../dist/mapzen.min.js"></script>
+    <script src="../dist/mapzen.js"></script>
     <script>
 
       var lat, lon;
@@ -36,12 +36,17 @@
       }
 
       // creates a map with default (bubble-wrap) style
-      var map = L.Mapzen.map('map');
+      var map = L.Mapzen.map('map',{
+        scene: L.Mapzen.BasemapStyles.Refill,
+        _debug: true
+      });
 
       map.setView([lat, lon],13);
 
       // moves zoom control to the bottom right of the map page
+      console.log(map.zoomControl);
       map.zoomControl.setPosition('bottomright');
+      console.log(map.zoomControl);
 
       // adds a search box to a map
       var geocoder = L.Mapzen.geocoder('search--NA8UXg');
@@ -69,6 +74,8 @@
       map.on('tangramloaded', function(e) {
         console.log(e.tangramLayer);
       });
+
+      map.addData('https://raw.githubusercontent.com/dwillis/nyc-maps/master/boroughs.geojson');
 
     </script>
   </body>

@@ -34,6 +34,10 @@ var MapControl = L.Map.extend({
     this._checkConditions(false);
   },
 
+  addData: function (customData) {
+    this.tangram.addData(customData);
+  },
+
   _checkConditions: function (force) {
     if (this._isThisIframed()) {
       // do not scroll zoom when it is iframed
