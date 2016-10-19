@@ -44,9 +44,7 @@
       map.setView([lat, lon],13);
 
       // moves zoom control to the bottom right of the map page
-      console.log(map.zoomControl);
       map.zoomControl.setPosition('bottomright');
-      console.log(map.zoomControl);
 
       // adds a search box to a map
       var geocoder = L.Mapzen.geocoder('search--NA8UXg');
@@ -75,7 +73,8 @@
         console.log(e.tangramLayer);
       });
 
-      map.addData('https://raw.githubusercontent.com/dwillis/nyc-maps/master/boroughs.geojson');
+      map.addData({
+        url: 'https://raw.githubusercontent.com/dwillis/nyc-maps/master/boroughs.geojson'});
 
     </script>
   </body>

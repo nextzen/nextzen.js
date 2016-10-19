@@ -13,10 +13,10 @@ var MapControl = L.Map.extend({
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
 
     if (this.options._useTangram) {
-      var tangram = L.Mapzen._tangram();
-      tangram.addTo(this);
+      this.tangram = L.Mapzen._tangram();
+      this.tangram.addTo(this);
       var self = this;
-      tangram.on('loaded', function (e) {
+      self.tangram.on('loaded', function (e) {
         self.fire('tangramloaded', {
           tangramLayer: e.layer
         });
@@ -34,8 +34,8 @@ var MapControl = L.Map.extend({
     this._checkConditions(false);
   },
 
-  addData: function (customData) {
-    this.tangram.addData(customData);
+  addData: function (customData, style) {
+    this.tangram.addData(customData, style);
   },
 
   _checkConditions: function (force) {

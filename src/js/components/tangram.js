@@ -29,13 +29,13 @@ var TangramLayer = L.Class.extend({
       } else {
         console.log('given scene:', map.options.scene);
         console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
-        var _layer = Tangram.leafletLayer({
+        this._layer = Tangram.leafletLayer({
           scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
         }).addTo(map);
         var self = this;
-        _layer.on('init', function () {
+        self._layer.on('init', function () {
           self.fire('loaded', {
-            layer: _layer
+            layer: self._layer
           });
         });
       }
@@ -51,17 +51,18 @@ var TangramLayer = L.Class.extend({
     }
   },
 
-  addData: function (customData) {
+  addData: function (customData, customStyle) {
     if (this._layer) {
       if (this._layer.scene.config) {
-        this._layer.scene.config.layers.nyc = { 'data': { 'source': 'overlay' }, 'draw': { 'lines': { 'order': 1000, 'width': '2px', 'color': 'red' } } };
-        this._layer.scene.setDataSource('overlay', { type: 'GeoJSON', url: 'https://raw.githubusercontent.com/dwillis/nyc-maps/master/boroughs.geojson' });
+        if (!customStyle) this._layer.scene.config.layers.nyc = { 'data': { 'source': 'overlay' }, 'draw': { 'lines': { 'order': 1000, 'width': '2px', 'color': 'red' } } };
+        else this._layer.scene.config.layers.nyc = { 'data': { 'source': 'overlay' }, 'draw': customStyle };
+        this._layer.scene.setDataSource('overlay', { type: 'GeoJSON', url: customData.url});
         // this._layer.scene.redraw();
       } else {
-        return window.setTimeout(this.addData.bind(this, customData), 200);
+        return window.setTimeout(this.addData.bind(this, customData, customStyle), 200);
       }
     } else {
-      return window.setTimeout(this.addData.bind(this, customData), 200);
+      return window.setTimeout(this.addData.bind(this, customData, customStyle), 200);
     }
   },
 
