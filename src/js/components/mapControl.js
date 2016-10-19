@@ -65,7 +65,9 @@ var MapControl = L.Map.extend({
   },
 
   _disableZoomControl: function () {
-    this.zoomControl._container.style.display = 'none';
+    if(this.options.zoomControl) {
+      this.zoomControl._container.hidden = true;
+    }
   }
 });
 
