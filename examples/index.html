@@ -74,7 +74,13 @@
       });
 
       map.addData({
-        url: 'https://raw.githubusercontent.com/dwillis/nyc-maps/master/boroughs.geojson'});
+        url: 'https://raw.githubusercontent.com/dwillis/nyc-maps/master/boroughs.geojson'}, {
+          'lines': {
+            'order': 1000,
+            'width': '2px',
+            'color': 'blue'
+          }
+        });
 
     </script>
   </body>
