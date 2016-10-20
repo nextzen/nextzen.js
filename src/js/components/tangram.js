@@ -59,10 +59,10 @@ var TangramLayer = L.Class.extend({
         this._layer.scene.setDataSource(dataLayerName, { type: 'GeoJSON', url: customData.url});
         // this._layer.scene.redraw();
       } else {
-        return window.setTimeout(this.addData.bind(this, customData, customStyle), 200);
+        return window.setTimeout(this.addData.bind(this, dataLayerName, customData, customStyle), 200);
       }
     } else {
-      return window.setTimeout(this.addData.bind(this, customData, customStyle), 200);
+      return window.setTimeout(this.addData.bind(this, dataLayerName, customData, customStyle), 200);
     }
   },
 
