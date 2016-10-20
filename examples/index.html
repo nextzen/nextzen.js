@@ -6,6 +6,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="../dist/mapzen.css">
+     <link rel="stylesheet" href="https://rawgit.com/CliffCloud/Leaflet.EasyButton/master/src/easy-button.css" />
     <style>
       html, body {
         width: 100%;
@@ -23,6 +24,7 @@
     <div id="map"></div>
     <script src='https://geoiplookup.wikimedia.org/'></script>
     <script src="../dist/mapzen.js"></script>
+    <script src="https://rawgit.com/CliffCloud/Leaflet.EasyButton/master/src/easy-button.js"></script>
     <script>
 
       var lat, lon;
@@ -74,13 +76,11 @@
       });
 
       map.addData({
-        url: 'https://raw.githubusercontent.com/dwillis/nyc-maps/master/boroughs.geojson'}, {
-          'lines': {
-            'order': 1000,
-            'width': '2px',
-            'color': 'blue'
-          }
-        });
+        url: 'https://raw.githubusercontent.com/dwillis/nyc-maps/master/boroughs.geojson'});
+
+      L.easyButton('btn-auto', function(btn, map){
+        map.removeData('overlay');
+      }).addTo(map);
 
     </script>
   </body>

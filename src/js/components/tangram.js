@@ -51,12 +51,12 @@ var TangramLayer = L.Class.extend({
     }
   },
 
-  addData: function (customData, customStyle) {
+  addData: function (dataLayerName, customData, customStyle) {
     if (this._layer) {
       if (this._layer.scene.config) {
-        if (!customStyle) this._layer.scene.config.layers.nyc = { 'data': { 'source': 'overlay' }, 'draw': { 'lines': { 'order': 1000, 'width': '2px', 'color': 'red' } } };
-        else this._layer.scene.config.layers.nyc = { 'data': { 'source': 'overlay' }, 'draw': customStyle };
-        this._layer.scene.setDataSource('overlay', { type: 'GeoJSON', url: customData.url});
+        if (!customStyle) this._layer.scene.config.layers.nyc = { 'data': { 'source': dataLayerName }, 'draw': { 'lines': { 'order': 1000, 'width': '2px', 'color': 'red' } } };
+        else this._layer.scene.config.layers.nyc = { 'data': { 'source': dataLayerName }, 'draw': customStyle };
+        this._layer.scene.setDataSource(dataLayerName, { type: 'GeoJSON', url: customData.url});
         // this._layer.scene.redraw();
       } else {
         return window.setTimeout(this.addData.bind(this, customData, customStyle), 200);
@@ -64,6 +64,18 @@ var TangramLayer = L.Class.extend({
     } else {
       return window.setTimeout(this.addData.bind(this, customData, customStyle), 200);
     }
+  },
+
+  removeData: function (dataLayerName) {
+    var newDataSources = {};
+    for (var sourceName in this._layer.scene.config.sources){
+      if (sourceName === dataLayerName) ;
+      else {
+        newDataSources[sourceName] = this._layer.scene.config.sources[sourceName];
+      }
+    }
+    this._layer.scene.config.sources = newDataSources;
+    this._layer.scene.updateConfig();
   },
 
   _importScript: function (sSrc) {

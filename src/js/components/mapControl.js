@@ -34,8 +34,12 @@ var MapControl = L.Map.extend({
     this._checkConditions(false);
   },
 
-  addData: function (customData, style) {
-    this.tangram.addData(customData, style);
+  addData: function (dataLayerName, customData, style) {
+    this.tangram.addData(dataLayerName, customData, style);
+  },
+
+  removeData: function (dataLayerName) {
+    this.tangram.removeData(dataLayerName);
   },
 
   _checkConditions: function (force) {
