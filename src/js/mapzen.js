@@ -11,6 +11,7 @@ var BasemapStyles = require('./components/basemapStyles');
 var TangramLayer = require('./components/tangram');
 
 L.Mapzen = module.exports = {
+  Map: MapControl,
   map: MapControl.map,
   geocoder: Geocoder.geocoder,
   locator: Locator.locator,

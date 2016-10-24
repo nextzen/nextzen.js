@@ -11,7 +11,10 @@ var TangramLayer = L.Class.extend({
     fallbackTile: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
     tangramURL: 'https://mapzen.com/tangram/0.10/tangram.min.js'
   },
-  initialize: function () {
+  initialize: function (opts) {
+    if (opts._debug) this.options.tangramURL = 'https://mapzen.com/tangram/0.10/tangram.debug.js';
+    this.options = L.extend({}, opts, this.options);
+
     // Start importing script
     // When there is no Tangram object available.
     if (typeof Tangram === 'undefined') {
@@ -29,13 +32,13 @@ var TangramLayer = L.Class.extend({
       } else {
         console.log('given scene:', map.options.scene);
         console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
-        var _layer = Tangram.leafletLayer({
+        this._layer = Tangram.leafletLayer({
           scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
         }).addTo(map);
         var self = this;
-        _layer.on('init', function () {
+        self._layer.on('init', function () {
           self.fire('loaded', {
-            layer: _layer
+            layer: self._layer
           });
         });
       }
@@ -50,13 +53,7 @@ var TangramLayer = L.Class.extend({
       }
     }
   },
-  // getLayer: function () {
-  //   if (this._layerLoaded === true) {
-  //     return this.layer;
-  //   } else {
-  //     console.log('Tangram is not loaded yet. Please use the loaded event');
-  //   }
-  // },
+
   _importScript: function (sSrc) {
     var oScript = document.createElement('script');
     oScript.type = 'text/javascript';
@@ -84,10 +81,10 @@ var TangramLayer = L.Class.extend({
 
 module.exports = TangramLayer;
 
-module.exports.tangramLayer = function () {
+module.exports.tangramLayer = function (opts) {
   // Tangram can't have more than one map on a browser context.
   if (!tangramLayerInstance) {
-    tangramLayerInstance = new TangramLayer();
+    tangramLayerInstance = new TangramLayer(opts);
   } else {
     // console.log('Only one Tangram map on page can be drawn. Please look at https://github.com/tangrams/tangram/issues/350');
   }
