@@ -14,14 +14,14 @@ var MapControl = L.Map.extend({
     L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
 
     if (this.options._useTangram) {
-      this.tangram = L.Mapzen._tangram({
+      this._tangram = L.Mapzen._tangram({
         _debug: this.options._debugTangram
       });
 
-      this.tangram.addTo(this);
+      this._tangram.addTo(this);
 
       var self = this;
-      self.tangram.on('loaded', function (e) {
+      self._tangram.on('loaded', function (e) {
         self.fire('tangramloaded', {
           tangramLayer: e.layer
         });
