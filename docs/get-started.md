@@ -1,8 +1,8 @@
-# Get started with Mapzen.js
+# Get started with mapzen.js
 
-To get started using Mapzen.js, you need to link to the CSS and one of the JS files in the `<head>` section. Both the source JavaScript file or the minified version, which is a compressed file that improves performance, are available.
+To get started using mapzen.js, you need to link to the CSS and one of the JS files in the `<head>` section. Both the source JavaScript file or the minified version, which is a compressed file that improves performance, are available.
 
-To reference the Mapzen.js cascading style sheet (CSS) and JavaScript file, add these links to your page.
+To reference the mapzen.js cascading style sheet (CSS) and JavaScript file, add these links to your page.
 
 ```html
 <!-- style sheet for mapzen.js -->
@@ -15,9 +15,9 @@ To reference the Mapzen.js cascading style sheet (CSS) and JavaScript file, add 
 <script src="https://mapzen.com/js/mapzen.min.js"></script>
 ```
 
-## Create a basic web map using Mapzen.js
+## Create a basic web map using mapzen.js
 
-In this walkthrough, you will learn how to create a basic web map using Mapzen.js. You should have some familiarity with HTML/CSS and JavaScript, but the source code is provided. Any operating system or text editor will work, but you will need an internet connection while you are working.
+In this walkthrough, you will learn how to create a basic web map using mapzen.js. You should have some familiarity with HTML/CSS and JavaScript, but the source code is provided. Any operating system or text editor will work, but you will need an internet connection while you are working.
 
 ### Create an index page
 
@@ -67,7 +67,7 @@ Your HTML should look like this:
 
 A cascading style sheet (CSS) is used to style a webpage, including layout and fonts, and JavaScript adds functionality to the page. In your `index.html` file, you need to list the CSS and JavaScript files.
 
-1. In `index.html`, at the bottom of the `<head>` section, add references to the Mapzen.js CSS and JavaScript files. You are linking to these from a remote website, rather than from a file on your machine.
+1. In `index.html`, at the bottom of the `<head>` section, add references to the mapzen.js CSS and JavaScript files. You are linking to these from a remote website, rather than from a file on your machine.
 
     ```html
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
