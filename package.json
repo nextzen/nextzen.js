@@ -20,9 +20,8 @@
     "leaflet": "global:L"
   },
   "dependencies": {
-    "leaflet": "^0.7.7",
-    "leaflet-geocoder-mapzen": "^1.6.2",
-    "mapzen-scarab": "git+https://github.com/mapzen/scarab.git"
+    "leaflet": "^1.0.1",
+    "leaflet-geocoder-mapzen": "^1.6.2"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.13.2",
