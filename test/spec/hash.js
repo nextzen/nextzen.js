@@ -23,11 +23,11 @@ describe('Map Hash Test', function () {
   })
 
 
-  describe('Leaflet Versions', function () {
-    it('check which Leaflet version it is', function () {
-      expect(L.version).to.equal('0.7.7');
-    });
-  });
+  // describe('Leaflet Versions', function () {
+  //   it('check which Leaflet version it is', function () {
+  //     expect(L.version).to.equal('0.7.7');
+  //   });
+  // });
 
   describe('Hash Working', function () {
     it('checks that hash for coord is working', function () {
