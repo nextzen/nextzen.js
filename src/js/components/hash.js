@@ -8,6 +8,7 @@ var Hash = L.Class.extend({
   _changing: false,
   _map: null,
   _geocoder: null,
+  _throttleLimit: 500,
 
   initialize: function (options) {
     if (options.map) {
@@ -21,7 +22,7 @@ var Hash = L.Class.extend({
     }
 
     this._setupHash();
-    L.DomEvent.on(window, 'onhashchange', this._setupHash, this);
+    // L.DomEvent.on(window, 'onhashchange', this._setupHash, this);
   },
 
   _setupHash: function () {
@@ -35,6 +36,7 @@ var Hash = L.Class.extend({
       } else if (this._hashData.lat && this._hashData.lng && this._hashData.z) {
         // boolean changing is to prevent recursive hash change
         // Hash doesn't get updated while map is setting the view
+        console.log(this._hashData);
         this._changing = true;
         if (this._map) this._map.setView([this._hashData.lat, this._hashData.lng], this._hashData.z);
         this._changing = false;
@@ -50,8 +52,8 @@ var Hash = L.Class.extend({
   },
 
   _startMapEvents: function () {
-    L.DomEvent.on(this._map, 'moveend', this._updateLatLng, this);
-    L.DomEvent.on(this._map, 'zoomend', this._updateZoom, this);
+    L.DomEvent.on(this._map, 'moveend', this._throttle(this._updateLatLng, this._throttleLimit), this);
+    L.DomEvent.on(this._map, 'zoomend', this._throttle(this._updateZoom, this._throttleLimit), this);
   },
 
   _startGeocoderEvents: function () {
@@ -77,7 +79,7 @@ var Hash = L.Class.extend({
   _updateZoom: function () {
     if (!this._changing) {
       var zoom = this._map.getZoom();
-      this._hashData.z = zoom;
+      this._hashData.z = this._roundZDown(zoom);
       this._updateHash();
     }
   },
@@ -111,8 +113,24 @@ var Hash = L.Class.extend({
 
   _precision: function (z) {
     return Math.max(0, Math.ceil(Math.log(z) / Math.LN2));
-  }
+  },
 
+  _roundZDown: function (z) {
+    return z.toFixed(4);
+  },
+
+  _throttle: function (callback, limit) {
+    var wait = false;
+    return function () {
+      if (!wait) {
+        callback.bind(this).call();
+        wait = true;
+        setTimeout(function () {
+          wait = false;
+        }, limit);
+      }
+    };
+  }
 });
 
 var Formatter = {
