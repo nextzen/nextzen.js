@@ -95,7 +95,7 @@ module.exports = function (config) {
       accessKey: process.env.BROWSERSTACK_KEY
     },
     // Tweaks for Browserstack timeout
-    browserDisconnectTimeout: 20000, // default 2000
+    browserDisconnectTimeout: 60000, // default 2000
     browserDisconnectTolerance: 1, // default 0
     browserNoActivityTimeout: 4 * 60 * 1000, // default 10000,
     captureTimeout: 4 * 60 * 1000, // default 60000
