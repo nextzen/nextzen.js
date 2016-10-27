@@ -1,6 +1,6 @@
 # API reference
 
-Mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. Mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
+mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
 
 ## Draw a map
 
@@ -38,7 +38,7 @@ map.on('tangramloaded', function(event) {
 
 ## Basemap styles
 
-Mapzen.js has constants for [Mapzen basemaps](https://mapzen.com/products/maps/) under the `L.Mapzen.BasemapStyles` namespace to make it easy to access to them. You can pass `L.Mapzen.BasemapStyles` as a `scene` option for the `L.Mapzen.map` instance.
+mapzen.js has constants for [Mapzen basemaps](https://mapzen.com/products/maps/) under the `L.Mapzen.BasemapStyles` namespace to make it easy to access to them. You can pass `L.Mapzen.BasemapStyles` as a `scene` option for the `L.Mapzen.map` instance.
 
 ```javascript
 var map = L.Mapzen.map('map', {
@@ -66,7 +66,7 @@ var map = L.Mapzen.map('map', {
 | `L.Mapzen.BasemapStyles.TronNoLabels`| `https://mapzen.com/carto/tron-style-no-labels/tron-style-no-labels.zip`                      |
 
 
-_Note: L.Mapzen.HouseStyles has been deprecated for L.Mapzen.BasemapStyles. Starting with Mapzen.js 1.0, you must use only L.Mapzen.BasemapStyles._
+_Note: L.Mapzen.HouseStyles has been deprecated for L.Mapzen.BasemapStyles. Starting with mapzen.js 1.0, you must use only L.Mapzen.BasemapStyles._
 
 ## Geocoder control
 
@@ -132,7 +132,7 @@ Hash Options
 
 ## Events
 
-All of Leaflet's event methods are available, such as `on`, `off`, `once`, and so on. In addition, Mapzen.js provides these events.
+All of Leaflet's event methods are available, such as `on`, `off`, `once`, and so on. In addition, mapzen.js provides these events.
 
 |      Event      |                   Description                   |
 |-----------------|-------------------------------------------------|
