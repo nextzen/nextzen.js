@@ -70,7 +70,7 @@ var MapControl = L.Map.extend({
   },
 
   _disableZoomControl: function () {
-    if(this.options.zoomControl) {
+    if (this.options.zoomControl) {
       this.zoomControl._container.hidden = true;
     }
   }
