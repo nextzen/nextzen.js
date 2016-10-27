@@ -116,6 +116,6 @@ module.exports = function (config) {
       }
     },
 
-    browsers: ['PhantomJS', 'bs_iphone6S', 'bs_ie_window']
+    browsers: ['PhantomJS', 'bs_ie_window']
   });
 };
