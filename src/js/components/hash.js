@@ -36,7 +36,6 @@ var Hash = L.Class.extend({
       } else if (this._hashData.lat && this._hashData.lng && this._hashData.z) {
         // boolean changing is to prevent recursive hash change
         // Hash doesn't get updated while map is setting the view
-        console.log(this._hashData);
         this._changing = true;
         if (this._map) this._map.setView([this._hashData.lat, this._hashData.lng], this._hashData.z);
         this._changing = false;
