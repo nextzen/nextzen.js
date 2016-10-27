@@ -36,7 +36,7 @@ module.exports = function (config) {
 
     client: {
       mocha: {
-        timeout: 20000 // 20 seconds
+        timeout: 60000 // 60 seconds
       }
     },
     // preprocess matching files before serving them to the browser
