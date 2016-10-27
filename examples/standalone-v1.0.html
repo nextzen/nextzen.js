@@ -41,6 +41,10 @@
         scene: L.Mapzen.BasemapStyles.Tron
       });
 
+      L.Mapzen.hash({
+        map: map
+      });
+
       map.setView([lat, lon],13);
 
       map.zoomControl.setPosition('bottomright');
@@ -48,10 +52,6 @@
       var locator = L.Mapzen.locator();
       locator.setPosition('bottomright');
       locator.addTo(map);
-
-      L.Mapzen.hash({
-        map: map
-      });
 
     </script>
   </body>
