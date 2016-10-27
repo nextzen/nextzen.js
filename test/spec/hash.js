@@ -35,18 +35,20 @@ describe('Map Hash Test', function () {
       var hash = L.Mapzen.hash({
         map: map
       });
-      var zoom = map.getZoom();
+      var zoom = hash._roundZDown(map.getZoom());
       var center = map.getCenter();
 
       var getPrecision = function (z) {
         return Math.max(0, Math.ceil(Math.log(z) / Math.LN2));
       };
-      var precision = getPrecision(zoom);
+
+      var precision = hash._precision(zoom);
 
       var hashLat = center.lat.toFixed(precision);
       var hashLng = center.lng.toFixed(precision);
       var hashVal = window.location.hash;
       hash._reset(); // For next test
+      console.log(hashVal);
       expect(hashVal).to.equal('#lat=' + hashLat + '&lng=' + hashLng + '&z=' + zoom);
     });
 
