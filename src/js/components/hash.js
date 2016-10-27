@@ -115,7 +115,8 @@ var Hash = L.Class.extend({
   },
 
   _roundZDown: function (z) {
-    return z.toFixed(4);
+    if (z % 1 === 0) return z;
+    else return z.toFixed(4);
   },
 
   _throttle: function (callback, limit) {
