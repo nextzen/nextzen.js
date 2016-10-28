@@ -11,7 +11,7 @@ var MapControl = L.Map.extend({
 
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
-    L.Map.prototype.options.zoomSnap = 0.01;
+    L.Map.prototype.options.zoomSnap = 0;
     var opts = L.extend({}, L.Map.prototype.options, options);
     L.Map.prototype.initialize.call(this, element, opts);
 
