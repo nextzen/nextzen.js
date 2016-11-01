@@ -22,6 +22,13 @@ describe('Map Control Test', function () {
     el.parentNode.removeChild(el);
   })
 
+  describe('Leaflet Versions', function () {
+    it('check which Leaflet version it is', function () {
+      expect(L.version).to.equal('1.0.1');
+    });
+  });
+
+
   describe('Tangram layer check', function () {
     it('checks default style is set.', function (done) {
 
