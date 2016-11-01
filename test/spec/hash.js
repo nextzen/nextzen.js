@@ -22,13 +22,6 @@ describe('Map Hash Test', function () {
     el.parentNode.removeChild(el);
   })
 
-
-  // describe('Leaflet Versions', function () {
-  //   it('check which Leaflet version it is', function () {
-  //     expect(L.version).to.equal('0.7.7');
-  //   });
-  // });
-
   describe('Hash Working', function () {
     it('checks that hash for coord is working', function () {
       map.setView([51.505, -0.09], 13);
