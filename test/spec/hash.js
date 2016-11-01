@@ -48,7 +48,7 @@ describe('Map Hash Test', function () {
       var hashLng = center.lng.toFixed(precision);
       var hashVal = window.location.hash;
       hash._reset(); // For next test
-      console.log(hashVal);
+
       expect(hashVal).to.equal('#lat=' + hashLat + '&lng=' + hashLng + '&z=' + zoom);
     });
 

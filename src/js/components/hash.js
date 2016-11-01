@@ -147,7 +147,6 @@ var Formatter = {
         var keyAndValue = valArrs[val].split('=');
         dObj[keyAndValue[0]] = keyAndValue[1];
       }
-
       return dObj;
     }
   },
