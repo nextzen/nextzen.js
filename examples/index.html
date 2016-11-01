@@ -36,7 +36,9 @@
       }
 
       // creates a map with default (bubble-wrap) style
-      var map = L.Mapzen.map('map');
+      var map = L.Mapzen.map('map', {
+        scene: L.Mapzen.BasemapStyles.WalkaboutMoreLabels
+      });
 
       map.setView([lat, lon],13);
 
