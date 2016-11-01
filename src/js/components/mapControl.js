@@ -5,8 +5,8 @@ var MapControl = L.Map.extend({
   includes: L.Mixin.Events,
   options: {
     attribution: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
-    _useTangram: true,
-    _debugTangram: false
+    debugTangram: false,
+    _useTangram: true
   },
 
   // overriding Leaflet's map initializer
@@ -17,7 +17,7 @@ var MapControl = L.Map.extend({
 
     if (this.options._useTangram) {
       this._tangram = L.Mapzen._tangram({
-        _debug: this.options._debugTangram
+        debug: this.options.debugTangram
       });
 
       this._tangram.addTo(this);
