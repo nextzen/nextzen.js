@@ -203,8 +203,6 @@ var Geocoder = L.Control.extend({
     };
 
     this.callPelias(url, params, 'search');
-
-    return 'yo';
   },
 
   autocomplete: throttle(function (input) {
