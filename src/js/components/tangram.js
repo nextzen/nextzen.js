@@ -12,7 +12,7 @@ var TangramLayer = L.Class.extend({
     tangramURL: 'https://mapzen.com/tangram/0.10/tangram.min.js'
   },
   initialize: function (opts) {
-    if (opts._debug) this.options.tangramURL = 'https://mapzen.com/tangram/0.10/tangram.debug.js';
+    if (opts.debug) this.options.tangramURL = 'https://mapzen.com/tangram/0.10/tangram.debug.js';
     this.options = L.extend({}, opts, this.options);
 
     // Start importing script

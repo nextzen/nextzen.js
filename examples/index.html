@@ -21,22 +21,22 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src='https://geoiplookup.wikimedia.org/'></script>
-    <script src="../dist/mapzen.min.js"></script>
+    <script src="../dist/mapzen.js"></script>
     <script>
 
       var lat, lon;
        // when GeoIP is available, set the map's initial view to detected coordinates
-      if (typeof Geo === 'object') {
-        lon = Geo.lon
-        lat = Geo.lat
-      } else {
+      // if (typeof Geo === 'object') {
+      //   lon = Geo.lon
+      //   lat = Geo.lat
+      // } else {
+      // }
         lon = -74.009,
         lat = 40.70531
-      }
-
       // creates a map with default (bubble-wrap) style
-      var map = L.Mapzen.map('map');
+      var map = L.Mapzen.map('map', {
+        debugTangram: true
+      });
 
       map.setView([lat, lon],13);
 
@@ -46,6 +46,13 @@
       // adds a search box to a map
       var geocoder = L.Mapzen.geocoder('search--NA8UXg');
       geocoder.addTo(map);
+
+      // allows for a URL hash to be created
+      L.Mapzen.hash({
+        map: map,
+        geocoder: geocoder
+      });
+
 
       // creates a Mapzen "bug" with header for Mapzen projects
       L.Mapzen.bug({
@@ -58,12 +65,6 @@
       var locator = L.Mapzen.locator();
       locator.setPosition('bottomright');
       locator.addTo(map);
-
-      // allows for a URL hash to be created
-      L.Mapzen.hash({
-        map: map,
-        geocoder: geocoder
-      });
 
       // adds a tangram event listener
       map.on('tangramloaded', function(e) {

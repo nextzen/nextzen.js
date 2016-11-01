@@ -5,17 +5,19 @@ var MapControl = L.Map.extend({
   includes: L.Mixin.Events,
   options: {
     attribution: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
-    _useTangram: true,
-    _debugTangram: false
+    debugTangram: false,
+    _useTangram: true
   },
 
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
-    L.Map.prototype.initialize.call(this, element, L.extend({}, L.Map.prototype.options, options));
+    L.Map.prototype.options.zoomSnap = 0;
+    var opts = L.extend({}, L.Map.prototype.options, options);
+    L.Map.prototype.initialize.call(this, element, opts);
 
     if (this.options._useTangram) {
       this._tangram = L.Mapzen._tangram({
-        _debug: this.options._debugTangram
+        debug: this.options.debugTangram
       });
 
       this._tangram.addTo(this);
@@ -70,7 +72,7 @@ var MapControl = L.Map.extend({
   },
 
   _disableZoomControl: function () {
-    if(this.options.zoomControl) {
+    if (this.options.zoomControl) {
       this.zoomControl._container.hidden = true;
     }
   }

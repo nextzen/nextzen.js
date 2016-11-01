@@ -36,7 +36,7 @@ module.exports = function (config) {
 
     client: {
       mocha: {
-        timeout: 20000 // 20 seconds
+        timeout: 60000 // 60 seconds
       }
     },
     // preprocess matching files before serving them to the browser
@@ -95,7 +95,7 @@ module.exports = function (config) {
       accessKey: process.env.BROWSERSTACK_KEY
     },
     // Tweaks for Browserstack timeout
-    browserDisconnectTimeout: 20000, // default 2000
+    browserDisconnectTimeout: 60000, // default 2000
     browserDisconnectTolerance: 1, // default 0
     browserNoActivityTimeout: 4 * 60 * 1000, // default 10000,
     captureTimeout: 4 * 60 * 1000, // default 60000
@@ -112,10 +112,10 @@ module.exports = function (config) {
         base: 'BrowserStack',
         device: 'iPhone 6S',
         os: 'ios',
-        os_version: '9.3'
+        os_version: '9.0'
       }
     },
 
-    browsers: ['PhantomJS', 'bs_iphone6S', 'bs_ie_window']
+    browsers: ['PhantomJS', 'bs_ie_window']
   });
 };

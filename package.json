@@ -20,8 +20,8 @@
     "leaflet": "global:L"
   },
   "dependencies": {
-    "leaflet": "^0.7.7",
-    "leaflet-geocoder-mapzen": "^1.6.2",
+    "leaflet": "1.0.1",
+    "leaflet-geocoder-mapzen": "^1.7.1",
     "mapzen-scarab": "git+https://github.com/mapzen/scarab.git"
   },
   "devDependencies": {

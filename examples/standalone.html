@@ -38,6 +38,11 @@
       map.setView([lat, lon],13);
       map.zoomControl.setPosition('bottomright');
 
+
+      L.Mapzen.hash({
+        map: map
+      });
+
       // Mapobox Geocoder
 
       var geocoder = L.mapbox.geocoder("mapbox.places",{
@@ -57,10 +62,6 @@
       var locator = L.Mapzen.locator();
       locator.setPosition('bottomright');
       locator.addTo(map);
-
-      L.Mapzen.hash({
-        map: map
-      });
 
     </script>
   </body>
