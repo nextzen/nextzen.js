@@ -15,6 +15,23 @@ To reference the mapzen.js cascading style sheet (CSS) and JavaScript file, add 
 <script src="https://mapzen.com/js/mapzen.min.js"></script>
 ```
 
+## Using standalone version
+
+Currently, mapzen.js embeds [Leaflet 1.0](http://leafletjs.com/reference-1.0.0.html) in it. If you need to use your own version of Leaflet with mapzen.js, you can use standalone version which doesn't include Leaflet.
+
+To reference the standalone version of the mapzen.js cascading style sheet (CSS) and JavaScript file, add these links to your page followed by your own Leaflet links.
+
+```html
+<!-- style sheet for mapzen.js -->
+<link rel="stylesheet" href="https://mapzen.com/js/mapzen.standalone.css">
+
+<!-- latest version of stasndalone mapzen.js-->
+<script src="https://mapzen.com/js/mapzen.standalone.js"></script>
+
+<!-- latest minified version of standalone mapzen.js -->
+<script src="https://mapzen.com/js/mapzen.standalone.min.js"></script>
+```
+
 ## Create a basic web map using mapzen.js
 
 In this walkthrough, you will learn how to create a basic web map using mapzen.js. You should have some familiarity with HTML/CSS and JavaScript, but the source code is provided. Any operating system or text editor will work, but you will need an internet connection while you are working.
