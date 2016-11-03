@@ -2,11 +2,41 @@
 
 mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
 
-## Draw a map
+## Map
 
-`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options for displaying Mapzen's basemaps using the [Tangram rendering engine](https://mapzen.com/products/tangram/).
+`L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options.
 
-You can pass Mapzen's default basemaps for the `scene`, or you can link to your own path to a scene file for Tangram.
+### Options
+
+| Option  | Data                          | Description                                                   |
+|---------|--------|-----------------------------------|---------------------------------------------------------------|
+| `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
+| `fallBackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
+| `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box.`Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
+| `debugTangram`| Boolean | `false` | Whether to load debug (not minified) version of Tangram or not.|
+
+
+### Events
+
+All of [Leaflet's event methods](http://leafletjs.com/reference-1.0.0.html#map-event) are available, such as `on`, `off`, `once`, and so on. In addition, mapzen.js provides these events.
+
+For access to [Tangram’s `scene` object](https://mapzen.com/documentation/tangram/Javascript-API/#scene) or [`config` object](https://mapzen.com/documentation/tangram/Javascript-API/#config) (interfaces for controlling your Tangram scene at runtime), listen for the `tangramloaded` event on the map. It is available as a property of the Tangram Leaflet layer, which you will find in the event property `tangramLayer`.
+
+| Event  | Description                                                   |
+|---------|--------------------------------------------------------------|
+| `tangramloaded` | Fired when a Tangram layer is loaded in the map. This event allows user to access to TangramLayer through `event.tangramLayer`|
+
+This is the example syntax showing how to use `tangramloaded` event.
+
+```
+map.on('tangramloaded', function (event) {
+  event.tangramLayer;
+});
+```
+
+### Draw a map with a map component
+
+You can pass [Mapzen's default basemaps](https://mapzen.com/documentation/mapzen-js/api-reference/#basemap-styles) for the `scene`, or you can link to your own path to a scene file for Tangram.
 
 If there is no scene file declared, you need to set your own tile to display the map.
 
@@ -20,22 +50,8 @@ var map = L.Mapzen.map('map', {
 
 The `center:` parameter sets the center point of the map, in decimal degrees. The next line sets the `zoom` level, which is like a map scale or resolution, where a smaller value shows a larger area in less detail, and a larger zoom level value depicts smaller area in great detail.
 
-The `scene: L.Mapzen.BasemapStyles.BubbleWrap` line sets the style used for the map. In this case, it is Mapzen's all-purpose stylesheet called BubbleWrap.
+The `scene: L.Mapzen.BasemapStyles.Refill` line sets the style used for the map. In this case, it is Mapzen's Refill style which provides a high contrast, black & white basemap useful for data visualization.
 
-| Option  | Type   | Default                           | Description                                                   |
-|---------|--------|-----------------------------------|---------------------------------------------------------------|
-| `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
-| `fallBackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
-| `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box.`Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
-| `debugTangram`| Boolean | `false` | Whether to load debug (not minified) version of Tangram or not.|
-
-For access to [Tangram’s `scene` object](https://mapzen.com/documentation/tangram/Javascript-API/#scene) (interface for controlling your Tangram scene at runtime), listen for the `tangramloaded` event on the map. It is available as a property of the Tangram Leaflet layer, which you will find in the event property `tangramLayer`.
-
-```
-map.on('tangramloaded', function(event) {
-  event.tangramLayer;
-});
-```
 
 ## Basemap styles
 
@@ -95,7 +111,7 @@ L.Mapzen.bug({
 });
 ```
 
-Bug Options
+### Options
 
 | Option  | Type   | Default                        | Description                            |
 |---------|--------|--------------------------------|----------------------------------------|
@@ -124,17 +140,9 @@ L.Mapzen.hash({
 })
 ```
 
-Hash Options
+### Options
 
 | Option     | Type              | Default | Description           |
 |------------|-------------------|---------|-----------------------|
 | `map`      | L.Mapzen.map      | `null`  | Instance of map.      |
 | `geocoder` | L.Mapzen.geocoder | `null`  | Instance of geocoder. |
-
-## Events
-
-All of Leaflet's event methods are available, such as `on`, `off`, `once`, and so on. In addition, mapzen.js provides these events.
-
-|      Event      |                   Description                   |
-|-----------------|-------------------------------------------------|
-| `tangramloaded` | Fired when a Tangram layer is loaded in the map |
