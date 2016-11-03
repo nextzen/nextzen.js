@@ -22,17 +22,33 @@ The `center:` parameter sets the center point of the map, in decimal degrees. Th
 
 The `scene: L.Mapzen.BasemapStyles.BubbleWrap` line sets the style used for the map. In this case, it is Mapzen's all-purpose stylesheet called BubbleWrap.
 
-| Option  | Type   | Default                           | Description                                                   |
+
+## Map
+
+### Options
+
+| Option  | Data                          | Description                                                   |
 |---------|--------|-----------------------------------|---------------------------------------------------------------|
 | `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
 | `fallBackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
 | `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box.`Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
 | `debugTangram`| Boolean | `false` | Whether to load debug (not minified) version of Tangram or not.|
 
-For access to [Tangram’s `scene` object](https://mapzen.com/documentation/tangram/Javascript-API/#scene) (interface for controlling your Tangram scene at runtime), listen for the `tangramloaded` event on the map. It is available as a property of the Tangram Leaflet layer, which you will find in the event property `tangramLayer`.
+
+### Events
+
+All of [Leaflet's event methods](http://leafletjs.com/reference-1.0.0.html#map-event) are available, such as `on`, `off`, `once`, and so on. In addition, mapzen.js provides these events.
+
+For access to [Tangram’s `scene` object](https://mapzen.com/documentation/tangram/Javascript-API/#scene) or [`config` object](https://mapzen.com/documentation/tangram/Javascript-API/#config) (interfaces for controlling your Tangram scene at runtime), listen for the `tangramloaded` event on the map. It is available as a property of the Tangram Leaflet layer, which you will find in the event property `tangramLayer`.
+
+| Event  | Description                                                   |
+|---------|--------------------------------------------------------------|
+| `tangramloaded` | Fired when a Tangram layer is loaded in the map. This event allows user to access to TangramLayer through `event.tangramLayer`|
+
+This is the example syntax showing how to use `tangramloaded` event.
 
 ```
-map.on('tangramloaded', function(event) {
+map.on('tangramloaded', function (event) {
   event.tangramLayer;
 });
 ```
@@ -95,7 +111,7 @@ L.Mapzen.bug({
 });
 ```
 
-Bug Options
+### Options
 
 | Option  | Type   | Default                        | Description                            |
 |---------|--------|--------------------------------|----------------------------------------|
@@ -124,17 +140,9 @@ L.Mapzen.hash({
 })
 ```
 
-Hash Options
+### Options
 
 | Option     | Type              | Default | Description           |
 |------------|-------------------|---------|-----------------------|
 | `map`      | L.Mapzen.map      | `null`  | Instance of map.      |
 | `geocoder` | L.Mapzen.geocoder | `null`  | Instance of geocoder. |
-
-## Events
-
-All of Leaflet's event methods are available, such as `on`, `off`, `once`, and so on. In addition, mapzen.js provides these events.
-
-|      Event      |                   Description                   |
-|-----------------|-------------------------------------------------|
-| `tangramloaded` | Fired when a Tangram layer is loaded in the map |
