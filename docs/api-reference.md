@@ -55,7 +55,7 @@ The `scene: L.Mapzen.BasemapStyles.Refill` line sets the style used for the map.
 
 ## Basemap styles
 
-mapzen.js has constants for [Mapzen basemaps](https://mapzen.com/products/maps/) under the `L.Mapzen.BasemapStyles` namespace to make it easy to access to them. You can pass `L.Mapzen.BasemapStyles` as a `scene` option for the `L.Mapzen.map` instance.
+mapzen.js has constants for [Mapzen basemaps](https://mapzen.com/products/maps/) under the `L.Mapzen.BasemapStyles` namespace to make it easy to access to them. You can pass `L.Mapzen.BasemapStyles` as a `scene` option for the `L.Mapzen.map` instance. Learn more about Mapzen basemaps and options for customization in the [cartography documentation](https://mapzen.com/documentation/cartography/).
 
 ```javascript
 var map = L.Mapzen.map('map', {
