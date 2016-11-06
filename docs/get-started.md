@@ -122,7 +122,7 @@ To display a Leaflet map on a page, you need a `<div>` element, which is a conta
         width: 100%;
         position: absolute;
       }
-      html,body{margin: 0; padding: 0}
+      html,body{margin: 0; padding: 0;}
     </style>
     ```
 
@@ -162,7 +162,7 @@ Your index.html should look something like this:
         width: 100%;
         position: absolute;
       }
-    html,body{margin: 0; padding: 0}
+    html,body{margin: 0; padding: 0;}
   </style>
 
   </head>
