@@ -9,10 +9,10 @@ var TangramLayer = L.Class.extend({
   includes: L.Mixin.Events,
   options: {
     fallbackTile: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
-    tangramURL: 'https://mapzen.com/tangram/0.10/tangram.min.js'
+    tangramURL: 'https://mapzen.com/tangram/0.11/tangram.min.js'
   },
   initialize: function (opts) {
-    if (opts.debug) this.options.tangramURL = 'https://mapzen.com/tangram/0.10/tangram.debug.js';
+    if (opts.debug) this.options.tangramURL = 'https://mapzen.com/tangram/0.11/tangram.debug.js';
     this.options = L.extend({}, opts, this.options);
 
     // Start importing script
