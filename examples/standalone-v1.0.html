@@ -41,11 +41,11 @@
         scene: L.Mapzen.BasemapStyles.Tron
       });
 
+      map.setView([lat, lon],13);
+
       L.Mapzen.hash({
         map: map
       });
-
-      map.setView([lat, lon],13);
 
       map.zoomControl.setPosition('bottomright');
 
