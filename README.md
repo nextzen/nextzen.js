@@ -7,12 +7,13 @@ mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://
 
 mapzen.js builds upon Leaflet's functionality by providing tools for working with Mapzen maps and search. With mapzen.js you can add [Mapzen map styles](https://mapzen.com/products/maps/) as basemaps, build a customizable geocoder with [Mapzen Search](https://mapzen.com/products/search/), and share links to maps.
 
-**Current version of mapzen.js embedes Leaflet v1.0.1. If you need to use another version of Leaflet, please take a look at the (standalone)[#builds] vesrion of it.**
+**The current version of mapzen.js embeds Leaflet v1.0.1.** If you need to use another version of Leaflet, please take a look at the [standalone build](#builds) below.
 
 
-## Demo
+## Demos
 
-[add link(s) here]
+- [Eraser map](https://erasermap.com/map/)
+- [One Minute Map](https://mapzen.com/blog/one-minute-map/) (blog post and demo)
 
 ## Basic Usage
 
@@ -49,7 +50,7 @@ Set up a basic [Leaflet](http://leafletjs.com/) map with the default [Mapzen bas
 
 **Done!**
 
-See the full tutorial at [Get started with mapzen.js](https://mapzen.com/documentation/mapzen-js/get-started/).
+See the full tutorial: [Get started with mapzen.js](https://mapzen.com/documentation/mapzen-js/get-started/).
 
 ## Documentation
 
@@ -60,7 +61,7 @@ The source files for the documentation are in the [/docs](https://github.com/map
 
 ## Releases
 
-**The most recent mapzen.js release is v.0.5.1,** which relies on [Leaflet v1.0.1](http://leafletjs.com/reference-1.0.0.html) and Tangram v0.10. [See the full list of releases and release notes here](https://github.com/mapzen/mapzen.js/releases).
+**The most recent mapzen.js release is v.0.5.1,** which relies on [Leaflet v1.0.1](http://leafletjs.com/reference-1.0.0.html) and [Tangram v0.10](https://github.com/tangrams/tangram). 
 
 Previous mapzen.js releases can be imported by referencing the specific version number:
 
@@ -68,10 +69,11 @@ Previous mapzen.js releases can be imported by referencing the specific version 
 <script src="https://mapzen.com/js/0.5.0/mapzen.min.js"></script>
 ```
 
+[See the full list of releases and release notes here](https://github.com/mapzen/mapzen.js/releases).
 
 ## Builds
 
-There are several different mapzen.js builds to meet specific needs:
+There are a few different mapzen.js builds to meet specific needs:
 
 **Minified:**  Use the minified build for most use cases.
 
@@ -79,14 +81,17 @@ There are several different mapzen.js builds to meet specific needs:
 <script src="https://mapzen.com/js/mapzen.min.js"></script>
 ```
 
-**Debugging:**
-mapzen.js uses [Tangram.js](https://github.com/tangrams/tangram) Use the unminified version for help with debugging. To load uniminified version of Tangram, use [`debugTangram`](https://mapzen.com/documentation/mapzen-js/api-reference/#options) option when initializing a map.
+**Debugging:**  Use the unminified version for help with debugging.
 
 ```
 <script src="https://mapzen.com/js/mapzen.js"></script>
 ```
 
-**Standalone:** Use the standalone version if you want to use a different version of Leaflet.  mapzen.js supports Leaflet v.0.7.x and v1.0.0. (Other versions of Leaflet may work, but are not actively tested or supported.)  This build includes a standalone css file, as well.
+If you want to load the unminified version of [Tangram.js](https://github.com/tangrams/tangram), as well, use the [`debugTangram`](https://mapzen.com/documentation/mapzen-js/api-reference/#options) option when initializing the map.
+
+**Standalone:** Use the standalone version if you want to use a different version of Leaflet.  Currently, mapzen.js supports Leaflet v.0.7.x and v1.0.x. (Other versions of Leaflet may work, but are not actively tested or supported.)  
+
+This build includes a standalone css file, as well.
 
 ```
 <!-- style sheet for mapzen.js -->
@@ -99,8 +104,7 @@ mapzen.js uses [Tangram.js](https://github.com/tangrams/tangram) Use the unminif
 <script src="https://mapzen.com/js/mapzen.standalone.min.js"></script>
 ```
 
-
-See the [npm build doc](BUILD.md) if you want to build locally.
+See [BUILD.md](BUILD.md) if you want to build locally (requires [npm](https://www.npmjs.com)).
 
 ## Import as module
 
