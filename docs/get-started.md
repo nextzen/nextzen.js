@@ -15,6 +15,25 @@ To reference the mapzen.js cascading style sheet (CSS) and JavaScript file, add 
 <script src="https://mapzen.com/js/mapzen.min.js"></script>
 ```
 
+## Versioning with mapzen.js
+
+When a new version of mapzen.js is released, semantic versioning is used to describe the scope of code changes. It's recommended that you peg your development to a specific version of mapzen.js, instead of the latest version. Read through each version's [release notes on GitHub](https://github.com/mapzen/mapzen.js/releases) to learn more about a specific release.
+
+### Version components
+
+`MAJOR`.`MINOR`.`PATCH`, example: `0.0.0`
+
+- https://mapzen.com/js/mapzen.js (latest)
+- https://mapzen.com/js/0/mapzen.js (major)
+- https://mapzen.com/js/0.0/mapzen.js (minor)
+- https://mapzen.com/js/0.0.0/mapzen.js (patch)
+
+### Version parts:
+
+- **MAJOR** version **X** for incompatible API changes.
+- **MINOR** version **Y** when adding functionality in a backwards-compatible manner, and
+- **PATCH** version **Z** when fixing backwards-compatible bugs
+
 ## Using standalone version
 
 Currently, mapzen.js embeds [Leaflet 1.0](http://leafletjs.com/reference-1.0.0.html) in it. If you need to use your own version of Leaflet with mapzen.js, you can use standalone version which doesn't include Leaflet.
