@@ -1,8 +1,14 @@
+[![npm](https://img.shields.io/npm/v/mapzen.js.svg)](https://www.npmjs.com/package/mapzen.js)
+[![CircleCI](https://img.shields.io/circleci/project/github/mapzen/mapzen.js.svg)](https://circleci.com/gh/mapzen/mapzen.js)
+
 # mapzen.js
 
 mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
 
 mapzen.js builds upon Leaflet's functionality by providing tools for working with Mapzen maps and search. With mapzen.js you can add [Mapzen map styles](https://mapzen.com/products/maps/) as basemaps, build a customizable geocoder with [Mapzen Search](https://mapzen.com/products/search/), and share links to maps.
+
+** Current M
+
 
 ## Demo
 
@@ -41,7 +47,7 @@ Set up a basic [Leaflet](http://leafletjs.com/) map with the default [Mapzen bas
 </script>
 ```
 
-**Done!** 
+**Done!**
 
 See the full tutorial at [Get started with mapzen.js](https://mapzen.com/documentation/mapzen-js/get-started/).
 
@@ -54,7 +60,7 @@ The source files for the documentation are in the [/docs](https://github.com/map
 
 ## Releases
 
-**The most recent mapzen.js release is v.0.5.1,** which relies on Leaflet v1.0.1 and Tangram v0.10.  [See the full list of releases and release notes here](https://github.com/mapzen/mapzen.js/releases).
+**The most recent mapzen.js release is v.0.5.1,** which relies on [Leaflet v1.0.1](http://leafletjs.com/reference-1.0.0.html) and Tangram v0.10. [See the full list of releases and release notes here](https://github.com/mapzen/mapzen.js/releases).
 
 Previous mapzen.js releases can be imported by referencing the specific version number:
 
@@ -73,7 +79,8 @@ There are several different mapzen.js builds to meet specific needs:
 <script src="https://mapzen.com/js/mapzen.min.js"></script>
 ```
 
-**Debugging:** Use the unminified version for help with debugging. This also pulls in an unminified version of [Tangram.js](https://github.com/tangrams/tangram).
+**Debugging:**
+mapzen.js uses [Tangram.js](https://github.com/tangrams/tangram) Use the unminified version for help with debugging. To load uniminified version of Tangram, use [`debugTangram`](https://mapzen.com/documentation/mapzen-js/api-reference/#options) option when initializing a map.
 
 ```
 <script src="https://mapzen.com/js/mapzen.js"></script>
