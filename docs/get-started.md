@@ -17,9 +17,9 @@ To reference the mapzen.js cascading style sheet (CSS) and JavaScript file, add 
 
 ## Using standalone version
 
-Currently, mapzen.js embeds [Leaflet 1.0](http://leafletjs.com/reference-1.0.0.html) in it. If you need to use your own version of Leaflet with mapzen.js, you can use standalone version which doesn't include Leaflet.
+Currently, mapzen.js embeds [Leaflet 1.0](http://leafletjs.com/reference-1.0.0.html) in it. If you need to use your own version of Leaflet with mapzen.js, you can use the standalone version which doesn't include Leaflet.
 
-To reference the standalone version of the mapzen.js cascading style sheet (CSS) and JavaScript file, add these links to your page followed by your own Leaflet links.
+To reference the standalone version of the mapzen.js CSS and JavaScript files, add these links to your page followed by your own Leaflet links.
 
 ```html
 <!-- style sheet for mapzen.js -->
@@ -82,7 +82,7 @@ Your HTML should look like this:
 
 ### Add references to CSS and JavaScript files
 
-A cascading style sheet (CSS) is used to style a webpage, including layout and fonts, and JavaScript adds functionality to the page. In your `index.html` file, you need to list the CSS and JavaScript files.
+A cascading style sheet (CSS) file is used to style a webpage, including layout and fonts, and JavaScript adds functionality to the page. In your `index.html` file, you need to list the CSS and JavaScript files.
 
 1. In `index.html`, at the bottom of the `<head>` section, add references to the mapzen.js CSS and JavaScript files. You are linking to these from a remote website, rather than from a file on your machine.
 
