@@ -17,8 +17,7 @@ To reference the mapzen.js cascading style sheet (CSS) and JavaScript file, add 
 
 ## Versioning with mapzen.js
 
-
-Semantic versioning is used for mapzen.js to allow you to choose a specific release to develop with, as well as describe the scope of code changes in a release. Versions follow a format of `X.Y.Z`, with a `MAJOR`.`MINOR`.`PATCH` version indicator. It's recommended that you peg your development to a specific version of mapzen.js, instead of the latest version. Read through each version's [release notes on GitHub](https://github.com/mapzen/mapzen.js/releases) to learn more about a specific release.
+Mapzen.js uses semantic versioning to allow you to choose a specific release to develop with, as well as describe the scope of code changes in a release. Versions follow a format of `X.Y.Z`, with a `MAJOR`.`MINOR`.`PATCH` version indicator. It's recommended that you peg your development to a specific version of mapzen.js, instead of the latest version. Read through each version's [release notes on GitHub](https://github.com/mapzen/mapzen.js/releases) to learn more about a specific release.
 
 ### Version components
 
@@ -28,12 +27,6 @@ Semantic versioning is used for mapzen.js to allow you to choose a specific rele
 - https://mapzen.com/js/0/mapzen.js (major)
 - https://mapzen.com/js/0.0/mapzen.js (minor)
 - https://mapzen.com/js/0.0.0/mapzen.js (patch)
-
-### Version parts:
-
-- **MAJOR** version **X** for incompatible API changes.
-- **MINOR** version **Y** when adding functionality in a backwards-compatible manner, and
-- **PATCH** version **Z** when fixing backwards-compatible bugs
 
 ## Using standalone version
 
