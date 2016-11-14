@@ -14,6 +14,7 @@ mapzen.js builds upon Leaflet's functionality by providing tools for working wit
 
 - [Eraser map](https://erasermap.com/map/)
 - [One Minute Map](https://mapzen.com/blog/one-minute-map/) (blog post and demo)
+- [Mapzen Turn by Turn demo (loading dynamic data)](http://mapzen.github.io/lrm-mapzen/tangram-route.html)
 
 ## Basic Usage
 
@@ -100,7 +101,7 @@ There are a few different mapzen.js builds to meet specific needs:
 
 If you want to load the unminified version of [Tangram.js](https://github.com/tangrams/tangram), as well, use the [`debugTangram`](https://mapzen.com/documentation/mapzen-js/api-reference/#options) option when initializing the map.
 
-**Standalone:** Use the standalone version if you want to use a different version of Leaflet.  Currently, mapzen.js supports Leaflet v.0.7.x and v1.0.x. (Other versions of Leaflet may work, but are not actively tested or supported.)  
+**Standalone:** Use the standalone version if you want to use a different version of Leaflet.  Currently, mapzen.js supports Leaflet v.0.7.x and v1.0.x. (Other versions of Leaflet may work, but are not actively tested or supported.)
 
 This build includes a standalone css file, as well.
 
