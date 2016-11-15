@@ -50,7 +50,7 @@ And add a height and width for the map:
 
 **Step 3:** At the bottom of your page, add a JavaScript section to set up the map:
 
-```js
+```html
 <script>
   // Add a map to the 'map' div
   var map = L.Mapzen.map('map');
@@ -62,13 +62,13 @@ And add a height and width for the map:
 
 **Done!**
 
-See the full tutorial: [Get started with mapzen.js](https://mapzen.com/documentation/mapzen-js/get-started/).
+See the full tutorial: [Get started with mapzen.js](https://mapzen.com/documentation/mapzen-js/get-started/)
 
 ## Documentation
 
 Read the full API documentation at https://mapzen.com/documentation/mapzen-js/.
 
-The source files for the documentation are in the [/docs](https://github.com/mapzen/mapzen.js/tree/master/docs) folder of this repository.
+The source files for the documentation are located in the [/docs](https://github.com/mapzen/mapzen.js/tree/master/docs) folder of this repository.
 
 
 ## Releases
@@ -77,7 +77,7 @@ The most recent mapzen.js release relies on [Leaflet v1.0.1](http://leafletjs.co
 
 Previous mapzen.js releases can be imported by referencing the specific version number:
 
-```
+```html
 <script src="https://mapzen.com/js/0.5.0/mapzen.min.js"></script>
 ```
 
@@ -89,13 +89,13 @@ There are a few different mapzen.js builds to meet specific needs:
 
 **Minified:**  Use the minified build for most use cases.
 
-```
+```html
 <script src="https://mapzen.com/js/mapzen.min.js"></script>
 ```
 
 **Debugging:**  Use the unminified version for help with debugging.
 
-```
+```html
 <script src="https://mapzen.com/js/mapzen.js"></script>
 ```
 
@@ -103,9 +103,9 @@ If you want to load the unminified version of [Tangram.js](https://github.com/ta
 
 **Standalone:** Use the standalone version if you want to use a different version of Leaflet.  Currently, mapzen.js supports Leaflet v.0.7.x and v1.0.x. (Other versions of Leaflet may work, but are not actively tested or supported.)
 
-This build includes a standalone css file, as well.
+The standalone build includes a standalone css file, as well.
 
-```
+```html
 <!-- style sheet for mapzen.js -->
 <link rel="stylesheet" href="https://mapzen.com/js/mapzen.standalone.css">
 
