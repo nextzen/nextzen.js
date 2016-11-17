@@ -1,6 +1,8 @@
 machine:
   node:
     version: 4.2.2
+  python:
+    version: 2.7.10
 
 test:
   pre:
@@ -21,3 +23,5 @@ deployment:
       # npm release process
       - echo -e "$NPM_USERNAME\n$NPM_PASSWORD\n$NPM_ACCOUNT" | npm login
       - npm version ${CIRCLE_TAG#release-v} --no-git-tag-version && publish --on-major --on-minor --on-patch
+      - pip install 'Circle-Tickler == 1.0.1'
+      - tickle-circle mapzen mapzen-docs-generator master $CIRCLE_TOKEN
