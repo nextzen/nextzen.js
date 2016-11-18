@@ -27,8 +27,6 @@ else
     echo "Nothing found at s3://${BUCKET}/js/${VPATCH}/mapzen.min.js"
 fi
 
-tar -czf dist/docs.tar.gz docs
-
 for DIR in "js/${VPATCH}" "js/${VMINOR}" "js/${VMAJOR}" "js"; do
     ./upload.sh ${DIR} ${BUCKET}
 done
