@@ -29,5 +29,5 @@ deployment:
   unstable:
     branch: "migurski/add-unstable-release"
     commands:
-      - ./upload.sh unstable static-dev.mapzen.com
-      - ./upload.sh unstable static-prod.mapzen.com
+      - ./upload.sh js/unstable static-dev.mapzen.com
+      - ./upload.sh js/unstable static-prod.mapzen.com
