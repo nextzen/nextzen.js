@@ -27,7 +27,7 @@ deployment:
       - pip install 'Circle-Tickler == 1.0.1'
       - tickle-circle mapzen mapzen-docs-generator master $CIRCLE_TOKEN
   unstable:
-    branch: "migurski/add-unstable-release"
+    branch: master
     commands:
       - ./upload.sh js/unstable static-dev.mapzen.com
       - ./upload.sh js/unstable static-prod.mapzen.com
