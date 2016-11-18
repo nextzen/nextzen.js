@@ -25,3 +25,7 @@ deployment:
       - npm version ${CIRCLE_TAG#release-v} --no-git-tag-version && publish --on-major --on-minor --on-patch
       - pip install 'Circle-Tickler == 1.0.1'
       - tickle-circle mapzen mapzen-docs-generator master $CIRCLE_TOKEN
+  unstable:
+    branch: "migurski/add-unstable-release"
+    commands:
+      - echo "Let's see if this actually works"
