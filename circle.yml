@@ -11,6 +11,7 @@ test:
   override:
     - npm test || npm test || npm test
   post:
+    - tar -czf dist/docs.tar.gz docs
     - cp -Lr examples dist $CIRCLE_ARTIFACTS/
     - echo '<ul><li><a href="examples/index.html">Basic example</a></li><li><a href="examples/standalone.html">Standalone example</a></li><li><a href="examples/standalone-v1.0.html">Standalone + Leaflet 1.0 example</a></li></ul>' > $CIRCLE_ARTIFACTS/index.html
 
@@ -25,3 +26,8 @@ deployment:
       - npm version ${CIRCLE_TAG#release-v} --no-git-tag-version && publish --on-major --on-minor --on-patch
       - pip install 'Circle-Tickler == 1.0.1'
       - tickle-circle mapzen mapzen-docs-generator master $CIRCLE_TOKEN
+  unstable:
+    branch: master
+    commands:
+      - ./upload.sh js/unstable static-dev.mapzen.com
+      - ./upload.sh js/unstable static-prod.mapzen.com
