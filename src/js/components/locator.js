@@ -545,6 +545,7 @@ module.exports = Locator;
 
 module.exports.locator = function () {
   var locator = new Locator({
+    position: 'bottomright',
     drawCircle: false,
     follow: false,
     showPopup: false,
