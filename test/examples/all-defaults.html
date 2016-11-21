@@ -1,0 +1,72 @@
+<!-- This example assumes you have local version of mapzen.js in dist folder -->
+<!-- Please look at BUILD.md to build local version of mapzen.js -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../../dist/mapzen.css">
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="../../dist/mapzen.min.js"></script>
+    <script>
+      var start = performance.now();
+      console.log('TIMER: starting timer');
+
+      var lon = -74.009,
+          lat = 40.70531;
+
+      // Default map (Bubble Wrap)
+      var map = L.Mapzen.map('map', {
+        debugTangram: true
+      });
+      map.setView([lat, lon],13);
+
+      // Add search box
+      var geocoder = L.Mapzen.geocoder('search--NA8UXg');
+      geocoder.addTo(map);
+
+      // Add URL hash
+      L.Mapzen.hash({
+        map: map,
+        geocoder: geocoder
+      });
+
+      // Add Mapzen "bug" with header for Mapzen projects
+      L.Mapzen.bug({
+        name: 'Web Map',
+        tweet: '@mapzen',
+        repo: 'https://github.com/mapzen/web-map',
+        mapID: 'map'});
+
+      // Add locator button
+      var locator = L.Mapzen.locator();
+      locator.addTo(map);
+
+      // Listen for Tangram loaded event
+      map.on('tangramloaded', function(e) {
+        var stop = performance.now();
+        var seconds = (stop - start)/1000;
+
+        console.log('Loaded Leaflet version ', L.version);
+        console.log('Loaded Tangram version', e.tangramVersion);
+
+        console.log('TIMER: ', seconds, ' seconds to tangramloaded event');
+      });
+
+    </script>
+  </body>
+</html>
