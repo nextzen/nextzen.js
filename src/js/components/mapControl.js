@@ -30,6 +30,8 @@ var MapControl = L.Map.extend({
       });
     }
 
+    this._setDefaultUIPositions();
+
     // Adding Mapzen attribution to Leaflet
     if (this.attributionControl) {
       this.attributionControl.setPrefix('');
@@ -74,6 +76,12 @@ var MapControl = L.Map.extend({
   _disableZoomControl: function () {
     if (this.options.zoomControl) {
       this.zoomControl._container.hidden = true;
+    }
+  },
+
+  _setDefaultUIPositions: function () {
+    if (this.options.zoomControl) {
+      this.zoomControl.setPosition('bottomright');
     }
   }
 });
