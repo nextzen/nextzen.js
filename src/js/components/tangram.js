@@ -4,15 +4,19 @@
 var L = require('leaflet');
 
 var tangramLayerInstance;
+var tangramVersion = '0.11';
+var tangramPath = 'https://mapzen.com/tangram/' + tangramVersion + '/';
 
 var TangramLayer = L.Class.extend({
   includes: L.Mixin.Events,
   options: {
     fallbackTile: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
-    tangramURL: 'https://mapzen.com/tangram/0.11/tangram.min.js'
+    tangramURL: tangramPath + 'tangram.min.js'
   },
   initialize: function (opts) {
-    if (opts.debug) this.options.tangramURL = 'https://mapzen.com/tangram/0.11/tangram.debug.js';
+    if (opts.debug) {
+      this.options.tangramURL = tangramPath + 'tangram.debug.js';
+    }
     this.hasWebGL = this._hasWebGL();
     this.options = L.extend({}, opts, this.options);
 
@@ -47,15 +51,18 @@ var TangramLayer = L.Class.extend({
   },
 
   setUpScene: function (map) {
-    console.log('given scene:', map.options.scene);
-    console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
+    if (map.options.debugTangram) {
+      console.log('given scene:', map.options.scene);
+      console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
+    }
     this._layer = Tangram.leafletLayer({
       scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
     }).addTo(map);
     var self = this;
     self._layer.on('init', function () {
       self.fire('loaded', {
-        layer: self._layer
+        layer: self._layer,
+        version: Tangram.version
       });
     });
   },
