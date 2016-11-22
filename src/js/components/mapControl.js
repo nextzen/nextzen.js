@@ -30,14 +30,8 @@ var MapControl = L.Map.extend({
       });
     }
 
-    // Adding Mapzen attribution to Leaflet
-    if (this.attributionControl) {
-      this.attributionControl.setPrefix('');
-      var tempAttr = this.options.attributionText || this.options.attribution;
-      this.attributionControl.addAttribution(tempAttr);
-      this.attributionControl.addAttribution('<a href="http://leafletjs.com/">Leaflet</a>');
-    }
-
+    this._setDefaultUIPositions();
+    this._addAttribution();
     this._checkConditions(false);
   },
 
@@ -74,6 +68,22 @@ var MapControl = L.Map.extend({
   _disableZoomControl: function () {
     if (this.options.zoomControl) {
       this.zoomControl._container.hidden = true;
+    }
+  },
+
+  _setDefaultUIPositions: function () {
+    if (this.options.zoomControl) {
+      this.zoomControl.setPosition('bottomright');
+    }
+  },
+
+  _addAttribution: function () {
+    // Adding Mapzen attribution to Leaflet
+    if (this.attributionControl) {
+      this.attributionControl.setPrefix('');
+      var tempAttr = this.options.attributionText || this.options.attribution;
+      this.attributionControl.addAttribution(tempAttr);
+      this.attributionControl.addAttribution('<a href="http://leafletjs.com/">Leaflet</a>');
     }
   }
 });
