@@ -13,6 +13,7 @@ var TangramLayer = L.Class.extend({
   },
   initialize: function (opts) {
     if (opts.debug) this.options.tangramURL = 'https://mapzen.com/tangram/0.11/tangram.debug.js';
+    this.hasWebGL = this._hasWebGL();
     this.options = L.extend({}, opts, this.options);
 
     // Start importing script
@@ -26,31 +27,31 @@ var TangramLayer = L.Class.extend({
   },
 
   addTo: function (map) {
-    if (this._hasWebGL()) {
-      if (typeof Tangram === 'undefined') {
+    if (typeof Tangram === 'undefined') {
+      if (this.hasWebGL) {
         return window.setTimeout(this.addTo.bind(this, map), 100);
       } else {
-        console.log('given scene:', map.options.scene);
-        console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
-        this._layer = Tangram.leafletLayer({
-          scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
-        }).addTo(map);
-        var self = this;
-        self._layer.on('init', function () {
-          self.fire('loaded', {
-            layer: self._layer
-          });
-        });
+        if (map.options.fallbackTile) {
+          console.log('WebGL is not available, falling back to fallbackTile option.');
+          map.options.fallbackTile.addTo(map);
+        } else {
+          // When WebGL is not avilable
+          console.log('WebGL is not available, falling back to OSM default tile.');
+          this.options.fallbackTile.addTo(map);
+        }
       }
     } else {
-      if (map.options.fallbackTile) {
-        console.log('WebGL is not available, falling back to fallbackTile option.');
-        map.options.fallbackTile.addTo(map);
-      } else {
-      // When WebGL is not avilable
-        console.log('WebGL is not available, falling back to OSM default tile.');
-        this.options.fallbackTile.addTo(map);
-      }
+      console.log('given scene:', map.options.scene);
+      console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
+      this._layer = Tangram.leafletLayer({
+        scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
+      }).addTo(map);
+      var self = this;
+      self._layer.on('init', function () {
+        self.fire('loaded', {
+          layer: self._layer
+        });
+      });
     }
   },
 
