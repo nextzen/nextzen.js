@@ -29,7 +29,8 @@ var TangramLayer = L.Class.extend({
   addTo: function (map) {
     if (typeof Tangram === 'undefined') {
       if (this.hasWebGL) {
-        return window.setTimeout(this.addTo.bind(this, map), 100);
+        // If Tangram is not loaded yet, add layer when script is loaded
+        this.oScript.onload = this.setUpScene.bind(this, map);
       } else {
         if (map.options.fallbackTile) {
           console.log('WebGL is not available, falling back to fallbackTile option.');
@@ -41,30 +42,34 @@ var TangramLayer = L.Class.extend({
         }
       }
     } else {
-      console.log('given scene:', map.options.scene);
-      console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
-      this._layer = Tangram.leafletLayer({
-        scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
-      }).addTo(map);
-      var self = this;
-      self._layer.on('init', function () {
-        self.fire('loaded', {
-          layer: self._layer
-        });
-      });
+      this.setUpScene(map);
     }
   },
 
-  _importScript: function (sSrc) {
-    var oScript = document.createElement('script');
-    oScript.type = 'text/javascript';
-    oScript.onerror = this._loadError;
+  setUpScene: function (map) {
+    console.log('given scene:', map.options.scene);
+    console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
+    this._layer = Tangram.leafletLayer({
+      scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
+    }).addTo(map);
+    var self = this;
+    self._layer.on('init', function () {
+      self.fire('loaded', {
+        layer: self._layer
+      });
+    });
+  },
 
-    if (document.currentScript) document.currentScript.parentNode.insertBefore(oScript, document.currentScript);
+  _importScript: function (sSrc) {
+    this.oScript = document.createElement('script');
+    this.oScript.type = 'text/javascript';
+    this.oScript.onerror = this._loadError;
+
+    if (document.currentScript) document.currentScript.parentNode.insertBefore(this.oScript, document.currentScript);
     // If browser doesn't support currentscript position
     // insert script inside of head
-    else document.getElementsByTagName('head')[0].appendChild(oScript);
-    oScript.src = sSrc;
+    else document.getElementsByTagName('head')[0].appendChild(this.oScript);
+    this.oScript.src = sSrc;
   },
   _loadError: function (oError) {
     console.log(oError);
