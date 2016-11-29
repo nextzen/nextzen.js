@@ -25,7 +25,8 @@ var MapControl = L.Map.extend({
       var self = this;
       self._tangram.on('loaded', function (e) {
         self.fire('tangramloaded', {
-          tangramLayer: e.layer
+          tangramLayer: e.layer,
+          tangramVersion: e.version
         });
       });
     }
