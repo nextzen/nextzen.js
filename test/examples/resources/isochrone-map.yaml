@@ -1,0 +1,53 @@
+# Author @burritojustice @rhonda_friberg - 2016
+
+import:
+    - https://tangrams.github.io/blocks/global.yaml
+    - https://mapzen.com/carto/refill-style/refill-style.yaml
+
+sources:
+
+    isochrone_live:
+        type: GeoJSON
+        url: 'https://matrix.mapzen.com/isochrone?json={"locations":[{"lat":53.5421,"lon":-113.4860}],"costing":"pedestrian","contours":[{"time":15},{"time":30},{"time":60},{"time":120}],"polygons":true,"denoise":0.2,"generalize":150}'
+        url_params:
+            api_key: mapzen-JA21Wes # (be sure to add your API key to pull in polygons from the server https://mapzen.com/developers)
+
+layers:
+
+    roads:
+        data: { source: mapzen, layer: roads }
+        filter: { not: { kind: rail } }
+        draw:
+            lines:
+                interactive: false
+                #color: black
+                width: 1px
+                order: global.feature_order
+                # but give them all the same outline
+                outline:
+                    style: _outline
+
+    isochrone_polygons:
+        data: { source: isochrone_live }
+        draw:
+            polygons:
+                interactive: true
+                order: |
+                    function() {
+                        return 100 - ((feature.contour/120) * 10) ;
+                        }
+                color: |
+                    function() {
+                        return feature.fill;
+                        }
+
+    emoji_label:
+        data: { source: emoji_marker }
+        visible: false
+        draw:
+            text:
+                collide: false
+                font:
+                    size: [[13, 30px], [20, 44px]]
+
+
