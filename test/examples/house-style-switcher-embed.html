@@ -1,0 +1,116 @@
+<!-- This example assumes you have local version of mapzen.js in dist folder -->
+<!-- Please look at BUILD.md to build local version of mapzen.js -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Mapzen House Styles</title>
+  <link rel='stylesheet' href='https://mapzen.com/common/styleguide/styles/blog.css' type='text/css'>
+  <link rel="stylesheet" href="../../dist/mapzen.css">
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    #map {
+      width: 100%;
+      height: calc(100% - 60px);
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div id='map'></div>
+
+  <div class="demo-controls" id="demo-controls">
+    <div class="demo-control-previous"><i class="fa fa-fw fa-angle-left"></i></div>
+    <ul class="demo-control-list">
+    </ul>
+    <div class="demo-control-next"><i class="fa fa-fw fa-angle-right"></i></div>
+  </div>
+  <script src="../../dist/mapzen.min.js"></script>
+  <script src='https://mapzen.com/resources/projects/demo-switcher.js'></script>
+
+  <script>
+  (function () {
+    var spinner,
+        LoadingSpinner = L.Control.extend({
+          options: { position: 'bottomleft' },
+          onAdd: function (map) {
+            if(!spinner)
+            {
+              spinner = L.DomUtil.create('div');
+              spinner.appendChild(L.DomUtil.create('div', 'loading-spinner-02'));
+              spinner.appendChild(document.createTextNode('Loading new map style…'));
+              spinner.style.borderRadius = '2px';
+              spinner.style.backgroundColor = 'white';
+              spinner.style.lineHeight = '26px';
+              spinner.style.paddingRight = '7px';
+              spinner.firstChild.style.float = 'left';
+            }
+
+            spinner.style.visibility = 'hidden';
+            return spinner;
+          }
+        });
+
+    var map = L.Mapzen.map('map');
+    var tangramLayer;
+    map.setView([37.66347, -122.39588], 15);
+
+    map.addControl(new LoadingSpinner());
+
+    L.Mapzen.hash({map: map});
+    L.Mapzen.locator().addTo(map);
+
+    L.Mapzen.bug({
+      name: 'Mapzen House Styles',
+      link: '/products/maps/',
+      tweet: '@mapzen',
+      repo: 'https://github.com/tangrams/?utf8=✓&query=style'
+    });
+
+    function inIframe () {
+      try {
+        return window.self !== window.top;
+      } catch (e) {
+        return true;
+      }
+    }
+
+    if (!inIframe()) {
+      L.Mapzen.geocoder('search-Y2Sr2RD').addTo(map);
+    }
+
+    map.on('tangramloaded', function(e) {
+      tangramLayer = e.tangramLayer;
+    });
+
+    var demo_sources = [
+        { title: 'Bubble Wrap', scene: L.Mapzen.BasemapStyles.BubbleWrap },
+        { title: 'Refill', scene: L.Mapzen.BasemapStyles.RefillMoreLabels },
+        { title: 'Walkabout', scene: L.Mapzen.BasemapStyles.WalkaboutMoreLabels },
+        { title: 'Tron', scene: L.Mapzen.BasemapStyles.TronMoreLabels },
+        { title: 'Cinnabar', scene: L.Mapzen.BasemapStyles.CinnabarMoreLabels },
+        { title: 'Zinc', scene: L.Mapzen.BasemapStyles.ZincMoreLabels }
+      ];
+
+    new DemoSwitcher({
+      sources: demo_sources,
+      onClick: function (source) {
+        spinner.style.visibility = 'visible';
+        // Reload it.
+        if(tangramLayer) {
+          tangramLayer.scene.load(source.scene).then(
+            function() { spinner.style.visibility = 'hidden' })
+        }
+      }
+    })
+  })();
+  </script>
+</body>
+</html>
