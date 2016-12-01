@@ -1,9 +1,11 @@
+<!-- This example assumes you have local version of mapzen.js in dist folder -->
+<!-- Please look at BUILD.md to build local version of mapzen.js -->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+    <link rel="stylesheet" href="../../dist/mapzen.css">
     <style>
       html, body {
         width: 100%;
@@ -19,54 +21,50 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="https://mapzen.com/js/mapzen.min.js"></script>
+    <script src="../../dist/mapzen.min.js"></script>
     <script>
+      var start = performance.now();
+      console.log('TIMER: starting timer');
 
-      var lat, lon;
-       // when GeoIP is available, set the map's initial view to detected coordinates
-      // if (typeof Geo === 'object') {
-      //   lon = Geo.lon
-      //   lat = Geo.lat
-      // } else {
-      // }
-        lon = -74.009,
-        lat = 40.70531
-      // creates a map with default (bubble-wrap) style
+      var lon = -74.009,
+          lat = 40.70531;
+
+      // Default map (Bubble Wrap)
       var map = L.Mapzen.map('map', {
         debugTangram: true
       });
-
       map.setView([lat, lon],13);
 
-      // moves zoom control to the bottom right of the map page
-      map.zoomControl.setPosition('bottomright');
-
-      // adds a search box to a map
+      // Add search box
       var geocoder = L.Mapzen.geocoder('search--NA8UXg');
       geocoder.addTo(map);
 
-      // allows for a URL hash to be created
+      // Add URL hash
       L.Mapzen.hash({
         map: map,
         geocoder: geocoder
       });
 
-
-      // creates a Mapzen "bug" with header for Mapzen projects
+      // Add Mapzen "bug" with header for Mapzen projects
       L.Mapzen.bug({
         name: 'Web Map',
         tweet: '@mapzen',
         repo: 'https://github.com/mapzen/web-map',
         mapID: 'map'});
 
-      // adds a locator button to the map
+      // Add locator button
       var locator = L.Mapzen.locator();
-      locator.setPosition('bottomright');
       locator.addTo(map);
 
-      // adds a tangram event listener
+      // Listen for Tangram loaded event
       map.on('tangramloaded', function(e) {
-        console.log(e.tangramLayer);
+        var stop = performance.now();
+        var seconds = (stop - start)/1000;
+
+        console.log('Loaded Leaflet version ', L.version);
+        console.log('Loaded Tangram version', e.tangramVersion);
+
+        console.log('TIMER: ', seconds, ' seconds to tangramloaded event');
       });
 
     </script>

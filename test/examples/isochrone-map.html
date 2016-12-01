@@ -1,0 +1,262 @@
+<!-- This example assumes you have local version of mapzen.js in dist folder -->
+<!-- Please look at BUILD.md to build local version of mapzen.js -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Isochrone service demo</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../dist/mapzen.css">
+    <script src="../../dist/mapzen.min.js"></script>
+    <style>
+      html,body{margin: 0; padding: 0}
+      #map {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+      .isochrone-control {
+        background: rgba(255, 255, 255, 0.85);
+        padding: 5px 10px;
+        width: 230px; /*width: 120px;*/
+        border-radius: 5px;
+      }
+      .isochrone-control div {
+        margin: 2px 0;
+      }
+      .isochrone-control h3 {
+        margin: 5px 2px 0 2px;
+      }
+      .isochrone-control ul {
+        padding: 0;
+        margin: 0;
+      }
+      .isochrone-control li {
+        list-style: none;
+        width: 110px;
+        display: inline-block;
+      }
+      .isochrone-control .emoji {
+        width: 30px;
+        display: inline-block;
+        text-align: center;
+      }
+      .isochrone-control .legend-box {
+        display: inline-block;
+        width: 20px;
+        height: 10px;
+      }
+      .isochrone-control .legend-box.first {
+        background-color: #40cc40;
+      }
+      .isochrone-control .legend-box.second {
+        background-color: #9fbf40;
+      }
+      .isochrone-control .legend-box.third {
+        background-color: #bf8f40;
+      }
+      .isochrone-control .legend-box.fourth {
+        background-color: #bf4040;
+      }
+      .isochrone-control .legend-label {
+        padding-left: 5px;
+      }
+
+  </style>
+  </head>
+<body>
+  <div id="map"></div>
+
+  <script>
+    var scene, mode, time;
+
+    // Set default lat / lng
+    var lat = 49.282;
+    var lng = -123.1207;
+
+    var tooltip = L.tooltip();
+
+    var map = L.Mapzen.map('map', {
+      center: [lat, lng],
+      zoom: 12,
+      debugTangram: true,
+      scene: 'resources/isochrone-map.yaml'
+    });
+
+    // Move zoom control to the top right corner of the map
+    map.zoomControl.setPosition('topright');
+
+    // Mapzen Search box (replace key with your own)
+    // To generate your own key, go to https://mapzen.com/developers/
+    var geocoder = L.Mapzen.geocoder('mapzen-JA21Wes');
+    geocoder.addTo(map);
+  
+    // add lat/lon hash 
+    L.Mapzen.hash({
+      map: map
+    });
+
+    var defaults = {
+      pedestrian: {
+        label: 'walking',
+        times: [5,10,15,20],
+        emoji: '🚶'
+      },
+      bicycle: {
+        label: 'bike',
+        times: [15,30,45,60],
+        emoji: '🚴'
+      },
+      auto: {
+        label: 'car',
+        times: [15,30,60,90],
+        emoji: '🚗'
+      },
+      multimodal: {
+        label: 'transit',
+        times: [30,60,90,120],
+        emoji: '🚌'
+      }
+    };
+  
+
+    // Custom Leaflet Control - isochrone parameters
+    var IsochroneControl = L.Control.extend({
+      options: {
+          position: 'bottomleft'
+      },
+
+      onAdd: function (map) {
+          var container = L.DomUtil.create('div', 'isochrone-control');
+          container.innerHTML = '<div>'
+            + '  <h3>Travel by:</h3>' 
+            + '  <ul id="travel-modes">'
+            + '    <li><input type="radio" name="modes" id="pedestrian" value="pedestrian" /><span class="emoji">' + defaults['pedestrian'].emoji + '</span><span class="label">' + defaults['pedestrian'].label + '</span></li>'
+            + '    <li><input type="radio" name="modes" id="bicycle" value="bicycle" checked="checked" /><span class="emoji">' + defaults['bicycle'].emoji + '</span><span class="label">' + defaults['bicycle'].label + '</span></li>' 
+            + '    <li><input type="radio" name="modes" id="auto" value="auto" /><span class="emoji">' + defaults['auto'].emoji + '</span><span class="label">' + defaults['auto'].label + '</span></li>' 
+            + '    <li><input type="radio" name="modes" id="multimodal" value="multimodal" /><span class="emoji">' + defaults['multimodal'].emoji + '</span><span class="label">' + defaults['multimodal'].label + '</span></li>'
+            + '  </ul><br>'
+            + '  <h3>Estimated times:</h3>'
+            + '  <div id="travel-times">'
+            + '     <i>Click on the map to set starting point</i>'
+            + '  </div>'
+            + '</div>';
+
+          L.DomEvent.on(container, "click", this.onClick);
+          return container;
+      },
+
+      update: function (time) {
+        L.DomUtil.get('travel-times').innerHTML = (time
+            ? '<ul>'
+              + ' <li><span class="legend-box first"></span><span class="legend-label">' + time[0] + ' minutes</span></li>'
+              + ' <li><span class="legend-box second"></span><span class="legend-label">' + time[1] + ' minutes</span></li>'
+              + ' <li><span class="legend-box third"></span><span class="legend-label">' + time[2] + ' minutes</span></li>'
+              + ' <li><span class="legend-box fourth"></span><span class="legend-label">' + time[3] + ' minutes</span></li>'
+              + '</ul>'
+            : '<i>Click on the map to set starting point</i>');
+      },
+
+      onClick: function (e) {
+        // stop propagation to avoid triggering onMapClick
+        e.stopPropagation();
+        updateMap();
+      }
+    });
+    var isochroneControl = new IsochroneControl();
+    map.addControl(isochroneControl);
+
+
+    // map click handler
+    function onMapClick(e) {
+      // Update the global lat / lng
+      lat = e.leaflet_event.latlng.lat;
+      lng = e.leaflet_event.latlng.lng;
+
+      updateMap();
+    }
+
+    function updateMap() {
+      reloadIsochrone();
+      reloadEmoji();
+      isochroneControl.update(time);
+    }
+
+    function reloadIsochrone() {
+      // get mode from radio input
+      mode = document.querySelector('input[name = "modes"]:checked').value;
+      time = defaults[mode].times;
+
+      var url = 'https://matrix.mapzen.com/isochrone?json=';
+      var json = {
+        locations: [{"lat":lat, "lon":lng}],
+        costing: mode,
+        contours: [{"time":time[0]},{"time":time[1]},{"time":time[2]},{"time":time[3]}],
+        polygons: true,
+        denoise: 0.5,
+        generalize: 150
+      };
+      url += escape(JSON.stringify(json));
+      url+= '&api_key=mapzen-c4C1Lbb';
+
+      scene.setDataSource('isochrone_live', { type: 'GeoJSON', url: url });
+    }
+
+    function reloadEmoji() {
+      var emoji = defaults[mode].emoji;
+      
+      // define GeoJSON point for emoji label
+      var emojiJSON = {
+        "type": "FeatureCollection",
+        "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "name": emoji
+          },
+          "geometry": {
+          "type": "Point",
+              "coordinates": [lng, lat]
+            }
+          }
+        ]
+      };
+
+      scene.config.layers.emoji_label.visible = true;
+      scene.setDataSource('emoji_marker', { type: 'GeoJSON', data: emojiJSON });
+    }
+
+    function onMapHover(e) {
+      if (e.feature && e.feature.source_name == 'isochrone_live') {
+        document.getElementById('map').style.cursor = 'pointer';
+
+        var content = 'Less than <b>' + e.feature.properties.contour + ' minutes</b> away by ' + defaults[mode].label;
+        updateTooltip(e.leaflet_event.latlng, content);
+      } else {
+        tooltip.remove();
+        document.getElementById('map').style.cursor = '';
+      }
+    }
+
+    function updateTooltip(latlng, content) {
+      tooltip.setLatLng(latlng);
+      tooltip.setContent(content);
+
+      if (!tooltip.isOpen()) {
+        tooltip.addTo(map);
+      }
+    }
+    
+    // Add a Tangram event listener
+    map.on('tangramloaded', function(e) {
+      var tangramLayer = e.tangramLayer;
+      scene = tangramLayer.scene;
+      
+      tangramLayer.setSelectionEvents({
+         click: onMapClick,
+         hover: onMapHover
+      });
+    });
+
+  </script>
+</body>
+</html>
