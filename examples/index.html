@@ -44,6 +44,18 @@
       var geocoder = L.Mapzen.geocoder();
       geocoder.addTo(map);
 
+      var searchTestFunction = function (err, result) {
+        console.log(result);
+      }
+
+      geocoder.search('tisch school of the arts', testFunction);
+
+      var searchTestFunction = function (err, result) {
+        console.log(result);
+      }
+
+      geocoder.getSearchResult('tisch school of the arts', searchTestFunction);
+
       // allows for a URL hash to be created
       L.Mapzen.hash({
         map: map,
@@ -67,6 +79,17 @@
       map.on('tangramloaded', function(e) {
         console.log(e.tangramLayer);
       });
+
+
+      var control = L.Mapzen.routing.control({
+        waypoints: [
+          L.latLng(37.752, -122.418),
+          L.latLng(37.779, -122.391)
+        ],
+        router: L.Routing.mapzen('valhalla-PVA4Y8g', {costing: 'auto'}),
+        formatter: new L.Routing.mapzenFormatter(),
+      });
+      control.addTo(map);
 
     </script>
   </body>

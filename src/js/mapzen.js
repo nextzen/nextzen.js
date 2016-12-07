@@ -8,12 +8,16 @@ var Geocoder = require('./components/search');
 var Hash = require('./components/hash');
 var BasemapStyles = require('./components/basemapStyles');
 var TangramLayer = require('./components/tangram');
+var RoutingMachine = require('./components/routing');
+
+console.log(RoutingMachine);
 
 L.Mapzen = module.exports = {
   Map: MapControl,
   map: MapControl.map,
   geocoder: Geocoder.geocoder,
   locator: Locator.locator,
+  routing: RoutingMachine.routing,
   bug: Bug,
   hash: Hash.hash,
   HouseStyles: BasemapStyles,
