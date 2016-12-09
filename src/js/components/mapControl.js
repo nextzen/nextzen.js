@@ -40,9 +40,11 @@ var MapControl = L.Map.extend({
   },
 
   _setupConfig: function (options) {
-    this.config = new Config({
-      apiKey: options.key
-    });
+    if (options.key) {
+      this.config = new Config({
+        apiKey: options.key
+      });
+    }
   },
 
   _checkConditions: function (force) {
