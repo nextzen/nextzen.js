@@ -1,5 +1,6 @@
 'use strict';
 var L = require('leaflet');
+var Config = require('./config');
 
 var MapControl = L.Map.extend({
   includes: L.Mixin.Events,
@@ -14,6 +15,8 @@ var MapControl = L.Map.extend({
     L.Map.prototype.options.zoomSnap = 0;
     var opts = L.extend({}, L.Map.prototype.options, options);
     L.Map.prototype.initialize.call(this, element, opts);
+
+    this._setupConfig(options);
 
     if (this.options._useTangram) {
       this._tangram = L.Mapzen._tangram({
@@ -34,6 +37,12 @@ var MapControl = L.Map.extend({
     this._setDefaultUIPositions();
     this._addAttribution();
     this._checkConditions(false);
+  },
+
+  _setupConfig: function (options) {
+    this.config = new Config({
+      apiKey: options.key
+    });
   },
 
   _checkConditions: function (force) {

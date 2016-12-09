@@ -21,7 +21,7 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="../../dist/mapzen.min.js"></script>
+    <script src="../../dist/mapzen.js"></script>
     <script>
       var start = performance.now();
       console.log('TIMER: starting timer');
@@ -31,12 +31,13 @@
 
       // Default map (Bubble Wrap)
       var map = L.Mapzen.map('map', {
+        key: 'search--NA8UXg',
         debugTangram: true
       });
       map.setView([lat, lon],13);
 
       // Add search box
-      var geocoder = L.Mapzen.geocoder('search--NA8UXg');
+      var geocoder = L.Mapzen.geocoder();
       geocoder.addTo(map);
 
       // Add URL hash
