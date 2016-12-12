@@ -5,7 +5,11 @@ var configInstance;
 
 var Config = L.Class.extend({
   initialize: function(opts) {
-    this.apiKey = opts.apiKey;
+    // If opts is passed to set up the config
+    // Do nothing if instance is created to read
+    if (opts) {
+      this.apiKey = opts.apiKey;
+    }
   },
 
   setApiKey: function(key) {

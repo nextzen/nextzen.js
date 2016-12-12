@@ -7,16 +7,14 @@ var MapControl = L.Map.extend({
   options: {
     attribution: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
     debugTangram: false,
+    zoomSnap: 0,
     _useTangram: true
   },
 
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
-    L.Map.prototype.options.zoomSnap = 0;
     var opts = L.extend({}, L.Map.prototype.options, options);
     L.Map.prototype.initialize.call(this, element, opts);
-
-    this._setupConfig(options);
 
     if (this.options._useTangram) {
       this._tangram = L.Mapzen._tangram({
@@ -34,15 +32,16 @@ var MapControl = L.Map.extend({
       });
     }
 
+    this._setupConfig(opts);
     this._setDefaultUIPositions();
     this._addAttribution();
     this._checkConditions(false);
   },
 
-  _setupConfig: function (options) {
-    if (options.key) {
+  _setupConfig: function (opts) {
+    if (opts.key) {
       this.config = new Config({
-        apiKey: options.key
+        apiKey: opts.key
       });
     }
   },
