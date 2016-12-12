@@ -9,6 +9,8 @@ var L = require('leaflet');
  * (c) Mapzen
  */
 
+var Config = require('./config');
+
 var MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE = 1;
 var FULL_WIDTH_MARGIN = 20; // in pixels
 var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
@@ -54,7 +56,14 @@ var Geocoder = L.Control.extend({
     if (typeof apiKey === 'object' && !!apiKey) {
       options = apiKey;
     } else {
-      this.apiKey = apiKey;
+      // If apiKey is passed for search component, not for map instance
+      // Take the key and save it to Config
+
+      var config = new Config();
+      if (!config.apiKey) {
+        config.apiKey = apiKey;
+      }
+      this.apiKey = config.apiKey;
     }
 
     // Deprecation warnings

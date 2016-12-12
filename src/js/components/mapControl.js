@@ -1,17 +1,18 @@
 'use strict';
 var L = require('leaflet');
+var Config = require('./config');
 
 var MapControl = L.Map.extend({
   includes: L.Mixin.Events,
   options: {
     attribution: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
     debugTangram: false,
+    zoomSnap: 0,
     _useTangram: true
   },
 
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
-    L.Map.prototype.options.zoomSnap = 0;
     var opts = L.extend({}, L.Map.prototype.options, options);
     L.Map.prototype.initialize.call(this, element, opts);
 
@@ -31,9 +32,18 @@ var MapControl = L.Map.extend({
       });
     }
 
+    this._setupConfig(opts);
     this._setDefaultUIPositions();
     this._addAttribution();
     this._checkConditions(false);
+  },
+
+  _setupConfig: function (opts) {
+    if (opts.key) {
+      this.config = new Config({
+        apiKey: opts.key
+      });
+    }
   },
 
   _checkConditions: function (force) {
