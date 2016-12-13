@@ -47,7 +47,7 @@ These options affect the appearance and interaction behavior of the geocoder.
 
 ### Methods
 
-These methods work without UI component attached to the map.
+If you want to implement your own search UI, or want to use search result without built-in UI component, you can use these methods.
 
 | Option  | Return | Description                      |
 |---------|---------|----------------------------------|
