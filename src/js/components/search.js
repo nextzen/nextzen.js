@@ -598,8 +598,8 @@ var Geocoder = L.Control.extend({
   },
 
   onAdd: function (map) {
-
-    if (!this.apiKey) this.apiKey = map.apiKey;
+    // 
+    if (!this.apiKey && map.apiKey) this.apiKey = map.apiKey;
 
     var container = L.DomUtil.create('div',
         'leaflet-pelias-control leaflet-bar leaflet-control');
