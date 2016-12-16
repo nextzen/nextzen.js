@@ -19,7 +19,6 @@ L.Mapzen = module.exports = {
   hash: Hash.hash,
   HouseStyles: BasemapStyles,
   BasemapStyles: BasemapStyles,
-  apiKey: null,
   _tangram: TangramLayer.tangramLayer
 };
 
