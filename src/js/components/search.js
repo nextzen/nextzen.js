@@ -598,7 +598,6 @@ var Geocoder = L.Control.extend({
   },
 
   onAdd: function (map) {
-    // 
     if (!this.apiKey && map.apiKey) this.apiKey = map.apiKey;
 
     var container = L.DomUtil.create('div',

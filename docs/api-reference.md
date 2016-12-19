@@ -13,7 +13,9 @@ mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://
 | `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
 | `fallbackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
 | `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box.`Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
+| `apiKey`| string | null | Mapzen Api Key to be used for the components attached to the map.|
 | `debugTangram`| Boolean | `false` | Whether to load debug (not minified) version of Tangram or not.|
+
 
 
 ### Events
@@ -52,6 +54,14 @@ The `center:` parameter sets the center point of the map, in decimal degrees. Th
 
 The `scene: L.Mapzen.BasemapStyles.Refill` line sets the style used for the map. In this case, it is Mapzen's Refill style which provides a high contrast, black & white basemap useful for data visualization.
 
+## API Key
+
+If you are planning to use Mapzen Search or Turn-by-turn service through mapzen.js, you can set up api key to use once through `L.Mapzen.apikey`. You can get your free api key through [Mapzen developer portal](https://mapzen.com/developers). We recommend you to put api key declaration ahead of other syntax.
+
+
+```javascript
+L.Mapzen.apiKey = 'your-api-key';
+```
 
 ## Basemap styles
 
