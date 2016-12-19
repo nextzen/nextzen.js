@@ -925,7 +925,24 @@ var Geocoder = L.Control.extend({
       }
     }
     previousWidth = width;
+  },
+
+  getSearchResult: function (input, callback) {
+    var param = {
+      text: input
+    };
+    var params = this.getParams(param);
+    AJAX.request(this.options.url + '/search', params, callback);
+  },
+
+  getAutoCompleteResult: function (input, callback) {
+    var param = {
+      text: input
+    };
+    var params = this.getParams(param);
+    AJAX.request(this.options.url + '/autocomplete', params, callback);
   }
+
 });
 
 /*
