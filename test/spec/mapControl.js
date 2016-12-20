@@ -24,7 +24,7 @@ describe('Map Control Test', function () {
 
   describe('Leaflet Versions', function () {
     it('check which Leaflet version it is', function () {
-      expect(L.version).to.equal('1.0.1');
+      expect(L.version).to.equal('1.0.2');
     });
   });
 
