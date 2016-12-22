@@ -53,7 +53,9 @@ var Geocoder = L.Control.extend({
     // first parameter is actually the options
     if (typeof apiKey === 'object' && !!apiKey) {
       options = apiKey;
+      if (L.Mapzen.apiKey) this.apiKey = L.Mapzen.apiKey;
     } else {
+      // If user specified the key to use
       this.apiKey = apiKey;
     }
 
@@ -596,6 +598,8 @@ var Geocoder = L.Control.extend({
   },
 
   onAdd: function (map) {
+    if (!this.apiKey && map.apiKey) this.apiKey = map.apiKey;
+
     var container = L.DomUtil.create('div',
         'leaflet-pelias-control leaflet-bar leaflet-control');
 

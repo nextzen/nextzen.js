@@ -21,7 +21,7 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="../../dist/mapzen.min.js"></script>
+    <script src="../../dist/mapzen.js"></script>
     <script>
       var start = performance.now();
       console.log('TIMER: starting timer');
@@ -30,13 +30,17 @@
           lat = 40.70531;
 
       // Default map (Bubble Wrap)
+      L.Mapzen.apiKey = 'search--NA8UXg';
+
       var map = L.Mapzen.map('map', {
         debugTangram: true
       });
+            // Default map (Bubble Wrap)
+
       map.setView([lat, lon],13);
 
       // Add search box
-      var geocoder = L.Mapzen.geocoder('search--NA8UXg');
+      var geocoder = L.Mapzen.geocoder();
       geocoder.addTo(map);
 
       // Add URL hash
