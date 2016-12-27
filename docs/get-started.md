@@ -17,7 +17,7 @@ To reference the mapzen.js cascading style sheet (CSS) and JavaScript file, add 
 
 ## Using standalone version
 
-Currently, mapzen.js embeds [Leaflet 1.0](http://leafletjs.com/reference-1.0.0.html) in it. If you need to use your own version of Leaflet with mapzen.js, you can use the standalone version which doesn't include Leaflet.
+Currently, mapzen.js embeds [Leaflet 1.0](http://leafletjs.com/reference-1.0.0.html) in it. If you need to use your own version of Leaflet with mapzen.js, you can use the standalone version, which doesn't include Leaflet.
 
 To reference the standalone version of the mapzen.js CSS and JavaScript files, add these links to your page followed by your own Leaflet links.
 
@@ -49,10 +49,10 @@ The end of the page has a finished version of the HTML that you can use to check
     ```html
     <!DOCTYPE html>
     <html>
-    <head>
-    </head>
-    <body>
-    </body>
+      <head>
+      </head>
+      <body>
+      </body>
     </html>
     ```
 
@@ -71,12 +71,12 @@ Your HTML should look like this:
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <title>My Web Map</title>
-  <meta charset="utf-8">
-</head>
-<body>
-</body>
+  <head>
+    <title>My Web Map</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+  </body>
 </html>
 ```
 
@@ -99,13 +99,13 @@ After adding these, your index.html file should look something like this.
 <!DOCTYPE html>
 <html>
   <head>
-  <title>My Web Map</title>
-  <meta charset="utf-8">
+    <title>My Web Map</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
-</head>
-<body>
-</body>
+  </head>
+  <body>
+  </body>
 </html>
 ```
 
@@ -155,16 +155,14 @@ Your index.html should look something like this:
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
-
     <style>
       #map {
         height: 100%;
         width: 100%;
         position: absolute;
       }
-    html,body{margin: 0; padding: 0;}
-  </style>
-
+      html,body{margin: 0; padding: 0;}
+    </style>
   </head>
   <body>
     <div id="map"></div>
