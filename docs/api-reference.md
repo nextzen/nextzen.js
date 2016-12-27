@@ -56,10 +56,9 @@ The `scene: L.Mapzen.BasemapStyles.Refill` line sets the style used for the map.
 
 ## API Key
 
-If you are planning to use Mapzen Search or Turn-by-turn service through mapzen.js, you can set up api key to use once through `L.Mapzen.apikey`. You can get your free api key through [Mapzen developer portal](https://mapzen.com/developers).
+If you are planning to use Mapzen Search or Turn-by-turn service through mapzen.js, you can set up an api key to use once through `L.Mapzen.apikey`. You can get your free api key through the [Mapzen developer portal](https://mapzen.com/developers).
 
 Define your API key before adding other Mapzen components by setting:
-
 
 ```javascript
 L.Mapzen.apiKey = 'your-api-key';
