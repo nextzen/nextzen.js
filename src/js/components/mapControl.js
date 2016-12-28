@@ -21,6 +21,10 @@ var MapControl = L.Map.extend({
       if (this.options.debugTangram) {
         options.tangramOptions = L.extend({}, options.tangramOptions, {debug: true});
       }
+      // As of v1.0, scene will need to be part of tangramOptions
+      if (this.options.scene) {
+        options.tangramOptions = L.extend({}, options.tangramOptions, {scene: this.options.scene});
+      }
 
       this._tangram = L.Mapzen._tangram(options.tangramOptions);
 
