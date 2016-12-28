@@ -49,8 +49,8 @@ These options affect the appearance and interaction behavior of the geocoder.
 | Option  | Type   | Default | Description                      |
 |---------|--------|---------|----------------------------------|
 `autocomplete` | Boolean | `true` | If `true`, suggested results are fetched on each keystroke. If `false`, this is disabled and users must obtain results by pressing the Enter key after typing in their query.
-`collapsible` | Boolean | `true`  | Search component automatically adjusting collapsing behavior. |
-`expanded` | Boolean | `false` | If `true`, the search input is always expanded. It does not collapse into a button-only state.
+`collapsible` | Boolean | `true`  | If `true`, the search box will collapse when screen width is less than 900 pixels. If `false`, this is disabled and search box will remain in its initial state. |
+`expanded` | Boolean | `true` | If `true`, the search box will be expanded on initial page load.
 `position` | String | `'topleft'` | Corner in which to place the geocoder control. Values correspond to [Leaflet control positions](http://leafletjs.com/reference.html#control-positions).
 `placeholder` | String | `'Search'` | Placeholder text to display in the search input box. Set to blank or `null` to disable.
 `title` | String | `'Search'` | Tooltip text to display on the search button when collapsed. Set to blank or `null` to disable.
