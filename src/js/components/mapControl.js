@@ -16,9 +16,13 @@ var MapControl = L.Map.extend({
     L.Map.prototype.initialize.call(this, element, opts);
 
     if (this.options._useTangram) {
-      this._tangram = L.Mapzen._tangram({
-        debug: this.options.debugTangram
-      });
+
+      // debugTangram is deprecated; remove in v1.0
+      if (this.options.debugTangram) {
+        options.tangramOptions = L.extend({}, options.tangramOptions, {debug: true});
+      }
+
+      this._tangram = L.Mapzen._tangram(options.tangramOptions);
 
       this._tangram.addTo(this);
 
