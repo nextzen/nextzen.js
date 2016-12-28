@@ -5,7 +5,6 @@ var MapControl = L.Map.extend({
   includes: L.Mixin.Events,
   options: {
     attribution: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
-    debugTangram: false,
     zoomSnap: 0,
     _useTangram: true
   },
@@ -16,17 +15,18 @@ var MapControl = L.Map.extend({
     L.Map.prototype.initialize.call(this, element, opts);
 
     if (this.options._useTangram) {
+      var tangramOptions = opts.tangramOptions || {};
 
       // debugTangram is deprecated; remove in v1.0
       if (this.options.debugTangram) {
-        options.tangramOptions = L.extend({}, options.tangramOptions, {debug: true});
+        tangramOptions = L.extend({}, tangramOptions, {debug: true});
       }
       // As of v1.0, scene will need to be part of tangramOptions
       if (this.options.scene) {
-        options.tangramOptions = L.extend({}, options.tangramOptions, {scene: this.options.scene});
+        tangramOptions = L.extend({}, tangramOptions, {scene: this.options.scene});
       }
 
-      this._tangram = L.Mapzen._tangram(options.tangramOptions);
+      this._tangram = L.Mapzen._tangram(tangramOptions);
 
       this._tangram.addTo(this);
 
