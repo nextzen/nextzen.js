@@ -635,7 +635,7 @@ var Geocoder = L.Control.extend({
 
     L.DomEvent
       .on(window, 'resize', function (e) {
-        this._checkResize();
+        if(this.options.collapsible) this._checkResize();
       }, this)
       .on(this._container, 'click', function (e) {
         // Child elements with 'click' listeners should call
