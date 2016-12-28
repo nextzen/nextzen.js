@@ -1,5 +1,5 @@
-<!-- This example assumes you have local version of mapzen.js in dist folder -->
-<!-- Please look at BUILD.md to build local version of mapzen.js -->
+<!-- This example assumes you have local version of mapzen.min.js in dist folder -->
+<!-- Please look at BUILD.md to build local version of mapzen.min.js -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -21,7 +21,7 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="../../dist/mapzen.js"></script>
+    <script src="../../dist/mapzen.min.js"></script>
     <script>
       var start = performance.now();
       console.log('TIMER: starting timer');
@@ -29,13 +29,12 @@
       var lon = -74.009,
           lat = 40.70531;
 
-      // Default map (Bubble Wrap)
       L.Mapzen.apiKey = 'search--NA8UXg';
 
+      // Default map (Bubble Wrap)
       var map = L.Mapzen.map('map', {
         debugTangram: true
       });
-            // Default map (Bubble Wrap)
 
       map.setView([lat, lon],13);
 
