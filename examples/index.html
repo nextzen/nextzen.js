@@ -33,7 +33,9 @@
         lat = 40.70531
       // creates a map with default (bubble-wrap) style
       var map = L.Mapzen.map('map', {
-        debugTangram: true
+        tangramOptions: {
+          debug: true
+        }
       });
 
       map.setView([lat, lon],13);

@@ -38,7 +38,9 @@
 
       // creates a map with Tron style basemap
       var map = L.Mapzen.map('map',{
-        scene: L.Mapzen.BasemapStyles.Tron
+        tangramOptions: {
+          scene: L.Mapzen.BasemapStyles.Tron
+        }
       });
 
       map.setView([lat, lon],13);
