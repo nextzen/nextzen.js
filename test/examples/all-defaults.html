@@ -33,10 +33,12 @@
 
       // Default map (Bubble Wrap)
       var map = L.Mapzen.map('map', {
-        debugTangram: true
+        tangramOptions: {
+          debug: false
+        }
       });
 
-      map.setView([lat, lon],13);
+      map.setView([lat, lon], 13);
 
       // Add search box
       var geocoder = L.Mapzen.geocoder();

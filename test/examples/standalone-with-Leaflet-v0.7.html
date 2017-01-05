@@ -32,8 +32,10 @@
       var lon = -74.009;
 
       var map = L.Mapzen.map('map',{
-        scene: L.Mapzen.BasemapStyles.Refill,
-        debugTangram: true
+        tangramOptions: {
+          scene: L.Mapzen.BasemapStyles.Refill,
+          debug: true
+        }
       });
 
       map.setView([lat, lon],13);

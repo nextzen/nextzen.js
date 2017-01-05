@@ -78,8 +78,10 @@
     var map = L.Mapzen.map('map', {
       center: [lat, lng],
       zoom: 12,
-      debugTangram: true,
-      scene: 'resources/isochrone-map.yaml'
+      tangramOptions: {
+        debug: true,
+        scene: 'resources/isochrone-map.yaml'
+      }
     });
 
     // Move zoom control to the top right corner of the map
