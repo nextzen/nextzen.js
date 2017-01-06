@@ -6,7 +6,7 @@
     <title>Isochrone service demo</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../../dist/mapzen.css">
-    <script src="../../dist/mapzen.min.js"></script>
+    <script src="../../dist/mapzen.js"></script>
     <style>
       html,body{margin: 0; padding: 0}
       #map {
@@ -91,8 +91,8 @@
     // To generate your own key, go to https://mapzen.com/developers/
     var geocoder = L.Mapzen.geocoder('mapzen-JA21Wes');
     geocoder.addTo(map);
-  
-    // add lat/lon hash 
+
+    // add lat/lon hash
     L.Mapzen.hash({
       map: map
     });
@@ -119,7 +119,7 @@
         emoji: '🚌'
       }
     };
-  
+
 
     // Custom Leaflet Control - isochrone parameters
     var IsochroneControl = L.Control.extend({
@@ -130,11 +130,11 @@
       onAdd: function (map) {
           var container = L.DomUtil.create('div', 'isochrone-control');
           container.innerHTML = '<div>'
-            + '  <h3>Travel by:</h3>' 
+            + '  <h3>Travel by:</h3>'
             + '  <ul id="travel-modes">'
             + '    <li><input type="radio" name="modes" id="pedestrian" value="pedestrian" /><span class="emoji">' + defaults['pedestrian'].emoji + '</span><span class="label">' + defaults['pedestrian'].label + '</span></li>'
-            + '    <li><input type="radio" name="modes" id="bicycle" value="bicycle" checked="checked" /><span class="emoji">' + defaults['bicycle'].emoji + '</span><span class="label">' + defaults['bicycle'].label + '</span></li>' 
-            + '    <li><input type="radio" name="modes" id="auto" value="auto" /><span class="emoji">' + defaults['auto'].emoji + '</span><span class="label">' + defaults['auto'].label + '</span></li>' 
+            + '    <li><input type="radio" name="modes" id="bicycle" value="bicycle" checked="checked" /><span class="emoji">' + defaults['bicycle'].emoji + '</span><span class="label">' + defaults['bicycle'].label + '</span></li>'
+            + '    <li><input type="radio" name="modes" id="auto" value="auto" /><span class="emoji">' + defaults['auto'].emoji + '</span><span class="label">' + defaults['auto'].label + '</span></li>'
             + '    <li><input type="radio" name="modes" id="multimodal" value="multimodal" /><span class="emoji">' + defaults['multimodal'].emoji + '</span><span class="label">' + defaults['multimodal'].label + '</span></li>'
             + '  </ul><br>'
             + '  <h3>Estimated times:</h3>'
@@ -205,7 +205,7 @@
 
     function reloadEmoji() {
       var emoji = defaults[mode].emoji;
-      
+
       // define GeoJSON point for emoji label
       var emojiJSON = {
         "type": "FeatureCollection",
@@ -247,12 +247,12 @@
         tooltip.addTo(map);
       }
     }
-    
+
     // Add a Tangram event listener
     map.on('tangramloaded', function(e) {
       var tangramLayer = e.tangramLayer;
       scene = tangramLayer.scene;
-      
+
       tangramLayer.setSelectionEvents({
          click: onMapClick,
          hover: onMapHover
