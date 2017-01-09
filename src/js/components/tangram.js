@@ -22,6 +22,7 @@ var TangramLayer = L.Class.extend({
     }
     this.hasWebGL = this._hasWebGL();
     this.options = L.extend({}, this.options, opts);
+
     // Start importing script
     // When there is no Tangram object available.
     if (typeof Tangram === 'undefined') {
@@ -53,6 +54,22 @@ var TangramLayer = L.Class.extend({
   },
 
   setUpTangramLayer: function (map) {
+    // If there is no api key in the option object
+    if (!this.options.apiKey) {
+      if (!L.Mapzen.apiKey && !map.apiKey) {
+        console.log('You can only have limited access to Mapzen service withoout api key. Grab your free api key at https://mapzen.com/developers');
+      } else {
+        this.options.apiKey = map.apiKey || L.Mapzen.apiKey;
+      }
+    }
+
+    var sceneFile = this.options.scene;
+
+    this.options.scene = {
+      import: sceneFile,
+      global: { sdk_mapzen_api_key: this.options.apiKey }
+    };
+
     this._layer = Tangram.leafletLayer(this.options).addTo(map);
 
     // Fire 'loaded' event when Tangram layer has been initialized
