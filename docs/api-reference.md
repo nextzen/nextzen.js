@@ -10,12 +10,21 @@ mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://
 
 | Option  | Type   | Default   | Description            |
 |---------|--------|-----------|------------------------|
-| `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
+| `apiKey`| String | null | Mapzen API Key to be used for the components attached to the map.|
+| `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data in a small text box. `Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
+| `debugTangram`| Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not. <br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
 | `fallbackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
-| `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data  in a small text box.`Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
-| `apiKey`| string | null | Mapzen API Key to be used for the components attached to the map.|
-| `debugTangram`| Boolean | `false` | Whether to load debug (not minified) version of Tangram or not.|
+| `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file<br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
+| `tangramOptions`| Object |  See below |  See [tangramOptions](#tangramoptions) below |
 
+#### tangramOptions
+
+Set of options related to the appearance and behavior of the Tangram layer.  In addition to the options below, `tangramOptions` may also include any of the options available in the [Tangram options object](https://mapzen.com/documentation/tangram/Tangram-Overview/#options-object).
+
+| Option  | Type   | Default   | Description            |
+|---------|--------|-----------|------------------------|
+| `debug` | Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not.|
+| `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
 
 
 ### Events
@@ -38,7 +47,7 @@ map.on('tangramloaded', function (event) {
 
 ### Draw a map with a map component
 
-You can pass one of [Mapzen's default basemaps](https://mapzen.com/documentation/mapzen-js/api-reference/#basemap-styles) for the `scene`, or you can provide the path to your own Tangram scene file.  If there is no scene file declared, mapzen.js will default to [BubbleWrap](https://mapzen.com/products/maps/bubble-wrap/).
+You can pass one of [Mapzen's basemap styles](https://mapzen.com/documentation/mapzen-js/api-reference/#basemap-styles) as the `scene` via `tangramOptions`, or you can provide the path to your own Tangram scene file.  If there is no scene file declared, mapzen.js will default to [BubbleWrap](https://mapzen.com/products/maps/bubble-wrap/).
 
 Example: 
 
@@ -46,8 +55,10 @@ Example:
 var map = L.Mapzen.map('map', {
   center: [40.74429, -73.99035],
   zoom: 15,
-  scene: L.Mapzen.BasemapStyles.Refill
-})
+  tangramOptions: {
+    scene: L.Mapzen.BasemapStyles.Refill
+  }
+});
 ```
 
 The `center` parameter sets the center point of the map (_[latitude, longitude]_), in decimal degrees. The next line sets the `zoom` level, which is like a map scale or resolution. A small zoom level will show a larger area in less detail, and a larger zoom level value depicts smaller area in greater detail.
@@ -93,7 +104,9 @@ Example:
 
 ```javascript
 var map = L.Mapzen.map('map', {
-  scene: L.Mapzen.BasemapStyles.Refill
+  tangramOptions: {
+    scene: L.Mapzen.BasemapStyles.Refill
+  }
 })
 ```
 

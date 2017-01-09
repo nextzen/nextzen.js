@@ -2,6 +2,7 @@
 // (either as a URL or full string of all source code) in order to load itself into web workers
 // This script injects the Tangram with script tag, so that Tangram doesn't need to be included with outside tag
 var L = require('leaflet');
+var BasemapStyles = require('./basemapStyles');
 
 var tangramLayerInstance;
 var tangramVersion = '0.11';
@@ -11,15 +12,16 @@ var TangramLayer = L.Class.extend({
   includes: L.Mixin.Events,
   options: {
     fallbackTile: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
-    tangramURL: tangramPath + 'tangram.min.js'
+    tangramURL: tangramPath + 'tangram.min.js',
+    scene: BasemapStyles.BubbleWrap
   },
+
   initialize: function (opts) {
-    if (opts.debug) {
+    if (opts && opts.debug) {
       this.options.tangramURL = tangramPath + 'tangram.debug.js';
     }
     this.hasWebGL = this._hasWebGL();
-    this.options = L.extend({}, opts, this.options);
-
+    this.options = L.extend({}, this.options, opts);
     // Start importing script
     // When there is no Tangram object available.
     if (typeof Tangram === 'undefined') {
@@ -34,7 +36,7 @@ var TangramLayer = L.Class.extend({
     if (typeof Tangram === 'undefined') {
       if (this.hasWebGL) {
         // If Tangram is not loaded yet, add layer when script is loaded
-        this.oScript.onload = this.setUpScene.bind(this, map);
+        this.oScript.onload = this.setUpTangramLayer.bind(this, map);
       } else {
         if (map.options.fallbackTile) {
           console.log('WebGL is not available, falling back to fallbackTile option.');
@@ -46,18 +48,14 @@ var TangramLayer = L.Class.extend({
         }
       }
     } else {
-      this.setUpScene(map);
+      this.setUpTangramLayer(map);
     }
   },
 
-  setUpScene: function (map) {
-    if (map.options.debugTangram) {
-      console.log('given scene:', map.options.scene);
-      console.log('using scene:', (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap));
-    }
-    this._layer = Tangram.leafletLayer({
-      scene: (map.options.scene || L.Mapzen.HouseStyles.BubbleWrap)
-    }).addTo(map);
+  setUpTangramLayer: function (map) {
+    this._layer = Tangram.leafletLayer(this.options).addTo(map);
+
+    // Fire 'loaded' event when Tangram layer has been initialized
     var self = this;
     self._layer.on('init', function () {
       self.fire('loaded', {

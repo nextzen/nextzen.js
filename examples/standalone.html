@@ -31,8 +31,10 @@
       var lon = -74.009;
       var lat = 40.70531;
 
-      var map = L.Mapzen.map('map',{
-        scene: L.Mapzen.BasemapStyles.Refill
+      var map = L.Mapzen.map('map', {
+        tangramOptions: {
+          scene: L.Mapzen.BasemapStyles.Refill
+        }
       });
 
       map.setView([lat, lon],13);
