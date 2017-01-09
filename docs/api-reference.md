@@ -15,7 +15,7 @@ mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://
 | `debugTangram`| Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not. <br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
 | `fallbackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
 | `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file<br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
-| `tangramOptions`| Object |  See below |  See [tangramOptions](#tangramoptions) below |
+| `tangramOptions`| Object |  _See below_ |  See [tangramOptions](#tangramoptions) below |
 
 #### tangramOptions
 
@@ -26,6 +26,16 @@ Set of options related to the appearance and behavior of the Tangram layer.  In 
 | `debug` | Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not.|
 | `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
 
+Example:
+
+```javascript
+var map = L.Mapzen.map('map', {
+  tangramOptions: {
+    debug: true,
+    scene: 'my-scene-file.yaml'
+  }
+});
+```
 
 ### Events
 
@@ -39,7 +49,7 @@ For access to Tangram’s [scene object](https://mapzen.com/documentation/tangra
 
 Example of how to use the `tangramloaded` event to access Tangram's `scene` object:
 
-```
+```javascript
 map.on('tangramloaded', function (event) {
   var scene = event.tangramLayer.scene;
 });
