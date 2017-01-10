@@ -22,6 +22,10 @@ var TangramLayer = L.Class.extend({
     }
     this.hasWebGL = this._hasWebGL();
     this.options = L.extend({}, this.options, opts);
+
+    // Set api key in scene global
+    this.options.scene = this._buildSceneObject();
+
     // Start importing script
     // When there is no Tangram object available.
     if (typeof Tangram === 'undefined') {
@@ -76,10 +80,12 @@ var TangramLayer = L.Class.extend({
     else document.getElementsByTagName('head')[0].appendChild(this.oScript);
     this.oScript.src = sSrc;
   },
+
   _loadError: function (oError) {
     console.log(oError);
     throw new URIError('The script ' + oError.target.src + ' is not accessible.');
   },
+
   _hasWebGL: function () {
     try {
       var canvas = document.createElement('canvas');
@@ -87,6 +93,25 @@ var TangramLayer = L.Class.extend({
     } catch (x) {
       return false;
     }
+  },
+
+  _buildSceneObject: function () {
+    // Todo: add other basemap global parameters
+    // e.g., ux_language, sdk_transit_overlay, etc.
+
+    var apiKey = this.options.apiKey || L.Mapzen.apiKey;
+
+    if (apiKey && typeof this.options.scene === 'string') {
+      return {
+        import: this.options.scene,
+        global: {
+          sdk_mapzen_api_key: apiKey,
+        }
+      };
+    }
+    // Todo: handle scenes passed in as objects?
+
+    return this.options.scene;
   }
 });
 
