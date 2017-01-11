@@ -8,9 +8,11 @@ var Hash = L.Class.extend({
   _changing: false,
   _map: null,
   _geocoder: null,
-  _throttleLimit: 500,
+  _throttleLimit: 200,
 
   initialize: function (options) {
+    this._setupHash();
+
     if (options.map) {
       this._map = options.map;
       this._startMapEvents();
@@ -20,8 +22,6 @@ var Hash = L.Class.extend({
       this._geocoder = options.geocoder;
       this._startGeocoderEvents();
     }
-
-    this._setupHash();
     // L.DomEvent.on(window, 'onhashchange', this._setupHash, this);
   },
 
@@ -51,8 +51,10 @@ var Hash = L.Class.extend({
   },
 
   _startMapEvents: function () {
-    L.DomEvent.on(this._map, 'moveend', this._throttle(this._updateLatLng, this._throttleLimit), this);
-    L.DomEvent.on(this._map, 'zoomend', this._throttle(this._updateZoom, this._throttleLimit), this);
+    L.DomEvent.on(this._map, 'move', this._throttle(this._updateLatLng, this._throttleLimit), this);
+    L.DomEvent.on(this._map, 'zoom', this._throttle(this._updateZoom, this._throttleLimit), this);
+    L.DomEvent.on(this._map, 'moveend', this._updateLatLng, this);
+    L.DomEvent.on(this._map, 'zoomend', this._updateZoom, this);
   },
 
   _startGeocoderEvents: function () {
