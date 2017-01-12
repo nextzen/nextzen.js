@@ -23,8 +23,8 @@ var TangramLayer = L.Class.extend({
     this.hasWebGL = this._hasWebGL();
     this.options = L.extend({}, this.options, opts);
 
-    this._setUpApiKey(this.options);
-    this._setupSceneObject(this.options);
+    this._setUpApiKey();
+    this.options.scene = this._buildSceneObject();
 
     // Start importing script
     // When there is no Tangram object available.
@@ -69,23 +69,21 @@ var TangramLayer = L.Class.extend({
     });
   },
 
-  _setUpApiKey: function (opts) {
-    // If there is no api key in the option object
+  _setUpApiKey: function () {
+    // If there is no api key in the option object, grab the global one.
+    this.options.apiKey = this.options.apiKey || L.Mapzen.apiKey;
+
     if (!this.options.apiKey) {
-      if (L.Mapzen.apiKey) {
-        this.options.apiKey = L.Mapzen.apiKey;
-      } else {
-        console.warn('You can only have limited access to Mapzen Vector tiles withoout api key.');
-      }
+      console.warn('You can only have limited access to Mapzen Vector tiles withoout api key.');
     }
   },
 
-  _setupSceneObject: function (opts) {
-    var sceneFile = opts.scene;
+  _buildSceneObject: function () {
+    var sceneFile = this.options.scene;
     // Pass emtpy string to as sdk_mapzen_api_key when there is no apiKey
-    this.options.scene = {
+    return {
       import: sceneFile,
-      global: { sdk_mapzen_api_key: opts.apiKey || '' }
+      global: { sdk_mapzen_api_key: this.options.apiKey || '' }
     };
   },
 
