@@ -22,6 +22,7 @@ var TangramLayer = L.Class.extend({
     }
     this.hasWebGL = this._hasWebGL();
     this.options = L.extend({}, this.options, opts);
+    this._setUpApiKey();
 
     // Start importing script
     // When there is no Tangram object available.
@@ -54,15 +55,6 @@ var TangramLayer = L.Class.extend({
   },
 
   setUpTangramLayer: function (map) {
-    // If there is no api key in the option object
-    if (!this.options.apiKey) {
-      if (!L.Mapzen.apiKey && !map.apiKey) {
-        console.log('You can only have limited access to Mapzen service withoout api key. Grab your free api key at https://mapzen.com/developers');
-      } else {
-        this.options.apiKey = map.apiKey || L.Mapzen.apiKey;
-      }
-    }
-
     var sceneFile = this.options.scene;
 
     this.options.scene = {
@@ -80,6 +72,17 @@ var TangramLayer = L.Class.extend({
         version: Tangram.version
       });
     });
+  },
+
+  _setUpApiKey: function (opts) {
+    // If there is no api key in the option object
+    if (!this.options.apiKey) {
+      if (L.Mapzen.apiKey) {
+        this.options.apiKey = L.Mapzen.apiKey;
+      } else {
+        console.warn('You can only have limited access to Mapzen Vector tiles withoout api key.');
+      }
+    }
   },
 
   _importScript: function (sSrc) {
