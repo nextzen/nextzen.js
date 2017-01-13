@@ -6,7 +6,6 @@ describe('Map Hash Test', function () {
 
   before(function (done) {
     fakeResult = require('../fixtures/autocomplete.json');
-    L.Mapzen.apiKey = 'search--NA8UXg';
     done();
   })
 
