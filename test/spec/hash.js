@@ -46,7 +46,7 @@ describe('Map Hash Test', function () {
     });
 
     it('checks that hash for search result is working', function () {
-      var geocoder = L.Mapzen.geocoder('search--NA8UXg');
+      var geocoder = L.Mapzen.geocoder();
       geocoder.addTo(map);
 
       var hash = L.Mapzen.hash({
