@@ -18,8 +18,6 @@ var API_RATE_LIMIT = 250; // in ms, throttled time between subsequent requests t
 
 var Geocoder = L.Control.extend({
 
-  version: '1.6.2',
-
   includes: L.Mixin.Events,
 
   options: {
@@ -27,6 +25,7 @@ var Geocoder = L.Control.extend({
     url: 'https://search.mapzen.com/v1',
     placeholder: 'Search',
     title: 'Search',
+    apiKey: null,
     bounds: false,
     focus: true,
     layers: null,
@@ -41,6 +40,7 @@ var Geocoder = L.Control.extend({
     collapsible: true
   },
 
+  // apiKey-as-first-parameter is going to be deprecated in v1.0
   initialize: function (apiKey, options) {
     // For IE8 compatibility (if XDomainRequest is present),
     // we set the default value of options.url to the protocol-relative
@@ -50,17 +50,16 @@ var Geocoder = L.Control.extend({
       this.options.url = '//search.mapzen.com/v1';
     }
 
-    // If the apiKey is omitted entirely and the
-    // first parameter is actually the options
-    if (typeof apiKey === 'object' && !!apiKey) {
+    if (typeof apiKey === 'string') {
+      console.warn('Mapzen.js warning: Passing api key directly to the search commponent is deprecated and will be removed in v1.0. Please use `options.apiKey`.');
+      options.apiKey = apiKey;
+    } else if (typeof apiKey === 'object') {
       options = apiKey;
-      if (L.Mapzen.apiKey) this.apiKey = L.Mapzen.apiKey;
-    } else {
-      // If user specified the key to use
-      this.apiKey = apiKey;
+      options.apiKey = options.apiKey || L.Mapzen.apiKey;
+    } else if (!apiKey) {
+      this.options.apiKey = L.Mapzen.apiKey;
     }
 
-    // Deprecation warnings
     // If options.latlng is defined, warn. (Do not check for falsy values, because it can be set to false.)
     if (options && typeof options.latlng !== 'undefined') {
       // Set user-specified latlng to focus option, but don't overwrite if it's already there
@@ -177,8 +176,8 @@ var Geocoder = L.Control.extend({
     params = this.getLayers(params);
 
     // Search API key
-    if (this.apiKey) {
-      params.api_key = this.apiKey;
+    if (this.options.apiKey) {
+      params.api_key = this.options.apiKey;
     }
 
     var newParams = this.options.params;
@@ -599,8 +598,6 @@ var Geocoder = L.Control.extend({
   },
 
   onAdd: function (map) {
-    if (!this.apiKey && map.apiKey) this.apiKey = map.apiKey;
-
     var container = L.DomUtil.create('div',
         'leaflet-pelias-control leaflet-bar leaflet-control');
 
@@ -636,7 +633,7 @@ var Geocoder = L.Control.extend({
 
     L.DomEvent
       .on(window, 'resize', function (e) {
-        if(this.options.collapsible) this._checkResize();
+        if (this.options.collapsible) this._checkResize();
       }, this)
       .on(this._container, 'click', function (e) {
         // Child elements with 'click' listeners should call
