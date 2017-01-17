@@ -2,6 +2,31 @@
 
 mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
 
+## API Key
+
+mapzen.js requires API key for the access for Mapzen services. Mapzen API Key limit is per each service, so most of times you would want to set up API key one time through `L.Mapzen.apiKey`.
+
+Define your API key before adding other Mapzen components by setting:
+
+```javascript
+L.Mapzen.apiKey = 'your-api-key';
+```
+
+### Key limit per service
+
+Mapzen Vector Tiles provides global basemap coverage and has these limits:
+
+- 100 queries per second (about six map views per second)
+- 2,000 queries per minute (about 133 views per minute)
+- 100,000 queries per day (about 6,600 views per day)
+
+Mapzen Search allows you a maximum of:
+
+- 6 requests per second
+- 30,000 requests per day
+
+Get your free API key through the **[Mapzen developer portal](https://mapzen.com/developers)**.
+
 ## Map
 
 `L.Mapzen.map` extends [Leaflet `L.Map`](http://leafletjs.com/reference.html#map-class) with additional options.
@@ -10,7 +35,7 @@ mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://
 
 | Option  | Type   | Default   | Description            |
 |---------|--------|-----------|------------------------|
-| `apiKey`| String | null | Mapzen API Key to be used for the components attached to the map.|
+| `apiKey`| String | ㅣL.Mapzen.apiKey | Mapzen API Key to be used for the components. |
 | `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data in a small text box. `Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
 | `debugTangram`| Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not. <br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
 | `fallbackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
@@ -25,6 +50,7 @@ Set of options related to the appearance and behavior of the Tangram layer.  In 
 |---------|--------|-----------|------------------------|
 | `debug` | Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not.|
 | `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
+| `apiKey` | String | L.Mapzen.apiKey | Mapzen API Key to be used for Vector Tiles. |
 
 Example:
 
@@ -59,7 +85,7 @@ map.on('tangramloaded', function (event) {
 
 You can pass one of [Mapzen's basemap styles](https://mapzen.com/documentation/mapzen-js/api-reference/#basemap-styles) as the `scene` via `tangramOptions`, or you can provide the path to your own Tangram scene file.  If there is no scene file declared, mapzen.js will default to [BubbleWrap](https://mapzen.com/products/maps/bubble-wrap/).
 
-Example: 
+Example:
 
 ```javascript
 var map = L.Mapzen.map('map', {
@@ -75,21 +101,10 @@ The `center` parameter sets the center point of the map (_[latitude, longitude]_
 
 The `scene: L.Mapzen.BasemapStyles.Refill` line sets the style used for the map. In this case, it is Mapzen's [Refill](https://mapzen.com/products/maps/refill/) style, which provides a high contrast, black & white basemap useful for data visualization.
 
-## API Key
-
-If you are planning to use the [Mapzen Search](https://mapzen.com/products/search/) or [Turn-by-Turn](https://mapzen.com/products/turn-by-turn/) service through mapzen.js, you can set up an API key to use once through `L.Mapzen.apikey`.
-
-Define your API key before adding other Mapzen components by setting:
-
-```javascript
-L.Mapzen.apiKey = 'your-api-key';
-```
-
-Get your free API key through the **[Mapzen developer portal](https://mapzen.com/developers)**.
 
 ## Basemap styles
 
-mapzen.js provides a set of constants for easier access to Mapzen's [basemap styles](https://mapzen.com/products/maps/). These are available under the `L.Mapzen.BasemapStyles` namespace. 
+mapzen.js provides a set of constants for easier access to Mapzen's [basemap styles](https://mapzen.com/products/maps/). These are available under the `L.Mapzen.BasemapStyles` namespace.
 
 | Constant             | Value                                                                                  |
 |----------------------|----------------------------------------------------------------------------------------|
@@ -110,7 +125,7 @@ mapzen.js provides a set of constants for easier access to Mapzen's [basemap sty
 | `TronMoreLabels`| `https://mapzen.com/carto/tron-style-more-labels/tron-style-more-labels.zip`                |
 | `TronNoLabels`| `https://mapzen.com/carto/tron-style-no-labels/tron-style-no-labels.zip`                      |
 
-Example: 
+Example:
 
 ```javascript
 var map = L.Mapzen.map('map', {
@@ -145,7 +160,7 @@ _Note: Mapzen Search requires an API key. **Get your free API key through the [M
 
 The term _bug_ is borrowed from broadcast television (officially, ["digital on-screen graphic"](http://en.wikipedia.org/wiki/Digital_on-screen_graphic)) where a show is branded in the lower corner to identify the broadcast network.
 
-Example: 
+Example:
 
 ```javascript
 L.Mapzen.bug({
@@ -169,7 +184,7 @@ L.Mapzen.bug({
 
 `L.Mapzen.locator` adds a geolocation control to the map. This integrates the [Leaflet.Locate control](https://github.com/domoritz/leaflet-locatecontrol). See the [Leaflet.Locate documentation](https://github.com/domoritz/leaflet-locatecontrol/blob/gh-pages/README.md) for additional options.
 
-Example: 
+Example:
 
 ``` javascript
 var locator = L.Mapzen.locator();
@@ -181,7 +196,7 @@ locator.addTo(map);
 
 `L.Mapzen.hash` adds a URL hash to a map, so you can link to map location and state. The Hash function accepts components whose state can be linked.
 
-Example: 
+Example:
 
 ```javascript
 L.Mapzen.hash({
