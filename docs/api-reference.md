@@ -4,28 +4,13 @@ mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://
 
 ## API Key
 
-mapzen.js requires API key for the access for Mapzen services. Mapzen API Key limit is per each service, so most of times you would want to set up API key one time through `L.Mapzen.apiKey`.
+mapzen.js requires API key for the access for Mapzen services. Mapzen API Key limit is per each service, so most of times you would want to set up API key one time through `L.Mapzen.apiKey`. You can check the rate limit on [Mapzen documentation page](https://mapzen.com/documentation/overview/#rate-limits).
 
 Define your API key before adding other Mapzen components by setting:
 
 ```javascript
 L.Mapzen.apiKey = 'your-api-key';
 ```
-
-### Key limit per service
-
-Mapzen Vector Tiles provides global basemap coverage and has these limits:
-
-- 100 queries per second (about six map views per second)
-- 2,000 queries per minute (about 133 views per minute)
-- 100,000 queries per day (about 6,600 views per day)
-
-Mapzen Search allows you a maximum of:
-
-- 6 requests per second
-- 30,000 requests per day
-
-Get your free API key through the **[Mapzen developer portal](https://mapzen.com/developers)**.
 
 ## Map
 
@@ -35,7 +20,7 @@ Get your free API key through the **[Mapzen developer portal](https://mapzen.com
 
 | Option  | Type   | Default   | Description            |
 |---------|--------|-----------|------------------------|
-| `apiKey`| String | ㅣL.Mapzen.apiKey | Mapzen API Key to be used for the components. |
+| `apiKey`| String | L.Mapzen.apiKey | Mapzen API Key to be used for the components. |
 | `attribution` | String | `<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors` | Attribution data in a small text box. `Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
 | `debugTangram`| Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not. <br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
 | `fallbackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
