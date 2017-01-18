@@ -1,14 +1,14 @@
 var L = require('leaflet'),
-  Control = require('leaflet-routing-machine/src/L.Routing.Control')
-  Itinerary = require('leaflet-routing-machine/src/L.Routing.Itinerary')
-  ItineraryBuilder = require('leaflet-routing-machine/src/L.Routing.ItineraryBuilder')
-  MapzenLine = require('lrm-mapzen/src/L.Routing.MapzenLine')
-  Plan = require('leaflet-routing-machine/src/L.Routing.Plan')
-  Waypoint = require('leaflet-routing-machine/src/L.Routing.Waypoint')
-  MapzenFormatter = require('lrm-mapzen/src/L.Routing.MapzenFormatter')
-  ErrorControl = require('leaflet-routing-machine/src/L.Routing.ErrorControl')
-  GeocoderElement = require('leaflet-routing-machine/src/L.Routing.GeocoderElement')
-  MapzenRouter = require('lrm-mapzen/src/L.Routing.Mapzen')
+  Control = require('leaflet-routing-machine/src/control')
+  Itinerary = require('leaflet-routing-machine/src/itinerary')
+  ItineraryBuilder = require('leaflet-routing-machine/src/itinerary-builder')
+  MapzenLine = require('lrm-mapzen/src/mapzenLine')
+  Plan = require('leaflet-routing-machine/src/plan')
+  Waypoint = require('lrm-mapzen/src/waypoint')
+  MapzenFormatter = require('lrm-mapzen/src/mapzenFormatter')
+  ErrorControl = require('leaflet-routing-machine/src/error-control')
+  GeocoderElement = require('leaflet-routing-machine/src/geocoder-element')
+  MapzenRouter = require('lrm-mapzen/src/mapzenRouter')
 
 
 
@@ -45,8 +45,8 @@ module.exports.routing = {
   formatter: function(options) {
       return new MapzenFormatter(options);
   },
-  mapzen: function(options) {
-    return new MapzenRouter(options);
+  mapzen: function(apikey, options) {
+    return new MapzenRouter(apikey, options);
   },
   geocoderElement: function(wp, i, nWps, plan) {
       return new GeocoderElement(wp, i, nWps, plan);

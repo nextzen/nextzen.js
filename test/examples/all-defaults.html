@@ -57,6 +57,18 @@
         repo: 'https://github.com/mapzen/web-map',
         mapID: 'map'});
 
+      var control = L.Mapzen.routing.control({
+        waypoints: [
+          L.latLng(37.752, -122.418),
+          L.latLng(37.779, -122.391)
+        ],
+        // You can get your own Mapzen turn-by-turn & search API key from the Mapzen developer portal (https://mapzen.com/developers/)
+        reverseWaypoints: true,
+        router: L.Mapzen.routing.mapzen('valhalla-PVA4Y8g', {costing: 'auto'}),
+        formatter: new L.Mapzen.routing.formatter(),
+        summaryTemplate:'<div class="start">{name}</div><div class="info {costing}">{distance}, {time}</div>'
+      }).addTo(map);
+
       // Add locator button
       var locator = L.Mapzen.locator();
       locator.addTo(map);
