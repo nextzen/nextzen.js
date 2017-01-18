@@ -17,7 +17,7 @@ To reference the mapzen.js cascading style sheet (CSS) and JavaScript file, add 
 
 ## Using a pinned version
 
-We will change and update Mapzen.js software over time to new features or remove old ones. The standard links above will always be the latest version of Mapzen.js. If you’d like to link to code that will never be modified, you can use a pinned version of Mapzen.js.
+We change and update Mapzen.js software over time to add new features or remove old ones. The standard links above will always be the latest version of Mapzen.js. If you’d like to link to code that will never be modified, you can use a pinned version of Mapzen.js instead.
 
 To reference a pinned version of the Mapzen.js CSS and JavaScript files, find the release you’d like to use [on our releases page](https://github.com/mapzen/mapzen.js/releases) and add links like these with the correct `major.minor.patch` version number to your page:
 
