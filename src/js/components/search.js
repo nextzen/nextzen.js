@@ -52,7 +52,7 @@ var Geocoder = L.Control.extend({
 
     if (typeof apiKey === 'string') {
       console.warn('Mapzen.js warning: Passing api key directly to the search commponent is deprecated and will be removed in v1.0. Please use `options.apiKey`.');
-      options.apiKey = apiKey;
+      this.options.apiKey = apiKey;
     } else if (typeof apiKey === 'object') {
       options = apiKey;
       options.apiKey = options.apiKey || L.Mapzen.apiKey;
