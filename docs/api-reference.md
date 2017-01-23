@@ -4,7 +4,7 @@ mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://
 
 ## API Key
 
-mapzen.js requires API key for the access for Mapzen services. Mapzen API Key limit is per each service, so most of times you would want to set up API key one time through `L.Mapzen.apiKey`. You can check the rate limit on [Mapzen documentation page](https://mapzen.com/documentation/overview/#rate-limits).
+mapzen.js requires API key for the access for Mapzen services. Mapzen API Key limit is per each service, so most of times you would want to set up API key one time through `L.Mapzen.apiKey`. You can learn more about API keys and rate limits [here](https://mapzen.com/documentation/overview/#rate-limits).
 
 Define your API key before adding other Mapzen components by setting:
 
