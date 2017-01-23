@@ -13,7 +13,7 @@ var TangramLayer = L.Class.extend({
   options: {
     fallbackTile: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
     tangramURL: tangramPath + 'tangram.min.js',
-    scene: BasemapStyles.BubbleWrap
+    scene: BasemapStyles.BubbleWrapMoreLabels
   },
 
   initialize: function (opts) {

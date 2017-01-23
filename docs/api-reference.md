@@ -91,24 +91,26 @@ The `scene: L.Mapzen.BasemapStyles.Refill` line sets the style used for the map.
 
 mapzen.js provides a set of constants for easier access to Mapzen's [basemap styles](https://mapzen.com/products/maps/). These are available under the `L.Mapzen.BasemapStyles` namespace.
 
-| Constant             | Value                                                                                  |
-|----------------------|----------------------------------------------------------------------------------------|
-| `BubbleWrap`         | `https://mapzen.com/carto/bubble-wrap-style/bubble-wrap.yaml`                          |
-| `Cinnabar`           | `https://mapzen.com/carto/cinnabar-style/cinnabar-style.yaml`                          |
-| `CinnabarMoreLabels` | `https://mapzen.com/carto/cinnabar-style-more-labels/cinnabar-style-more-labels.yaml`  |
-| `CinnabarNoLabels`   | `https://mapzen.com/carto/cinnabar-style-no-labels/cinnabar-style-no-labels.yaml`      |
-| `Refill`             | `https://mapzen.com/carto/refill-style/refill-style.yaml`                              |
-| `RefillMoreLabels`   | `https://mapzen.com/carto/refill-style-more-labels/refill-style-more-labels.yaml`      |
-| `RefillNoLabels`     | `https://mapzen.com/carto/refill-style-no-labels/refill-style-no-labels.yaml`          |
-| `Zinc`               | `https://mapzen.com/carto/zinc-style/zinc-style.yaml`                                  |
-| `ZincMoreLabels`     | `https://mapzen.com/carto/zinc-style-more-labels/zinc-style-more-labels.yaml`          |
-| `ZincNoLabels`       | `https://mapzen.com/carto/zinc-style-no-labels/zinc-style-no-labels.yaml`              |
-| `Walkabout` | `https://mapzen.com/carto/walkabout-style/walkabout-style.yaml` |
-| `WalkaboutMoreLabels` | `https://mapzen.com/carto/walkabout-style-more-labels/walkabout-style-more-labels.yaml` |
-| `WalkaboutNoLabels` | `https://mapzen.com/carto/walkabout-style-no-labels/walkabout-style-no-labels.yaml` |
-| `Tron`| `https://mapzen.com/carto/tron-style/tron-style.zip`                                                  |
-| `TronMoreLabels`| `https://mapzen.com/carto/tron-style-more-labels/tron-style-more-labels.zip`                |
-| `TronNoLabels`| `https://mapzen.com/carto/tron-style-no-labels/tron-style-no-labels.zip`                      |
+| Constant              | Value                                                                                        |
+|-----------------------|----------------------------------------------------------------------------------------------|
+| `BubbleWrap`          | `https://mapzen.com/carto/bubble-wrap-style/6/bubble-wrap-style.zip`                         |
+| `BubbleWrapMoreLabels`| `https://mapzen.com/carto/bubble-wrap-style-more-labels/6/bubble-wrap-style-more-labels.zip` |
+| `BubbleWrapNoLabels`  | `https://mapzen.com/carto/bubble-wrap-style-no-labels/6/bubble-wrap-style-no-labels.zip`     |
+| `Cinnabar`            | `https://mapzen.com/carto/cinnabar-style/6/cinnabar-style.zip`                               |
+| `CinnabarMoreLabels`  | `https://mapzen.com/carto/cinnabar-style-more-labels/6/cinnabar-style-more-labels.zip`       |
+| `CinnabarNoLabels`    | `https://mapzen.com/carto/cinnabar-style-no-labels/6/cinnabar-style-no-labels.zip`           |
+| `Refill`              | `https://mapzen.com/carto/refill-style/6/refill-style.zip`                                   |
+| `RefillMoreLabels`    | `https://mapzen.com/carto/refill-style-more-labels/6/refill-style-more-labels.zip`           |
+| `RefillNoLabels`      | `https://mapzen.com/carto/refill-style-no-labels/6/refill-style-no-labels.zip`               |
+| `Zinc`                | `https://mapzen.com/carto/zinc-style/5/zinc-style.zip`                                       |
+| `ZincMoreLabels`      | `https://mapzen.com/carto/zinc-style-more-labels/5/zinc-style-more-labels.zip`               |
+| `ZincNoLabels`        | `https://mapzen.com/carto/zinc-style-no-labels/5/zinc-style-no-labels.zip`                   |
+| `Walkabout`           | `https://mapzen.com/carto/walkabout-style/3/walkabout-style.zip`                             |
+| `WalkaboutMoreLabels` | `https://mapzen.com/carto/walkabout-style-more-labels/3/walkabout-style-more-labels.zip`     |
+| `WalkaboutNoLabels`   | `https://mapzen.com/carto/walkabout-style-no-labels/3/walkabout-style-no-labels.zip`         |
+| `Tron`                | `https://mapzen.com/carto/tron-style/3/tron-style.zip`                                       |
+| `TronMoreLabels`      | `https://mapzen.com/carto/tron-style-more-labels/3/tron-style-more-labels.zip`               |
+| `TronNoLabels`        | `https://mapzen.com/carto/tron-style-no-labels/3/tron-style-no-labels.zip`                   |
 
 Example:
 
