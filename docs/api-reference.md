@@ -59,7 +59,7 @@ map.on('tangramloaded', function (event) {
 
 You can pass one of [Mapzen's basemap styles](https://mapzen.com/documentation/mapzen-js/api-reference/#basemap-styles) as the `scene` via `tangramOptions`, or you can provide the path to your own Tangram scene file.  If there is no scene file declared, mapzen.js will default to [BubbleWrap](https://mapzen.com/products/maps/bubble-wrap/).
 
-Example: 
+Example:
 
 ```javascript
 var map = L.Mapzen.map('map', {
@@ -89,28 +89,30 @@ Get your free API key through the **[Mapzen developer portal](https://mapzen.com
 
 ## Basemap styles
 
-mapzen.js provides a set of constants for easier access to Mapzen's [basemap styles](https://mapzen.com/products/maps/). These are available under the `L.Mapzen.BasemapStyles` namespace. 
+mapzen.js provides a set of constants for easier access to Mapzen's [basemap styles](https://mapzen.com/products/maps/). These are available under the `L.Mapzen.BasemapStyles` namespace.
 
-| Constant             | Value                                                                                  |
-|----------------------|----------------------------------------------------------------------------------------|
-| `BubbleWrap`         | `https://mapzen.com/carto/bubble-wrap-style/bubble-wrap.yaml`                          |
-| `Cinnabar`           | `https://mapzen.com/carto/cinnabar-style/cinnabar-style.yaml`                          |
-| `CinnabarMoreLabels` | `https://mapzen.com/carto/cinnabar-style-more-labels/cinnabar-style-more-labels.yaml`  |
-| `CinnabarNoLabels`   | `https://mapzen.com/carto/cinnabar-style-no-labels/cinnabar-style-no-labels.yaml`      |
-| `Refill`             | `https://mapzen.com/carto/refill-style/refill-style.yaml`                              |
-| `RefillMoreLabels`   | `https://mapzen.com/carto/refill-style-more-labels/refill-style-more-labels.yaml`      |
-| `RefillNoLabels`     | `https://mapzen.com/carto/refill-style-no-labels/refill-style-no-labels.yaml`          |
-| `Zinc`               | `https://mapzen.com/carto/zinc-style/zinc-style.yaml`                                  |
-| `ZincMoreLabels`     | `https://mapzen.com/carto/zinc-style-more-labels/zinc-style-more-labels.yaml`          |
-| `ZincNoLabels`       | `https://mapzen.com/carto/zinc-style-no-labels/zinc-style-no-labels.yaml`              |
-| `Walkabout` | `https://mapzen.com/carto/walkabout-style/walkabout-style.yaml` |
-| `WalkaboutMoreLabels` | `https://mapzen.com/carto/walkabout-style-more-labels/walkabout-style-more-labels.yaml` |
-| `WalkaboutNoLabels` | `https://mapzen.com/carto/walkabout-style-no-labels/walkabout-style-no-labels.yaml` |
-| `Tron`| `https://mapzen.com/carto/tron-style/tron-style.zip`                                                  |
-| `TronMoreLabels`| `https://mapzen.com/carto/tron-style-more-labels/tron-style-more-labels.zip`                |
-| `TronNoLabels`| `https://mapzen.com/carto/tron-style-no-labels/tron-style-no-labels.zip`                      |
+| Constant              | Value                                                                                        |
+|-----------------------|----------------------------------------------------------------------------------------------|
+| `BubbleWrap`          | `https://mapzen.com/carto/bubble-wrap-style/6/bubble-wrap-style.zip`                         |
+| `BubbleWrapMoreLabels`| `https://mapzen.com/carto/bubble-wrap-style-more-labels/6/bubble-wrap-style-more-labels.zip` |
+| `BubbleWrapNoLabels`  | `https://mapzen.com/carto/bubble-wrap-style-no-labels/6/bubble-wrap-style-no-labels.zip`     |
+| `Cinnabar`            | `https://mapzen.com/carto/cinnabar-style/6/cinnabar-style.zip`                               |
+| `CinnabarMoreLabels`  | `https://mapzen.com/carto/cinnabar-style-more-labels/6/cinnabar-style-more-labels.zip`       |
+| `CinnabarNoLabels`    | `https://mapzen.com/carto/cinnabar-style-no-labels/6/cinnabar-style-no-labels.zip`           |
+| `Refill`              | `https://mapzen.com/carto/refill-style/6/refill-style.zip`                                   |
+| `RefillMoreLabels`    | `https://mapzen.com/carto/refill-style-more-labels/6/refill-style-more-labels.zip`           |
+| `RefillNoLabels`      | `https://mapzen.com/carto/refill-style-no-labels/6/refill-style-no-labels.zip`               |
+| `Zinc`                | `https://mapzen.com/carto/zinc-style/5/zinc-style.zip`                                       |
+| `ZincMoreLabels`      | `https://mapzen.com/carto/zinc-style-more-labels/5/zinc-style-more-labels.zip`               |
+| `ZincNoLabels`        | `https://mapzen.com/carto/zinc-style-no-labels/5/zinc-style-no-labels.zip`                   |
+| `Walkabout`           | `https://mapzen.com/carto/walkabout-style/3/walkabout-style.zip`                             |
+| `WalkaboutMoreLabels` | `https://mapzen.com/carto/walkabout-style-more-labels/3/walkabout-style-more-labels.zip`     |
+| `WalkaboutNoLabels`   | `https://mapzen.com/carto/walkabout-style-no-labels/3/walkabout-style-no-labels.zip`         |
+| `Tron`                | `https://mapzen.com/carto/tron-style/3/tron-style.zip`                                       |
+| `TronMoreLabels`      | `https://mapzen.com/carto/tron-style-more-labels/3/tron-style-more-labels.zip`               |
+| `TronNoLabels`        | `https://mapzen.com/carto/tron-style-no-labels/3/tron-style-no-labels.zip`                   |
 
-Example: 
+Example:
 
 ```javascript
 var map = L.Mapzen.map('map', {
@@ -145,7 +147,7 @@ _Note: Mapzen Search requires an API key. **Get your free API key through the [M
 
 The term _bug_ is borrowed from broadcast television (officially, ["digital on-screen graphic"](http://en.wikipedia.org/wiki/Digital_on-screen_graphic)) where a show is branded in the lower corner to identify the broadcast network.
 
-Example: 
+Example:
 
 ```javascript
 L.Mapzen.bug({
@@ -169,7 +171,7 @@ L.Mapzen.bug({
 
 `L.Mapzen.locator` adds a geolocation control to the map. This integrates the [Leaflet.Locate control](https://github.com/domoritz/leaflet-locatecontrol). See the [Leaflet.Locate documentation](https://github.com/domoritz/leaflet-locatecontrol/blob/gh-pages/README.md) for additional options.
 
-Example: 
+Example:
 
 ``` javascript
 var locator = L.Mapzen.locator();
@@ -181,7 +183,7 @@ locator.addTo(map);
 
 `L.Mapzen.hash` adds a URL hash to a map, so you can link to map location and state. The Hash function accepts components whose state can be linked.
 
-Example: 
+Example:
 
 ```javascript
 L.Mapzen.hash({
