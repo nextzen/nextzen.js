@@ -26,7 +26,7 @@ deployment:
       - npm version ${CIRCLE_TAG#release-v} --no-git-tag-version && publish --on-major --on-minor --on-patch
       - pip install 'Circle-Tickler == 1.0.1'
       # remove the first run once new repo is verified
-      - tickle-circle mapzen mapzen-docs-generator master $CIRCLE_TOKEN || tickle-circle mapzen documentation master $CIRCLE_TOKEN  unstable:
+      - tickle-circle mapzen mapzen-docs-generator master $CIRCLE_TOKEN || tickle-circle mapzen documentation master $CIRCLE_TOKEN
   unstable:
     branch: master
     commands:
