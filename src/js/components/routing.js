@@ -43,8 +43,10 @@ module.exports.routing = {
   formatter: function(options) {
       return new MapzenFormatter(options);
   },
-  mapzen: function(apikey, options) {
-    return new MapzenRouter(apikey, options);
+  mapzen: function(options) {
+    var apiKey = L.Mapzen.apiKey || options.apikey;
+    if (!apiKey) console.warn('You can only have limited access to Mapzen Turn by Turn withoout api key.');
+    return new MapzenRouter(apiKey, options);
   },
   geocoderElement: function(wp, i, nWps, plan) {
       return new GeocoderElement(wp, i, nWps, plan);
