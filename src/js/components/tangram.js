@@ -12,8 +12,7 @@ var TangramLayer = L.Class.extend({
   includes: L.Mixin.Events,
   options: {
     fallbackTile: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
-    tangramURL: tangramPath + 'tangram.min.js',
-    scene: BasemapStyles.BubbleWrapMoreLabels
+    tangramURL: tangramPath + 'tangram.min.js'
   },
 
   initialize: function (opts) {
@@ -24,7 +23,7 @@ var TangramLayer = L.Class.extend({
     this.options = L.extend({}, this.options, opts);
 
     this._setUpApiKey();
-    this.options.scene = this._buildSceneObject();
+    this.options.scene =  this.options.scene.buildScene();
 
     // Start importing script
     // When there is no Tangram object available.
@@ -78,14 +77,14 @@ var TangramLayer = L.Class.extend({
     }
   },
 
-  _buildSceneObject: function () {
-    var sceneFile = this.options.scene;
-    // Pass emtpy string to as sdk_mapzen_api_key when there is no apiKey
-    return {
-      import: sceneFile,
-      global: { sdk_mapzen_api_key: this.options.apiKey || '' }
-    };
-  },
+  // _buildSceneObject: function () {
+  //   var sceneFile = this.options.scene;
+  //   // Pass emtpy string to as sdk_mapzen_api_key when there is no apiKey
+  //   return {
+  //     import: sceneFile,
+  //     global: { sdk_mapzen_api_key: this.options.apiKey || '' }
+  //   };
+  // },
 
   _importScript: function (sSrc) {
     this.oScript = document.createElement('script');

@@ -9,6 +9,7 @@ var Geocoder = require('./components/search');
 var Hash = require('./components/hash');
 var BasemapStyles = require('./components/basemapStyles');
 var TangramLayer = require('./components/tangram');
+var SceneHelper = require('./components/sceneHelper');
 
 L.Mapzen = module.exports = {
   Map: MapControl,
@@ -19,6 +20,7 @@ L.Mapzen = module.exports = {
   hash: Hash.hash,
   HouseStyles: BasemapStyles,
   BasemapStyles: BasemapStyles,
+  sceneHelper: SceneHelper.sceneHelper,
   _tangram: TangramLayer.tangramLayer
 };
 

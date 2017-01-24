@@ -34,6 +34,9 @@
       // Default map (Bubble Wrap)
       var map = L.Mapzen.map('map', {
         tangramOptions: {
+          scene: L.Mapzen.sceneHelper({
+            scene: L.Mapzen.BubbleWrap
+          }),
           debug: false
         }
       });
