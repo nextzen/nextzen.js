@@ -64,7 +64,7 @@
         ],
         // You can get your own Mapzen turn-by-turn & search API key from the Mapzen developer portal (https://mapzen.com/developers/)
         reverseWaypoints: true,
-        router: L.Mapzen.routing.mapzen('valhalla-PVA4Y8g', {costing: 'auto'}),
+        router: L.Mapzen.routing.mapzen({costing: 'auto'}),
         formatter: new L.Mapzen.routing.formatter(),
         summaryTemplate:'<div class="start">{name}</div><div class="info {costing}">{distance}, {time}</div>'
       }).addTo(map);

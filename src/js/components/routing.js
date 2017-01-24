@@ -18,7 +18,7 @@ module.exports = {
   Line: MapzenLine,
   Plan: Plan,
   Waypoint: Waypoint,
-  Mapzen: MapzenRouter,
+  MapzenRouter: MapzenRouter,
   Formatter: MapzenFormatter,
   GeocoderElement: GeocoderElement
 }
