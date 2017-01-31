@@ -6,7 +6,8 @@ var MapControl = L.Map.extend({
   options: {
     attribution: '<a href="https://mapzen.com">Mapzen</a> - <a href="https://www.mapzen.com/rights">Attribution</a>, Data ©<a href="https://openstreetmap.org/copyright">OSM</a> contributors',
     zoomSnap: 0,
-    _useTangram: true
+    _useTangram: true,
+    apiKey: null
   },
 
   // overriding Leaflet's map initializer
@@ -49,9 +50,9 @@ var MapControl = L.Map.extend({
   },
 
   _setGlobalApiKey: function (opts) {
-    this.apiKey = opts.apiKey || L.Mapzen.apiKey;
+    this.options.apiKey = opts.apiKey || L.Mapzen.apiKey;
 
-    if (!this.apiKey) {
+    if (!this.options.apiKey) {
 
       console.warn( '****************************** \n'
                   + '***   API key is missing   *** \n'
@@ -62,7 +63,7 @@ var MapControl = L.Map.extend({
     }
 
     // Update global (to be used by other services as needed)
-    L.Mapzen.apiKey = this.apiKey;
+    L.Mapzen.apiKey = this.options.apiKey;
   },
 
   _checkConditions: function (force) {
