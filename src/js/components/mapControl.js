@@ -6,13 +6,16 @@ var MapControl = L.Map.extend({
   options: {
     attribution: '© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>',
     zoomSnap: 0,
-    _useTangram: true
+    _useTangram: true,
+    apiKey: null
   },
 
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
     var opts = L.extend({}, L.Map.prototype.options, options);
     L.Map.prototype.initialize.call(this, element, opts);
+
+    this._setGlobalApiKey(opts);
 
     if (this.options._useTangram) {
       var tangramOptions = opts.tangramOptions || {};
@@ -41,22 +44,26 @@ var MapControl = L.Map.extend({
       });
     }
 
-    this._setupConfig(opts);
     this._setDefaultUIPositions();
     this._addAttribution();
     this._checkConditions(false);
   },
 
-  _setupConfig: function (opts) {
-    // If the key is passed through map initialization
-    if (opts.apiKey) {
-      this.apiKey = opts.apiKey;
-      // When there is no L.Mapzen.apiKey yet, map one takes over.
-      if (!L.Mapzen.apiKey) L.Mapzen.apiKey = opts.apiKey;
-    // If the key is not passed through the map, but when there is a global one.
-    } else if (L.Mapzen.apiKey) {
-      this.apiKey = L.Mapzen.apiKey;
+  _setGlobalApiKey: function (opts) {
+    this.options.apiKey = opts.apiKey || L.Mapzen.apiKey;
+
+    if (!this.options.apiKey) {
+
+      console.warn( '****************************** \n'
+                  + '***   API key is missing   *** \n'
+                  + '****************************** \n'
+                  + 'Generate your free API key at \n'
+                  + 'https://mapzen.com/developers \n'
+                  + '******************************');
     }
+
+    // Update global (to be used by other services as needed)
+    L.Mapzen.apiKey = this.options.apiKey;
   },
 
   _checkConditions: function (force) {

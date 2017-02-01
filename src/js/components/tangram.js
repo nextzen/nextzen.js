@@ -74,16 +74,19 @@ var TangramLayer = L.Class.extend({
     this.options.apiKey = this.options.apiKey || L.Mapzen.apiKey;
 
     if (!this.options.apiKey) {
-      console.warn('You can only have limited access to Mapzen Vector tiles withoout api key.');
+      console.warn('Without an API key, your access to Mapzen Vector Tiles will be limited.');
     }
   },
 
   _buildSceneObject: function () {
     var sceneFile = this.options.scene;
+
     // Pass emtpy string to as sdk_mapzen_api_key when there is no apiKey
     return {
       import: sceneFile,
-      global: { sdk_mapzen_api_key: this.options.apiKey || '' }
+      global: {
+        sdk_mapzen_api_key: this.options.apiKey || ''
+      }
     };
   },
 
@@ -98,10 +101,12 @@ var TangramLayer = L.Class.extend({
     else document.getElementsByTagName('head')[0].appendChild(this.oScript);
     this.oScript.src = sSrc;
   },
+
   _loadError: function (oError) {
     console.log(oError);
     throw new URIError('The script ' + oError.target.src + ' is not accessible.');
   },
+
   _hasWebGL: function () {
     try {
       var canvas = document.createElement('canvas');
