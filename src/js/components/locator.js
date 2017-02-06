@@ -543,8 +543,8 @@ var Locator = L.Control.extend({
 
 module.exports = Locator;
 
-module.exports.locator = function () {
-  var locator = new Locator({
+module.exports.locator = function (opts) {
+  var mapzenOptions = {
     position: 'bottomright',
     drawCircle: false,
     follow: false,
@@ -560,7 +560,10 @@ module.exports.locator = function () {
     // We piggy back on geocoder plugin styles and use their load icon so it is the same.
     // Re-using the class name means we don't duplicate the embedded image style in the compiled bundle.
     iconLoading: 'mz-geolocator-icon mz-geolocator-active leaflet-pelias-search-icon leaflet-pelias-loading'
-  });
+  };
+
+  var extendedOptions = L.extend({}, mapzenOptions, opts);
+  var locator = new Locator(extendedOptions);
 
   return locator;
 };
