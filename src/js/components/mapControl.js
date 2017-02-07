@@ -12,7 +12,7 @@ var MapControl = L.Map.extend({
 
   // overriding Leaflet's map initializer
   initialize: function (element, options) {
-    var opts = L.extend({}, L.Map.prototype.options, options);
+    var opts = L.Util.setOptions(this, options);
     L.Map.prototype.initialize.call(this, element, opts);
 
     this._setGlobalApiKey(opts);

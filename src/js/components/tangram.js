@@ -17,11 +17,12 @@ var TangramLayer = L.Class.extend({
   },
 
   initialize: function (opts) {
+    this.options = L.Util.setOptions(this, opts);
+
     if (opts && opts.debug) {
       this.options.tangramURL = tangramPath + 'tangram.debug.js';
     }
     this.hasWebGL = this._hasWebGL();
-    this.options = L.extend({}, this.options, opts);
 
     this._setUpApiKey();
     this.options.scene = this._buildSceneObject();
