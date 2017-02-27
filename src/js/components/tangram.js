@@ -8,6 +8,12 @@ var tangramLayerInstance;
 var tangramVersion = '0.11';
 var tangramPath = 'https://mapzen.com/tangram/' + tangramVersion + '/';
 
+/**
+ * The URL_PATTERN handles the old vector.mapzen.com origin (until it is fully
+ * deprecated) as well as the new v1 tile.mapzen.com endpoint.
+ */
+var URL_PATTERN = /((https?:)?\/\/(vector|tile).mapzen.com([a-z]|[A-Z]|[0-9]|\/|\{|\}|\.|\||:)+(topojson|geojson|mvt|png|tif|gz))/;
+
 var TangramLayer = L.Class.extend({
   includes: L.Mixin.Events,
   options: {
@@ -24,7 +30,6 @@ var TangramLayer = L.Class.extend({
     this.options = L.extend({}, this.options, opts);
 
     this._setUpApiKey();
-    this.options.scene = this._buildSceneObject();
 
     // Start importing script
     // When there is no Tangram object available.
@@ -58,9 +63,32 @@ var TangramLayer = L.Class.extend({
 
   setUpTangramLayer: function (map) {
     this._layer = Tangram.leafletLayer(this.options).addTo(map);
+    var self = this;
+
+    self._layer.scene.subscribe({
+
+      // Check for existing API key at load (before scene renders)
+      load: function (scene) {
+        var globalKey = self.options.apiKey;
+
+        // If a key has been set (via L.Mapzen.apiKey or options.apiKey),
+        // inject the key into any scene file calling Mapzen vector tiles.
+        // This will overwrite any existing API keys set in the scene file.
+        if (globalKey && self._isValidMapzenApiKey(globalKey)) {
+          self._injectApiKey(scene.config, globalKey);
+          return;
+        }
+
+        // If no key has been set, make sure key already exists in scene file
+        if (self._isApiKeyMissing(scene) === true) {
+          self._throwApiKeyWarning();
+        } else {
+          // Carry on. Scene already has or doesn't require an API key.
+        }
+      }
+    });
 
     // Fire 'loaded' event when Tangram layer has been initialized
-    var self = this;
     self._layer.on('init', function () {
       self.fire('loaded', {
         layer: self._layer,
@@ -72,22 +100,87 @@ var TangramLayer = L.Class.extend({
   _setUpApiKey: function () {
     // If there is no api key in the option object, grab the global one.
     this.options.apiKey = this.options.apiKey || L.Mapzen.apiKey;
-
-    if (!this.options.apiKey) {
-      console.warn('Without an API key, your access to Mapzen Vector Tiles will be limited.');
-    }
   },
 
-  _buildSceneObject: function () {
-    var sceneFile = this.options.scene;
+  /**
+   * A basic check to see if an api key string looks like a valid key.
+   * Not _is_ a valid key, just _looks like_ one.
+   */
+  _isValidMapzenApiKey: function (string) {
+    return (typeof string === 'string' && string.match(/[-a-z]+-[0-9a-zA-Z_-]{7}/));
+  },
 
-    // Pass emtpy string to as sdk_mapzen_api_key when there is no apiKey
-    return {
-      import: sceneFile,
-      global: {
-        sdk_mapzen_api_key: this.options.apiKey || ''
+  /**
+   * Adapted from Tangram Frame's API-key check
+   *
+   * Parses a Tangram scene object for sources that specify a Mapzen
+   * vector tile service URL, and checks whether an API key is specified.
+   *
+   * @param {Object} scene - Tangram scene object
+   */
+  _isApiKeyMissing: function (scene) {
+    var keyIsMissing = false;
+
+    for (var i = 0, j = Object.keys(scene.config.sources); i < j.length; i++) {
+      var source = scene.config.sources[j[i]];
+      var valid = false;
+
+      // Check if the source URL is a Mapzen-hosted vector tile service
+      if (!source.url.match(URL_PATTERN)) continue;
+
+      // Check if the API key is set on the params object
+      if (source.url_params && source.url_params.api_key) {
+        var apiKey = source.url_params.api_key;
+        var globalApi = scene.config.global.sdk_mapzen_api_key;
+        // Check if the global property is valid
+        if (apiKey === 'global.sdk_mapzen_api_key' && this._isValidMapzenApiKey(globalApi)) {
+          valid = true;
+        } else if (this._isValidMapzenApiKey(apiKey)) {
+          valid = true;
+        }
       }
-    };
+      // Check if there is an api_key param in the query string
+      else if (source.url.match(/(\?|&)api_key=[-a-z]+-[0-9a-zA-Z_-]{7}/)) {
+        valid = true;
+      }
+
+      if (!valid) {
+        keyIsMissing = true;
+        break;
+      }
+    }
+    return keyIsMissing;
+  },
+
+  /**
+   * Adapted from Tangram Play's automatic API-key insertion code
+   *
+   * Parses a Tangram scene config object for sources that specify a Mapzen
+   * vector tile service URL, and injects an API key if the vector tile
+   * service is hosted at vector.mapzen.com or tile.mapzen.com.
+   *
+   * This mutates the original `config` object by necessity. Tangram does not
+   * expect it to be passed back in after it's modified.
+   *
+   * @param {Object} config - Tangram scene config object
+   * @param {string} apiKey - the API key to inject
+   */
+  _injectApiKey: function (config, apiKey) {
+    Object.entries(config.sources).forEach((entry) => {
+      const [key, value] = entry;
+
+      // Only operate on the URL if it's a Mapzen-hosted vector tile service
+      if (value.url.match(URL_PATTERN)) {
+        // Add a default API key as a url_params setting.
+        const params = Object.assign({}, config.sources[key].url_params, {
+          api_key: apiKey
+        });
+
+        // Mutate the original on purpose.
+        // eslint-disable-next-line no-param-reassign
+        config.sources[key].url_params = params;
+      }
+    });
   },
 
   _importScript: function (sSrc) {
@@ -105,6 +198,10 @@ var TangramLayer = L.Class.extend({
   _loadError: function (oError) {
     console.log(oError);
     throw new URIError('The script ' + oError.target.src + ' is not accessible.');
+  },
+
+  _throwApiKeyWarning: function () {
+    console.warn('A valid API key is required for access to Mapzen Vector Tiles.');
   },
 
   _hasWebGL: function () {
