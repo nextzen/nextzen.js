@@ -166,21 +166,20 @@ var TangramLayer = L.Class.extend({
    * @param {string} apiKey - the API key to inject
    */
   _injectApiKey: function (config, apiKey) {
-    Object.entries(config.sources).forEach((entry) => {
-      const [key, value] = entry;
+    for (var i = 0, j = Object.keys(config.sources); i < j.length; i++) {
+      var source = config.sources[j[i]];
 
-      // Only operate on the URL if it's a Mapzen-hosted vector tile service
-      if (value.url.match(URL_PATTERN)) {
+      // Check if the source URL is a Mapzen-hosted vector tile service
+      if (source.url.match(URL_PATTERN)) {
         // Add a default API key as a url_params setting.
-        const params = Object.assign({}, config.sources[key].url_params, {
+        var params = L.extend({}, source.url_params, {
           api_key: apiKey
         });
 
         // Mutate the original on purpose.
-        // eslint-disable-next-line no-param-reassign
-        config.sources[key].url_params = params;
+        source.url_params = params;
       }
-    });
+    }
   },
 
   _importScript: function (sSrc) {
