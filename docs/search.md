@@ -1,17 +1,33 @@
 # Add Mapzen Search box to a map
 
-mapzen.js includes options for adding a [Mapzen Search](https://mapzen.com/products/search/) geocoder box to a map. To use this part of mapzen.js, you need to sign up for a [Mapzen Search API key](https://mapzen.com/developers).
+mapzen.js includes options for adding a [Mapzen Search](https://mapzen.com/products/search/) geocoder box to a map.
 
 Example: 
 
 ```javascript
-var geocoder = L.Mapzen.geocoder('mapzen-api-key');
+var geocoder = L.Mapzen.geocoder();
 geocoder.addTo(map);
 ```
 
-In this example, you are passing a single parameter (the API key in single quotes) to the geocoder. The API key is a code that uniquely identifies your developer account without providing a password. Sign up for your own API key at https://mapzen.com/developers.
+## API key
 
-With a key, you have the full [Mapzen Search rate limits](https://mapzen.com/documentation/overview/#rate-limits) available to you. If you do not provide a valid API key, the number of queries you can perform are reduced greatly.
+[Mapzen Search](https://mapzen.com/products/search/) requires an [API key](https://mapzen.com/developers) to work properly. The above example assumes you've set up a [global 'apiKey'](https://mapzen.com/documentation/mapzen-js/api-reference/#api-key) prior to defining the geocoder:
+
+```javascript
+L.Mapzen.apiKey = 'your-mapzen-api-key';
+
+var geocoder = L.Mapzen.geocoder();
+geocoder.addTo(map);
+```
+
+This global key is used for all of Mapzen services. If you'd rather use a separate key for the geocoder component, you can pass a different key when you set up the geocoder:
+
+```javascript
+var geocoder = L.Mapzen.geocoder('your-other-mapzen-api-key');
+geocoder.addTo(map);
+```
+
+[Mapzen Search rate limits](https://mapzen.com/documentation/overview/#rate-limits) apply.
 
 ## Options
 
