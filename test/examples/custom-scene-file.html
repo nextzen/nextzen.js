@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Custom scene file example</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../dist/mapzen.css" />
+    <script src="../../dist/mapzen.js"></script>
+    <style>
+      html, body { margin: 0; padding: 0; }
+      #map { height: 100%; width: 100%; position: absolute; }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      L.Mapzen.apiKey = 'search--NA8UXg';
+
+      var map = L.Mapzen.map('map', {
+        center: [40.7423, -74.1089],
+        zoom: 13.7507,
+        tangramOptions: {
+          scene: 'scene.yaml',
+        }
+      });
+
+      // Add search box
+      var geocoder = L.Mapzen.geocoder();
+      geocoder.addTo(map);
+
+    </script>
+  </body>
+</html>
