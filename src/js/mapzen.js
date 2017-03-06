@@ -5,6 +5,7 @@ var MapControl = require('./components/mapControl');
 var Bug = require('mapzen-scarab');
 var Locator = require('./components/locator');
 var Geocoder = require('./components/search');
+var ControlGeocoder = require('./components/controlGeocoder');
 var Hash = require('./components/hash');
 var BasemapStyles = require('./components/basemapStyles');
 var TangramLayer = require('./components/tangram');
@@ -14,6 +15,7 @@ L.Mapzen = module.exports = {
   Map: MapControl,
   map: MapControl.map,
   geocoder: Geocoder.geocoder,
+  controlGeocoder: ControlGeocoder.controlGeocoder,
   locator: Locator.locator,
   routing: RoutingMachine.routing,
   bug: Bug,
