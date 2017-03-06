@@ -52,9 +52,11 @@ var Geocoder = L.Control.extend({
 
     // If the apiKey is omitted entirely and the
     // first parameter is actually the options
-    if (typeof apiKey === 'object' && !!apiKey) {
+    if (typeof apiKey === 'object') {
       options = apiKey;
       if (L.Mapzen.apiKey) this.apiKey = L.Mapzen.apiKey;
+    } else if (!apiKey) {
+        this.apiKey = L.Mapzen.apiKey
     } else {
       // If user specified the key to use
       this.apiKey = apiKey;
