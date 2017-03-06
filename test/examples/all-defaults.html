@@ -62,6 +62,7 @@
           L.latLng(37.752, -122.418),
           L.latLng(37.779, -122.391)
         ],
+        geocoder: new L.Mapzen.controlGeocoder(),
         // You can get your own Mapzen turn-by-turn & search API key from the Mapzen developer portal (https://mapzen.com/developers/)
         reverseWaypoints: true,
         router: L.Mapzen.routing.mapzen({costing: 'auto'}),
