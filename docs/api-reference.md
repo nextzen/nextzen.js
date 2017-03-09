@@ -107,9 +107,9 @@ mapzen.js provides a set of constants for easier access to Mapzen's [basemap sty
 | `Zinc`                | `https://mapzen.com/carto/zinc-style/5/zinc-style.zip`                                       |
 | `ZincMoreLabels`      | `https://mapzen.com/carto/zinc-style-more-labels/5/zinc-style-more-labels.zip`               |
 | `ZincNoLabels`        | `https://mapzen.com/carto/zinc-style-no-labels/5/zinc-style-no-labels.zip`                   |
-| `Walkabout`           | `https://mapzen.com/carto/walkabout-style/3/walkabout-style.zip`                             |
-| `WalkaboutMoreLabels` | `https://mapzen.com/carto/walkabout-style-more-labels/3/walkabout-style-more-labels.zip`     |
-| `WalkaboutNoLabels`   | `https://mapzen.com/carto/walkabout-style-no-labels/3/walkabout-style-no-labels.zip`         |
+| `Walkabout`           | `https://mapzen.com/carto/walkabout-style/4/walkabout-style.zip`                             |
+| `WalkaboutMoreLabels` | `https://mapzen.com/carto/walkabout-style-more-labels/4/walkabout-style-more-labels.zip`     |
+| `WalkaboutNoLabels`   | `https://mapzen.com/carto/walkabout-style-no-labels/4/walkabout-style-no-labels.zip`         |
 | `Tron`                | `https://mapzen.com/carto/tron-style/3/tron-style.zip`                                       |
 | `TronMoreLabels`      | `https://mapzen.com/carto/tron-style-more-labels/3/tron-style-more-labels.zip`               |
 | `TronNoLabels`        | `https://mapzen.com/carto/tron-style-no-labels/3/tron-style-no-labels.zip`                   |
