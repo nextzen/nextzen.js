@@ -3,7 +3,7 @@
 var L = require('leaflet');
 
 var MapControl = require('./components/mapControl');
-var Bug = require('./components/bug');
+var Bug = require('mapzen-scarab');
 var Locator = require('./components/locator');
 var Geocoder = require('./components/search');
 var Hash = require('./components/hash');
