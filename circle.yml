@@ -24,8 +24,8 @@ deployment:
       # npm release process
       - echo -e "$NPM_USERNAME\n$NPM_PASSWORD\n$NPM_ACCOUNT" | npm login
       - npm version ${CIRCLE_TAG#release-v} --no-git-tag-version && publish --on-major --on-minor --on-patch
-      - pip install 'Circle-Tickler == 1.0.1'
-      - tickle-circle mapzen documentation master $CIRCLE_TOKEN
+      - pip install ‘Circle-Beacon == 2.0.0'
+      - alert-circle mapzen documentation master $CIRCLE_TOKEN
   unstable:
     branch: master
     commands:
