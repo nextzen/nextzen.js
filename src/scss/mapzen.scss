@@ -1,4 +1,4 @@
-@import 'node_modules/mapzen-scarab/src/components/bug/bug';
-@import 'node_modules/mapzen-scarab/src/components/geolocator/geolocator';
-@import './leaflet-custom';
-@import './search-custom';
+@import 'node_modules/leaflet/dist/leaflet';
+@import 'node_modules/mapzen-scarab/src/scarab';
+@import 'node_modules/leaflet-geocoder-mapzen/dist/leaflet-geocoder-mapzen';
+@import './locator';
