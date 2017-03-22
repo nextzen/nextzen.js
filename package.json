@@ -22,7 +22,7 @@
   "dependencies": {
     "leaflet": "1.0.2",
     "leaflet-geocoder-mapzen": "^1.7.1",
-    "mapzen-scarab": "git+https://github.com/mapzen/scarab.git"
+    "mapzen-scarab": "git+https://github.com/mapzen/scarab.git#3.0.0"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.13.2",
