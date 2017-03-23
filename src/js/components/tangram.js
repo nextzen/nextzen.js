@@ -108,7 +108,7 @@ var TangramLayer = L.Class.extend({
    * Not _is_ a valid key, just _looks like_ one.
    */
   _isValidMapzenApiKey: function (string) {
-    return (typeof string === 'string' && string.match(/[-a-z]+-[0-9a-zA-Z_-]{7}/));
+    return (typeof string === 'string' && string.match(/^[-a-z]+-[0-9a-zA-Z_-]{5,7}$/));
   },
 
   /**
