@@ -73,7 +73,7 @@ The source files for the documentation are located in the [/docs](https://github
 
 ## Releases
 
-The most recent mapzen.js release relies on [Leaflet v1.0.1](http://leafletjs.com/reference-1.0.0.html) and [Tangram v0.11](https://github.com/tangrams/tangram).
+The most recent mapzen.js release relies on [Leaflet v1.0.1](http://leafletjs.com/reference-1.0.0.html) and [Tangram v0.12](https://github.com/tangrams/tangram).
 
 Previous mapzen.js releases can be imported by referencing the specific version number:
 
