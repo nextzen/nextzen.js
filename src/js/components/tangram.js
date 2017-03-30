@@ -5,7 +5,7 @@ var L = require('leaflet');
 var BasemapStyles = require('./basemapStyles');
 
 var tangramLayerInstance;
-var tangramVersion = '0.11';
+var tangramVersion = '0.12';
 var tangramPath = 'https://mapzen.com/tangram/' + tangramVersion + '/';
 
 /**
