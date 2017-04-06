@@ -12,6 +12,7 @@ describe('Map Hash Test', function () {
   beforeEach(function () {
     el = document.createElement('div');
     document.body.appendChild(el);
+    L.Mapzen.apiKey = 'mapzen-cstHyBQ';
     map = L.Mapzen.map(el,{
       _useTangram: false
     });
