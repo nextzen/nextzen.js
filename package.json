@@ -9,7 +9,7 @@
   "scripts": {
     "test": "karma start test/karma.conf.js --log-level debug --single-run",
     "lint": "eslint ./src/js/* ./test/*.js; exit 0;",
-    "build-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
+    "build-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/src/images/* dist/images/",
     "build-standalone-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.standalone.scss; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "build-dev-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss -w; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "dev": "watchify  ./src/js/mapzen.js -o dist/mapzen.js -v;",
