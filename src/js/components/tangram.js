@@ -139,9 +139,8 @@ var TangramLayer = L.Class.extend({
         } else if (this._isValidMapzenApiKey(apiKey)) {
           valid = true;
         }
-      }
-      // Check if there is an api_key param in the query string
-      else if (source.url.match(/(\?|&)api_key=[-a-z]+-[0-9a-zA-Z_-]{7}/)) {
+      } else if (source.url.match(/(\?|&)api_key=[-a-z]+-[0-9a-zA-Z_-]{7}/)) {
+        // Check if there is an api_key param in the query string
         valid = true;
       }
 
