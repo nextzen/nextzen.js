@@ -49,6 +49,14 @@ To reference the standalone version of the mapzen.js CSS and JavaScript files, a
 
 In this walkthrough, you will learn how to create a basic web map using mapzen.js. You should have some familiarity with HTML/CSS and JavaScript, but the source code is provided. Any operating system or text editor will work, but you will need an internet connection while you are working.
 
+### Create an API Key
+
+mapzen.js requires an API key for access to Mapzen services. These services include [Mapzen Search](https://mapzen.com/documentation/search/) and the [vector tile service](https://mapzen.com/documentation/vector-tiles/) used by [Mapzen Basemaps](https://mapzen.com/documentation/cartography/styles/).
+
+While [rate limits](https://mapzen.com/documentation/overview/#rate-limits) apply to each service individually, mapzen.js allows one global key to be set and used by all services. (Don’t worry–sharing the same API key between different services will not affect individual rate limits. They don’t share limits.)  Find out more about [API keys and rate limits](https://mapzen.com/documentation/overview/#rate-limits) or [sign up for your own key now](https://mapzen.com/developers/).
+
+Once you've created an API key, keep the Developer page open because you will need to insert the API key later. 
+
 ### Create an index page
 
 To get started making your map, you will need to use a text editor to update the HTML.
@@ -145,10 +153,12 @@ To display a Leaflet map on a page, you need a `<div>` element, which is a conta
     <div id="map"></div>
     ```
 
-3. Directly after the `<div>`, add this JavaScript code within a `<script>` tag to initialize a map.
+3. Directly after the `<div>`, add this JavaScript code within a `<script>` tag to initialize a map. You'll add the API key that you created earlier in this section. 
 
     ```html
     <script>
+      // Add a Mapzen API key
+      L.Mapzen.apiKey = 'your-mapzen-api-key';
       // Add a map to the 'map' div
       var map = L.Mapzen.map('map');
       // Set the center of the map to be the San Francisco Bay Area at zoom level 12
@@ -180,6 +190,7 @@ Your index.html should look something like this:
   <body>
     <div id="map"></div>
     <script>
+      L.Mapzen.apiKey = 'your-mapzen-api-key';
       var map = L.Mapzen.map('map');
       map.setView([37.7749, -122.4194], 12);
     </script>
