@@ -9,8 +9,8 @@
   "scripts": {
     "test": "karma start test/karma.conf.js --log-level debug --single-run",
     "lint": "eslint ./src/js/* ./test/*.js; exit 0;",
-    "build-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
-    "build-standalone-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.standalone.scss; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
+    "build-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss; mkdir -p dist/images; cp -r node_modules/mapzen-scarab/src/images/* dist/images/; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
+    "build-standalone-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.standalone.scss; mkdir -p dist/images; cp -r node_modules/mapzen-scarab/src/images/* dist/images/; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
     "build-dev-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss -w; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "dev": "watchify  ./src/js/mapzen.js -o dist/mapzen.js -v;",
     "build-standalone": "browserify -t [browserify-shim --global] ./src/js/mapzen.js --standalone Mapzen > dist/mapzen.standalone.js; browserify -t [browserify-shim --global] -t uglifyify ./src/js/mapzen.js --standalone  Mapzen | uglifyjs -c > dist/mapzen.standalone.min.js;npm run-script build-standalone-style;",
