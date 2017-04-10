@@ -9,6 +9,7 @@ describe('Map Control Test', function () {
     el = document.createElement('div');
     el.style.cssText = 'position: absolute; left: 0; top: 0; width: 100%; height: 100%;';
     document.body.appendChild(el);
+    L.Mapzen.apiKey = 'mapzen-cstHyBQ';
     testMap = L.Mapzen.map(el);
     spy = sinon.spy();
     testMap.addEventListener('tangramloaded', spy);
