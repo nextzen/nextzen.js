@@ -53,7 +53,7 @@ In this walkthrough, you will learn how to create a basic web map using mapzen.j
 
 mapzen.js requires an API key for access to Mapzen services. These services include [Mapzen Search](https://mapzen.com/documentation/search/) and the [vector tile service](https://mapzen.com/documentation/vector-tiles/) used by [Mapzen Basemaps](https://mapzen.com/documentation/cartography/styles/).
 
-While [rate limits](https://mapzen.com/documentation/overview/rate-limits) apply to each service individually, mapzen.js allows one global key to be set and used by all services. (Don’t worry–sharing the same API key between different services will not affect individual rate limits. They don’t share limits.) Find out more about how to [get started limits](https://mapzen.com/documentation/overview/) or [sign up for your own key now](https://mapzen.com/developers/).
+While [rate limits](https://mapzen.com/documentation/overview/rate-limits) apply to each service individually, mapzen.js allows one global key to be set and used by all services. (Don’t worry–sharing the same API key between different services will not affect individual rate limits. They don’t share limits.) Find out more about how to [get started](https://mapzen.com/documentation/overview/) or [sign up for your own key now](https://mapzen.com/developers/).
 
 Once you've created an API key, keep the Developer page open because you will need to insert the API key later.
 
