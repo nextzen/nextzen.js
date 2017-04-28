@@ -12,8 +12,8 @@ test:
     - npm test || npm test || npm test
   post:
     - tar -czf dist/docs.tar.gz docs
-    - cp -Lr test/examples dist $CIRCLE_ARTIFACTS/
-    - echo '<ul><li><a href="test/examples/all-defaults.html">All defaults</a></li><li><a href="test/examples/standalone-with-Leaflet-v0.7.html">Standalone example</a></li><li><a href="test/examples/isochrone-map.html"> isochrone map </a></li></ul>' > $CIRCLE_ARTIFACTS/all-defaults.html
+    - mkdir -p $CIRCLE_ARTIFACTS/test/examples && cp -r test/examples $CIRCLE_ARTIFACTS/test && mkdir -p $CIRCLE_ARTIFACTS/dist && cp -r dist/* $CIRCLE_ARTIFACTS/dist/
+    - echo '<ul><li><a href="test/examples/all-defaults.html">All defaults</a></li><li><a href="test/examples/standalone-with-Leaflet-v0.7.html">Standalone example</a></li><li><a href="test/examples/isochrone-map.html"> isochrone map </a></li></ul>' > $CIRCLE_ARTIFACTS/index.html
 
 deployment:
   release:
