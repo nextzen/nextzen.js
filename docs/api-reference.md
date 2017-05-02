@@ -6,7 +6,7 @@ mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://
 
 mapzen.js requires an API key for access to Mapzen services. These services include [Mapzen Search](https://mapzen.com/documentation/search/) and the [vector tile service](https://mapzen.com/documentation/vector-tiles/) used by [Mapzen Basemaps](https://mapzen.com/documentation/cartography/styles/).
 
-While [rate limits](https://mapzen.com/documentation/overview/#rate-limits) apply to each service individually, mapzen.js allows one global key to be set and used by all services. (Don’t worry–sharing the same API key between different services will not affect individual rate limits. They don’t share limits.)  Find out more about [API keys and rate limits](https://mapzen.com/documentation/overview/#rate-limits) or [sign up for your own key now](https://mapzen.com/developers/).
+While [rate limits](https://mapzen.com/documentation/overview/rate-limits) apply to each service individually, mapzen.js allows one global key to be set and used by all services. (Don’t worry–sharing the same API key between different services will not affect individual rate limits. They don’t share limits.) Find out more about how to [get started](https://mapzen.com/documentation/overview/) or [sign up for your own key now](https://mapzen.com/developers/).
 
 Define your API key before adding other Mapzen components by setting:
 
