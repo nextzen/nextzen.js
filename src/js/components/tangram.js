@@ -132,7 +132,7 @@ var TangramLayer = L.Class.extend({
       // Check if the API key is set on the params object
       if (source.url_params && source.url_params.api_key) {
         var apiKey = source.url_params.api_key;
-        var globalApi = scene.config.global.sdk_mapzen_api_key;
+        var globalApi = scene.config.global ? scene.config.global.sdk_mapzen_api_key : '';
         // Check if the global property is valid
         if (apiKey === 'global.sdk_mapzen_api_key' && this._isValidMapzenApiKey(globalApi)) {
           valid = true;
