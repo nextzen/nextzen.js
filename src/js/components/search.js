@@ -1,5 +1,5 @@
 var L = require('leaflet');
-
+var APIKeyCheck = require('./apiKeyCheck');
 var Geocoder = require('leaflet-geocoder-mapzen/src/core');
 
 module.exports = Geocoder;
@@ -17,5 +17,10 @@ module.exports.geocoder = function (key, options) {
   } else {
     apiKey = key;
   }
+
+  if (!APIKeyCheck.isValidMapzenApiKey(apiKey)) {
+    APIKeyCheck.throwApiKeyWarning('Search');
+  }
+
   return new Geocoder(apiKey, options);
 };

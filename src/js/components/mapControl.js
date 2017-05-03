@@ -52,18 +52,10 @@ var MapControl = L.Map.extend({
   _setGlobalApiKey: function (opts) {
     this.options.apiKey = opts.apiKey || L.Mapzen.apiKey;
 
-    // TODO: move API key checks and warnings into individual components
-    if (!this.options.apiKey) {
-      console.warn('****************************** \n' +
-                   '***   API key is missing   *** \n' +
-                   '****************************** \n' +
-                   'Generate your free API key at  \n' +
-                   'https://mapzen.com/developers  \n' +
-                   '******************************');
-    }
-
     // Update global (to be used by other services as needed)
     L.Mapzen.apiKey = this.options.apiKey;
+
+    // Going forward, all API key checks should be performed on individual components
   },
 
   _checkConditions: function (force) {
