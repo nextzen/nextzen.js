@@ -52,6 +52,10 @@ And add a height and width for the map:
 
 ```html
 <script>
+  // Add a Mapzen API key
+  // To generate your key, go to https://mapzen.com/developers/
+  L.Mapzen.apiKey = 'your-mapzen-api-key';
+
   // Add a map to the 'map' div
   var map = L.Mapzen.map('map');
 
@@ -59,6 +63,9 @@ And add a height and width for the map:
   map.setView([37.7749, -122.4194], 12);
 </script>
 ```
+
+_Tip: Don't forget to generate your API key at https://mapzen.com/developers/_
+
 
 **Done!**
 
