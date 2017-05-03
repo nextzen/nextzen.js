@@ -43,8 +43,8 @@ var throwApiKeyWarning = function (component) {
 };
 
 module.exports = {
-  URL_PATTERN,
-  isValidMapzenApiKey,
-  throwApiKeyWarning
+  URL_PATTERN: URL_PATTERN,
+  isValidMapzenApiKey: isValidMapzenApiKey,
+  throwApiKeyWarning: throwApiKeyWarning
 };
 
