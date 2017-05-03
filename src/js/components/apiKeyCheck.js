@@ -2,7 +2,6 @@
  * Mapzen API Key Check
  */
 
-
 /**
  * The URL_PATTERN handles the old vector.mapzen.com origin (until it is fully
  * deprecated) as well as the new v1 tile.mapzen.com endpoint.
@@ -11,27 +10,25 @@
  */
 var URL_PATTERN = /((https?:)?\/\/(vector|tile).mapzen.com([a-z]|[A-Z]|[0-9]|\/|\{|\}|\.|\||:)+(topojson|geojson|mvt|png|tif|gz))/;
 
-
 /**
- * A basic check to see if an API key string looks like a valid key. 
+ * A basic check to see if an API key string looks like a valid key.
  * Not *is* a valid key, just *looks like* one.
- * 
+ *
  * @param {string} apiKey Mapzen API key string
  */
-var isValidMapzenApiKey = function(apiKey) {
+var isValidMapzenApiKey = function (apiKey) {
   return (typeof apiKey === 'string' && apiKey.match(/^[-a-z]+-[0-9a-zA-Z_-]{5,7}$/));
-}
-
+};
 
 var warningCounter = 0;
 
 /**
  * Throw console warning about missing API key
- * 
+ *
  * @param {string} component Name of component with missing API key (optional)
  */
 var throwApiKeyWarning = function (component) {
-  var component = component || 'all Mapzen Services';
+  component = component || 'all Mapzen Services';
 
   console.warn('A valid API key is required for access to ' + component);
 
@@ -42,12 +39,12 @@ var throwApiKeyWarning = function (component) {
                  'https://mapzen.com/developers  \n' +
                  '******************************');
   }
-  warningCounter ++;
-}
+  warningCounter++;
+};
 
 module.exports = {
   URL_PATTERN,
   isValidMapzenApiKey,
   throwApiKeyWarning
-}
+};
 
