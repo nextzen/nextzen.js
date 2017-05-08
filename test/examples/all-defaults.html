@@ -57,17 +57,14 @@
         repo: 'https://github.com/mapzen/web-map',
         mapID: 'map'});
 
-      var control = L.Mapzen.routing.control({
+      L.Mapzen.routing.control({
         waypoints: [
           L.latLng(37.752, -122.418),
           L.latLng(37.779, -122.391)
         ],
         geocoder: new L.Mapzen.controlGeocoder(),
-        // You can get your own Mapzen turn-by-turn & search API key from the Mapzen developer portal (https://mapzen.com/developers/)
         reverseWaypoints: true,
-        router: L.Mapzen.routing.mapzen({costing: 'auto'}),
-        formatter: new L.Mapzen.routing.formatter(),
-        summaryTemplate:'<div class="start">{name}</div><div class="info {costing}">{distance}, {time}</div>'
+        router: L.Mapzen.routing.router({costing: 'auto'}),
       }).addTo(map);
 
       // Add locator button
