@@ -10,6 +10,7 @@ var ErrorControl = require('leaflet-routing-machine/src/error-control');
 var GeocoderElement = require('leaflet-routing-machine/src/geocoder-element');
 var MapzenRouter = require('lrm-mapzen/src/mapzenRouter');
 var APIKeyCheck = require('./apiKeyCheck');
+var ControlGeocoder = require('./ControlGeocoder');
 
 module.exports = {
   Control: Control,
@@ -24,7 +25,14 @@ module.exports = {
 }
 
 module.exports.routing = {
-  control: function(options) { return new Control(options); },
+  control: function(_options) {
+    var defaultOptions = {
+      formatter: new MapzenFormatter(),
+      summaryTemplate:'<div class="start">{name}</div><div class="info {costing}">{distance}, {time}</div>'
+    }
+    var options = L.extend({}, defaultOptions, _options)
+    return new Control(options);
+  },
   itinerary: function(options) {
       return Itinerary(options);
   },
@@ -43,7 +51,7 @@ module.exports.routing = {
   formatter: function(options) {
       return new MapzenFormatter(options);
   },
-  mapzen: function(key, options) {
+  router: function(key, options) {
     var params = APIKeyCheck.getKeyAndOptions(key, options);
     if (!APIKeyCheck.isValidMapzenApiKey(params.key)) {
       APIKeyCheck.throwApiKeyWarning('Routing');
