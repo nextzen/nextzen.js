@@ -4,7 +4,6 @@ var L = require('leaflet');
 var MapControl = L.Map.extend({
   includes: L.Mixin.Events,
   options: {
-    attribution: '© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>',
     zoomSnap: 0,
     _useTangram: true,
     apiKey: null
@@ -101,10 +100,12 @@ var MapControl = L.Map.extend({
   },
 
   _addAttribution: function () {
+    var mapzenAttribution = '© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>',
     // Adding Mapzen attribution to Leaflet
     if (this.attributionControl) {
       var tempAttr = this.options.attributionText || this.options.attribution;
       this.attributionControl.setPrefix(tempAttr);
+      this.attributionControl.addAttribution(this.mapzenAttribution);
       this.attributionControl.addAttribution('<a href="http://leafletjs.com/">Leaflet</a>');
     }
   }
