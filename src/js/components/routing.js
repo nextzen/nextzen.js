@@ -10,7 +10,6 @@ var ErrorControl = require('leaflet-routing-machine/src/error-control');
 var GeocoderElement = require('leaflet-routing-machine/src/geocoder-element');
 var MapzenRouter = require('lrm-mapzen/src/mapzenRouter');
 var APIKeyCheck = require('./apiKeyCheck');
-var ControlGeocoder = require('./ControlGeocoder');
 
 module.exports = {
   Control: Control,
