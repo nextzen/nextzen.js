@@ -22,6 +22,27 @@ var isValidMapzenApiKey = function (apiKey) {
 
 var warningCounter = 0;
 
+var getKeyAndOptions = function (_key, _options) {
+  var key;
+  var options = {};
+
+  if (typeof _key !== 'string' && typeof _key !== 'object') {
+    // When nothing is passed
+    key = L.Mapzen.apiKey;
+  } else if (typeof _key === 'object') {
+    // When the key is omitted and options is passed
+    key = L.Mapzen.apiKey;
+    options = _key;
+  } else {
+    key = _key;
+    options = _options;
+  }
+  return {
+    key: key,
+    options: options
+  }
+}
+
 /**
  * Throw console warning about missing API key
  *
@@ -45,6 +66,7 @@ var throwApiKeyWarning = function (component) {
 module.exports = {
   URL_PATTERN: URL_PATTERN,
   isValidMapzenApiKey: isValidMapzenApiKey,
-  throwApiKeyWarning: throwApiKeyWarning
+  throwApiKeyWarning: throwApiKeyWarning,
+  getKeyAndOptions: getKeyAndOptions
 };
 

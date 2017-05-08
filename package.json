@@ -49,6 +49,7 @@
     "karma-mocha": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-requirejs": "^0.2.6",
+    "leaflet-control-geocoder": "^1.5.4",
     "leaflet-routing-machine": "3.2.5",
     "lrm-mapzen": "git@github.com:mapzen/lrm-mapzen.git",
     "mocha": "^2.4.5",
