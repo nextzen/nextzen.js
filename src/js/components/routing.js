@@ -9,7 +9,7 @@ var MapzenFormatter = require('lrm-mapzen/src/mapzenFormatter');
 var ErrorControl = require('leaflet-routing-machine/src/error-control');
 var GeocoderElement = require('leaflet-routing-machine/src/geocoder-element');
 var MapzenRouter = require('lrm-mapzen/src/mapzenRouter');
-
+var APIKeyCheck = require('./apiKeyCheck');
 
 module.exports = {
   Control: Control,
@@ -43,10 +43,12 @@ module.exports.routing = {
   formatter: function(options) {
       return new MapzenFormatter(options);
   },
-  mapzen: function(options) {
-    var apiKey = L.Mapzen.apiKey || options.apikey;
-    if (!apiKey) console.warn('You can only have limited access to Mapzen Turn by Turn withoout api key.');
-    return new MapzenRouter(apiKey, options);
+  mapzen: function(key, options) {
+    var params = APIKeyCheck.getKeyAndOptions(key, options);
+    if (!APIKeyCheck.isValidMapzenApiKey(params.key)) {
+      APIKeyCheck.throwApiKeyWarning('Routing');
+    }
+    return new MapzenRouter(params.key, params.options);
   },
   geocoderElement: function(wp, i, nWps, plan) {
       return new GeocoderElement(wp, i, nWps, plan);
