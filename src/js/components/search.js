@@ -4,7 +4,7 @@ var Geocoder = require('leaflet-geocoder-mapzen/src/core');
 
 module.exports = Geocoder;
 
-module.exports.geocoder = function (_key, _options) {
+module.exports.geocoder = function (key, options) {
   var params = APIKeyCheck.getKeyAndOptions(key, options);
   // If there is no attribution user passes,
   // Geocoder will skip the attribution since mapzen.js's map compoent is handling it already.
