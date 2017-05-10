@@ -27,7 +27,7 @@ module.exports.routing = {
   control: function(_options) {
     var defaultOptions = {
       formatter: new MapzenFormatter(),
-      summaryTemplate:'<div class="start">{name}</div><div class="info {costing}">{distance}, {time}</div>'
+      summaryTemplate:'<div class="info {costing}">{distance}, {time}</div>'
     }
     var options = L.extend({}, defaultOptions, _options)
     return new Control(options);
