@@ -16,13 +16,12 @@ module.exports.geocoder = function (_key, _options) {
     // When the key is omitted and options is passed
     apiKey = L.Mapzen.apiKey;
     options = _key;
-    if (_options.attribution) attribution += _options.attribution;
-
   } else {
     apiKey = _key;
     options = _options;
   }
 
+  if (options.attribution) attribution += options.attribution;
   options.attribution = attribution;
 
   if (!APIKeyCheck.isValidMapzenApiKey(apiKey)) {
