@@ -40,8 +40,8 @@ var getKeyAndOptions = function (_key, _options) {
   return {
     key: key,
     options: options
-  }
-}
+  };
+};
 
 /**
  * Throw console warning about missing API key
