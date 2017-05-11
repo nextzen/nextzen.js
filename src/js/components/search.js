@@ -1,4 +1,3 @@
-var L = require('leaflet');
 var APIKeyCheck = require('./apiKeyCheck');
 var Geocoder = require('leaflet-geocoder-mapzen/src/core');
 

@@ -21,46 +21,46 @@ module.exports = {
   MapzenRouter: MapzenRouter,
   Formatter: MapzenFormatter,
   GeocoderElement: GeocoderElement
-}
+};
 
 module.exports.routing = {
-  control: function(_options) {
+  control: function (_options) {
     var defaultOptions = {
       formatter: new MapzenFormatter(),
-      summaryTemplate:'<div class="info {costing}">{distance}, {time}</div>'
-    }
-    var options = L.extend({}, defaultOptions, _options)
+      summaryTemplate: '<div class="info {costing}">{distance}, {time}</div>'
+    };
+    var options = L.extend({}, defaultOptions, _options);
     return new Control(options);
   },
-  itinerary: function(options) {
-      return Itinerary(options);
+  itinerary: function (options) {
+    return Itinerary(options);
   },
-  itineraryBuilder: function(options) {
-      return new ItineraryBuilder(options);
+  itineraryBuilder: function (options) {
+    return new ItineraryBuilder(options);
   },
-  line: function(route, options) {
-      return new MapzenLine(route, options);
+  line: function (route, options) {
+    return new MapzenLine(route, options);
   },
-  plan: function(waypoints, options) {
-      return new Plan(waypoints, options);
+  plan: function (waypoints, options) {
+    return new Plan(waypoints, options);
   },
-  waypoint: function(latLng, name, options) {
-      return new Waypoint(latLng, name, options);
+  waypoint: function (latLng, name, options) {
+    return new Waypoint(latLng, name, options);
   },
-  formatter: function(options) {
-      return new MapzenFormatter(options);
+  formatter: function (options) {
+    return new MapzenFormatter(options);
   },
-  router: function(key, options) {
+  router: function (key, options) {
     var params = APIKeyCheck.getKeyAndOptions(key, options);
     if (!APIKeyCheck.isValidMapzenApiKey(params.key)) {
       APIKeyCheck.throwApiKeyWarning('Routing');
     }
     return new MapzenRouter(params.key, params.options);
   },
-  geocoderElement: function(wp, i, nWps, plan) {
-      return new GeocoderElement(wp, i, nWps, plan);
+  geocoderElement: function (wp, i, nWps, plan) {
+    return new GeocoderElement(wp, i, nWps, plan);
   },
-  errorControl: function(routingControl, options) {
-      return new L.Routing.ErrorControl(routingControl, options);
+  errorControl: function (routingControl, options) {
+    return new ErrorControl(routingControl, options);
   }
 };
