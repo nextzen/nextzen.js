@@ -12,9 +12,9 @@ var style = {
   Zinc: 'https://mapzen.com/carto/zinc-style/6/zinc-style.zip',
   ZincMoreLabels: 'https://mapzen.com/carto/zinc-style-more-labels/6/zinc-style-more-labels.zip',
   ZincNoLabels: 'https://mapzen.com/carto/zinc-style-no-labels/6/zinc-style-no-labels.zip',
-  Walkabout: 'https://mapzen.com/carto/walkabout-style/4/walkabout-style.zip',
-  WalkaboutMoreLabels: 'https://mapzen.com/carto/walkabout-style-more-labels/4/walkabout-style-more-labels.zip',
-  WalkaboutNoLabels: 'https://mapzen.com/carto/walkabout-style-no-labels/4/walkabout-style-no-labels.zip',
+  Walkabout: 'https://mapzen.com/carto/walkabout-style/5/walkabout-style.zip',
+  WalkaboutMoreLabels: 'https://mapzen.com/carto/walkabout-style-more-labels/5/walkabout-style-more-labels.zip',
+  WalkaboutNoLabels: 'https://mapzen.com/carto/walkabout-style-no-labels/5/walkabout-style-no-labels.zip',
   Tron: 'https://mapzen.com/carto/tron-style/4/tron-style.zip',
   TronMoreLabels: 'https://mapzen.com/carto/tron-style-more-labels/4/tron-style-more-labels.zip',
   TronNoLabels: 'https://mapzen.com/carto/tron-style-no-labels/4/tron-style-no-labels.zip'
