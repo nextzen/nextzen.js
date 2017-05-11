@@ -25,7 +25,7 @@
     "leaflet-geocoder-mapzen": "^1.9.0",
     "leaflet.locatecontrol": "^0.60.0",
     "leaflet-routing-machine": "3.2.5",
-    "lrm-mapzen": "^1.1.9",
+    "lrm-mapzen": "^1.1.11",
     "mapzen-scarab": "git+https://github.com/mapzen/scarab.git#3.0.0"
   },
   "devDependencies": {
