@@ -18,7 +18,7 @@ module.exports.geocoder = function (_key, _options) {
     options = _key;
   } else {
     apiKey = _key;
-    options = _options;
+    options = L.extend({}, options, _options);
   }
 
   if (options.attribution) attribution += options.attribution;
