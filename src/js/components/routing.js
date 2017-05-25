@@ -8,6 +8,7 @@ var Waypoint = require('lrm-mapzen/src/waypoint');
 var MapzenFormatter = require('lrm-mapzen/src/mapzenFormatter');
 var ErrorControl = require('leaflet-routing-machine/src/error-control');
 var GeocoderElement = require('leaflet-routing-machine/src/geocoder-element');
+var MapzenControlGeocoder = require('leaflet-control-geocoder/src/geocoders/mapzen');
 var MapzenRouter = require('lrm-mapzen/src/mapzenRouter');
 var APIKeyCheck = require('./apiKeyCheck');
 
@@ -35,6 +36,7 @@ module.exports.routing = {
     var options = L.extend({}, defaultOptions, _options);
     return new Control(options);
   },
+
   itinerary: function (options) {
     return Itinerary(options);
   },
@@ -63,6 +65,15 @@ module.exports.routing = {
   geocoderElement: function (wp, i, nWps, plan) {
     return new GeocoderElement(wp, i, nWps, plan);
   },
+
+  geocoder: function (key, options) {
+    var params = APIKeyCheck.getKeyAndOptions(key, options);
+    if (!APIKeyCheck.isValidMapzenApiKey(params.key)) {
+      APIKeyCheck.throwApiKeyWarning('Search');
+    }
+    return new MapzenControlGeocoder.class(params.key, params.options); // eslint-disable-line
+  },
+
   errorControl: function (routingControl, options) {
     return new ErrorControl(routingControl, options);
   }
