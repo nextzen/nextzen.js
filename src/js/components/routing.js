@@ -28,7 +28,7 @@ module.exports.routing = {
   control: function (_options) {
     var defaultOptions = {
       formatter: new MapzenFormatter(),
-      routeLine: function(route, options) {
+      routeLine: function (route, options) {
         return new MapzenLine(route, options);
       },
       summaryTemplate: '<div class="info {costing}">{distance}, {time}</div>'
