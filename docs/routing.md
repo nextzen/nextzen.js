@@ -1,6 +1,6 @@
 # Add Mapzen Turn-by-turn component to a map
 
-mapzen.js embeds [Leaflet Routing Machine Mapzen(lrm-mapzen)](https://github.com/mapzen/lrm-mapzen) to offer a way of adding a Mapzen turn-by-turn component to a map. mapzen.js puts routing-related components under `L.Mapzen.routing` namespace.
+mapzen.js embeds [Leaflet Routing Machine Mapzen(lrm-mapzen)](https://github.com/mapzen/lrm-mapzen) to offer a way of adding a [Mapzen turn-by-turn](https://mapzen.com/products/turn-by-turn/) routing component to a map. mapzen.js adds the routing-related components under `L.Mapzen.routing` namespace.
 
 Example:
 
@@ -17,7 +17,7 @@ Example:
 
 ```
 
-Example of a routing component with geocoders:
+Example of a routing component with a geocoder added:
 
 ```javascript
   var routingControl = L.Mapzen.routing.control({
