@@ -6,7 +6,6 @@ machine:
 
 test:
   pre:
-    - npm rebuild node-sass
     - npm run build
     - npm run build-standalone
   override:
