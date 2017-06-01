@@ -57,6 +57,18 @@
         repo: 'https://github.com/mapzen/web-map',
         mapID: 'map'});
 
+      var routingControl = L.Mapzen.routing.control({
+        waypoints: [
+          L.latLng(37.752, -122.418),
+          L.latLng(37.779, -122.391)
+        ],
+        geocoder: L.Mapzen.routing.geocoder(),
+        reverseWaypoints: true,
+        router: L.Mapzen.routing.router({costing: 'bicycle'}),
+      }).addTo(map);
+
+      L.Mapzen.routing.errorControl(routingControl).addTo(map);
+
       // Add locator button
       var locator = L.Mapzen.locator();
       locator.addTo(map);

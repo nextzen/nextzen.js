@@ -1,32 +1,16 @@
-var L = require('leaflet');
 var APIKeyCheck = require('./apiKeyCheck');
 var Geocoder = require('leaflet-geocoder-mapzen/src/core');
 
 module.exports = Geocoder;
-module.exports.geocoder = function (_key, _options) {
-  var apiKey;
-  var options = {};
-  var attribution = '';
 
-  if (typeof _key !== 'string' && typeof _key !== 'object') {
-    // When nothing is passed
-    apiKey = L.Mapzen.apiKey;
-
-  } else if (typeof _key === 'object') {
-    // When the key is omitted and options is passed
-    apiKey = L.Mapzen.apiKey;
-    options = _key;
-  } else {
-    apiKey = _key;
-    options = L.extend({}, options, _options);
-  }
-
-  if (options.attribution) attribution += options.attribution;
-  options.attribution = attribution;
-
-  if (!APIKeyCheck.isValidMapzenApiKey(apiKey)) {
+module.exports.geocoder = function (key, options) {
+  var params = APIKeyCheck.getKeyAndOptions(key, options);
+  // If there is no attribution user passes,
+  // Geocoder will skip the attribution since mapzen.js's map compoent is handling it already.
+  if (!params.options.attribution) params.options.attribution = '';
+  if (!APIKeyCheck.isValidMapzenApiKey(params.key)) {
     APIKeyCheck.throwApiKeyWarning('Search');
   }
 
-  return new Geocoder(apiKey, options);
+  return new Geocoder(params.key, params.options);
 };
