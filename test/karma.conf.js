@@ -13,10 +13,8 @@ module.exports = function (config) {
       'node_modules/sinon/pkg/sinon.js',
       'node_modules/expect.js/index.js',
       'node_modules/happen/happen.js',
-      'src/js/*.js',
-      'src/js/**/*.js',
-      'test/spec/mapControl.js',
-      'test/spec/hash.js'
+      'dist/mapzen.js',
+      'test/spec/*.js'
     ],
 
     plugins: [
@@ -42,7 +40,6 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.js': ['browserify'],
       'test/spec/*.js': ['browserify']
     },
 
@@ -116,6 +113,6 @@ module.exports = function (config) {
       }
     },
 
-    browsers: ['PhantomJS', 'bs_ie_window']
+    browsers: ['PhantomJS', 'bs_ie_window', 'bs_iphone6S']
   });
 };
