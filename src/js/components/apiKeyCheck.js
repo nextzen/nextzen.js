@@ -1,3 +1,4 @@
+var L = require('leaflet');
 /**
  * Mapzen API Key Check
  */
@@ -35,7 +36,7 @@ var getKeyAndOptions = function (_key, _options) {
     options = _key;
   } else {
     key = _key;
-    options = _options;
+    options = L.extend(options, _options);;
   }
   return {
     key: key,
