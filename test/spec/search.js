@@ -8,17 +8,17 @@ describe('Search Test', function () {
   })
 
   describe('Basic Geocoder Check', function () {
-    it('checks geocoder is working', function (done) {
+    it('checks geocoder is initialized', function (done) {
       var geocoder = L.Mapzen.geocoder();
       done();
     });
 
-    it('checks geocoder with api key is working', function (done) {
+    it('checks geocoder with api key is initialized', function (done) {
       var geocoder = L.Mapzen.geocoder('mapzen-cstHyBQ');
       done();
     });
 
-    it('checks geocoder with option is working', function (done) {
+    it('checks geocoder with option is initialized', function (done) {
       var geocoder = L.Mapzen.geocoder({
         autocomplete: false,
         attribution: 'test attribution'
@@ -26,7 +26,7 @@ describe('Search Test', function () {
       done();
     });
 
-    it('checks geocoder with both api key and option is working', function (done) {
+    it('checks geocoder with both api key and option is initialized', function (done) {
       var geocoder = L.Mapzen.geocoder('mapzen-cstHyBQ', {
         autocomplete: false
       });
