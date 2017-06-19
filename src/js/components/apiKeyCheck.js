@@ -35,7 +35,7 @@ var getKeyAndOptions = function (_key, _options) {
     options = _key;
   } else {
     key = _key;
-    options = _options;
+    options = _options || options;
   }
   return {
     key: key,
