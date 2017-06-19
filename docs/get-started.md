@@ -55,8 +55,6 @@ mapzen.js requires an API key for access to Mapzen services. These services incl
 
 While [rate limits](https://mapzen.com/documentation/overview/rate-limits) apply to each service individually, mapzen.js allows one global key to be set and used by all services. (Don’t worry–sharing the same API key between different services will not affect individual rate limits. They don’t share limits.) Find out more about how to [get started](https://mapzen.com/documentation/overview/) or [sign up for your own key now](https://mapzen.com/developers/).
 
-Once you've created an API key, keep the Developer page open because you will need to insert the API key later.
-
 ### Create an index page
 
 To get started making your map, you will need to use a text editor to update the HTML. See some of Mapzen's [suggested text editors](https://mapzen.com/documentation/guides/install-text-editor/) in the developer guide documentation.
@@ -151,7 +149,7 @@ To display a Leaflet map on a page, you need a `<div>` element, which is a conta
     <div id="map"></div>
     ```
 
-3. Directly after the `<div>`, add this JavaScript code within a `<script>` tag to initialize a map. You'll add the API key that you created earlier in this section.
+3. Directly after the `<div>`, add this JavaScript code within a `<script>` tag to initialize a map.
 
     ```html
     <script>
