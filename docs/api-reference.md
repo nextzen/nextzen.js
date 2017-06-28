@@ -2,7 +2,7 @@
 
 mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
 
-## API Key
+## API key
 
 mapzen.js requires an API key for access to Mapzen services. These services include [Mapzen Search](https://mapzen.com/documentation/search/) and the [vector tile service](https://mapzen.com/documentation/vector-tiles/) used by [Mapzen Basemaps](https://mapzen.com/documentation/cartography/styles/).
 
@@ -22,7 +22,7 @@ L.Mapzen.apiKey = 'your-mapzen-api-key';
 
 | Option  | Type   | Default   | Description            |
 |---------|--------|-----------|------------------------|
-| `apiKey`| String | L.Mapzen.apiKey | Mapzen API Key to be used for the components. |
+| `apiKey`| String | L.Mapzen.apiKey | Mapzen API key to be used for the components. |
 | `attribution` | String | `© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>` | Attribution data in a small text box. `Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
 | `debugTangram`| Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not. <br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
 | `fallbackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
@@ -37,7 +37,7 @@ Set of options related to the appearance and behavior of the Tangram layer.  In 
 |---------|--------|-----------|------------------------|
 | `debug` | Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not.|
 | `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
-| `apiKey` | String | L.Mapzen.apiKey | Mapzen API Key to be used for Vector Tiles. |
+| `apiKey` | String | L.Mapzen.apiKey | Mapzen API key to be used for Vector Tiles. |
 
 Example:
 
@@ -130,16 +130,16 @@ _Note: `L.Mapzen.HouseStyles` has been deprecated for `L.Mapzen.BasemapStyles`. 
 
 ## Geocoder control
 
-Add a [Mapzen Search](https://mapzen.com/products/search/) box (a.k.a. _geocoder_) to your map to allow your map users to quickly jump to anywhere in the world.
+Add a [Mapzen Search](https://mapzen.com/products/search/) box, also known as the _geocoder_, to your map to allow your map users to quickly jump to anywhere in the world.
 
 Example:
 
 ```javascript
-var geocoder = L.Mapzen.geocoder('mapzen-api-key');
+var geocoder = L.Mapzen.geocoder('your-mapzen-api-key');
 geocoder.addTo(map);
 ```
 
-The geocoder has [many options](search.md/#options) for customization. See the [Geocoder API Reference](search.md) for more information.
+The geocoder has [many options](search.md/#options) for customization. See the [Geocoder API reference](search.md) for more information.
 
 _Note: Mapzen Search requires an API key. **Get your free API key through the [Mapzen developer portal](https://mapzen.com/developers).**_
 

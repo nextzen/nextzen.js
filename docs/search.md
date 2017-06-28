@@ -2,7 +2,7 @@
 
 mapzen.js includes options for adding a [Mapzen Search](https://mapzen.com/products/search/) geocoder box to a map.
 
-Example: 
+Example:
 
 ```javascript
 var geocoder = L.Mapzen.geocoder();
@@ -33,14 +33,14 @@ geocoder.addTo(map);
 
 In addition to the API key, you may also pass a set of options to the geocoder to control its appearance and behavior.
 
-Example: 
+Example:
 
 ```javascript
 var geocoderOptions = {
   autocomplete: false
 };
 
-var geocoder = L.Mapzen.geocoder('mapzen-api-key', geocoderOptions);
+var geocoder = L.Mapzen.geocoder('your-mapzen-api-key', geocoderOptions);
 geocoder.addTo(map);
 ```
 
@@ -84,5 +84,5 @@ If you want to implement your own search UI, or want to use search result withou
 
 | Option  | Return | Description                      |
 |---------|---------|----------------------------------|
-`getSearchResult (<String>input, <function> callback)` | null | Executes `callback(err, result)` with the search result from `input`. The `result` is in [GeoJSON format](https://search.mapzen.com/v1/search?text=yMcA). |
-`getAutocompleteResult(<String>input, <function> callback)` | null |  Executes `callback(err, result)` with the autocomplete result from `input`.  The `result` is in [GeoJSON format](https://search.mapzen.com/v1/autocomplete?text=yMcA)|
+`getSearchResult (<String>input, <function> callback)` | null | Executes `callback(err, result)` with the search result from `input`. The `result` is in GeoJSON format. |
+`getAutocompleteResult(<String>input, <function> callback)` | null |  Executes `callback(err, result)` with the autocomplete result from `input`. The `result` is in GeoJSON format.|
