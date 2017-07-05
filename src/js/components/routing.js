@@ -4,7 +4,7 @@ var Itinerary = require('leaflet-routing-machine/src/itinerary');
 var ItineraryBuilder = require('leaflet-routing-machine/src/itinerary-builder');
 var MapzenLine = require('lrm-mapzen/src/mapzenLine');
 var Plan = require('leaflet-routing-machine/src/plan');
-var Waypoint = require('lrm-mapzen/src/waypoint');
+var MapzenWaypoint = require('lrm-mapzen/src/mapzenWaypoint');
 var MapzenFormatter = require('lrm-mapzen/src/mapzenFormatter');
 var ErrorControl = require('leaflet-routing-machine/src/error-control');
 var GeocoderElement = require('leaflet-routing-machine/src/geocoder-element');
@@ -18,7 +18,7 @@ module.exports = {
   ItineraryBuilder: ItineraryBuilder,
   Line: MapzenLine,
   Plan: Plan,
-  Waypoint: Waypoint,
+  Waypoint: MapzenWaypoint,
   MapzenRouter: MapzenRouter,
   Formatter: MapzenFormatter,
   GeocoderElement: GeocoderElement
@@ -31,7 +31,7 @@ module.exports.routing = {
       routeLine: function (route, options) {
         return new MapzenLine(route, options);
       },
-      summaryTemplate: '<div class="info {costing}">{distance}, {time}</div>'
+      summaryTemplate: '<div class="routing-info {costing}">{distance}, {time}</div>'
     };
     var options = L.extend({}, defaultOptions, _options);
     return new Control(options);
@@ -50,7 +50,7 @@ module.exports.routing = {
     return new Plan(waypoints, options);
   },
   waypoint: function (latLng, name, options) {
-    return new Waypoint(latLng, name, options);
+    return new MapzenWaypoint(latLng, name, options);
   },
   formatter: function (options) {
     return new MapzenFormatter(options);
