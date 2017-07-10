@@ -33,6 +33,11 @@ var Hash = L.Class.extend({
       if (this._hashData.place) {
         this._hashData.place = decodeURIComponent(this._hashData.place);
         this._geocoder.place(this._hashData.place);
+        var self = this;
+        this._geocoder.on('results', function(output) {
+          self._geocoder.showMarker(output.results.features[0].properties.name, L.latLng({lat: output.results.features[0].geometry.coordinates[1], lng: output.results.features[0].geometry.coordinates[0]}));
+          self._geocoder.off('results');
+        });
       } else if (this._hashData.lat && this._hashData.lng && this._hashData.z) {
         // boolean changing is to prevent recursive hash change
         // Hash doesn't get updated while map is setting the view
