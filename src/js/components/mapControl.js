@@ -2,7 +2,6 @@
 var L = require('leaflet');
 
 var MapControl = L.Map.extend({
-  includes: L.Mixin.Events,
   options: {
     attribution: '© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>',
     zoomSnap: 0,
@@ -36,7 +35,7 @@ var MapControl = L.Map.extend({
       this._tangram.addTo(this);
 
       var self = this;
-      self._tangram.on('loaded', function (e) {
+      this._tangram.on('loaded', function (e) {
         self.fire('tangramloaded', {
           tangramLayer: e.layer,
           tangramVersion: e.version

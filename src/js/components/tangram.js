@@ -9,8 +9,7 @@ var tangramLayerInstance;
 var tangramVersion = '0.12';
 var tangramPath = 'https://mapzen.com/tangram/' + tangramVersion + '/';
 
-var TangramLayer = L.Class.extend({
-  includes: L.Mixin.Events,
+var TangramLayer = L.Evented.extend({
   options: {
     fallbackTile: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
     tangramURL: tangramPath + 'tangram.min.js',
