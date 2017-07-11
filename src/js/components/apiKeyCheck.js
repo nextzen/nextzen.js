@@ -2,6 +2,8 @@
  * Mapzen API Key Check
  */
 
+var L = require('leaflet');
+
 /**
  * The URL_PATTERN handles the old vector.mapzen.com origin (until it is fully
  * deprecated) as well as the new v1 tile.mapzen.com endpoint.
@@ -69,4 +71,3 @@ module.exports = {
   throwApiKeyWarning: throwApiKeyWarning,
   getKeyAndOptions: getKeyAndOptions
 };
-
