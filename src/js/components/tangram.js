@@ -6,7 +6,7 @@ var APIKeyCheck = require('./apiKeyCheck');
 var BasemapStyles = require('./basemapStyles');
 
 var tangramLayerInstance;
-var tangramVersion = '0.12';
+var tangramVersion = '0.13';
 var tangramPath = 'https://mapzen.com/tangram/' + tangramVersion + '/';
 
 var TangramLayer = L.Class.extend({
