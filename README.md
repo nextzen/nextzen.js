@@ -1,6 +1,6 @@
 [![npm](https://img.shields.io/npm/v/mapzen.js.svg)](https://www.npmjs.com/package/mapzen.js)
 [![CircleCI](https://img.shields.io/circleci/project/github/mapzen/mapzen.js.svg)](https://circleci.com/gh/mapzen/mapzen.js)
-
+[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=d01tT2tKVHBtbHNnM1FHM1hPMXR1TnRIbERNcEV3OGxicDVRZk5McU14ND0tLW1vN0Z5a2l2UlJieHBVdnhwRDcxdHc9PQ==--de93b040140c8fa6f79999d958b2a06912c385b1%)](https://www.browserstack.com/automate/public-build/d01tT2tKVHBtbHNnM1FHM1hPMXR1TnRIbERNcEV3OGxicDVRZk5McU14ND0tLW1vN0Z5a2l2UlJieHBVdnhwRDcxdHc9PQ==--de93b040140c8fa6f79999d958b2a06912c385b1%)
 # mapzen.js
 
 mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
