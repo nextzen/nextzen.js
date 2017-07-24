@@ -38,7 +38,7 @@ To reference the standalone version of the mapzen.js CSS and JavaScript files, a
 <!-- style sheet for mapzen.js -->
 <link rel="stylesheet" href="https://mapzen.com/js/mapzen.standalone.css">
 
-<!-- latest version of stasndalone mapzen.js-->
+<!-- latest version of standalone mapzen.js-->
 <script src="https://mapzen.com/js/mapzen.standalone.js"></script>
 
 <!-- latest minified version of standalone mapzen.js -->
