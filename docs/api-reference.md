@@ -70,7 +70,7 @@ map.on('tangramloaded', function (event) {
 
 ### Draw a map with a map component
 
-You can pass one of [Mapzen's basemap styles](https://mapzen.com/documentation/mapzen-js/api-reference/#basemap-styles) as the `scene` via `tangramOptions`, or you can provide the path to your own Tangram scene file.  If there is no scene file declared, mapzen.js will default to [BubbleWrap](https://mapzen.com/products/maps/bubble-wrap/).
+You can pass one of [Mapzen's basemap styles](api-reference.md#basemap-styles) as the `scene` via `tangramOptions`, or you can provide the path to your own Tangram scene file.  If there is no scene file declared, mapzen.js will default to [BubbleWrap](https://mapzen.com/products/maps/bubble-wrap/).
 
 Example:
 
@@ -139,7 +139,7 @@ var geocoder = L.Mapzen.geocoder('your-mapzen-api-key');
 geocoder.addTo(map);
 ```
 
-The geocoder has [many options](search.md/#options) for customization. See the [Geocoder API reference](search.md) for more information.
+The geocoder has [many options](search.md#options) for customization. See the [Geocoder API reference](search.md) for more information.
 
 _Note: Mapzen Search requires an API key. **Get your free API key through the [Mapzen developer portal](https://mapzen.com/developers).**_
 
