@@ -12,7 +12,7 @@ var tangramPath = 'https://mapzen.com/tangram/' + tangramVersion + '/';
 var TangramLayer = L.Class.extend({
   includes: L.Mixin.Events,
   options: {
-    fallbackTile: L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}),
+    fallbackTileURL: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
     tangramURL: tangramPath + 'tangram.min.js',
     scene: BasemapStyles.BubbleWrapMoreLabels
   },
@@ -28,8 +28,8 @@ var TangramLayer = L.Class.extend({
     this._setUpApiKey();
 
     // Start importing script
-    // When there is no Tangram object available.
-    if (typeof Tangram === 'undefined') {
+    // When there is no Tangram object available but webGL is available
+    if (typeof Tangram === 'undefined' && this.hasWebGL) {
       this._importScript(this.options.tangramURL);
     } else {
       // Not more than one Tangram instance is allowed.
@@ -49,7 +49,8 @@ var TangramLayer = L.Class.extend({
         } else {
           // When WebGL is not avilable
           console.log('WebGL is not available, falling back to OSM default tile.');
-          this.options.fallbackTile.addTo(map);
+          var fallbackTileInstance = L.tileLayer(this.options.fallbackTileURL, {});
+          fallbackTileInstance.addTo(map);
         }
       }
     } else {
