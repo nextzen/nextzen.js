@@ -19,7 +19,6 @@ describe('Map Hash Test', function () {
   });
 
   afterEach(function () {
-    map.remove();
     el.parentNode.removeChild(el);
   })
 
