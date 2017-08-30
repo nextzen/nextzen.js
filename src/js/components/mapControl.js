@@ -9,6 +9,7 @@ var MapControl = L.Map.extend({
   options: {
     attribution: '© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>',
     zoomSnap: 0,
+    worldCopyJump: true,
     _useTangram: true,
     apiKey: null
   },
