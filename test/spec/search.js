@@ -1,9 +1,11 @@
 describe('Search Test', function () {
   var el;
   var map;
+  var fakeResult;
 
   before(function (done) {
     L.Mapzen.apiKey = 'mapzen-cstHyBQ';
+    fakeResult = require('../fixtures/autocomplete.json');
     done();
   })
 
@@ -32,5 +34,20 @@ describe('Search Test', function () {
       });
       done();
     });
+
+    it('checks geocoder autocomplete methods without UI exists.', function (done) {
+      var geocoder = L.Mapzen.geocoder();
+      geocoder.getAutocompleteResult('dummy', function (err, resp) {
+        done();
+      });
+    });
+
+    it('checks geocoder search methods without UI exists.', function (done) {
+      var geocoder = L.Mapzen.geocoder();
+      geocoder.getSearchResult('dummy', function (err, resp) {
+        done();
+      });
+    });
+
   })
 });
