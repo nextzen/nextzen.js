@@ -5,7 +5,6 @@ describe('Search Test', function () {
 
   before(function (done) {
     L.Mapzen.apiKey = 'mapzen-cstHyBQ';
-    fakeResult = require('../fixtures/autocomplete.json');
     done();
   })
 
