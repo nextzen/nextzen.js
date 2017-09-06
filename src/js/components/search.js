@@ -10,7 +10,7 @@ Geocoder.prototype.getSearchResult = function (input, callback) {
   corslite(this.options.url + '/search?' + this.serialize(params), callback, true);
 };
 
-Geocoder.prototype.getAutoCompleteResult = function (input, callback) {
+Geocoder.prototype.getAutocompleteResult = function (input, callback) {
   var param = {
     text: input
   };
