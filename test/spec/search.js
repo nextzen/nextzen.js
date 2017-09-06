@@ -1,6 +1,7 @@
 describe('Search Test', function () {
   var el;
   var map;
+  var fakeResult;
 
   before(function (done) {
     L.Mapzen.apiKey = 'mapzen-cstHyBQ';
@@ -32,5 +33,6 @@ describe('Search Test', function () {
       });
       done();
     });
+
   })
 });
