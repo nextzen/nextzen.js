@@ -32,24 +32,14 @@ describe('Map Control Test', function () {
 
   describe('Tangram layer check', function () {
     it('checks default style is set.', function (done) {
-
-      // Give time to load Tangram script
-      var count = 0;
-      var checkTangramLayer = function () {
-        var tangramLayer;
+      if (hasWebGL) {
         testMap.eachLayer(function (layer) {
-          if (layer.scene) tangramLayer = layer;
+          if (layer.scene) done();
         });
-        count++;
-        if (hasWebGL) {
-          if (tangramLayer === undefined && count < 40) return setTimeout(checkTangramLayer.bind(this), 200);
-          else if (tangramLayer) done();
-          else if (count >= 40) done(new Error('takes too long to load Tangram'))
-        } else {
-          done();
-        }
+      } else {
+        // skip test if webgl is not available
+        done();
       }
-      checkTangramLayer();
     });
 
     it('checks Tangram Event', function (done) {
@@ -61,7 +51,5 @@ describe('Map Control Test', function () {
       }
       tangramEventCheck();
     })
-
   })
-
 });
