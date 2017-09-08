@@ -59,9 +59,10 @@
     "publish": "^0.6.0",
     "requirejs": "^2.2.0",
     "sinon": "^1.17.3",
+    "tangram": "^0.13.2",
+    "uglify-js": "^3.0.15",
     "uglifyify": "^3.0.1",
     "uglifyjs": "^2.4.10",
-    "uglify-js": "^3.0.15",
     "watchify": "^3.7.0"
   },
   "repository": {

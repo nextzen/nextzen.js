@@ -5,56 +5,34 @@ var L = require('leaflet');
 var APIKeyCheck = require('./apiKeyCheck');
 var BasemapStyles = require('./basemapStyles');
 
-var tangramLayerInstance;
-var tangramVersion = '0.13';
-var tangramPath = 'https://mapzen.com/tangram/' + tangramVersion + '/';
+var Tangram = require('tangram');
 
 var TangramLayer = L.Class.extend({
   includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
   options: {
     fallbackTileURL: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    tangramURL: tangramPath + 'tangram.min.js',
     scene: BasemapStyles.BubbleWrapMoreLabels
   },
 
   initialize: function (opts) {
     this.options = L.Util.setOptions(this, opts);
-
-    if (opts && opts.debug) {
-      this.options.tangramURL = tangramPath + 'tangram.debug.js';
-    }
     this.hasWebGL = this._hasWebGL();
-
     this._setUpApiKey();
-
-    // Start importing script
-    // When there is no Tangram object available but webGL is available
-    if (typeof Tangram === 'undefined' && this.hasWebGL) {
-      this._importScript(this.options.tangramURL);
-    } else {
-      // Not more than one Tangram instance is allowed.
-      // console.log('Tangram is already on the page.');
-    }
   },
 
   addTo: function (map) {
-    if (typeof Tangram === 'undefined') {
-      if (this.hasWebGL) {
-        // If Tangram is not loaded yet, add layer when script is loaded
-        this.oScript.onload = this.setUpTangramLayer.bind(this, map);
-      } else {
-        if (map.options.fallbackTile) {
-          console.log('WebGL is not available, falling back to fallbackTile option.');
-          map.options.fallbackTile.addTo(map);
-        } else {
-          // When WebGL is not avilable
-          console.log('WebGL is not available, falling back to OSM default tile.');
-          var fallbackTileInstance = L.tileLayer(this.options.fallbackTileURL, {});
-          fallbackTileInstance.addTo(map);
-        }
-      }
-    } else {
+    if (this.hasWebGL) {
       this.setUpTangramLayer(map);
+    } else {
+      if (map.options.fallbackTile) {
+        console.log('WebGL is not available, falling back to fallbackTile option.');
+        map.options.fallbackTile.addTo(map);
+      } else {
+        // When WebGL is not avilable
+        console.log('WebGL is not available, falling back to OSM default tile.');
+        var fallbackTileInstance = L.tileLayer(this.options.fallbackTileURL, {});
+        fallbackTileInstance.addTo(map);
+      }
     }
   },
 
@@ -201,10 +179,9 @@ module.exports = TangramLayer;
 
 module.exports.tangramLayer = function (opts) {
   // Tangram can't have more than one map on a browser context.
-  if (!tangramLayerInstance) {
-    tangramLayerInstance = new TangramLayer(opts);
-  } else {
-    // console.log('Only one Tangram map on page can be drawn. Please look at https://github.com/tangrams/tangram/issues/350');
-  }
-  return tangramLayerInstance;
+  // if (!tangramLayerInstance) {
+  return new TangramLayer(opts);
+  // } else {
+  //   // console.log('Only one Tangram map on page can be drawn. Please look at https://github.com/tangrams/tangram/issues/350');
+  // }
 };
