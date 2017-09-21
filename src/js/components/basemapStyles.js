@@ -2,7 +2,7 @@ var getImportObject = function (sceneArray) {
   return {
     import: sceneArray
   };
-}
+};
 
 // Mapzen House style for Tangram
 var style = {
