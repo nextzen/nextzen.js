@@ -23,15 +23,9 @@ describe('Map Control Test', function () {
     el.parentNode.removeChild(el);
   })
 
-  describe('Leaflet Versions', function () {
-    it('check which Leaflet version it is', function () {
-      expect(L.version).to.be.above(0.13.1);
-    });
-  });
-
   describe('Tangram Version', function () {
     // Mapzen Basemap styles require Tangram version number above
-    it('check Tangram version is above 0.13.1', function () {
+    it('check Tangram version is above 0.13.1', function (done) {
 
       var checkVersionNumber = function(vNum) {
         var requiredTangramVersionNumber = '0.13.1';
@@ -61,7 +55,7 @@ describe('Map Control Test', function () {
           done();
         }
       }
-      checkTangramLayer();
+      checkTangramVersionNumber();
     });
   });
 
