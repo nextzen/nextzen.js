@@ -32,9 +32,20 @@
       L.Mapzen.apiKey = 'mapzen-6VCZ2xH';
 
       // Default map (Bubble Wrap)
-      var map = L.Mapzen.map('map', {
-        tangramOptions: {
-          debug: false
+      var map = L.Mapzen.map('map');
+
+      var tangramLayer = map.tangramLayer;
+      tangramLayer.scene.subscribe({
+        load: function (e) {
+        // Listen for Tangram loaded event
+
+          var stop = performance.now();
+          var seconds = (stop - start)/1000;
+
+          console.log('Loaded Leaflet version ', L.version);
+          console.log('Loaded Tangram version', e.tangramVersion);
+
+          console.log('TIMER: ', seconds, ' seconds to tangramloaded event');
         }
       });
 
@@ -74,16 +85,6 @@
       var locator = L.Mapzen.locator();
       locator.addTo(map);
 
-      // Listen for Tangram loaded event
-      map.on('tangramloaded', function(e) {
-        var stop = performance.now();
-        var seconds = (stop - start)/1000;
-
-        console.log('Loaded Leaflet version ', L.version);
-        console.log('Loaded Tangram version', e.tangramVersion);
-
-        console.log('TIMER: ', seconds, ' seconds to tangramloaded event');
-      });
 
     </script>
   </body>

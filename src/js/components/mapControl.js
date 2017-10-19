@@ -1,6 +1,7 @@
 'use strict';
 var L = require('leaflet');
 
+
 var MapControl = L.Map.extend({
   // L.Evented is present in Leaflet v1+
   // L.Mixin.Events is legacy; was deprecated in Leaflet v1 and started
@@ -35,12 +36,11 @@ var MapControl = L.Map.extend({
         console.warn('Mapzen.js warning: `options.scene` is deprecated and will be removed in v1.0. Please use `options.tangramOptions.scene`.');
       }
 
-      this._tangram = L.Mapzen._tangram(tangramOptions);
-
-      this._tangram.addTo(this);
+      this.tangram = L.Mapzen.tangram(tangramOptions);
+      this.tangramLayer = this.tangram.addTo(this);
 
       var self = this;
-      self._tangram.on('loaded', function (e) {
+      self.tangram.on('loaded', function (e) {
         self.fire('tangramloaded', {
           tangramLayer: e.layer,
           tangramVersion: e.version

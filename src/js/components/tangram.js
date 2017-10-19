@@ -22,7 +22,7 @@ var TangramLayer = L.Class.extend({
 
   addTo: function (map) {
     if (this.hasWebGL) {
-      this.setUpTangramLayer(map);
+      return this.setUpTangramLayer(map);
     } else {
       if (map.options.fallbackTile) {
         console.log('WebGL is not available, falling back to fallbackTile option.');
@@ -37,10 +37,10 @@ var TangramLayer = L.Class.extend({
   },
 
   setUpTangramLayer: function (map) {
-    this._layer = Tangram.leafletLayer(this.options).addTo(map);
+    var leafletLayer = Tangram.leafletLayer(this.options).addTo(map);
     var self = this;
 
-    self._layer.scene.subscribe({
+    leafletLayer.scene.subscribe({
 
       // Check for existing API key at load (before scene renders)
       load: function (scene) {
@@ -64,12 +64,13 @@ var TangramLayer = L.Class.extend({
     });
 
     // Fire 'loaded' event when Tangram layer has been initialized
-    self._layer.on('init', function () {
+    leafletLayer.on('init', function () {
       self.fire('loaded', {
-        layer: self._layer,
+        layer: self.leafletLayer,
         version: Tangram.version
       });
     });
+    return leafletLayer;
   },
 
   _setUpApiKey: function () {
