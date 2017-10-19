@@ -14,8 +14,7 @@ describe('Map Control Test', function () {
     spy = sinon.spy();
     testMap.addEventListener('tangramloaded', spy);
     testMap.setView([51.505, -0.09], 13);
-
-    hasWebGL = L.Mapzen._tangram()._hasWebGL();
+    hasWebGL = testMap._tangram._hasWebGL();
 
   });
 
