@@ -35,6 +35,7 @@
       var map = L.Mapzen.map('map');
 
       var tangramLayer = map.tangramLayer;
+
       tangramLayer.scene.subscribe({
         load: function (e) {
         // Listen for Tangram loaded event
@@ -48,6 +49,11 @@
           console.log('TIMER: ', seconds, ' seconds to tangramloaded event');
         }
       });
+
+      // tangramloaded event is deprecated; remove in v1.0
+      map.on('tangramloaded', function (e) {
+        console.log(e.tangramLayer.scene)
+      })
 
       map.setView([lat, lon], 13);
 

@@ -66,7 +66,7 @@ var TangramLayer = L.Class.extend({
     // Fire 'loaded' event when Tangram layer has been initialized
     leafletLayer.on('init', function () {
       self.fire('loaded', {
-        layer: self.leafletLayer,
+        layer: leafletLayer,
         version: Tangram.version
       });
     });
