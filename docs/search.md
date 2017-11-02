@@ -1,6 +1,6 @@
 # Add Mapzen Search box to a map
 
-mapzen.js includes options for adding a [Mapzen Search](https://mapzen.com/products/search/) geocoder box to a map.
+mapzen.js includes options for adding a [Mapzen Search](https://mapzen.com/documentation/search/) geocoder box to a map.
 
 Example:
 
@@ -11,7 +11,7 @@ geocoder.addTo(map);
 
 ## API key
 
-[Mapzen Search](https://mapzen.com/products/search/) requires an [API key](https://mapzen.com/developers) to work properly. The above example assumes you've set up a [global 'apiKey'](https://mapzen.com/documentation/mapzen-js/api-reference/#api-key) prior to defining the geocoder:
+[Mapzen Search](https://mapzen.com/documentation/search/) requires an [API key](https://mapzen.com/developers) to work properly. The above example assumes you've set up a [global 'apiKey'](https://mapzen.com/documentation/mapzen-js/api-reference/#api-key) prior to defining the geocoder:
 
 ```javascript
 L.Mapzen.apiKey = 'your-mapzen-api-key';

@@ -1,0 +1,52 @@
+<!-- This example assumes you have local version of mapzen.min.js in dist folder -->
+<!-- Please look at BUILD.md to build local version of mapzen.min.js -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../../dist/mapzen.css">
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="../../dist/mapzen.js"></script>
+    <script>
+
+      var lon = -74.009,
+          lat = 40.70531;
+
+      L.Mapzen.apiKey = 'mapzen-6VCZ2xH';
+
+      // Default map (Bubble Wrap)
+      var map = L.Mapzen.map('map', {
+        tangramOptions: {
+          debug: false
+        }
+      });
+
+      map.setView([lat, lon], 13);
+
+      L.Mapzen.hash({map: map});
+      // Add search box
+      var geocoder = L.Mapzen.geocoder();
+
+      geocoder.getSearchResult('Tisch', function(err, resp){
+        console.log(JSON.parse(resp.responseText));
+      })
+
+
+    </script>
+  </body>
+</html>

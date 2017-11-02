@@ -1,5 +1,23 @@
 var APIKeyCheck = require('./apiKeyCheck');
 var Geocoder = require('leaflet-geocoder-mapzen/src/core');
+var corslite = require('corslite');
+
+Geocoder.prototype.getSearchResult = function (input, callback) {
+  var param = {
+    text: input
+  };
+  var params = this.getParams(param);
+  corslite(this.options.url + '/search?' + this.serialize(params), callback, true);
+};
+
+Geocoder.prototype.getAutocompleteResult = function (input, callback) {
+  var param = {
+    text: input
+  };
+
+  var params = this.getParams(param);
+  corslite(this.options.url + '/autocomplete?' + this.serialize(params), callback, true);
+};
 
 module.exports = Geocoder;
 

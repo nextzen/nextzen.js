@@ -2,11 +2,15 @@
 var L = require('leaflet');
 
 var MapControl = L.Map.extend({
-  includes: L.Mixin.Events,
+  // L.Evented is present in Leaflet v1+
+  // L.Mixin.Events is legacy; was deprecated in Leaflet v1 and started
+  // logging deprecation warnings in console in v1.1
+  includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
   options: {
     attribution: '© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>',
     zoomSnap: 0,
     iframeDetection: false,
+    worldCopyJump: true,
     _useTangram: true,
     apiKey: null
   },
