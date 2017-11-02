@@ -26,6 +26,7 @@ L.Mapzen.apiKey = 'your-mapzen-api-key';
 | `attribution` | String | `© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>` | Attribution data in a small text box. `Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
 | `debugTangram`| Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not. <br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
 | `fallbackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
+| `iframeDetection`| Boolean | `false` | Wheter to turn off scroll zoom when the map is iframed. |
 | `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file<br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
 | `tangramOptions`| Object |  _See below_ |  See [tangramOptions](#tangramoptions) below |
 
