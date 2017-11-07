@@ -20,12 +20,8 @@ layers:
         draw:
             lines:
                 interactive: false
-                #color: black
                 width: 1px
                 order: global.feature_order
-                # but give them all the same outline
-                outline:
-                    style: _outline
 
     isochrone_polygons:
         data: { source: isochrone_live }
