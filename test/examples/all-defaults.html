@@ -34,7 +34,7 @@
       // Default map (Bubble Wrap)
       var map = L.Mapzen.map('map');
 
-      var tangramLayer = map.tangramLayer;
+      var tangramLayer = map.getTangramLayer();
 
       tangramLayer.scene.subscribe({
         load: function (e) {

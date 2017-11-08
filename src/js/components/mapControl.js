@@ -38,7 +38,7 @@ var MapControl = L.Map.extend({
       }
 
       this._tangram = L.Mapzen.tangram(tangramOptions);
-      this.tangramLayer = this._tangram.addTo(this);
+      this._tangramLayer = this._tangram.addTo(this);
 
       // tangramloaded event is deprecated; remove in v1.0
       var self = this;
@@ -54,7 +54,9 @@ var MapControl = L.Map.extend({
     this._addAttribution();
     this._checkConditions(false);
   },
-
+  getTangramLayer: function () {
+    return this._tangramLayer;
+  },
   _setGlobalApiKey: function (opts) {
     this.options.apiKey = opts.apiKey || L.Mapzen.apiKey;
 
