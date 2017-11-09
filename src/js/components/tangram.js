@@ -16,6 +16,8 @@ var TangramLayer = L.Class.extend({
 
   initialize: function (opts) {
     this.options = L.Util.setOptions(this, opts);
+    this.debug = Tangram.debug;
+    this.version = Tangram.version;
     this.hasWebGL = this._hasWebGL();
     this._setUpApiKey();
   },

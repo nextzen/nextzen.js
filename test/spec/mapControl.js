@@ -32,6 +32,7 @@ describe('Map Control Test', function () {
         var requiredVersionNums = requiredTangramVersionNumber.split('.');
         var vNums = vNum.split('.');
         vNums[0] = vNums[0].substring(1);
+        console.log(vNums[0])
         if (Number(vNums[0]) >= Number(requiredVersionNums[0]) && Number(vNums[1]) >= Number(requiredVersionNums[1]) && Number(vNums[2]) >= Number(requiredVersionNums[2])) {
           return true;
         } else {
@@ -43,14 +44,8 @@ describe('Map Control Test', function () {
       var checkTangramVersionNumber = function () {
         count++;
         if (hasWebGL) {
-          // Tangram is being loaded asynchronously
-          // Wait until Tangram is loaded
-          if (!window.Tangram && count < 40) {
-            return setTimeout(checkTangramVersionNumber.bind(this), 200);
-          } else if (Tangram) {
-            if (checkVersionNumber(Tangram.version)) done();
+            if (checkVersionNumber(L.Mapzen._tangram().version)) done();
             else done(new Error('Tangram version is not met with required version number.'));
-          } else if (count >= 40) done(new Error('takes too long to load Tangram'))
         } else {
           done();
         }
