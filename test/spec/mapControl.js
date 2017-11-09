@@ -32,13 +32,13 @@ describe('Map Control Test', function () {
   describe('Tangram layer check', function () {
     it('checks default style is set.', function (done) {
       if (hasWebGL) {
-        if (map.getTangramLayer()) done();
+        if (testMap.getTangramLayer()) done();
       } else {
         // skip test if webgl is not available
         done();
       }
     });
-
+    // Tangram event is deprectaed; remove in v1.0
     it('checks Tangram Event', function (done) {
       var tangramEventCheck = function () {
         if(hasWebGL) {
