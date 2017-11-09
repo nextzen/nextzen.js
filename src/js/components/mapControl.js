@@ -26,12 +26,12 @@ var MapControl = L.Map.extend({
       var tangramOptions = opts.tangramOptions || {};
 
       // debugTangram is deprecated; remove in v1.0
-      // if (this.options.debugTangram) {
-      //   tangramOptions = L.extend({}, tangramOptions, {debug: true});
-      //   console.warn('Mapzen.js warning: `options.debugTangram` is deprecated and will be removed in v1.0. Please use `options.tangramOptions.debug`.');
-      // }
-      // As of v1.0, scene will need to be part of tangramOptions
+      if (this.options.debugTangram) {
+        // tangramOptions = L.extend({}, tangramOptions, {debug: true});
+        console.warn('Mapzen.js warning: `options.debugTangram` is deprecated.');
+      }
 
+      // As of v1.0, scene will need to be part of tangramOptions
       if (this.options.scene) {
         tangramOptions = L.extend({}, tangramOptions, {scene: this.options.scene});
         console.warn('Mapzen.js warning: `options.scene` is deprecated and will be removed in v1.0. Please use `options.tangramOptions.scene`.');
