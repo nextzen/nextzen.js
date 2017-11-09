@@ -10,6 +10,7 @@ var MapControl = L.Map.extend({
   options: {
     attribution: '© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>',
     zoomSnap: 0,
+    iframeDetection: false,
     worldCopyJump: true,
     _useTangram: true,
     apiKey: null
@@ -52,7 +53,7 @@ var MapControl = L.Map.extend({
 
     this._setDefaultUIPositions();
     this._addAttribution();
-    this._checkConditions(false);
+    if (this.options.iframeDetection) this._checkConditions(false);
   },
   getTangramLayer: function () {
     return this._tangramLayer;
