@@ -32,25 +32,16 @@ describe('Map Control Test', function () {
         var requiredVersionNums = requiredTangramVersionNumber.split('.');
         var vNums = vNum.split('.');
         vNums[0] = vNums[0].substring(1);
-        console.log(vNums[0])
-        if (Number(vNums[0]) >= Number(requiredVersionNums[0]) && Number(vNums[1]) >= Number(requiredVersionNums[1]) && Number(vNums[2]) >= Number(requiredVersionNums[2])) {
-          return true;
-        } else {
-          return false;
-        }
+        var minimumVersionNumber = Number(requiredVersionNums.join(''));
+        var currentVersionNumber = Number(vNums.join(''));
+        if (currentVersionNumber >= minimumVersionNumber) return true;
+        else return false;
       }
 
-      var count = 0;
-      var checkTangramVersionNumber = function () {
-        count++;
-        if (hasWebGL) {
-            if (checkVersionNumber(L.Mapzen._tangram().version)) done();
-            else done(new Error('Tangram version is not met with required version number.'));
-        } else {
-          done();
-        }
-      }
-      checkTangramVersionNumber();
+
+
+      if (checkVersionNumber(L.Mapzen._tangram().version)) done();
+      else done(new Error('Tangram version is not met with required version number.'));
     });
   });
 
