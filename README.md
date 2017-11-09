@@ -139,7 +139,7 @@ mapzen.js includes components from these awesome open-source projects:
 
 - [Leaflet](http://leafletjs.com/)
 - [Leaflet.Locate control](https://github.com/domoritz/leaflet-locatecontrol)
-- [Mapzen Scarab social media control](https://github.com/mapzen/scarab/tree/master/src/components/bug)
+- [Mapzen Scarab social media control](https://github.com/mapzen/scarab)
 - [Mapzen Leaflet geocoder plug-in](https://github.com/mapzen/leaflet-geocoder)
 
 
