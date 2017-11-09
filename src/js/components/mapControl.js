@@ -37,7 +37,7 @@ var MapControl = L.Map.extend({
         console.warn('Mapzen.js warning: `options.scene` is deprecated and will be removed in v1.0. Please use `options.tangramOptions.scene`.');
       }
 
-      this._tangram = L.Mapzen.tangram(tangramOptions);
+      this._tangram = L.Mapzen._tangram(tangramOptions);
       this._tangramLayer = this._tangram.addTo(this);
 
       // tangramloaded event is deprecated; remove in v1.0

@@ -32,9 +32,7 @@ describe('Map Control Test', function () {
   describe('Tangram layer check', function () {
     it('checks default style is set.', function (done) {
       if (hasWebGL) {
-        testMap.eachLayer(function (layer) {
-          if (layer.scene) done();
-        });
+        if (map.getTangramLayer()) done();
       } else {
         // skip test if webgl is not available
         done();

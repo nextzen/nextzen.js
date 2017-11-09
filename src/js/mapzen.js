@@ -20,7 +20,7 @@ L.Mapzen = module.exports = {
   hash: Hash.hash,
   HouseStyles: BasemapStyles,
   BasemapStyles: BasemapStyles,
-  tangram: TangramLayer.tangramLayer
+  _tangram: TangramLayer.tangramLayer
 };
 
 // Set Icon Path manually (Leaflet detects the path based on where Leaflet script is)
