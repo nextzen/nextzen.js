@@ -57,6 +57,11 @@ var map = L.Mapzen.map('map', {
 |--------|-------|------------------------------------------------------------------|
 | `getTangramLayer` | Tangram Leaflet Layer | Returns current TangramLayer added to the map.|
 
+Example of how to use the `getTangramLayer` method to access Tangram's `scene` object:
+
+```javascript
+var tangramLayer = map.getTangramLayer();
+```
 
 ### Events
 
@@ -71,6 +76,7 @@ For access to Tangram’s [scene object](https://mapzen.com/documentation/tangra
 Example of how to use the `tangramloaded` event to access Tangram's `scene` object:
 
 ```javascript
+// tangramloaded event is deprecated. Please use getTangramLayer
 map.on('tangramloaded', function (event) {
   var scene = event.tangramLayer.scene;
 });
