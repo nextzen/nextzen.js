@@ -14,7 +14,7 @@
     "build-dev-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss -w; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "dev": "watchify  ./src/js/mapzen.js -o dist/mapzen.js -v;",
     "build-standalone": "browserify -t [browserify-shim --global] ./src/js/mapzen.js --standalone Mapzen > dist/mapzen.standalone.js && browserify -t [browserify-shim --global] -t uglifyify ./src/js/mapzen.js --standalone  Mapzen | uglifyjs -c > dist/mapzen.standalone.min.js && npm run-script build-standalone-style",
-    "build": "browserify ./src/js/mapzen.js > dist/mapzen.js && browserify -t uglifyify ./src/js/mapzen.js | uglifyjs > dist/mapzen.min.js && npm run-script build-style"
+    "build": "browserify ./src/js/mapzen.js > dist/mapzen.js && browserify -t uglifyify ./src/js/mapzen.js | uglifyjs -c comparisons=false > dist/mapzen.min.js && npm run-script build-style"
   },
   "browserify-shim": {
     "leaflet": "global:L"
