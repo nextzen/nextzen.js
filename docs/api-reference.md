@@ -24,7 +24,7 @@ L.Mapzen.apiKey = 'your-mapzen-api-key';
 |---------|--------|-----------|------------------------|
 | `apiKey`| String | L.Mapzen.apiKey | Mapzen API key to be used for the components. |
 | `attribution` | String | `© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>` | Attribution data in a small text box. `Leaflet` attribution is always there; attribution from this option is placed before `Leaflet` attribution.|
-| `debugTangram`| Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not. <br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
+| `debugTangram`| Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not. <br>**Deprecated; no longer works from v0.9.** |
 | `fallbackTile` | [L.TileLayer](http://leafletjs.com/reference.html#tilelayer) | `L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {})` | TileLayer to fall back when WebGL is not available. |
 | `iframeDetection`| Boolean | `false` | Whether to turn off scroll zoom when the map is in an iframe. |
 | `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file<br>**Deprecated; will be removed in v1.0. See [tangramOptions](#tangramoptions) below.** |
@@ -36,7 +36,7 @@ Set of options related to the appearance and behavior of the Tangram layer.  In 
 
 | Option  | Type   | Default   | Description            |
 |---------|--------|-----------|------------------------|
-| `debug` | Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not.|
+| `debug` | Boolean | `false` | Whether to load the debug (non-minified) version of Tangram or not. **Deprecated; no longer works from v0.9. Use non-minified mapzen.js to load non-minified Tangram** |
 | `scene` | String | `L.Mapzen.BasemapStyles.BubbleWrap` | Tangram scene URL, included in `L.Mapzen.BasemapStyles` object. <br> `scene` can also be a single-quoted URL that points to any `.yaml` Tangram scene file |
 | `apiKey` | String | L.Mapzen.apiKey | Mapzen API key to be used for Vector Tiles. |
 
@@ -51,19 +51,32 @@ var map = L.Mapzen.map('map', {
 });
 ```
 
+### Methods
+
+| Method  | Returns  | Description                                                  |
+|--------|-------|------------------------------------------------------------------|
+| `getTangramLayer` | Tangram Leaflet Layer | Returns current TangramLayer added to the map.|
+
+Example of how to use the `getTangramLayer` method to access Tangram's `scene` object:
+
+```javascript
+var tangramLayer = map.getTangramLayer();
+```
+
 ### Events
 
 All of [Leaflet's event methods](http://leafletjs.com/reference-1.0.2.html#map-event) are available, such as `on`, `off`, or `once`. In addition, mapzen.js provides these events:
 
 | Event  | Description                                                  |
 |--------|--------------------------------------------------------------|
-| `tangramloaded` | Fired when a Tangram layer is loaded in the map. This event allows user to access to TangramLayer through `event.tangramLayer`|
+| `tangramloaded` | Fired when a Tangram layer is loaded in the map. This event allows user to access to TangramLayer through `event.tangramLayer` **Deprecated;will be removed in v1.0. Please use [getTangramLayer](#Methods) instead.**|
 
 For access to Tangram’s [scene object](https://mapzen.com/documentation/tangram/Javascript-API/#scene) or [config object](https://mapzen.com/documentation/tangram/Javascript-API/#config) (interfaces for controlling your Tangram scene at runtime), listen for the `tangramloaded` event on the map. It is available as a property of the Tangram Leaflet layer, which you will find in the event property `tangramLayer`.
 
 Example of how to use the `tangramloaded` event to access Tangram's `scene` object:
 
 ```javascript
+// tangramloaded event is deprecated. Please use getTangramLayer
 map.on('tangramloaded', function (event) {
   var scene = event.tangramLayer.scene;
 });
