@@ -27,9 +27,10 @@ var MapControl = L.Map.extend({
 
       // debugTangram is deprecated; remove in v1.0
       if (this.options.debugTangram) {
-        tangramOptions = L.extend({}, tangramOptions, {debug: true});
-        console.warn('Mapzen.js warning: `options.debugTangram` is deprecated and will be removed in v1.0. Please use `options.tangramOptions.debug`.');
+        // tangramOptions = L.extend({}, tangramOptions, {debug: true});
+        console.warn('Mapzen.js warning: `options.debugTangram` is deprecated.');
       }
+
       // As of v1.0, scene will need to be part of tangramOptions
       if (this.options.scene) {
         tangramOptions = L.extend({}, tangramOptions, {scene: this.options.scene});
@@ -37,9 +38,9 @@ var MapControl = L.Map.extend({
       }
 
       this._tangram = L.Mapzen._tangram(tangramOptions);
+      this._tangramLayer = this._tangram.addTo(this);
 
-      this._tangram.addTo(this);
-
+      // tangramloaded event is deprecated; remove in v1.0
       var self = this;
       self._tangram.on('loaded', function (e) {
         self.fire('tangramloaded', {
@@ -53,7 +54,9 @@ var MapControl = L.Map.extend({
     this._addAttribution();
     if (this.options.iframeDetection) this._checkConditions(false);
   },
-
+  getTangramLayer: function () {
+    return this._tangramLayer;
+  },
   _setGlobalApiKey: function (opts) {
     this.options.apiKey = opts.apiKey || L.Mapzen.apiKey;
 

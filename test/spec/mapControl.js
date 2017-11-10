@@ -14,8 +14,7 @@ describe('Map Control Test', function () {
     spy = sinon.spy();
     testMap.addEventListener('tangramloaded', spy);
     testMap.setView([51.505, -0.09], 13);
-
-    hasWebGL = L.Mapzen._tangram()._hasWebGL();
+    hasWebGL = testMap._tangram._hasWebGL();
 
   });
 
@@ -33,56 +32,30 @@ describe('Map Control Test', function () {
         var requiredVersionNums = requiredTangramVersionNumber.split('.');
         var vNums = vNum.split('.');
         vNums[0] = vNums[0].substring(1);
-        if (Number(vNums[0]) >= Number(requiredVersionNums[0]) && Number(vNums[1]) >= Number(requiredVersionNums[1]) && Number(vNums[2]) >= Number(requiredVersionNums[2])) {
-          return true;
-        } else {
-          return false;
-        }
+        var minimumVersionNumber = Number(requiredVersionNums.join(''));
+        var currentVersionNumber = Number(vNums.join(''));
+        if (currentVersionNumber >= minimumVersionNumber) return true;
+        else return false;
       }
 
-      var count = 0;
-      var checkTangramVersionNumber = function () {
-        count++;
-        if (hasWebGL) {
-          // Tangram is being loaded asynchronously
-          // Wait until Tangram is loaded
-          if (!window.Tangram && count < 40) {
-            return setTimeout(checkTangramVersionNumber.bind(this), 200);
-          } else if (Tangram) {
-            if (checkVersionNumber(Tangram.version)) done();
-            else done(new Error('Tangram version is not met with required version number.'));
-          } else if (count >= 40) done(new Error('takes too long to load Tangram'))
-        } else {
-          done();
-        }
-      }
-      checkTangramVersionNumber();
+
+
+      if (checkVersionNumber(L.Mapzen._tangram().version)) done();
+      else done(new Error('Tangram version is not met with required version number.'));
     });
   });
 
 
   describe('Tangram layer check', function () {
     it('checks default style is set.', function (done) {
-
-      // Give time to load Tangram script
-      var count = 0;
-      var checkTangramLayer = function () {
-        var tangramLayer;
-        testMap.eachLayer(function (layer) {
-          if (layer.scene) tangramLayer = layer;
-        });
-        count++;
-        if (hasWebGL) {
-          if (tangramLayer === undefined && count < 40) return setTimeout(checkTangramLayer.bind(this), 200);
-          else if (tangramLayer) done();
-          else if (count >= 40) done(new Error('takes too long to load Tangram'))
-        } else {
-          done();
-        }
+      if (hasWebGL) {
+        if (testMap.getTangramLayer()) done();
+      } else {
+        // skip test if webgl is not available
+        done();
       }
-      checkTangramLayer();
     });
-
+    // Tangram event is deprectaed; remove in v1.0
     it('checks Tangram Event', function (done) {
       var tangramEventCheck = function () {
         if(hasWebGL) {
@@ -92,7 +65,5 @@ describe('Map Control Test', function () {
       }
       tangramEventCheck();
     })
-
   })
-
 });
