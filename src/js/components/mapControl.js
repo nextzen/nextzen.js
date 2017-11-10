@@ -1,7 +1,6 @@
 'use strict';
 var L = require('leaflet');
 
-
 var MapControl = L.Map.extend({
   // L.Evented is present in Leaflet v1+
   // L.Mixin.Events is legacy; was deprecated in Leaflet v1 and started
