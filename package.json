@@ -20,16 +20,15 @@
     "leaflet": "global:L"
   },
   "dependencies": {
-    "corslite": "0.0.7",
+    "@mapbox/corslite": "0.0.7",
     "leaflet": "1.2.0",
     "leaflet-control-geocoder": "^1.5.4",
     "leaflet-geocoder-mapzen": "^1.9.4",
-    "leaflet-routing-machine": "3.2.5",
+    "leaflet-routing-machine": "^3.2.7",
     "leaflet.locatecontrol": "^0.60.0",
     "lrm-mapzen": "^1.3.0",
     "mapzen-scarab": "git+https://github.com/mapzen/scarab.git#v3.1.0",
-    "polyline": "^0.2.0",
-    "tangram": "^0.14.0"
+    "tangram": "^0.14.1"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.13.2",
