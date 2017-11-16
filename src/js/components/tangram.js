@@ -1,11 +1,12 @@
-// Tangram can't be bundled from source since it needs to be able to access a full copy of itself
-// (either as a URL or full string of all source code) in order to load itself into web workers
-// This script injects the Tangram with script tag, so that Tangram doesn't need to be included with outside tag
 var L = require('leaflet');
 var APIKeyCheck = require('./apiKeyCheck');
 var BasemapStyles = require('./basemapStyles');
 
-var Tangram = require('tangram');
+
+// This is the way to embed that Tangram team recommends to cut build time
+// https://github.com/tangrams/react-webpack-tangram-boilerplate/blob/57bdff6dd8bc3664df57673e59477b7e11635ee6/src/Map.jsx#L7
+
+var Tangram = require('tangram/dist/tangram.debug');
 
 var TangramLayer = L.Class.extend({
   includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
