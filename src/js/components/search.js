@@ -1,6 +1,6 @@
 var APIKeyCheck = require('./apiKeyCheck');
 var Geocoder = require('leaflet-geocoder-mapzen/src/core');
-var corslite = require('corslite');
+var corslite = require('@mapbox/corslite');
 
 Geocoder.prototype.getSearchResult = function (input, callback) {
   var param = {
