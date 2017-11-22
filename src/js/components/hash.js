@@ -32,7 +32,25 @@ var Hash = L.Class.extend({
       // When there is place query in hash, it takes priority to the coord data.
       if (this._hashData.place) {
         this._hashData.place = decodeURIComponent(this._hashData.place);
+        var self = this;
         this._geocoder.place(this._hashData.place);
+        this._geocoder.on('results', function(output) {
+          console.log(output)
+          if (output.results.features.length > 0) {
+            var feature = output.results.features[0];
+            var latLng = L.GeoJSON.coordsToLatLng(feature.geometry.coordinates)
+            self._geocoder.showMarker(self._getMarkerText(feature).innerHTML, latLng);
+          }
+          self._geocoder.off('results');
+        });
+        if (this._hashData.lat && this._hashData.lng && this._hashData.z) {
+          // boolean changing is to prevent recursive hash change
+          // Hash doesn't get updated while map is setting the view
+          this._changing = true;
+          if (this._map) this._map.setView([this._hashData.lat, this._hashData.lng], this._hashData.z);
+          this._changing = false;
+        }
+      // When there is no place hash but lat lng zoom
       } else if (this._hashData.lat && this._hashData.lng && this._hashData.z) {
         // boolean changing is to prevent recursive hash change
         // Hash doesn't get updated while map is setting the view
@@ -48,6 +66,27 @@ var Hash = L.Class.extend({
         this._updateZoom();
       }
     }
+  },
+  _getMarkerText: function (feature) {
+    var icon = this._geocoder.getIconType(feature.properties.layer);
+    var wholeTextWrapper = L.DomUtil.create('span', 'wrapper');
+    if (icon) {
+      // Point or polygon icon
+      // May be a class or an image path
+      var layerIconContainer = L.DomUtil.create('span', 'leaflet-pelias-layer-icon-container');
+      var layerIcon;
+
+      if (icon.type === 'class') {
+        layerIcon = L.DomUtil.create('div', 'leaflet-pelias-layer-icon ' + icon.value, layerIconContainer);
+      } else {
+        layerIcon = L.DomUtil.create('img', 'leaflet-pelias-layer-icon', layerIconContainer);
+        layerIcon.src = icon.value;
+      }
+    }
+    wholeTextWrapper.appendChild(layerIconContainer);
+    wholeTextWrapper.appendChild(document.createTextNode(feature.properties.label));
+
+    return wholeTextWrapper;
   },
 
   _startMapEvents: function () {
