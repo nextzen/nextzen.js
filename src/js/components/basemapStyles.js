@@ -1,13 +1,10 @@
 /**
  * Javascript native functions to extend object (Object.assign) does not work with getter
- * extend() returns newly crated object based on source, with target object's values
- * target object should be flat
+ * extend() returns newly crated object based on source, with target properties
  */
-function extend (target, source) {
+function extend (targetProps, source) {
   var extendedObj = Object.create(source);
-  for (var e in target) {
-    extendedObj[e] = target[e];
-  }
+  Object.defineProperties(extendedObj, targetProps);
   return extendedObj;
 }
 
@@ -58,42 +55,50 @@ var CartoStyle = {
  * Change the value for veresion below for each style's new release
  */
 var bubblewrap = extend({
-  stylePath: 'bubble-wrap-style',
-  version: 9
+  'stylePath': {value: 'bubble-wrap-style'},
+  'version': {value: 9}
 }, CartoStyle);
 
 var cinnabar = extend({
-  stylePath: 'cinnabar-style',
-  version: 9
+  'stylePath': {value: 'cinnabar-style'},
+  'version': {value: 9}
 }, CartoStyle);
 
 var refill = extend({
-  stylePath: 'refill-style',
-  version: 11
+  'stylePath': {value: 'refill-style'},
+  'version': {value: 11}
 }, CartoStyle);
 
 var walkabout = extend({
-  stylePath: 'walkabout-style',
-  version: 7
+  'stylePath': {value: 'walkabout-style'},
+  'version': {value: 7}
 }, CartoStyle);
 
 var tron = extend({
-  stylePath: 'tron-style',
-  verseion: 6
+  'stylePath': {value: 'tron-style'},
+  'verseion': {value: 6}
 }, CartoStyle);
 
 var zinc = extend({
-  get zincURL () {
-    return getCartoThemeStyleURL(refill, 'color-zinc');
+  'zincURL': {
+    get: function () {
+      return getCartoThemeStyleURL(this, 'color-zinc');
+    }
   },
-  get zincNoLabelConfig () {
-    return getImportObject([refill.basemapURL, this.zincURL, refill.noLabelURL]);
+  'zincNoLabelConfig': {
+    get: function () {
+      return getImportObject([this.basemapURL, this.zincURL, this.noLabelURL]);
+    }
   },
-  get zincMoreLabelConfig () {
-    return getImportObject([refill.basemapURL, this.zincURL, refill.moreLabelURL]);
+  'zincMoreLabelConfig': {
+    get: function () {
+      return getImportObject([this.basemapURL, this.zincURL, this.moreLabelURL]);
+    }
   },
-  get basemapConfig () {
-    return getImportObject([refill.basemapURL, this.zincURL]);
+  'basemapConfig': {
+    get: function () {
+      return getImportObject([this.basemapURL, this.zincURL]);
+    }
   }
 }, refill);
 
