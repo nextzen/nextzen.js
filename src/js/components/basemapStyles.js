@@ -31,7 +31,7 @@ function getCartoThemeStyleURL (cartoStyle, customTheme) {
  * update this only when there is a change that needs to happen across all styles
  */
 var CartoStyle = {
-  baseURL: 'https://www.nextzen.com/carto',
+  baseURL: 'https://www.nextzen.org/carto',
   suffix: 'zip',
   moreLabelNumber: 10,
   noLabelNumber: 0,
