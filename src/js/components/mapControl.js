@@ -7,7 +7,7 @@ var MapControl = L.Map.extend({
   // logging deprecation warnings in console in v1.1
   includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
   options: {
-    attribution: '© <a href="https://www.mapzen.com/rights">Mapzen</a>,  <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>',
+    attribution: '<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, and <a href="https://www.mapzen.com/rights/#services-and-data-sources">others</a>',
     zoomSnap: 0,
     iframeDetection: false,
     worldCopyJump: true,
