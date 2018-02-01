@@ -25,5 +25,5 @@ L.Mapzen = module.exports = {
 
 // Set Icon Path manually (Leaflet detects the path based on where Leaflet script is)
 // Leaflet 0.7 and < 1.0 handle image path differently
-if (parseFloat(L.version.substring(0, 3)) < 1.0) L.Icon.Default.imagePath = 'https://mapzen.com/js/images';
-else L.Icon.Default.prototype.options.imagePath = 'https://mapzen.com/js/images/';
+if (parseFloat(L.version.substring(0, 3)) < 1.0) L.Icon.Default.imagePath = 'https://nextzen.org/js/images';
+else L.Icon.Default.prototype.options.imagePath = 'https://nextzen.org/js/images/';

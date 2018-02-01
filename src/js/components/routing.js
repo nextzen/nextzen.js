@@ -57,9 +57,6 @@ module.exports.routing = {
   },
   router: function (key, options) {
     var params = APIKeyCheck.getKeyAndOptions(key, options);
-    if (!APIKeyCheck.isValidMapzenApiKey(params.key)) {
-      APIKeyCheck.throwApiKeyWarning('Routing');
-    }
     return new MapzenRouter(params.key, params.options);
   },
   geocoderElement: function (wp, i, nWps, plan) {
@@ -68,9 +65,6 @@ module.exports.routing = {
 
   geocoder: function (key, options) {
     var params = APIKeyCheck.getKeyAndOptions(key, options);
-    if (!APIKeyCheck.isValidMapzenApiKey(params.key)) {
-      APIKeyCheck.throwApiKeyWarning('Search');
-    }
     return new MapzenControlGeocoder.class(params.key, params.options); // eslint-disable-line
   },
 
