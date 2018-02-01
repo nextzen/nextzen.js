@@ -20,7 +20,7 @@ var MapControl = L.Map.extend({
     var opts = L.Util.setOptions(this, options);
     L.Map.prototype.initialize.call(this, element, opts);
 
-    this._setGlobalApiKey(opts);
+    this._checkDeprecatedKey();
 
     if (this.options._useTangram) {
       var tangramOptions = opts.tangramOptions || {};
@@ -57,13 +57,8 @@ var MapControl = L.Map.extend({
   getTangramLayer: function () {
     return this._tangramLayer;
   },
-  _setGlobalApiKey: function (opts) {
-    this.options.apiKey = opts.apiKey || L.Mapzen.apiKey;
-
-    // Update global (to be used by other services as needed)
-    L.Mapzen.apiKey = this.options.apiKey;
-
-    // Going forward, all API key checks should be performed on individual components
+  _checkDeprecatedKey: function (opts) {
+    if (L.Mapzen.apiKey) console.warn('L.Mapzen.ApiKey is deprecated.');
   },
 
   _checkConditions: function (force) {
