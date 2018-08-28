@@ -1,7 +1,8 @@
-[![npm](https://img.shields.io/npm/v/mapzen.js.svg)](https://www.npmjs.com/package/mapzen.js)
-[![CircleCI](https://img.shields.io/circleci/project/github/mapzen/mapzen.js.svg)](https://circleci.com/gh/mapzen/mapzen.js)
-[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=d01tT2tKVHBtbHNnM1FHM1hPMXR1TnRIbERNcEV3OGxicDVRZk5McU14ND0tLW1vN0Z5a2l2UlJieHBVdnhwRDcxdHc9PQ==--de93b040140c8fa6f79999d958b2a06912c385b1%)](https://www.browserstack.com/automate/public-build/d01tT2tKVHBtbHNnM1FHM1hPMXR1TnRIbERNcEV3OGxicDVRZk5McU14ND0tLW1vN0Z5a2l2UlJieHBVdnhwRDcxdHc9PQ==--de93b040140c8fa6f79999d958b2a06912c385b1%)
-# mapzen.js
+[![npm](https://img.shields.io/npm/v/mapzen.js.svg)](https://www.npmjs.com/package/nextzen.js)
+
+# nextzen.js
+
+## Warning: README is outdated. Please look at `examples/index.html` while the doc gets updated.
 
 mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
 
@@ -54,10 +55,10 @@ And add a height and width for the map:
 <script>
   // Add a Mapzen API key
   // To generate your key, go to https://mapzen.com/developers/
-  L.Mapzen.apiKey = 'your-mapzen-api-key';
+  L.Nextzen.apiKey = 'your-mapzen-api-key';
 
   // Add a map to the 'map' div
-  var map = L.Mapzen.map('map');
+  var map = L.Nextzen.map('map');
 
   // Set the center of the map to be the San Francisco Bay Area at zoom level 12
   map.setView([37.7749, -122.4194], 12);
@@ -141,5 +142,3 @@ mapzen.js includes components from these awesome open-source projects:
 - [Leaflet.Locate control](https://github.com/domoritz/leaflet-locatecontrol)
 - [Mapzen Scarab social media control](https://github.com/mapzen/scarab)
 - [Mapzen Leaflet geocoder plug-in](https://github.com/mapzen/leaflet-geocoder)
-
-
