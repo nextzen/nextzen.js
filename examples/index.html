@@ -40,9 +40,8 @@
       map.zoomControl.setPosition('bottomright');
 
       // adds a search box to a map
-      var geocoder = L.Nextzen.geocoder({
-
-      });
+      // get your search key at https://geocode.earth/
+      var geocoder = L.Nextzen.geocoder('your-geocode.earth-key');
       geocoder.addTo(map);
 
       // allows for a URL hash to be created
