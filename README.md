@@ -1,13 +1,14 @@
-[![npm](https://img.shields.io/npm/v/mapzen.js.svg)](https://www.npmjs.com/package/mapzen.js)
-[![CircleCI](https://img.shields.io/circleci/project/github/mapzen/mapzen.js.svg)](https://circleci.com/gh/mapzen/mapzen.js)
-[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=d01tT2tKVHBtbHNnM1FHM1hPMXR1TnRIbERNcEV3OGxicDVRZk5McU14ND0tLW1vN0Z5a2l2UlJieHBVdnhwRDcxdHc9PQ==--de93b040140c8fa6f79999d958b2a06912c385b1%)](https://www.browserstack.com/automate/public-build/d01tT2tKVHBtbHNnM1FHM1hPMXR1TnRIbERNcEV3OGxicDVRZk5McU14ND0tLW1vN0Z5a2l2UlJieHBVdnhwRDcxdHc9PQ==--de93b040140c8fa6f79999d958b2a06912c385b1%)
-# mapzen.js
+[![npm](https://img.shields.io/npm/v/nextzen.js.svg)](https://www.npmjs.com/package/nextzen.js)
+
+# nextzen.js
+
+## Warning: README is outdated. Please look at `examples/index.html` while the doc gets updated.
 
 mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://leafletjs.com/) for making maps for the web and mobile devices. mapzen.js simplifies the process of using Mapzen's maps within Leaflet.
 
 mapzen.js builds upon Leaflet's functionality by providing tools for working with Mapzen maps and search. With mapzen.js you can add [Mapzen map styles](https://mapzen.com/products/maps/) as basemaps, build a customizable geocoder with [Mapzen Search](https://mapzen.com/products/search/), and share links to maps.
 
-**The current version of mapzen.js embeds Leaflet v1.0.1.** If you need to use another version of Leaflet, please take a look at the [standalone build](#builds) below.
+**The current version of nextzen.js embeds Leaflet v1.3.0.** If you need to use another version of Leaflet, please take a look at the [standalone build](#builds) below.
 
 
 ## Demos
@@ -52,12 +53,13 @@ And add a height and width for the map:
 
 ```html
 <script>
-  // Add a Mapzen API key
-  // To generate your key, go to https://mapzen.com/developers/
-  L.Mapzen.apiKey = 'your-mapzen-api-key';
-
   // Add a map to the 'map' div
-  var map = L.Mapzen.map('map');
+  var map = L.Nextzen.map('map', {
+    tangramOptions: {
+      apiKey: 'your-nextzen-api-key',
+      debug: true
+    }
+  });
 
   // Set the center of the map to be the San Francisco Bay Area at zoom level 12
   map.setView([37.7749, -122.4194], 12);
@@ -141,5 +143,3 @@ mapzen.js includes components from these awesome open-source projects:
 - [Leaflet.Locate control](https://github.com/domoritz/leaflet-locatecontrol)
 - [Mapzen Scarab social media control](https://github.com/mapzen/scarab)
 - [Mapzen Leaflet geocoder plug-in](https://github.com/mapzen/leaflet-geocoder)
-
-

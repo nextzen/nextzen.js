@@ -1,20 +1,22 @@
 {
-  "name": "mapzen.js",
-  "version": null,
-  "description": "Javascript SDK for Mapzen products",
-  "main": "src/js/mapzen.js",
+  "name": "nextzen.js",
+  "version": "1.0.0",
+  "description": "Javascript SDK for Nextzen products",
+  "main": "src/js/nextzen.js",
   "directories": {
     "test": "test"
   },
+  "files": "dist/*",
   "scripts": {
     "test": "karma start test/karma.conf.js --log-level debug --single-run",
     "lint": "eslint ./src/js/* ./test/*.js; exit 0;",
-    "build-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss; mkdir -p dist/images; cp -r node_modules/mapzen-scarab/src/images/* dist/images/; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
-    "build-standalone-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.standalone.scss; mkdir -p dist/images; cp -r node_modules/mapzen-scarab/src/images/* dist/images/; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
-    "build-dev-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.scss -w; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
-    "dev": "watchify  ./src/js/mapzen.js -o dist/mapzen.js -v;",
-    "build-standalone": "browserify -t [browserify-shim --global] ./src/js/mapzen.js --standalone Mapzen > dist/mapzen.standalone.js && browserify -t [browserify-shim --global] -t uglifyify ./src/js/mapzen.js --standalone  Mapzen | uglifyjs -c comparisons=false -m > dist/mapzen.standalone.min.js && npm run-script build-standalone-style",
-    "build": "browserify ./src/js/mapzen.js > dist/mapzen.js && browserify -t uglifyify ./src/js/mapzen.js | uglifyjs -c comparisons=false -m > dist/mapzen.min.js && npm run-script build-style"
+    "build-style": "node-sass --output-style compressed -o dist/ src/scss/nextzen.scss; mkdir -p dist/images;cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
+    "build-standalone-style": "node-sass --output-style compressed -o dist/ src/scss/nextzen.standalone.scss; mkdir -p dist/images; cp -r node_modules/mapzen-scarab/src/images/* dist/images/; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
+    "build-dev-style": "node-sass --output-style compressed -o dist/ src/scss/nextzen.css -w; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
+    "dev": "watchify  ./src/js/nextzen.js -o dist/nextzen.js -v;",
+    "build-standalone": "browserify -t [browserify-shim --global] ./src/js/nextzen.js --standalone Mapzen > dist/nextzen.standalone.js && browserify -t [browserify-shim --global] -t uglifyify ./src/js/nextzen.js --standalone  Mapzen | uglifyjs -c comparisons=false -m > dist/nextzen.standalone.min.js && npm run-script build-standalone-style",
+    "build": "browserify ./src/js/nextzen.js > dist/nextzen.js && browserify -t uglifyify ./src/js/nextzen.js | uglifyjs -c comparisons=false -m > dist/nextzen.min.js && npm run-script build-style",
+    "prepublishOnly": "npm run build-standalone; npm run build"
   },
   "browserify-shim": {
     "leaflet": "global:L"
@@ -28,7 +30,7 @@
     "leaflet.locatecontrol": "^0.60.0",
     "lrm-mapzen": "^1.3.5",
     "mapzen-scarab": "git+https://github.com/hanbyul-here/scarab.git",
-    "tangram": "^0.14.1"
+    "tangram": "^0.15.3"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.13.2",
@@ -65,14 +67,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mapzen/mapzen.js.git"
+    "url": "git+https://github.com/nextzen/nextzen.js.git"
   },
   "author": "MAPZEN",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mapzen/mapzen.js/issues"
+    "url": "https://github.com/nextzen/nextzen.js/issues"
   },
-  "homepage": "https://github.com/mapzen/mapzen.js",
+  "homepage": "https://github.com/nextzen/nextzen.js",
   "keywords": [
     "map",
     "mapzen",

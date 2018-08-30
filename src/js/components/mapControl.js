@@ -37,7 +37,7 @@ var MapControl = L.Map.extend({
         console.warn('Mapzen.js warning: `options.scene` is deprecated and will be removed in v1.0. Please use `options.tangramOptions.scene`.');
       }
 
-      this._tangram = L.Mapzen._tangram(tangramOptions);
+      this._tangram = L.Nextzen._tangram(tangramOptions);
       this._tangramLayer = this._tangram.addTo(this);
 
       // tangramloaded event is deprecated; remove in v1.0
@@ -58,7 +58,7 @@ var MapControl = L.Map.extend({
     return this._tangramLayer;
   },
   _checkDeprecatedKey: function (opts) {
-    if (L.Mapzen.apiKey) console.warn('L.Mapzen.ApiKey is deprecated.');
+    if (L.Nextzen.apiKey) console.warn('L.Nextzen.ApiKey is deprecated.');
   },
 
   _checkConditions: function (force) {
