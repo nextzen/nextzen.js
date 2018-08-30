@@ -11,11 +11,11 @@
     "test": "karma start test/karma.conf.js --log-level debug --single-run",
     "lint": "eslint ./src/js/* ./test/*.js; exit 0;",
     "build-style": "node-sass --output-style compressed -o dist/ src/scss/nextzen.scss; mkdir -p dist/images;cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
-    "build-standalone-style": "node-sass --output-style compressed -o dist/ src/scss/mapzen.standalone.scss; mkdir -p dist/images; cp -r node_modules/mapzen-scarab/src/images/* dist/images/; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
+    "build-standalone-style": "node-sass --output-style compressed -o dist/ src/scss/nextzen.standalone.scss; mkdir -p dist/images; cp -r node_modules/mapzen-scarab/src/images/* dist/images/; cp -r node_modules/leaflet/dist/images/* dist/images/; cp -r node_modules/leaflet-geocoder-mapzen/dist/images/* dist/images/",
     "build-dev-style": "node-sass --output-style compressed -o dist/ src/scss/nextzen.css -w; cp -R node_modules/mapzen-scarab/src/images dist/images; cp -r node_modules/leaflet/dist/images/* dist/images/;",
     "dev": "watchify  ./src/js/nextzen.js -o dist/nextzen.js -v;",
-    "build-standalone": "browserify -t [browserify-shim --global] ./src/js/nextzen.js --standalone Mapzen > dist/nextzen.standalone.js && browserify -t [browserify-shim --global] -t uglifyify ./src/js/nextzen.js --standalone  Mapzen | uglifyjs -c comparisons=false -m > dist/mapzen.standalone.min.js && npm run-script build-standalone-style",
-    "build": "browserify ./src/js/nextzen.js > dist/nextzen.js && browserify -t uglifyify ./src/js/nextzen.js | uglifyjs -c comparisons=false -m > dist/mapzen.min.js && npm run-script build-style",
+    "build-standalone": "browserify -t [browserify-shim --global] ./src/js/nextzen.js --standalone Mapzen > dist/nextzen.standalone.js && browserify -t [browserify-shim --global] -t uglifyify ./src/js/nextzen.js --standalone  Mapzen | uglifyjs -c comparisons=false -m > dist/nextzen.standalone.min.js && npm run-script build-standalone-style",
+    "build": "browserify ./src/js/nextzen.js > dist/nextzen.js && browserify -t uglifyify ./src/js/nextzen.js | uglifyjs -c comparisons=false -m > dist/nextzen.min.js && npm run-script build-style",
     "prepublishOnly": "npm run build-standalone; npm run build"
   },
   "browserify-shim": {
