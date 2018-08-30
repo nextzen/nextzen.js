@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/mapzen.js.svg)](https://www.npmjs.com/package/nextzen.js)
+[![npm](https://img.shields.io/npm/v/nextzen.js.svg)](https://www.npmjs.com/package/nextzen.js)
 
 # nextzen.js
 
@@ -8,7 +8,7 @@ mapzen.js is an open-source JavaScript SDK and an extension of [Leaflet](http://
 
 mapzen.js builds upon Leaflet's functionality by providing tools for working with Mapzen maps and search. With mapzen.js you can add [Mapzen map styles](https://mapzen.com/products/maps/) as basemaps, build a customizable geocoder with [Mapzen Search](https://mapzen.com/products/search/), and share links to maps.
 
-**The current version of mapzen.js embeds Leaflet v1.0.1.** If you need to use another version of Leaflet, please take a look at the [standalone build](#builds) below.
+**The current version of nextzen.js embeds Leaflet v1.3.0.** If you need to use another version of Leaflet, please take a look at the [standalone build](#builds) below.
 
 
 ## Demos
