@@ -53,12 +53,13 @@ And add a height and width for the map:
 
 ```html
 <script>
-  // Add a Mapzen API key
-  // To generate your key, go to https://mapzen.com/developers/
-  L.Nextzen.apiKey = 'your-mapzen-api-key';
-
   // Add a map to the 'map' div
-  var map = L.Nextzen.map('map');
+  var map = L.Nextzen.map('map', {
+    tangramOptions: {
+      apiKey: 'your-nextzen-api-key',
+      debug: true
+    }
+  });
 
   // Set the center of the map to be the San Francisco Bay Area at zoom level 12
   map.setView([37.7749, -122.4194], 12);

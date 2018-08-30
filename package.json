@@ -67,14 +67,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mapzen/nextzen.js.git"
+    "url": "git+https://github.com/nextzen/nextzen.js.git"
   },
   "author": "MAPZEN",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mapzen/nextzen.js/issues"
+    "url": "https://github.com/nextzen/nextzen.js/issues"
   },
-  "homepage": "https://github.com/mapzen/nextzen.js",
+  "homepage": "https://github.com/nextzen/nextzen.js",
   "keywords": [
     "map",
     "mapzen",

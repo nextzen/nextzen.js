@@ -29,7 +29,7 @@
       var map = L.Nextzen.map('map', {
         tangramOptions: {
           // get your tile key at https://developers.nextzen.org/
-          apiKey: 'your-nextzen-key',
+          apiKey: 'your-nextzen-api-key',
           debug: true
         }
       });
@@ -41,7 +41,7 @@
 
       // adds a search box to a map
       // get your search key at https://geocode.earth/
-      var geocoder = L.Nextzen.geocoder('your-geocode.earth-key');
+      var geocoder = L.Nextzen.geocoder('your-geocode.earth-api-key');
       geocoder.addTo(map);
 
       // allows for a URL hash to be created
